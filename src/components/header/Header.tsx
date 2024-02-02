@@ -1,11 +1,11 @@
 import { FC } from "react";
-import { StyledH2 } from "./Header.styled";
+import { HeaderWrapper, StyledH2 } from "./Header.styled";
 
 const Header: FC = () => {
   return (
-    <>
-      <StyledH2>QuizMaster</StyledH2>;
-    </>
+    <HeaderWrapper>
+      <StyledH2>QuizMaster</StyledH2>
+    </HeaderWrapper>
   );
 };
 
