@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { store, persistor } from "./redux/store.ts";
 
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -12,3 +13,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </PersistGate>
   </Provider>
 );
+
