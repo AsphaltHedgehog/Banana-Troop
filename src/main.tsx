@@ -6,8 +6,14 @@ import App from "./App.tsx";
 import "./index.css";
 import { store, persistor } from "./redux/store.ts";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  //need to add basename="https://monkey-plant.onrender.com/ in BrowserRouter"
+const rootElementId = "root";
+const rootElement = document.getElementById(rootElementId);
+
+if (!rootElement) {
+  throw new Error(`Element with ${rootElementId} doesn't exist`);
+}
+
+ReactDOM.createRoot(rootElement).render(
   <BrowserRouter>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
