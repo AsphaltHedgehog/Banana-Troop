@@ -54,6 +54,12 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -65,4 +71,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
