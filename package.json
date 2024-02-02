@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=1488",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "tsc:watch": "npx tsc -w",
     "format:svg": "prettier --write '*/.svg' --parser 'html'",
     "format": "prettier --write . && pnpm format:svg"
   },
