@@ -24,7 +24,7 @@ export const fetchQuizesThunk = createAsyncThunk<
       //     Authorization: `Bearer ${savedToken}`,
       //   },
     });
-    console.log(data);
+    // console.log(data);
     return data as Quiz[];
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -46,7 +46,7 @@ export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
         // },
       });
       thunkApi.dispatch(fetchQuizesThunk());
-      console.log(data);
+      //   console.log(data);
       return data as Quiz;
     } catch (error: unknown) {
       return thunkApi.rejectWithValue(

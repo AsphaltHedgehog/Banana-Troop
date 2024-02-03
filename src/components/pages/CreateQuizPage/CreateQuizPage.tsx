@@ -1,22 +1,16 @@
-import { useEffect } from "react";
-import { useAppDispatch } from "../../../redux/hooks";
-import { fetchQuizesThunk } from "../../../redux/quiz/operations";
+import { useAppSelector } from "../../../redux/hooks";
 
 const CreateQuizPage = () => {
-  const dispatch = useAppDispatch();
-  // const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
-
-  useEffect(() => {
-    dispatch(fetchQuizesThunk());
-  }, [dispatch]);
+  const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
+  console.log(quizes);
 
   return (
     <div>
-      {/* <ul>
-        {quizes.map((quiz) => (
+      <ul>
+        {quizes?.map((quiz) => (
           <li key={quiz._id.$oid}>{quiz.theme}</li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
