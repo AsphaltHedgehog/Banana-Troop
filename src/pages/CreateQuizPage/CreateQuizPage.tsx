@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { fetchQuizesThunk } from "../../../redux/quiz/operations";
+import { useAppSelector } from "../../redux/hooks";
 
 const CreateQuizPage = () => {
   const dispatch = useAppDispatch();

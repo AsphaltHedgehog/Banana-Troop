@@ -11,6 +11,7 @@ import splash2xAVIF from "../../images/block-component/splash@2x.avif";
 const { tablet, desktop } = breakpoints;
 
 export const StyledSection = styled.section`
+  text-align: left;
   border-radius: 30px;
   position: relative;
   overflow: hidden;
@@ -32,7 +33,9 @@ export const StyledSection = styled.section`
   padding-inline: 32px;
   padding-bottom: 168px;
 
-  width: 335px;
+  margin: 0 auto;
+
+  max-width: 335px;
 
   @media screen and (min-width: ${tablet}) {
     background-position: center right -96px;
@@ -41,7 +44,7 @@ export const StyledSection = styled.section`
     padding-inline: 32px 233px;
     padding-bottom: 88px;
 
-    width: 704px;
+    max-width: 704px;
   }
 
   @media screen and (min-width: ${desktop}) {
@@ -52,7 +55,7 @@ export const StyledSection = styled.section`
     padding-inline: 64px 493px;
     padding-bottom: 88px;
 
-    width: 1240px;
+    max-width: 1240px;
   }
 `;
 
