@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
-  persistStore,
+  // persistStore,
   //   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -42,4 +42,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
