@@ -54,16 +54,21 @@ export const fetchCategoriesThunk = createAsyncThunk(
 
 export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
   "addedNewQuizes",
-  async (body, thunkApi) => {
+  async (quiz, thunkApi) => {
     try {
       // const savedToken = thunkApi.getState().auth.accessToken;
+      const { theme, ageGroup } = quiz;
 
-      const { data } = await instance.post("quizes", body, {
-        // headers: {
-        //   Authorization: `Bearer ${savedToken}`,
-        // },
-      });
-      thunkApi.dispatch(fetchQuizesThunk());
+      const { data } = await instance.post(
+        "quizes",
+        { theme, ageGroup },
+        {
+          // headers: {
+          //   Authorization: `Bearer ${savedToken}`,
+          // },
+        }
+      );
+      // thunkApi.dispatch(fetchQuizesThunk());
       //   console.log(data);
       return data as Quiz;
     } catch (error: unknown) {
@@ -74,20 +79,19 @@ export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
   }
 );
 
-export const deleteCategoryThunk = createAsyncThunk<
-  Quiz,
+export const deleteQuizesThunk = createAsyncThunk<
+  string,
   string,
   AsyncThunkConfig
->("deleteQuizById", async (id, thunkApi) => {
+>("deleteQuizById", async (_id, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    const { data } = await instance.delete(`quizes/${id}`, {
+    const { data } = await instance.delete(`quizes/${_id}`, {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
     });
-
     return data;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -95,3 +99,23 @@ export const deleteCategoryThunk = createAsyncThunk<
     );
   }
 });
+
+export const updateQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
+  "updateQuiz",
+  async (quiz, thunkApi) => {
+    try {
+      // const savedToken = thunkApi.getState().auth.accessToken;
+      const { _id, ...body } = quiz;
+      const { data } = await instance.put(`quizes/${_id}`, body, {
+        //   headers: {
+        //     Authorization: `Bearer ${savedToken}`,
+        //   },
+      });
+      return data as Quiz;
+    } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
+    }
+  }
+);
