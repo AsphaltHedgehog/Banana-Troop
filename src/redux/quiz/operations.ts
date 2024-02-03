@@ -61,8 +61,7 @@ export const deleteCategoryThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    // @ts-expect-error Description: Necessary to suppress TypeScript error
-    const { data } = await instance.delete("quizes", `/${id}`, {
+    const { data } = await instance.delete(`quizes/${id}`, {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
