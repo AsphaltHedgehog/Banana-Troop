@@ -1,14 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
 // components
-import Layout from './components/layout/Layout'
-import Home  from './pages/home/Home'
-import NotFound from './pages/notFound/NotFound'
+import Layout from "./components/layout/Layout";
+import Home from "./pages/home/Home";
+import NotFound from "./pages/notFound/NotFound";
 
 // css
 import "./App.css";
-import CreateQuizPage from "./components/pages/CreateQuizPage/CreateQuizPage";
+
 import DiscoverPage from "./components/pages/Discover/DiscoverPage";
+import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 
 function App() {
   return (
