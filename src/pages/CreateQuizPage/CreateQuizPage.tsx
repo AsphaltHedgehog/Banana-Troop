@@ -1,10 +1,19 @@
+
 import QuizOptions from "../../components/quizOptions/QuizOptions";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useAppSelector } from "../../redux/hooks";
 import { useMediaQuery } from "react-responsive";
+
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchQuizesThunk } from "../../redux/quiz/operations";
+
+
 const CreateQuizPage = () => {
+  const dispatch = useAppDispatch();
   const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
   console.log(quizes);
+
   const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 426px max-width: 768)",

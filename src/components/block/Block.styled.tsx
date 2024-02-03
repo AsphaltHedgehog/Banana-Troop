@@ -33,6 +33,8 @@ export const StyledSection = styled.section`
   padding-inline: 32px;
   padding-bottom: 168px;
 
+  margin: 0 auto;
+
   max-width: 335px;
 
   @media screen and (min-width: ${tablet}) {
