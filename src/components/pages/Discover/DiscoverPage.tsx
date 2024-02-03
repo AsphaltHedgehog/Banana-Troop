@@ -4,15 +4,16 @@ import {
   // fetchCategoriesThunk,
   fetchQuizesThunk,
 } from "../../../redux/quiz/operations";
+import { Quiz } from "../../../redux/quiz/slice";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
   const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredQuizes, setFilteredQuizes] = useState([]);
-  const [selectedRating, setSelectedRating] = useState(0);
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState("adults");
-  const [attemptedFilter, setAttemptedFilter] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredQuizes, setFilteredQuizes] = useState<Quiz[]>([]);
+  const [selectedRating, setSelectedRating] = useState<number>(0);
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("adults");
+  const [attemptedFilter, setAttemptedFilter] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(fetchQuizesThunk());
@@ -32,14 +33,14 @@ const DiscoverPage = () => {
     setAttemptedFilter(true);
     setSelectedRating(0);
   };
-  const handleRatingSelect = (minRating, maxRating) => {
+  const handleRatingSelect = (minRating: number, maxRating: number) => {
     setSelectedRating(minRating);
   };
-  const handleAgeGroupSelect = (ageGroup) => {
+  const handleAgeGroupSelect = (ageGroup: string) => {
     setSelectedAgeGroup(ageGroup);
     setSelectedRating(0);
   };
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       handleFilter();
     }
