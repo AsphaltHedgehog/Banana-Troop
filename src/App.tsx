@@ -8,6 +8,7 @@ import NotFound from "./components/pages/notFound/NotFound";
 // css
 import "./App.css";
 import CreateQuizPage from "./components/pages/CreateQuizPage/CreateQuizPage";
+import DiscoverPage from "./components/pages/Discover/DiscoverPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="createQuiz" element={<CreateQuizPage />} />
+        <Route path="discover" element={<DiscoverPage />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
