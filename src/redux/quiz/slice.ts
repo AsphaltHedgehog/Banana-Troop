@@ -8,9 +8,7 @@ export type Quiz = {
   };
   background: string;
   ageGroup: string;
-  _id: {
-    $oid: string;
-  };
+  _id: string;
   ratingQuantity: number;
   rating: number;
   finished: number;
