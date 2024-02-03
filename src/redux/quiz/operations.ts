@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import quizes from "./quizes.json";
 
 import { instance } from "../fetchInstance";
 import { Quiz } from "./slice";
@@ -18,8 +17,7 @@ export const fetchQuizesThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    // @ts-expect-error Description: Necessary to suppress TypeScript error
-    const { data } = await instance.get(, {
+    const { data } = await instance.get("quizes", {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
@@ -39,8 +37,7 @@ export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
     try {
       // const savedToken = thunkApi.getState().auth.accessToken;
 
-      // @ts-expect-error Description: Necessary to suppress TypeScript error
-      const { data } = await instance.post(quizes, body, {
+      const { data } = await instance.post("quizes", body, {
         // headers: {
         //   Authorization: `Bearer ${savedToken}`,
         // },
@@ -65,7 +62,7 @@ export const deleteCategoryThunk = createAsyncThunk<
     // const savedToken = thunkApi.getState().auth.accessToken;
 
     // @ts-expect-error Description: Necessary to suppress TypeScript error
-    const { data } = await instance.delete(quizes, `/${id}`, {
+    const { data } = await instance.delete("quizes", `/${id}`, {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },

@@ -23,36 +23,7 @@ export type QuizState = {
 };
 
 const initialState: QuizState = {
-  list: [
-    {
-      theme: "Іграшки та ігри",
-      category: {
-        $oid: "65b9b74a0af6ce975d97ee51",
-      },
-      background: "none",
-      ageGroup: "children",
-      _id: {
-        $oid: "65b9bbe690b27011571e122f",
-      },
-      ratingQuantity: 74,
-      rating: 4.4,
-      finished: 144,
-    },
-    {
-      theme: "Казки та мультфільми",
-      category: {
-        $oid: "65b9b74a0af6ce975d97ee4d",
-      },
-      background: "none",
-      ageGroup: "children",
-      _id: {
-        $oid: "65b9bc7c1b000b7f42bc06d1",
-      },
-      ratingQuantity: 54,
-      rating: 4.3,
-      finished: 196,
-    },
-  ],
+  list: [],
   isLoading: false,
   error: null,
 };
