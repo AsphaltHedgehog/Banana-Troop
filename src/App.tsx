@@ -7,14 +7,14 @@ import NotFound from './pages/notFound/NotFound'
 
 // css
 import "./App.css";
-import CreateQuizPage from "./components/pages/CreateQuizPage/CreateQuizPage";
+// import CreateQuizPage from "./components/pages/CreateQuizPage/CreateQuizPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="createQuiz" element={<CreateQuizPage />} />
+        {/* <Route path="createQuiz" element={<CreateQuizPage />} /> */}
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
