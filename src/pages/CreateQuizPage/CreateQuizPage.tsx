@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 
 const CreateQuizPage = () => {
   const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
