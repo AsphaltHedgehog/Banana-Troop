@@ -10,6 +10,7 @@ import "./App.css";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 
+
 function App() {
   return (
     <Routes>
