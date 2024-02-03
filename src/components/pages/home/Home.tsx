@@ -1,7 +1,14 @@
+import Block from "../../block/Block";
+import Box from "../../box/Box";
+
+
+
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <Box>
+      <Block />
+    </Box>
+  );
+};
 
-export default Home
+export default Home;
