@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+
 import {
   // fetchCategoriesThunk,
   fetchQuizesThunk,
-} from "../../../redux/quiz/operations";
-import { Quiz } from "../../../redux/quiz/slice";
+} from "../../redux/quiz/operations";
+import { Quiz } from "../../redux/quiz/slice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
