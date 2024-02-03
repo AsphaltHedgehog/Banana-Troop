@@ -31,6 +31,27 @@ export const fetchQuizesThunk = createAsyncThunk<
   }
 });
 
+export const fetchCategoriesThunk = createAsyncThunk(
+  "fetchCategories",
+  async (query, thunkApi) => {
+    try {
+      // const savedToken = thunkApi.getState().auth.accessToken;
+
+      const { data } = await instance.get("quizes/category", {
+        params: {
+          category: query,
+        },
+      });
+      console.log(data);
+      return data;
+    } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
+    }
+  }
+);
+
 export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
   "addedNewQuizes",
   async (body, thunkApi) => {
