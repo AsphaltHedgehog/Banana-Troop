@@ -34,6 +34,7 @@ const DiscoverPage = () => {
     setSelectedRating(0);
   };
   const handleRatingSelect = (minRating: number, maxRating: number) => {
+    console.log(maxRating);
     setSelectedRating(minRating);
   };
   const handleAgeGroupSelect = (ageGroup: string) => {
