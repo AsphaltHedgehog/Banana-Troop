@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 // components
-import Layout from "./components/layout/Layout";
-import Home from "./components/pages/home/Home";
-import NotFound from "./components/pages/notFound/NotFound";
+import Layout from './components/layout/Layout'
+import Home  from './pages/home/Home'
+import NotFound from './pages/notFound/NotFound'
 
 // css
 import "./App.css";
