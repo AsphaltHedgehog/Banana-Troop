@@ -1,7 +1,6 @@
 
 import QuizOptions from "../../components/quizOptions/QuizOptions";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { useAppSelector } from "../../redux/hooks";
 import { useMediaQuery } from "react-responsive";
 
 import { useEffect } from "react";
