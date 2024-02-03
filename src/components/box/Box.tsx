@@ -1,7 +1,7 @@
 import { StyledBox } from "./Box.styled";
 
 type Props = {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 };
 
 const Box = ({ children }: Props) => {
