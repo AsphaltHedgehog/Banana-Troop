@@ -1,23 +1,68 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchQuizesThunk } from "../../redux/quiz/operations";
+
+import QuizOptions from "../../components/quizOptions/QuizOptions";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { useMediaQuery } from "react-responsive";
+
+import { useAppSelector } from "../../redux/hooks";
+
 
 const CreateQuizPage = () => {
-  const dispatch = useAppDispatch();
   const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
   console.log(quizes);
 
-  useEffect(() => {
-    dispatch(fetchQuizesThunk());
-  }, [dispatch]);
-
+  const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 426px max-width: 768)",
+  });
   return (
     <div>
-      <ul>
-        {quizes?.map((quiz) => (
-          <li key={quiz._id}>{quiz.theme}</li>
-        ))}
-      </ul>
+      <h1>Create quize</h1>
+      {isMobile ? (
+        <>
+          {/* if it is mobile screen size options and sidebar should be under topBar*/}
+          <div>
+            PageTopBar
+            <ul>
+              {quizes?.map((quiz) => (
+                <li key={quiz._id}>{quiz.theme}</li>
+              ))}
+            </ul>
+          </div>
+          <QuizOptions />
+          <Sidebar />
+        </>
+      ) : (
+        <>
+          <Sidebar />
+          {isTablet ? (
+            <div>
+              {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
+              <div>
+                PageTopBar
+                <ul>
+                  {quizes?.map((quiz) => (
+                    <li key={quiz._id}>{quiz.theme}</li>
+                  ))}
+                </ul>
+              </div>
+              <QuizOptions />
+            </div>
+          ) : (
+            <>
+              {/* other wise options should be on right side of topBar*/}
+              <div>
+                PageTopBar
+                <ul>
+                  {quizes?.map((quiz) => (
+                    <li key={quiz._id}>{quiz.theme}</li>
+                  ))}
+                </ul>
+              </div>
+              <QuizOptions />
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 };
