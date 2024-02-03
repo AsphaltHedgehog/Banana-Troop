@@ -8,8 +8,8 @@ import NotFound from "./pages/notFound/NotFound";
 // css
 import "./App.css";
 
-import DiscoverPage from "./components/pages/Discover/DiscoverPage";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
+import DiscoverPage from "./pages/Discover/DiscoverPage";
 
 function App() {
   return (
