@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Answers = {
+export type Answers = {
   descr: string;
   _id: {
     $oid: string;
@@ -18,11 +18,11 @@ type Questions = {
   answers: Answers[];
 };
 
-type QuizState = {
+type QuestionsState = {
   list: Questions[];
 };
 
-const initialState: QuizState = {
+const initialState: QuestionsState = {
   list: [],
 };
 

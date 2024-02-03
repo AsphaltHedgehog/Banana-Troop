@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { fetchQuizesThunk } from "./operations";
 
-type Quiz = {
+export type Quiz = {
   theme: string;
   category: {
     $oid: string;
@@ -15,38 +16,36 @@ type Quiz = {
   finished: number;
 };
 
-type QuizState = {
+export type QuizState = {
   list: Quiz[];
+  isLoading: boolean;
+  error: string | null;
 };
 
 const initialState: QuizState = {
   list: [],
+  isLoading: false,
+  error: null,
 };
 
 const quizesSlice = createSlice({
-  name: "quiz",
+  name: "quizes",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder;
-    //   .addCase(Thunk.fulfilled, (state, { payload }) => {
-    //     state.transactions = payload;
-    //     state.isLoading = false;
-    //   })
-
-    //   .addMatcher(
-    //     isAnyOf(Thunk.pending, Thunk.pending, Thunk.pending, Thunk.pending),
-    //     (state, { payload }) => {
-    //       state.isLoading = true;
-    //     }
-    //   )
-    //   .addMatcher(
-    //     isAnyOf(Thunk.rejected, Thunk.rejected, Thunk.rejected, Thunk.rejected),
-    //     (state, { payload }) => {
-    //       state.isLoading = false;
-    //       state.error = payload;
-    //     }
-    //   );
+    builder
+      .addCase(fetchQuizesThunk.fulfilled, (state, { payload }) => {
+        state.list = payload;
+        state.isLoading = false;
+      })
+      .addMatcher(isAnyOf(fetchQuizesThunk.pending), (state) => {
+        state.isLoading = true;
+      })
+      .addMatcher(isAnyOf(fetchQuizesThunk.rejected), (state, action) => {
+        state.isLoading = false;
+        state.error =
+          typeof action.payload === "string" ? action.payload : null;
+      });
   },
 });
 
