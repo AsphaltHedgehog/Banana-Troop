@@ -7,7 +7,7 @@ import NotFound from './pages/notFound/NotFound'
 
 // css
 import "./App.css";
-import CreateQuizPage from "./components/pages/CreateQuizPage/CreateQuizPage";
+import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 
 function App() {
   return (
