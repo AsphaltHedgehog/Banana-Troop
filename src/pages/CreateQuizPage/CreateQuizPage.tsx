@@ -3,13 +3,10 @@ import QuizOptions from "../../components/quizOptions/QuizOptions";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useMediaQuery } from "react-responsive";
 
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { fetchQuizesThunk } from "../../redux/quiz/operations";
+import { useAppSelector } from "../../redux/hooks";
 
 
 const CreateQuizPage = () => {
-  const dispatch = useAppDispatch();
   const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
   console.log(quizes);
 
