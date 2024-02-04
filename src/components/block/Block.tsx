@@ -1,3 +1,5 @@
+import { ChooseButton } from "../../shared/buttons/chooseQuizBtn";
+import { CreateButton } from "../../shared/buttons/createQuizBtn";
 import { StyledP, StyledSection, StyledTitle, StyledUl } from "./Block.styled";
 
 const Block = () => {
@@ -12,10 +14,10 @@ const Block = () => {
       </StyledP>
       <StyledUl>
         <li>
-          <a href="">Choose a test</a>
+          <ChooseButton link="/">Choose a test</ChooseButton>
         </li>
         <li>
-          <a href="">Create a quest</a>
+          <CreateButton link="/">Create a quest</CreateButton>
         </li>
       </StyledUl>
     </StyledSection>
