@@ -1,3 +1,5 @@
+import { StyledSvg } from "./Svg.styled";
+
 interface ISvg extends React.SVGProps<SVGSVGElement> {
   sprite: string;
   id: string;
@@ -5,9 +7,9 @@ interface ISvg extends React.SVGProps<SVGSVGElement> {
 
 const Svg = ({ sprite, id, ...props }: ISvg) => {
   return (
-    <svg {...props}>
+    <StyledSvg {...props}>
       <use href={`${sprite}#${id}`} />
-    </svg>
+    </StyledSvg>
   );
 };
 
