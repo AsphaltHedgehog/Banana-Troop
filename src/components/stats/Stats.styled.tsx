@@ -118,4 +118,9 @@ export const StyledLink = styled(NavLink)`
   &:visited {
     color: #f4f4f4;
   }
+
+  &:hover,
+  &:focus {
+    opacity: 0.9;
+  }
 `;
