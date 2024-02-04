@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../fetchInstance";
 import { Quiz } from "./slice";
 import { AppDispatch, RootState } from "../store";
+import { FormValues } from "../../components/updateQuizForm/UpdateQuizForm";
 interface AsyncThunkConfig {
   state: RootState;
   dispatch: AppDispatch;
@@ -119,3 +120,24 @@ export const updateQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
     }
   }
 );
+
+export const getQuizByIdThunk = createAsyncThunk<
+  FormValues,
+  string,
+  AsyncThunkConfig
+>("getQuizById", async (_id, thunkApi) => {
+  try {
+    // const savedToken = thunkApi.getState().auth.accessToken;
+
+    const { data } = await instance.get(`${_id}`, {
+      //   headers: {
+      //     Authorization: `Bearer ${savedToken}`,
+      //   },
+    });
+    return data as FormValues;
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});

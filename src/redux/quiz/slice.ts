@@ -49,7 +49,6 @@ const quizesSlice = createSlice({
         state.list = state.list.filter((quiz) => quiz._id !== payload);
         state.isLoading = false;
       })
-
       .addCase(updateQuizesThunk.fulfilled, (state, { payload }) => {
         const updatedQuizeIndex = state.list.findIndex(
           (quiz) => quiz._id === payload._id
