@@ -112,4 +112,10 @@ export const StyledLink = styled(NavLink)`
   line-height: 1.42857;
 
   opacity: 0.5;
+
+  color: #f4f4f4;
+
+  &:visited {
+    color: #f4f4f4;
+  }
 `;
