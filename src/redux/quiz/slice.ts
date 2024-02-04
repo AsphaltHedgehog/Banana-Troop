@@ -1,5 +1,10 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchQuizesThunk } from "./operations";
+import {
+  addQuizesThunk,
+  deleteQuizesThunk,
+  fetchQuizesThunk,
+  updateQuizesThunk,
+} from "./operations";
 
 export type Quiz = {
   theme: string;
@@ -36,14 +41,51 @@ const quizesSlice = createSlice({
         state.list = payload;
         state.isLoading = false;
       })
-      .addMatcher(isAnyOf(fetchQuizesThunk.pending), (state) => {
-        state.isLoading = true;
-      })
-      .addMatcher(isAnyOf(fetchQuizesThunk.rejected), (state, action) => {
+      .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
+        state.list.push(payload);
         state.isLoading = false;
-        state.error =
-          typeof action.payload === "string" ? action.payload : null;
-      });
+      })
+      .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
+        state.list = state.list.filter((quiz) => quiz._id !== payload);
+        state.isLoading = false;
+      })
+
+      .addCase(updateQuizesThunk.fulfilled, (state, { payload }) => {
+        const updatedQuizeIndex = state.list.findIndex(
+          (quiz) => quiz._id === payload._id
+        );
+        if (updatedQuizeIndex) {
+          state.list[updatedQuizeIndex] = {
+            ...state.list[updatedQuizeIndex],
+            ...payload,
+          };
+        }
+        state.isLoading = false;
+      })
+      .addMatcher(
+        isAnyOf(
+          fetchQuizesThunk.pending,
+          addQuizesThunk.pending,
+          deleteQuizesThunk.pending,
+          updateQuizesThunk.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchQuizesThunk.rejected,
+          addQuizesThunk.rejected,
+          deleteQuizesThunk.rejected,
+          updateQuizesThunk.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error =
+            typeof action.payload === "string" ? action.payload : null;
+        }
+      );
   },
 });
 
