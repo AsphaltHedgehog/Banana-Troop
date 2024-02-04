@@ -1,3 +1,5 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
 <symbol id="icon-users" viewBox="0 0 32 32">
     <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.4"
         d="M22.668 28v-2.667c0-1.414-0.562-2.771-1.562-3.771s-2.357-1.562-3.771-1.562h-10.667c-1.415 0-2.771 0.562-3.771 1.562s-1.562 2.357-1.562 3.771v2.667">
@@ -71,3 +73,5 @@
         d="M22.668 4c0.35-0.35 0.766-0.628 1.223-0.817s0.948-0.287 1.443-0.287c0.495 0 0.986 0.098 1.443 0.287s0.873 0.467 1.223 0.817c0.35 0.35 0.628 0.766 0.818 1.223s0.287 0.948 0.287 1.443c0 0.495-0.097 0.986-0.287 1.443s-0.467 0.873-0.818 1.223l-18 18-7.333 2 2-7.333 18-18z">
     </path>
 </symbol>
+</defs>
+</svg>
