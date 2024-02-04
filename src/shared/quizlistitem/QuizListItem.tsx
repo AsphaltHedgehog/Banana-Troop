@@ -1,4 +1,5 @@
 import sprite from "../../images/icons/sprite.svg";
+import { StyledCreateBtn } from "../buttons/styledButton";
 import Svg from "../svg/Svg";
 
 const QuizListItem = () => {
@@ -6,15 +7,15 @@ const QuizListItem = () => {
     <div>
       <div>
         <div>
-          <Svg sprite={sprite} id={`icon-users`} width={32} height={32}></Svg>
+          <Svg sprite={sprite} id={`icon-users`} width={20} height={20} />
           <p>485</p>
         </div>
-        <svg></svg>
+        <Svg sprite={sprite} id={`icon-heart`} width={20} height={20} />
       </div>
       <p>Themes</p>
-      <p>Genera Science</p>
+      <p>General Science</p>
       <div>4</div>
-      <button>Start</button>
+      <StyledCreateBtn to="/">Start</StyledCreateBtn>
     </div>
   );
 };
