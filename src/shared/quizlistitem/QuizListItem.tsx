@@ -1,22 +1,73 @@
 import sprite from "../../images/icons/sprite.svg";
-import { StyledCreateBtn } from "../buttons/styledButton";
 import Svg from "../svg/Svg";
+import {
+  StyledButton,
+  StyledContainer,
+  StyledContainer2,
+  StyledContainer3,
+  StyledNumbers,
+  StyledCategory,
+  StyledName,
+  StyledRatingSvg,
+  StyledUl,
+} from "./QuizListItem.styled";
 
 const QuizListItem = () => {
   return (
-    <div>
-      <div>
-        <div>
+    <StyledContainer>
+      <StyledContainer2>
+        <StyledContainer3>
           <Svg sprite={sprite} id={`icon-users`} width={20} height={20} />
-          <p>485</p>
-        </div>
+          <StyledNumbers>485</StyledNumbers>
+        </StyledContainer3>
         <Svg sprite={sprite} id={`icon-heart`} width={20} height={20} />
-      </div>
-      <p>Themes</p>
-      <p>General Science</p>
-      <div>4</div>
-      <StyledCreateBtn to="/">Start</StyledCreateBtn>
-    </div>
+      </StyledContainer2>
+      <StyledCategory>Themes</StyledCategory>
+      <StyledName>General Science</StyledName>
+      <StyledUl>
+        <li>
+          <StyledRatingSvg
+            sprite={sprite}
+            id={`icon-rating`}
+            width={16}
+            height={16}
+          />
+        </li>
+        <li>
+          <StyledRatingSvg
+            sprite={sprite}
+            id={`icon-rating`}
+            width={16}
+            height={16}
+          />
+        </li>
+        <li>
+          <StyledRatingSvg
+            sprite={sprite}
+            id={`icon-rating`}
+            width={16}
+            height={16}
+          />
+        </li>
+        <li>
+          <StyledRatingSvg
+            sprite={sprite}
+            id={`icon-rating`}
+            width={16}
+            height={16}
+          />
+        </li>
+        <li>
+          <StyledRatingSvg
+            sprite={sprite}
+            id={`icon-rating`}
+            width={16}
+            height={16}
+          />
+        </li>
+      </StyledUl>
+      <StyledButton to="/">Start</StyledButton>
+    </StyledContainer>
   );
 };
 
