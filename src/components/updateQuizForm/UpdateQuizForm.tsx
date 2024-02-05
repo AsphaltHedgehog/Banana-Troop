@@ -11,14 +11,9 @@ type FormValues = {
 interface UpdateQuizFormProps {
   editingQuiz: QuizParams;
   quizId: string;
-  formatQuiz: string;
 }
 
-const UpdateQuizForm = ({
-  editingQuiz,
-  quizId,
-  formatQuiz,
-}: UpdateQuizFormProps) => {
+const UpdateQuizForm = ({ editingQuiz, quizId }: UpdateQuizFormProps) => {
   // const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
@@ -34,7 +29,6 @@ const UpdateQuizForm = ({
     console.log(editingQuiz);
   };
   console.log(quizId);
-  console.log(formatQuiz);
 
   return (
     <>

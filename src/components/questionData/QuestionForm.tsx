@@ -1,24 +1,24 @@
 import { Dispatch, SetStateAction } from "react";
 
-interface QuestionDataProps {
-  quizId: string;
-  setQuizId: Dispatch<SetStateAction<string>>;
+interface QuestionFormProps {
+  quizId: string | undefined;
+  setQuizId: Dispatch<SetStateAction<string | undefined>>;
   formatQuiz: string;
 }
 
-const QuestionData = ({ quizId, setQuizId, formatQuiz }: QuestionDataProps) => {
+const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
   console.log(setQuizId);
   console.log(formatQuiz);
 
   return (
     <>
       {quizId ? (
-        <div>Просто болванка</div>
-      ) : (
         <div>Тут будуть питання, якщо форма редагується</div>
+      ) : (
+        <div>Просто болванка</div>
       )}
     </>
   );
 };
 
-export default QuestionData;
+export default QuestionForm;
