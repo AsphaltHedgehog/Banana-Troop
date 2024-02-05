@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../fetchInstance";
 import { Quiz } from "./slice";
 import { AppDispatch, RootState } from "../store";
+import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+
 interface AsyncThunkConfig {
   state: RootState;
   dispatch: AppDispatch;
@@ -52,32 +54,33 @@ export const fetchCategoriesThunk = createAsyncThunk(
   }
 );
 
-export const addQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
-  "addedNewQuizes",
-  async (quiz, thunkApi) => {
-    try {
-      // const savedToken = thunkApi.getState().auth.accessToken;
-      const { theme, ageGroup } = quiz;
+export const addQuizesThunk = createAsyncThunk<
+  QuizParams,
+  { theme: string; ageGroup: string },
+  AsyncThunkConfig
+>("addedNewQuizes", async (quiz, thunkApi) => {
+  try {
+    // const savedToken = thunkApi.getState().auth.accessToken;
+    const { theme, ageGroup } = quiz;
 
-      const { data } = await instance.post(
-        "quizes",
-        { theme, ageGroup },
-        {
-          // headers: {
-          //   Authorization: `Bearer ${savedToken}`,
-          // },
-        }
-      );
-      // thunkApi.dispatch(fetchQuizesThunk());
-      //   console.log(data);
-      return data as Quiz;
-    } catch (error: unknown) {
-      return thunkApi.rejectWithValue(
-        `${(error as Error)?.message ?? "Unknown error"}`
-      );
-    }
+    const { data } = await instance.post(
+      "quizes",
+      { theme, ageGroup },
+      {
+        // headers: {
+        //   Authorization: `Bearer ${savedToken}`,
+        // },
+      }
+    );
+    // thunkApi.dispatch(fetchQuizesThunk());
+    //   console.log(data);
+    return data as QuizParams;
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
   }
-);
+});
 
 export const deleteQuizesThunk = createAsyncThunk<
   string,
@@ -119,3 +122,24 @@ export const updateQuizesThunk = createAsyncThunk<Quiz, Quiz, AsyncThunkConfig>(
     }
   }
 );
+
+export const getQuizByIdThunk = createAsyncThunk<
+  QuizParams,
+  string,
+  AsyncThunkConfig
+>("getQuizById", async (_id, thunkApi) => {
+  try {
+    // const savedToken = thunkApi.getState().auth.accessToken;
+
+    const { data } = await instance.get(`${_id}`, {
+      //   headers: {
+      //     Authorization: `Bearer ${savedToken}`,
+      //   },
+    });
+    return data as QuizParams;
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});

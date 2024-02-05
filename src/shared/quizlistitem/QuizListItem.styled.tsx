@@ -24,11 +24,11 @@ export const StyledContainer = styled.div`
   transition-property: background;
 
   @media screen and (min-width: ${tablet}) {
-    max-width: 340px;
+    width: 340px;
   }
 
   @media screen and (min-width: ${desktop}) {
-    max-width: 292px;
+    width: 292px;
   }
 `;
 
@@ -37,6 +37,10 @@ export const StyledContainer2 = styled.div`
   justify-content: space-between;
 
   margin-bottom: 59px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin-bottom: 56px;
+  }
 `;
 
 export const StyledContainer3 = styled.div`
@@ -87,6 +91,7 @@ export const StyledUl = styled.ul`
   display: flex;
   justify-content: center;
   gap: 4px;
+  line-height: 0;
 
   margin-bottom: 32px;
 `;

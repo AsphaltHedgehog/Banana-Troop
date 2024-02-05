@@ -41,15 +41,14 @@ const quizesSlice = createSlice({
         state.list = payload;
         state.isLoading = false;
       })
-      .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
-        state.list.push(payload);
-        state.isLoading = false;
-      })
+      // .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
+      //   state.list.push(payload);
+      //   state.isLoading = false;
+      // })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
         state.list = state.list.filter((quiz) => quiz._id !== payload);
         state.isLoading = false;
       })
-
       .addCase(updateQuizesThunk.fulfilled, (state, { payload }) => {
         const updatedQuizeIndex = state.list.findIndex(
           (quiz) => quiz._id === payload._id
