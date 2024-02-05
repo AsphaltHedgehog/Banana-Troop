@@ -13,18 +13,35 @@ export type CategoryState = {
   list: category[];
   isLoading: boolean;
   error: string | null;
+  formUpdateOptions: {
+    ageGroup: string;
+    background: string;
+    category: string[];
+  };
 };
 
 const initialState: CategoryState = {
   list: [],
   isLoading: false,
   error: null,
+  formUpdateOptions: {
+    ageGroup: "",
+    background: "",
+    category: [""],
+  },
 };
 
 const categoriesSlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {},
+  reducers: {
+    updateFormOptions: (state, action) => {
+      state.formUpdateOptions = {
+        ...state.formUpdateOptions,
+        ...action.payload,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
@@ -51,4 +68,5 @@ const categoriesSlice = createSlice({
   },
 });
 
+export const { updateFormOptions } = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;
