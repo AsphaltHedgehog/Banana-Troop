@@ -8,7 +8,7 @@ import {
 } from "./Quizes.styled";
 
 //need Auth selector here
-const test = true;
+const test = false;
 
 const Quizes = () => {
   return (
@@ -25,7 +25,7 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Adult filter */}
           {/* If not Auth, Redirect to QuizListPage with Adult filter */}
           <StyledNavLink
-            to={test ? "/discover?category=adult" : "/123?category=adult"}
+            to={test ? "/discover?category=adult" : "/randomQuiz?adults"}
           >
             See all
           </StyledNavLink>
@@ -44,7 +44,7 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Children filter */}
           {/* If not Auth, Redirect to QuizListPage with Children filter */}
           <StyledNavLink
-            to={test ? "/discover?category=children" : "/123?category=adult"}
+            to={test ? "/discover?category=children" : "/randomQuiz?children"}
           >
             See all
           </StyledNavLink>
