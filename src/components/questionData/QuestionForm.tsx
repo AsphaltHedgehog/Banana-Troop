@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 interface QuestionFormProps {
   quizId: string | undefined;
   setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  formatQuiz: string;
+  formatQuiz: string | undefined;
 }
 
 const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
@@ -13,7 +13,10 @@ const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
   return (
     <>
       {quizId ? (
-        <div>Тут будуть питання, якщо форма редагується</div>
+        <div>
+          Тут буде форма питань, що редагується, також вона буде міняти шаблон
+          по умові
+        </div>
       ) : (
         <div>Просто болванка</div>
       )}

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuizOptions from "../../components/quizOptions/QuizOptions";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { useMediaQuery } from "react-responsive";
 import CreateQuizForm from "../../components/createQuizForm/CreateQuizForm";
 import UpdateQuizForm from "../../components/updateQuizForm/UpdateQuizForm";
 import QuestionData from "../../components/questionData/QuestionForm";
+import { useAppDispatch } from "../../redux/hooks";
+import { getQuizByIdThunk } from "../../redux/quiz/operations";
 
 // import { useAppSelector } from "../../redux/hooks";
 
@@ -24,13 +26,29 @@ export type QuizParams = {
 };
 
 const CreateQuizPage = () => {
-  const [quizId, setQuizId] = useState<string | undefined>(""); // todo: add condition("" | id from props) to default state
+  //todo: when we act "update" or "delete" - put quizId to "";
+  const [quizId, setQuizId] = useState<string | undefined>(""); // todo: add condition("" | id from props) to default state;
   const [editingQuiz, setEditingQuiz] = useState<QuizParams | undefined>();
-  const [formatQuiz, setFormatQuiz] = useState<string>("");
+  const [formatQuiz, setFormatQuiz] = useState<string | undefined>("");
   const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 426px max-width: 768)",
   });
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (quizId) {
+      dispatch(getQuizByIdThunk(quizId)).then((response) => {
+        if (
+          response.meta.requestStatus === "fulfilled" &&
+          typeof response.payload !== "string" &&
+          response.payload !== undefined
+        ) {
+          setEditingQuiz(response.payload);
+        }
+      });
+    }
+  }, [quizId, dispatch]);
 
   console.log(editingQuiz);
   console.log(quizId);
@@ -54,8 +72,8 @@ const CreateQuizPage = () => {
             setQuizId={setQuizId}
             quizId={quizId}
           />
-          <QuizOptions />
-          <Sidebar setFormatQuiz={setFormatQuiz} />
+          <QuizOptions editingQuiz={editingQuiz} />
+          <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
         </>
       ) : (
         <>
@@ -76,7 +94,7 @@ const CreateQuizPage = () => {
                 quizId={quizId}
                 formatQuiz={formatQuiz}
               />
-              <QuizOptions />
+              <QuizOptions editingQuiz={editingQuiz} />
             </div>
           ) : (
             <>
@@ -95,7 +113,7 @@ const CreateQuizPage = () => {
                 quizId={quizId}
                 formatQuiz={formatQuiz}
               />
-              <QuizOptions />
+              <QuizOptions editingQuiz={editingQuiz} />
             </>
           )}
         </>

@@ -1,10 +1,15 @@
 import { Dispatch, SetStateAction } from "react";
 interface SideBarProps {
-  setFormatQuiz: Dispatch<SetStateAction<string>>;
+  setFormatQuiz: Dispatch<SetStateAction<string | undefined>>;
+  quizId: string | undefined;
 }
 
-const Sidebar = ({ setFormatQuiz }: SideBarProps) => {
+const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
   console.log(setFormatQuiz);
+  //todo: on this prop ID(quizId)) you need to make a request for all questions,
+  //todo: this is the ID of the quiz that comes for editing, accordingly,
+  //todo: you need to extract all questions on it, if there are any
+  console.log(quizId);
   return <div>Sidebar</div>;
 };
 
