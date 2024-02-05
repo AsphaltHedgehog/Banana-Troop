@@ -25,6 +25,8 @@ export const StyledChooseBtn = styled(Link)`
     color: #144ad5;
   }
 
+  transition-property: color;
+
   @media screen and (min-width: ${tablet}) {
     padding: 16px 32px;
     font-size: 16px;
@@ -53,6 +55,8 @@ export const StyledCreateBtn = styled(Link)`
     border-color: #787878;
   }
 
+  transition-property: color border-color;
+
   @media screen and (min-width: ${tablet}) {
     padding: 16px 32px;
     font-size: 16px;
@@ -72,6 +76,8 @@ export const WhiteChooseBtn = styled(Link)`
     border: 1px solid #f4f4f4;
     color: #144ad5;
   }
+
+  transition-property: border color;
 
   font-family: "Gilroy", sans-serif;
   font-weight: 700;

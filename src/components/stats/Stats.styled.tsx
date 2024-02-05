@@ -123,4 +123,6 @@ export const StyledLink = styled(NavLink)`
   &:focus {
     opacity: 0.9;
   }
+
+  transition-property: opacity;
 `;
