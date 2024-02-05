@@ -68,11 +68,3 @@ const UpdateQuizForm = ({ editingQuiz, quizId }: UpdateQuizFormProps) => {
 };
 
 export default UpdateQuizForm;
-
-// {
-//   ageGroup: "children";
-// background: "none";
-// category: (5)[("65b9b74a0af6ce975d97ee51")];
-// theme: "Condition";
-//  _id: "65c0f9f8656f360a36e10237";
-// }

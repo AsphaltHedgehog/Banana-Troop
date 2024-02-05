@@ -29,7 +29,7 @@ const CreateQuizPage = () => {
   //todo: when we act "update" or "delete" - put quizId to "";
   const [quizId, setQuizId] = useState<string | undefined>(""); // todo: add condition("" | id from props) to default state;
   const [editingQuiz, setEditingQuiz] = useState<QuizParams | undefined>();
-  const [formatQuiz, setFormatQuiz] = useState<string | undefined>("");
+  const [formatQuiz, setFormatQuiz] = useState<string | undefined>("quiz");
   const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 426px max-width: 768)",
@@ -77,7 +77,7 @@ const CreateQuizPage = () => {
         </>
       ) : (
         <>
-          <Sidebar setFormatQuiz={setFormatQuiz} />
+          <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
           {isTablet ? (
             <div>
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
@@ -98,7 +98,7 @@ const CreateQuizPage = () => {
             </div>
           ) : (
             <>
-              <Sidebar setFormatQuiz={setFormatQuiz} />
+              <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* other wise options should be on right side of topBar*/}
               {quizId && editingQuiz ? (
                 <UpdateQuizForm quizId={quizId} editingQuiz={editingQuiz} />
