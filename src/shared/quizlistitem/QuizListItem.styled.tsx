@@ -16,6 +16,13 @@ export const StyledContainer = styled.div`
   padding-inline: 24px;
   padding-bottom: 100px;
 
+  &:hover,
+  &:focus {
+    background: #205bf1;
+  }
+
+  transition-property: background;
+
   @media screen and (min-width: ${tablet}) {
     max-width: 340px;
   }
@@ -52,6 +59,7 @@ export const StyledCategory = styled.p`
   line-height: 1.28571;
   letter-spacing: -0.01em;
   color: rgba(244, 244, 244, 0.5);
+  text-align: center;
 
   margin-bottom: 8px;
 
@@ -65,6 +73,7 @@ export const StyledName = styled.p`
   font-weight: 700;
   font-size: 20px;
   line-height: 1.4;
+  text-align: center;
 
   margin-bottom: 16px;
 
