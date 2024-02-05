@@ -35,7 +35,6 @@ const CreateQuizForm = ({ setQuizId, setEditingQuiz }: CreateQuizFormProps) => {
       console.error("Error creating quiz:", error);
     }
   };
-  // here will be executed request for creation of quiz and passing id to parent component (create quiz page)
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,17 +46,3 @@ const CreateQuizForm = ({ setQuizId, setEditingQuiz }: CreateQuizFormProps) => {
 };
 
 export default CreateQuizForm;
-
-// {
-//     "theme": "Mama",
-//     "category": [
-//         "65b9b74a0af6ce975d97ee51",
-//         "65b9b74a0af6ce975d97ee4d",
-//         "65b9b74a0af6ce975d97ee53",
-//         "65b9b74a0af6ce975d97ee4f",
-//         "65b9b74a0af6ce975d97ee51"
-//     ],
-//     "background": "none",
-//     "ageGroup": "children",
-//     "_id": "65c0787f3b9ce2b0615d1f21"
-// }

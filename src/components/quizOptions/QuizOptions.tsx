@@ -1,10 +1,21 @@
 import { useState } from "react";
 import { ColorfulSpans, RadioContainer } from "./QuizOptionsStyled";
+import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+interface QuizOptionsProps {
+  editingQuiz?: QuizParams;
+}
 
-const QuizOptions = () => {
-  const [selectedAudience, setSelectedAudience] = useState<string>("children");
+const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
+  //todo: I threw props the values that will come from the editing object when the editing quiz comes
+  //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
-  const [selectedColor, setSelectedColor] = useState<string>("");
+  const [selectedAudience, setSelectedAudience] = useState<string>(
+    editingQuiz?.ageGroup || "children"
+  );
+
+  const [selectedColor, setSelectedColor] = useState<string>(
+    editingQuiz?.background || "none"
+  );
   const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAudience(event.target.value);
   };
