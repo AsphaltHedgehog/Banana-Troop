@@ -9,7 +9,7 @@ import NotFound from "./pages/notFound/NotFound";
 import "./App.css";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
-
+import RandomQuizPage from "./pages/RandomQuizPage";
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="createQuiz" element={<CreateQuizPage />} />
         <Route path="discover" element={<DiscoverPage />} />
+        <Route path="randomQuiz" element={<RandomQuizPage />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
