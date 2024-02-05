@@ -7,6 +7,9 @@ import {
   StyledSection,
 } from "./Quizes.styled";
 
+//need Auth selector here
+const test = true;
+
 const Quizes = () => {
   return (
     <StyledSection>
@@ -19,8 +22,13 @@ const Quizes = () => {
             your expertise lies. Explore a diverse range of topics and test the
             depths of your knowledge.
           </StyledP>
-          {/* Redirect to DiscoverPage with Adult filter */}
-          <StyledNavLink to="/">See all</StyledNavLink>
+          {/* If Auth, Redirect to DiscoverPage with Adult filter */}
+          {/* If not Auth, Redirect to QuizListPage with Adult filter */}
+          <StyledNavLink
+            to={test ? "/discover?category=adult" : "/123?category=adult"}
+          >
+            See all
+          </StyledNavLink>
         </StyledContainer>
         <BaseQuizList />
       </div>
@@ -33,8 +41,13 @@ const Quizes = () => {
             for young curious minds! A safe space for children to learn, play,
             and grow their knowledge.
           </StyledP>
-          {/* Redirect to DiscoverPage with Children filter */}
-          <StyledNavLink to="/">See all</StyledNavLink>
+          {/* If Auth, Redirect to DiscoverPage with Children filter */}
+          {/* If not Auth, Redirect to QuizListPage with Children filter */}
+          <StyledNavLink
+            to={test ? "/discover?category=children" : "/123?category=adult"}
+          >
+            See all
+          </StyledNavLink>
         </StyledContainer>
         <BaseQuizList />
       </div>
