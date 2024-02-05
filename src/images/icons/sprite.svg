@@ -79,6 +79,17 @@
 <symbol id="icon-plus" viewBox="0 0 25 24">
    <path d="M12.5 5V19" stroke="#F4F4F4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
   <path d="M5.5 12H19.5" stroke="#F4F4F4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+<symbol id="chevron-down" viewBox="0 0 32 32">
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.4286" d="M5.714 12l10.286 10.286 10.286-10.286"></path>
+</symbol>
+<symbol id="trash-bin" viewBox="0 0 32 32">
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6" d="M4 8h24"></path>
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6" d="M25.331 8v18.667c0 0.707-0.281 1.385-0.781 1.886s-1.178 0.781-1.886 0.781h-13.333c-0.707 0-1.386-0.281-1.886-0.781s-0.781-1.178-0.781-1.886v-18.667M10.664 8v-2.667c0-0.707 0.281-1.386 0.781-1.886s1.178-0.781 1.886-0.781h5.333c0.707 0 1.386 0.281 1.886 0.781s0.781 1.178 0.781 1.886v2.667"></path>
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6" d="M13.336 14.666v8"></path>
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6" d="M18.664 14.666v8"></path>
+</symbol>
+<symbol id="long-right" viewBox="0 0 32 32">
+<path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M23 11l5 5M28 16l-5 5M28 16h-24"></path>
 </symbol>
 </defs>
 </svg>
