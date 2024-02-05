@@ -1,8 +1,7 @@
-import { StyledChooseBtn } from "./styledButton";
+import { StyledCreateBtn } from "./styledButton";
+import { IChooseButton } from "./chooseQuizBtn";
 // Вказати шлях до сторінки створення квізів
-export function CreateButton() {
-  return <StyledChooseBtn to='/'>  
-   Choose a test
-  </StyledChooseBtn>;
-}
 
+export function CreateButton({ link, children }: IChooseButton) {
+  return <StyledCreateBtn to={`${link}`}>{children}</StyledCreateBtn>;
+}

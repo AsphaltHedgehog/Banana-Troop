@@ -19,10 +19,10 @@ const Stats = () => {
         <StyledCopyright>© QuizMaster 2023 All rights reserved</StyledCopyright>
         <StyledUl>
           <li>
-            <StyledLink to="/">Privacy Policy</StyledLink>
+            <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
           </li>
           <li>
-            <StyledLink to="/">Terms of Service</StyledLink>
+            <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
           </li>
         </StyledUl>
       </div>

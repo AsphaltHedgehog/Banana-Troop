@@ -28,9 +28,13 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  display: block;
 }
 a:hover {
   color: #535bf2;
+}
+a:visited {
+  color: #646cff;
 }
 
 body {
@@ -88,4 +92,6 @@ ul {
 ::before,
 ::after {
   box-sizing: border-box;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in-out;
 }
