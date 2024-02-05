@@ -86,3 +86,32 @@ export const WhiteChooseBtn = styled(Link)`
   letter-spacing: -0.01em;
   color: #205bf1;
 `;
+export const StyledChooseWhiteBtn = styled(Link)`
+  border-radius: 30px;
+  padding: 16px 13px;
+
+  background: #205bf1;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  color: #fff;
+
+  &:visited {
+    background: #144ad5;
+  }
+
+  &:hover,
+  &:focus {
+    background: #144ad5;
+  }
+
+  transition-property: background;
+
+  @media screen and (min-width: ${tablet}) {
+    padding: 16px 32px;
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
