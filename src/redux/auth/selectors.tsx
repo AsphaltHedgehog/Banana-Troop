@@ -1,8 +1,8 @@
 import { RootState } from "../store";
 
 export const selectIsLoggedIn = (state: RootState): boolean =>
-  state.auth.isLoggedIn;
+  state.rootReducer.auth.isLoggedIn;
 export const selectUserName = (state: RootState): string =>
-  state.auth.user.name;
+  state.rootReducer.auth.user.name;
 export const selectUserEmail = (state: RootState): string =>
-  state.auth.user.email;
+  state.rootReducer.auth.user.email;
