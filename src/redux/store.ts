@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
-  // persistStore,
-  //   persistReducer,
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -9,21 +9,21 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
-// import { authReducer } from "./auth/slice";
+import storage from "redux-persist/lib/storage";
+import { authReducer } from "./auth/authSlice";
 // import { userReducer } from "./user/slice";
 import { categoriesReducer } from "./categories/slice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
 
-// const authPersistConfig = {
-//   key: "auth",
-//   storage,
-//   whitelist: ["accessToken", "refreshToken", "favorites"],
-// };
+const authPersistConfig = {
+  key: "auth",
+  storage,
+  whitelist: ["token", "favorites"],
+};
 
 const rootReducer = combineReducers({
-  //   auth: persistReducer(authPersistConfig, authReducer),
+  auth: persistReducer(authPersistConfig, authReducer),
   //   user: userReducer,
   categories: categoriesReducer,
   //   reviews: reviewsReducer,
@@ -43,4 +43,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);
