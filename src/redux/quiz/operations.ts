@@ -1,7 +1,7 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../fetchInstance";
 import { Quiz, QuizBody, QuizByCategories } from "./slice";
 import { AppDispatch, RootState } from "../store";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface AsyncThunkConfig {
   state: RootState;
@@ -45,6 +45,28 @@ export const fetchQuizesThunk = createAsyncThunk<
   }
 });
 
+export const fetchQuizesByRatingThunk = createAsyncThunk<
+  QuizBody[], // Тип, який повертається
+  undefined, // Тип вхідного параметра
+  AsyncThunkConfig
+>("fetchAllQuizes", async (_, thunkApi) => {
+  try {
+    // const savedToken = thunkApi.getState().auth.accessToken;
+
+    const { data } = await instance.get("quizes/rating", {
+      //   headers: {
+      //     Authorization: `Bearer ${savedToken}`,
+      //   },
+    });
+    // console.log(data);
+    return data as QuizBody[];
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});
+
 export const fetchCategoriesThunk = createAsyncThunk<
   QuizByCategories,
   QueryCategories,
@@ -54,9 +76,9 @@ export const fetchCategoriesThunk = createAsyncThunk<
     // const savedToken = thunkApi.getState().auth.accessToken;
     const { ageGroup, page, pageSize, rating } = query;
 
-    const { data } = await instance.get(`quizes/category`, {
+    const { data } = await instance.get("quizes/category", {
       //   headers: {
-      //     Authorization: Bearer ${savedToken},
+      //     Authorization: `Bearer ${savedToken}`,
       //   },
       params: {
         category: ageGroup,
@@ -83,7 +105,7 @@ export const getQuizByIdThunk = createAsyncThunk<
 
     const { data } = await instance.get(`quizes/${_id}`, {
       //   headers: {
-      //     Authorization: Bearer ${savedToken},
+      //     Authorization: `Bearer ${savedToken}`,
       //   },
     });
     return data as QuizBody;

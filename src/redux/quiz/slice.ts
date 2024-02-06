@@ -3,6 +3,7 @@ import {
   addQuizesThunk,
   deleteQuizesThunk,
   fetchCategoriesThunk,
+  fetchQuizesByRatingThunk,
   fetchQuizesThunk,
   updateQuizesThunk,
 } from "./operations";
@@ -13,7 +14,7 @@ export type QuizBody = {
   category: string[];
   background: string;
   ageGroup: string;
-  ratingQuantity: number | null;
+  ratingQuantity: number;
   rating: number;
   finished: number | null;
 };
@@ -36,10 +37,30 @@ export type QuizByCategories = {
   totalPages: number | null;
   totalQuizzesCount: number;
 };
+export type Category = {
+  _id: string;
+  ageGroup: string;
+  title: string;
+};
+
+export type Quiz = {
+  result: QuizBody[];
+  totalQuizes: number;
+};
+
+export type QuizByCategories = {
+  data: QuizBody[];
+  categories: Category[];
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+  totalQuizzesCount: number;
+};
 
 export type QuizState = {
   listAll: Quiz;
   listCategory: QuizByCategories;
+  listRaiting: QuizBody[];
   isLoading: boolean;
   error: string | null;
 };
@@ -52,11 +73,12 @@ const initialState: QuizState = {
   listCategory: {
     data: [],
     categories: [],
-    currentPage: null,
-    pageSize: null,
-    totalPages: null,
+    currentPage: 0,
+    pageSize: 0,
+    totalPages: 0,
     totalQuizzesCount: 0,
   },
+  listRaiting: [],
   isLoading: false,
   error: null,
 };
@@ -69,6 +91,10 @@ const quizesSlice = createSlice({
     builder
       .addCase(fetchQuizesThunk.fulfilled, (state, { payload }) => {
         state.listAll.result = payload.result;
+        state.isLoading = false;
+      })
+      .addCase(fetchQuizesByRatingThunk.fulfilled, (state, { payload }) => {
+        state.listRaiting = payload;
         state.isLoading = false;
       })
       .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {

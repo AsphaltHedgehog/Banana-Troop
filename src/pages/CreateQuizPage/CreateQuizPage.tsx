@@ -15,30 +15,35 @@ import { getQuizByIdThunk } from "../../redux/quiz/operations";
 // import { getQuizByIdThunk } from "../../redux/quiz/operations";
 
 export type QuizParams = {
-  _id: string | undefined;
-  theme: string | undefined;
-  category: string[] | undefined;
-  background: string | undefined;
-  ageGroup: string | undefined;
-  ratingQuantity: number | null;
-  rating: number | null;
-  finished: number | null;
+  _id: string;
+  theme: string;
+  category: string[];
+  background: string;
+  ageGroup: string;
+  ratingQuantity: number;
+  rating: number;
+  finished: number;
 };
 
 const CreateQuizPage = () => {
   //todo: when we act "update" or "delete" - put quizId to "";
+  const [afterCreate, setAfterCreate] = useState<boolean>(false);
   const [quizId, setQuizId] = useState<string | undefined>(""); // todo: add condition("" | id from props) to default state;
-  const [editingQuiz, setEditingQuiz] = useState<QuizParams | undefined>();
+  const [editingQuiz, setEditingQuiz] = useState<QuizParams | undefined>(); //todo: add object for editing drom props
   const [formatQuiz, setFormatQuiz] = useState<string | undefined>("quiz");
   const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 426px max-width: 768)",
   });
 
+  // setQuizId(editingQuiz?._id);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (quizId) {
+    if (quizId && !afterCreate) {
       dispatch(getQuizByIdThunk(quizId)).then((response) => {
+        // if (response.meta.requestStatus === "rejected") {
+        //   return console.log("Congratulations on creating a quiz!");
+        // }
         if (
           response.meta.requestStatus === "fulfilled" &&
           typeof response.payload !== "string" &&
@@ -48,7 +53,7 @@ const CreateQuizPage = () => {
         }
       });
     }
-  }, [quizId, dispatch]);
+  }, [quizId, dispatch, afterCreate]);
 
   console.log(editingQuiz);
   console.log(quizId);
@@ -60,9 +65,14 @@ const CreateQuizPage = () => {
         <>
           {/* if it is mobile screen size options and sidebar should be under topBar*/}
           {quizId && editingQuiz ? (
-            <UpdateQuizForm quizId={quizId} editingQuiz={editingQuiz} />
+            <UpdateQuizForm
+              editingQuiz={editingQuiz}
+              setAfterCreate={setAfterCreate}
+              setQuizId={setQuizId}
+            />
           ) : (
             <CreateQuizForm
+              setAfterCreate={setAfterCreate}
               setQuizId={setQuizId}
               setEditingQuiz={setEditingQuiz}
             />
@@ -82,9 +92,14 @@ const CreateQuizPage = () => {
               <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
               {quizId && editingQuiz ? (
-                <UpdateQuizForm quizId={quizId} editingQuiz={editingQuiz} />
+                <UpdateQuizForm
+                  editingQuiz={editingQuiz}
+                  setAfterCreate={setAfterCreate}
+                  setQuizId={setQuizId}
+                />
               ) : (
                 <CreateQuizForm
+                  setAfterCreate={setAfterCreate}
                   setQuizId={setQuizId}
                   setEditingQuiz={setEditingQuiz}
                 />
@@ -101,9 +116,14 @@ const CreateQuizPage = () => {
               <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* other wise options should be on right side of topBar*/}
               {quizId && editingQuiz ? (
-                <UpdateQuizForm quizId={quizId} editingQuiz={editingQuiz} />
+                <UpdateQuizForm
+                  editingQuiz={editingQuiz}
+                  setAfterCreate={setAfterCreate}
+                  setQuizId={setQuizId}
+                />
               ) : (
                 <CreateQuizForm
+                  setAfterCreate={setAfterCreate}
                   setQuizId={setQuizId}
                   setEditingQuiz={setEditingQuiz}
                 />

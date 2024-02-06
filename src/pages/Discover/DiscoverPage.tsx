@@ -1,22 +1,15 @@
 import { useEffect, useState } from "react";
 
-import {
-  fetchCategoriesThunk,
-  // fetchQuizesThunk,
-} from "../../redux/quiz/operations";
+import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import { QuizBody } from "../../redux/quiz/slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
-  // const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
-  // const quizes = dispatch(fetchCategoriesThunk({}));
-  // const total = useAppSelector((state) => state.rootReducer.quizes.totalQuizes);
-  const quizes = useAppSelector(
-    (state) => state.rootReducer.quizes.listCategory.data
-  );
+
+  const quizes = useAppSelector((state) => state.quizes.listCategory.data);
   const total = useAppSelector(
-    (state) => state.rootReducer.quizes.listCategory.totalQuizzesCount
+    (state) => state.quizes.listCategory.totalQuizzesCount
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredQuizes, setFilteredQuizes] = useState<QuizBody[] | []>([]);
@@ -25,17 +18,17 @@ const DiscoverPage = () => {
   const [attemptedFilter, setAttemptedFilter] = useState<boolean>(false);
   const [pageParam, SetPageParam] = useState<number>(1);
   const [sizeParam, SetSizeParam] = useState<number>(8);
-
+  console.log(SetPageParam);
   useEffect(() => {
     // dispatch(fetchQuizesThunk({ page: pageParam, pageSize: sizeParam }));
     const query = {
       ageGroup: selectedAgeGroup,
       page: pageParam,
       pageSize: sizeParam,
-      rating: 1,
+      rating: selectedRating,
     };
     dispatch(fetchCategoriesThunk(query));
-  }, [dispatch, pageParam, selectedAgeGroup, sizeParam]);
+  }, [dispatch, pageParam, selectedAgeGroup, selectedRating, sizeParam]);
 
   const handleFilter = () => {
     const filteredQuizes = quizes?.filter(
