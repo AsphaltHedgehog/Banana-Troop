@@ -77,9 +77,9 @@ const CreateQuizPage = () => {
         </>
       ) : (
         <>
-          <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
           {isTablet ? (
             <div>
+              <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
               {quizId && editingQuiz ? (
                 <UpdateQuizForm quizId={quizId} editingQuiz={editingQuiz} />
