@@ -2,31 +2,64 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addQuizesThunk,
   deleteQuizesThunk,
+  fetchCategoriesThunk,
+  fetchQuizesByRatingThunk,
   fetchQuizesThunk,
   updateQuizesThunk,
 } from "./operations";
 
-export type Quiz = {
+export type QuizBody = {
+  _id: string;
   theme: string;
-  category: {
-    $oid: string;
-  };
+  category: string[];
   background: string;
   ageGroup: string;
-  _id: string;
   ratingQuantity: number;
   rating: number;
   finished: number;
 };
+export type Category = {
+  _id: string;
+  ageGroup: string;
+  title: string;
+};
+
+export type Quiz = {
+  result: QuizBody[];
+  totalQuizes: number;
+};
+
+export type QuizByCategories = {
+  data: QuizBody[];
+  categories: Category[];
+  currentPage: number;
+  pageSize: number;
+  totalPages: number;
+  totalQuizzesCount: number;
+};
 
 export type QuizState = {
-  list: Quiz[];
+  listAll: Quiz;
+  listCategory: QuizByCategories;
+  listRaiting: QuizBody[];
   isLoading: boolean;
   error: string | null;
 };
 
 const initialState: QuizState = {
-  list: [],
+  listAll: {
+    result: [],
+    totalQuizes: 0,
+  },
+  listCategory: {
+    data: [],
+    categories: [],
+    currentPage: 0,
+    pageSize: 0,
+    totalPages: 0,
+    totalQuizzesCount: 0,
+  },
+  listRaiting: [],
   isLoading: false,
   error: null,
 };
@@ -38,24 +71,41 @@ const quizesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuizesThunk.fulfilled, (state, { payload }) => {
-        state.list = payload;
+        state.listAll.result = payload.result;
         state.isLoading = false;
       })
-      // .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
-      //   state.list.push(payload);
-      //   state.isLoading = false;
-      // })
+      .addCase(fetchQuizesByRatingThunk.fulfilled, (state, { payload }) => {
+        state.listRaiting = payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
+        state.listCategory.data = payload.data;
+        state.listCategory.categories = payload.categories;
+        state.listCategory.currentPage = payload.currentPage;
+        state.listCategory.pageSize = payload.pageSize;
+        state.listCategory.totalPages = payload.totalPages;
+        state.listCategory.totalQuizzesCount = payload.totalQuizzesCount;
+        state.isLoading = false;
+      })
+      .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
+        if (payload && payload._id) {
+          state.listAll.result.push(payload);
+          state.isLoading = false;
+        }
+      })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
-        state.list = state.list.filter((quiz) => quiz._id !== payload);
+        state.listAll.result = state.listAll.result.filter(
+          (quiz) => quiz._id !== payload
+        );
         state.isLoading = false;
       })
       .addCase(updateQuizesThunk.fulfilled, (state, { payload }) => {
-        const updatedQuizeIndex = state.list.findIndex(
+        const updatedQuizeIndex = state.listAll.result.findIndex(
           (quiz) => quiz._id === payload._id
         );
         if (updatedQuizeIndex) {
-          state.list[updatedQuizeIndex] = {
-            ...state.list[updatedQuizeIndex],
+          state.listAll.result[updatedQuizeIndex] = {
+            ...state.listAll.result[updatedQuizeIndex],
             ...payload,
           };
         }

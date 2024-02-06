@@ -2,29 +2,22 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   addedQuestionByQuizThunk,
   deleteQuestionByIdThunk,
-  fetchQuestionsByQuizThunk,
+  deleteQuizQuestionImgByIdThunk,
   updateQuestionByQuizThunk,
 } from "./operations";
 
 export type Answers = {
   descr: string;
-  _id: {
-    $oid: string;
-  };
+  _id: string;
 };
-
 export type Questions<TId = string> = {
-  quiz: {
-    $oid: string;
-  };
+  quiz: string;
   time: string;
-  imageUrl: string;
-  type: string;
   descr: string;
   answers: Answers[];
-  validAnswer: {
-    $oid: string;
-  };
+  validAnswer: string;
+  imageUrl: string;
+  type: "full-text" | "true-or-false";
   _id: TId;
 };
 
@@ -46,10 +39,6 @@ const questionsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchQuestionsByQuizThunk.fulfilled, (state, { payload }) => {
-        state.list = payload;
-        state.isLoading = false;
-      })
       .addCase(addedQuestionByQuizThunk.fulfilled, (state, { payload }) => {
         state.list.push(payload);
         state.isLoading = false;
@@ -70,9 +59,18 @@ const questionsSlice = createSlice({
         }
         state.isLoading = false;
       })
+      .addCase(
+        deleteQuizQuestionImgByIdThunk.fulfilled,
+        (state, { payload }) => {
+          state.list = state.list.filter(
+            (question) => question.imageUrl !== payload
+          );
+          state.isLoading = false;
+        }
+      )
       .addMatcher(
         isAnyOf(
-          fetchQuestionsByQuizThunk.pending,
+          deleteQuizQuestionImgByIdThunk.pending,
           addedQuestionByQuizThunk.pending,
           deleteQuestionByIdThunk.pending,
           updateQuestionByQuizThunk.pending
@@ -83,15 +81,14 @@ const questionsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          fetchQuestionsByQuizThunk.rejected,
+          deleteQuizQuestionImgByIdThunk.rejected,
           addedQuestionByQuizThunk.rejected,
           deleteQuestionByIdThunk.rejected,
           updateQuestionByQuizThunk.rejected
         ),
         (state, action) => {
           state.isLoading = false;
-          state.error =
-            typeof action.payload === "string" ? action.payload : null;
+          state.error = action.payload === "string" ? action.payload : null;
         }
       );
   },
