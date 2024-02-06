@@ -1,25 +1,41 @@
 import { useEffect, useState } from "react";
 
 import {
-  // fetchCategoriesThunk,
-  fetchQuizesThunk,
+  fetchCategoriesThunk,
+  // fetchQuizesThunk,
 } from "../../redux/quiz/operations";
-import { Quiz } from "../../redux/quiz/slice";
+import { QuizBody } from "../../redux/quiz/slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
-  const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
+  // const quizes = useAppSelector((state) => state.rootReducer.quizes.list);
+  // const quizes = dispatch(fetchCategoriesThunk({}));
+  // const total = useAppSelector((state) => state.rootReducer.quizes.totalQuizes);
+  const quizes = useAppSelector(
+    (state) => state.rootReducer.quizes.listCategory.data
+  );
+  const total = useAppSelector(
+    (state) => state.rootReducer.quizes.listCategory.totalQuizzesCount
+  );
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filteredQuizes, setFilteredQuizes] = useState<Quiz[]>([]);
-  const [selectedRating, setSelectedRating] = useState<number>(0);
+  const [filteredQuizes, setFilteredQuizes] = useState<QuizBody[] | []>([]);
+  const [selectedRating, setSelectedRating] = useState<number>(1);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("adults");
   const [attemptedFilter, setAttemptedFilter] = useState<boolean>(false);
+  const [pageParam, SetPageParam] = useState<number>(1);
+  const [sizeParam, SetSizeParam] = useState<number>(8);
 
   useEffect(() => {
-    dispatch(fetchQuizesThunk());
-    // dispatch(fetchCategoriesThunk("adults"));
-  }, [dispatch]);
+    // dispatch(fetchQuizesThunk({ page: pageParam, pageSize: sizeParam }));
+    const query = {
+      ageGroup: selectedAgeGroup,
+      page: pageParam,
+      pageSize: sizeParam,
+      rating: 1,
+    };
+    dispatch(fetchCategoriesThunk(query));
+  }, [dispatch, pageParam, selectedAgeGroup, sizeParam]);
 
   const handleFilter = () => {
     const filteredQuizes = quizes?.filter(
@@ -46,6 +62,10 @@ const DiscoverPage = () => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       handleFilter();
     }
+  };
+  const handleLoadMore = () => {
+    SetSizeParam((prev) => prev + 8);
+    // console.log(object);
   };
 
   return (
@@ -81,14 +101,14 @@ const DiscoverPage = () => {
         {attemptedFilter && filteredQuizes.length === 0
           ? ["No quizzes found"]
           : filteredQuizes.length > 0
-          ? filteredQuizes.map((quiz) => (
+          ? filteredQuizes?.map((quiz) => (
               <li key={quiz._id}>
                 {quiz.theme}
                 <p>{quiz.rating}</p>
                 <p>{quiz.ageGroup}</p>
               </li>
             ))
-          : quizes.map((quiz) => (
+          : quizes?.map((quiz) => (
               <li key={quiz._id}>
                 {quiz.theme}
                 <p>{quiz.rating}</p>
@@ -96,6 +116,10 @@ const DiscoverPage = () => {
               </li>
             ))}
       </ul>
+
+      {quizes.length < total && (
+        <button onClick={handleLoadMore}>Load More</button>
+      )}
     </div>
   );
 };
