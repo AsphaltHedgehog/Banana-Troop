@@ -15,14 +15,14 @@ import { getQuizByIdThunk } from "../../redux/quiz/operations";
 // import { getQuizByIdThunk } from "../../redux/quiz/operations";
 
 export type QuizParams = {
-  _id: string | undefined;
-  theme: string | undefined;
-  category: string[] | undefined;
-  background: string | undefined;
-  ageGroup: string | undefined;
-  ratingQuantity: number | null;
-  rating: number | null;
-  finished: number | null;
+  _id: string;
+  theme: string;
+  category: string[];
+  background: string;
+  ageGroup: string;
+  ratingQuantity: number;
+  rating: number;
+  finished: number;
 };
 
 const CreateQuizPage = () => {
