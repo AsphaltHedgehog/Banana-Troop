@@ -18,11 +18,7 @@ import splash_desktop2x_wbp from "../../images/hero/splash_desktop2x.webp";
 
 const { tablet, desktop } = breakpoints;
 
-export const StyledSection = styled.section`
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
-  overflow: hidden;
+export const StyledBgrImg = styled.section`
   background-image: image-set(
     url(${splash_mobi1x_wbp}) type("image/webp") 1x,
     url(${splash_mobi2x_wbp}) type("image/webp") 2x,
@@ -30,14 +26,14 @@ export const StyledSection = styled.section`
     url(${splash_mobi2x}) type("image/png") 2x
   );
   background-repeat: no-repeat;
-
+  transform: rotate(-2deg);
   background-size: 643px 670px;
   /* background-position: bottom -145px right 8px; */
   margin: 0 auto;
 
   max-width: 335px;
 
-  @media screen and (min-width: ${tablet}) {
+  @media screen and (min-width: 768px) {
     background-image: image-set(
       url(${splash_tablet1x_wbp}) type("image/webp") 1x,
       url(${splash_tablet2x_wbp}) type("image/webp") 2x,
@@ -49,7 +45,7 @@ export const StyledSection = styled.section`
     max-width: 704px;
   }
 
-  @media screen and (min-width: ${desktop}) {
+  @media screen and (min-width: 1440px) {
     background-image: image-set(
       url(${splash_desktop1x_wbp}) type("image/webp") 1x,
       url(${splash_desktop2x_wbp}) type("image/webp") 2x,
@@ -60,6 +56,10 @@ export const StyledSection = styled.section`
     background-position: bottom -2px right 2px;
     max-width: 1240px;
   }
+`;
+
+export const StyledSection = styled.section`
+  transform: rotate(2deg);
 `;
 
 export const StyledUl = styled.ul`
