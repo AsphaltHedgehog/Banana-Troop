@@ -16,9 +16,14 @@ type RequestData = {
 interface CreateQuizFormProps {
   setQuizId: Dispatch<SetStateAction<string | undefined>>;
   setEditingQuiz: Dispatch<SetStateAction<QuizParams | undefined>>;
+  setAfterCreate: Dispatch<SetStateAction<boolean>>;
 }
 
-const CreateQuizForm = ({ setQuizId, setEditingQuiz }: CreateQuizFormProps) => {
+const CreateQuizForm = ({
+  setQuizId,
+  setEditingQuiz,
+  setAfterCreate,
+}: CreateQuizFormProps) => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -30,6 +35,7 @@ const CreateQuizForm = ({ setQuizId, setEditingQuiz }: CreateQuizFormProps) => {
       const response = await dispatch(addQuizesThunk(requestData)).unwrap();
       setEditingQuiz(response);
       setQuizId(response._id);
+      setAfterCreate(true);
       reset();
     } catch (error) {
       console.error("Error creating quiz:", error);

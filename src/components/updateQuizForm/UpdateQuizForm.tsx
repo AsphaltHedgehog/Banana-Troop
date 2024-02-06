@@ -1,9 +1,13 @@
-// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import { useAppDispatch } from "../../redux/hooks";
-// import { updateQuizesThunk } from "../../redux/quiz/operations";
 import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
-// import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { formUpdateOptions } from "../../redux/categories/selectors";
+import {
+  deleteQuizesThunk,
+  updateQuizesThunk,
+} from "../../redux/quiz/operations";
 
 type FormValues = {
   theme: string | undefined;
@@ -11,19 +15,23 @@ type FormValues = {
 
 interface UpdateQuizFormProps {
   editingQuiz: QuizParams;
-  quizId: string;
+  setQuizId: Dispatch<SetStateAction<string | undefined>>;
+  setAfterCreate: Dispatch<SetStateAction<boolean>>;
 }
 
-const UpdateQuizForm = ({ editingQuiz, quizId }: UpdateQuizFormProps) => {
-  // const selectOptionsForEditing = useAppSelector(state.????.???) //todo: add state from optionsSlice when it will be ready
-  //todo: this is how it will be look
-  //  formUpdateOptions: {
-  //     ageGroup: "",
-  //     background: "",
-  //     category: [""],
-  //   },
+const UpdateQuizForm = ({
+  editingQuiz,
+  setAfterCreate,
+  setQuizId,
+}: UpdateQuizFormProps) => {
+  const selectOptionsForEditing = useAppSelector(formUpdateOptions);
+  const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
-  // const dispatch = useAppDispatch();
+  // const handleGoBack = () => {
+  //   navigate(-1);
+  // };
+
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       theme: editingQuiz?.theme || "",
@@ -31,38 +39,62 @@ const UpdateQuizForm = ({ editingQuiz, quizId }: UpdateQuizFormProps) => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    // if (data && editingQuiz.theme && data !== editingQuiz.theme) {
+    if (data.theme) {
+      const { ratingQuantity, rating, finished } = editingQuiz;
 
-    //   const editedQuiz = {
+      const { ageGroup, background, category } = selectOptionsForEditing;
 
-    // {
-    //   ageGroup: "children";
-    // background: "none";
-    // category: [("65b9b74a0af6ce975d97ee51")];
-    // theme: "Condition";
-    //  _id: "65c0f9f8656f360a36e10237";
-    // }
+      const editedQuiz: QuizParams = {
+        ageGroup: ageGroup,
+        background: background,
+        category: category,
+        theme: data.theme,
+        _id: editingQuiz._id,
+        ratingQuantity: ratingQuantity,
+        rating: rating,
+        finished: finished,
+      };
 
-    //     theme: data.theme,
-    //     category: [`${formUpdateOptions.id}`],
-    //     background: formUpdateOptions.background,
-    //     ageGroup: formUpdateOptions.ageGroup,
-    //     _id: editedQuiz?._id,
-    //   };
-    //   dispatch(updateQuizesThunk(editedQuiz));
-    // }
-    console.log(data);
-    console.log(editingQuiz);
+      dispatch(updateQuizesThunk(editedQuiz))
+        .then((response) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setAfterCreate(false);
+            setQuizId("");
+            // handleGoBack();
+          }
+          return console.log("Failed to update Quiz");
+        })
+        .catch((error) => {
+          console.error("Error updating quiz:", error);
+        });
+    }
   };
-  console.log(quizId);
+
+  const handleRemoveQuiz = () => {
+    if (editingQuiz?._id) {
+      console.log(editingQuiz?._id);
+      dispatch(deleteQuizesThunk(editingQuiz._id))
+        .then((response) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            setAfterCreate(false);
+            setQuizId("");
+            // handleGoBack();
+          }
+          return console.log("Failed to delete Quiz");
+        })
+        .catch((error) => {
+          console.error("Error removing quiz:", error);
+        });
+    }
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("theme")} />
         <button type="submit">Edit quiz</button>
-        <button type="submit">Remove quiz</button>
       </form>
+      <button onClick={handleRemoveQuiz}>Remove quiz</button>
     </>
   );
 };
