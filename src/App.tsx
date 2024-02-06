@@ -10,6 +10,7 @@ import "./App.css";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
+import FavoritePage from "./pages/FavoritePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="createQuiz" element={<CreateQuizPage />} />
         <Route path="discover" element={<DiscoverPage />} />
         <Route path="randomQuiz" element={<RandomQuizPage />} />
+        <Route path="favorites" element={<FavoritePage />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
