@@ -46,10 +46,10 @@ export const fetchQuizesThunk = createAsyncThunk<
 });
 
 export const fetchQuizesByRatingThunk = createAsyncThunk<
-  QuizBody[], // Тип, який повертається
-  undefined, // Тип вхідного параметра
+  QuizBody[],
+  undefined,
   AsyncThunkConfig
->("fetchAllQuizes", async (_, thunkApi) => {
+>("fetchQuizesByRating", async (_, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
