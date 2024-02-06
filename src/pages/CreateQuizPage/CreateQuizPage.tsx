@@ -7,6 +7,7 @@ import UpdateQuizForm from "../../components/updateQuizForm/UpdateQuizForm";
 import QuestionData from "../../components/questionData/QuestionForm";
 import { useAppDispatch } from "../../redux/hooks";
 import { getQuizByIdThunk } from "../../redux/quiz/operations";
+import { CreateQuizTitle, StyledCommonWrapper } from "./CreateQuizPage.styled";
 
 // import { useAppSelector } from "../../redux/hooks";
 
@@ -36,7 +37,6 @@ const CreateQuizPage = () => {
     query: "(min-width: 426px max-width: 768)",
   });
 
-  // setQuizId(editingQuiz?._id);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (quizId && !afterCreate) {
@@ -59,8 +59,8 @@ const CreateQuizPage = () => {
   console.log(quizId);
 
   return (
-    <div>
-      <h1>Create quize</h1>
+    <StyledCommonWrapper>
+      <CreateQuizTitle>Create quize</CreateQuizTitle>
       {isMobile ? (
         <>
           {/* if it is mobile screen size options and sidebar should be under topBar*/}
@@ -138,7 +138,7 @@ const CreateQuizPage = () => {
           )}
         </>
       )}
-    </div>
+    </StyledCommonWrapper>
   );
 };
 
