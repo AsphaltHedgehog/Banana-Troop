@@ -21,8 +21,6 @@ export const StyledContainer = styled.li`
     background: #205bf1;
   }
 
-  max-height: 364px;
-
   transition-property: background;
 
   @media screen and (min-width: ${tablet}) {
