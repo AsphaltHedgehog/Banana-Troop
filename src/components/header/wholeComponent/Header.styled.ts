@@ -3,7 +3,9 @@ import styled from "styled-components";
 export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
+  position: relative;
 `;
 
 export const StyledH2 = styled.h2`
@@ -15,6 +17,8 @@ export const StyledH2 = styled.h2`
 `;
 
 export const SvgBurgerMenu = styled.svg`
+  position: absolute;
+  right: 20px;
   width: 32px;
   height: 32px;
 `;

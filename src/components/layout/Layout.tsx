@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Header from "../header/Header";
+import Header from "../header/wholeComponent/Header";
 
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const Layout = () => {
   return (
@@ -11,7 +11,7 @@ const Layout = () => {
         <Outlet />
       </>
       {/* speedtest */}
-      <SpeedInsights/>
+      <SpeedInsights />
     </>
   );
 };
