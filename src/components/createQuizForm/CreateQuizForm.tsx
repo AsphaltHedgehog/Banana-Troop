@@ -3,6 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hooks";
 import { addQuizesThunk } from "../../redux/quiz/operations";
 import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+import {
+  CreateQuizButton,
+  CreateQuizInput,
+  StyledCreateQuizForm,
+} from "./CreateQuizForm.styled";
 
 type FormValues = {
   theme: string;
@@ -43,10 +48,14 @@ const CreateQuizForm = ({
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("theme")} />
-        <button type="submit">Create quiz</button>
-      </form>
+      <StyledCreateQuizForm onSubmit={handleSubmit(onSubmit)}>
+        <CreateQuizInput
+          {...register("theme")}
+          placeholder="Quiz theme"
+          autoComplete="off"
+        />
+        <CreateQuizButton type="submit">Create quiz</CreateQuizButton>
+      </StyledCreateQuizForm>
     </>
   );
 };

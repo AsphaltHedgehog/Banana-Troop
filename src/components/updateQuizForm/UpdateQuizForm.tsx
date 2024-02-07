@@ -1,6 +1,7 @@
 // import { useNavigate } from "react-router-dom";
 import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMediaQuery } from "react-responsive";
 import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { formUpdateOptions } from "../../redux/categories/selectors";
@@ -8,6 +9,15 @@ import {
   deleteQuizesThunk,
   updateQuizesThunk,
 } from "../../redux/quiz/operations";
+import {
+  BaseQuizButton,
+  StyledUpdateQuizForm,
+  StyledUpdateQuizWrapper,
+  UpdateQuizInput,
+} from "./UpdateQuizForm.styled";
+import "../../images/icons/sprite.svg";
+import Svg from "../../shared/svg/Svg";
+import sprite from "../../images/icons/sprite.svg";
 
 type FormValues = {
   theme: string | undefined;
@@ -27,7 +37,9 @@ const UpdateQuizForm = ({
   const selectOptionsForEditing = useAppSelector(formUpdateOptions);
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
-
+  const isDesctop = useMediaQuery({
+    query: "(min-width: 1280px)",
+  });
   // const handleGoBack = () => {
   //   navigate(-1);
   // };
@@ -90,11 +102,30 @@ const UpdateQuizForm = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("theme")} />
-        <button type="submit">Edit quiz</button>
-      </form>
-      <button onClick={handleRemoveQuiz}>Remove quiz</button>
+      <StyledUpdateQuizWrapper>
+        <StyledUpdateQuizForm onSubmit={handleSubmit(onSubmit)}>
+          <UpdateQuizInput
+            {...register("theme")}
+            placeholder="Quiz theme"
+            autoComplete="off"
+          />
+
+          <BaseQuizButton type="submit">
+            {isDesctop ? (
+              `Edit quiz`
+            ) : (
+              <Svg sprite={sprite} id={`icon-edit`} width={16} height={16} />
+            )}
+          </BaseQuizButton>
+        </StyledUpdateQuizForm>
+        <BaseQuizButton onClick={handleRemoveQuiz}>
+          {isDesctop ? (
+            `Remove quiz`
+          ) : (
+            <Svg sprite={sprite} id={`icon-trash`} width={16} height={16} />
+          )}
+        </BaseQuizButton>
+      </StyledUpdateQuizWrapper>
     </>
   );
 };
