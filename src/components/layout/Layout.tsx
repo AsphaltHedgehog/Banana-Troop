@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Header from "../header/Header";
 
+import { SpeedInsights } from "@vercel/speed-insights/react"
+
 const Layout = () => {
   return (
     <>
@@ -8,6 +10,8 @@ const Layout = () => {
       <>
         <Outlet />
       </>
+      {/* speedtest */}
+      <SpeedInsights/>
     </>
   );
 };

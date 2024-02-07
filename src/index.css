@@ -1,9 +1,10 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -27,9 +28,13 @@ a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  display: block;
 }
 a:hover {
   color: #535bf2;
+}
+a:visited {
+  color: #646cff;
 }
 
 body {
@@ -38,6 +43,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #171717;
 }
 
 h1 {
@@ -87,4 +93,6 @@ ul {
 ::before,
 ::after {
   box-sizing: border-box;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in-out;
 }

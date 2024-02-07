@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "https://monkey-plant.onrender.com/",
+  baseURL: "https://pigs.onrender.com/api/",
 });
 
 export const setToken = (token: string) => {

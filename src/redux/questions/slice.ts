@@ -1,29 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import {
+  addedQuestionByQuizThunk,
+  deleteQuestionByIdThunk,
+  deleteQuizQuestionImgByIdThunk,
+  updateQuestionByQuizThunk,
+} from "./operations";
 
-type Answers = {
+export type Answers = {
   descr: string;
-  _id: {
-    $oid: string;
-  };
+  _id: string;
 };
-
-type Questions = {
-  quiz: {
-    $oid: string;
-  };
+export type Questions<TId = string> = {
+  quiz: string;
   time: string;
-  imageUrl: string;
-  type: string;
   descr: string;
   answers: Answers[];
+  validAnswer: string;
+  imageUrl: string;
+  type: "full-text" | "true-or-false";
+  _id: TId;
 };
 
-type QuizState = {
+type QuestionsState = {
   list: Questions[];
+  isLoading: boolean;
+  error: string | null;
 };
 
-const initialState: QuizState = {
+const initialState: QuestionsState = {
   list: [],
+  isLoading: false,
+  error: null,
 };
 
 const questionsSlice = createSlice({
@@ -31,25 +38,59 @@ const questionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder;
-    //   .addCase(Thunk.fulfilled, (state, { payload }) => {
-    //     state.transactions = payload;
-    //     state.isLoading = false;
-    //   })
-
-    //   .addMatcher(
-    //     isAnyOf(Thunk.pending, Thunk.pending, Thunk.pending, Thunk.pending),
-    //     (state, { payload }) => {
-    //       state.isLoading = true;
-    //     }
-    //   )
-    //   .addMatcher(
-    //     isAnyOf(Thunk.rejected, Thunk.rejected, Thunk.rejected, Thunk.rejected),
-    //     (state, { payload }) => {
-    //       state.isLoading = false;
-    //       state.error = payload;
-    //     }
-    //   );
+    builder
+      .addCase(addedQuestionByQuizThunk.fulfilled, (state, { payload }) => {
+        state.list.push(payload);
+        state.isLoading = false;
+      })
+      .addCase(deleteQuestionByIdThunk.fulfilled, (state, { payload }) => {
+        state.list = state.list.filter((question) => question._id !== payload);
+        state.isLoading = false;
+      })
+      .addCase(updateQuestionByQuizThunk.fulfilled, (state, { payload }) => {
+        const updatedQuestionIndex = state.list.findIndex(
+          (question) => question._id === payload._id
+        );
+        if (updatedQuestionIndex) {
+          state.list[updatedQuestionIndex] = {
+            ...state.list[updatedQuestionIndex],
+            ...payload,
+          };
+        }
+        state.isLoading = false;
+      })
+      .addCase(
+        deleteQuizQuestionImgByIdThunk.fulfilled,
+        (state, { payload }) => {
+          state.list = state.list.filter(
+            (question) => question.imageUrl !== payload
+          );
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          deleteQuizQuestionImgByIdThunk.pending,
+          addedQuestionByQuizThunk.pending,
+          deleteQuestionByIdThunk.pending,
+          updateQuestionByQuizThunk.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          deleteQuizQuestionImgByIdThunk.rejected,
+          addedQuestionByQuizThunk.rejected,
+          deleteQuestionByIdThunk.rejected,
+          updateQuestionByQuizThunk.rejected
+        ),
+        (state, action) => {
+          state.isLoading = false;
+          state.error = action.payload === "string" ? action.payload : null;
+        }
+      );
   },
 });
 
