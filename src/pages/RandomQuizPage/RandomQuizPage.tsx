@@ -37,6 +37,7 @@ const RandomQuizPage = () => {
         <CreateQuizCard />
         {quizes.map((quiz) => (
           <QuizListItem
+            key={quiz._id}
             theme={quiz.theme}
             rating={quiz.rating}
             ageGroup={quiz.ageGroup}
