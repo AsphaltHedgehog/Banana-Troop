@@ -72,7 +72,9 @@ const QuizListItem = ({
       <StyledCategory>{`${ageGroup.charAt(0).toUpperCase()}${ageGroup.slice(
         1
       )}`}</StyledCategory>
-      <StyledName>{theme}</StyledName>
+      <StyledName>
+        {theme.length > 17 ? theme.slice(0, 17) + "..." : theme}
+      </StyledName>
       <StyledUl>
         {stars.map((_star, index) => (
           <li key={index}>{_star}</li>
