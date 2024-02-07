@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import { QuizBody } from "../../redux/quiz/slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
-
+  const title = useAppSelector((state) => state.quizes.listCategory.categories);
   const quizes = useAppSelector((state) => state.quizes.listCategory.data);
   const total = useAppSelector(
     (state) => state.quizes.listCategory.totalQuizzesCount
@@ -15,41 +16,53 @@ const DiscoverPage = () => {
   const [filteredQuizes, setFilteredQuizes] = useState<QuizBody[] | []>([]);
   const [selectedRating, setSelectedRating] = useState<number>(1);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("adults");
+  const [selectedAgeGroupCat, setSelectedAgeGroupCat] = useState<string>("");
   const [attemptedFilter, setAttemptedFilter] = useState<boolean>(false);
   const [pageParam, SetPageParam] = useState<number>(1);
   const [sizeParam, SetSizeParam] = useState<number>(8);
-  console.log(SetPageParam);
+  console.log(setAttemptedFilter);
+  console.log(setFilteredQuizes);
+  const [query, setQuery] = useState({
+    ageGroup: selectedAgeGroup,
+    page: pageParam,
+    pageSize: sizeParam,
+    rating: selectedRating,
+    finished: 5,
+    inputText: searchTerm,
+    title: selectedAgeGroupCat,
+  });
+
   useEffect(() => {
-    // dispatch(fetchQuizesThunk({ page: pageParam, pageSize: sizeParam }));
-    const query = {
-      ageGroup: selectedAgeGroup,
-      page: pageParam,
-      pageSize: sizeParam,
-      rating: selectedRating,
-    };
     dispatch(fetchCategoriesThunk(query));
-  }, [dispatch, pageParam, selectedAgeGroup, selectedRating, sizeParam]);
+  }, [dispatch, query]);
 
   const handleFilter = () => {
-    const filteredQuizes = quizes?.filter(
-      (quiz) =>
-        quiz.theme.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedRating === 0 ||
-          (quiz.rating >= selectedRating &&
-            quiz.rating < selectedRating + 1)) &&
-        quiz.ageGroup.toLowerCase() === selectedAgeGroup.toLowerCase()
-    );
-    setFilteredQuizes(filteredQuizes);
-    setAttemptedFilter(true);
-    setSelectedRating(0);
+    SetPageParam(1);
+    const newQuery = {
+      ...query,
+      ageGroup: selectedAgeGroup,
+      rating: selectedRating,
+      page: 1, // Скидаємо сторінку на першу при застосуванні фільтра
+    };
+    setQuery(newQuery);
+    console.log(searchTerm);
+    console.log(selectedAgeGroupCat);
+    // console.log(setSearchTerm(e.target.value));
   };
+
   const handleRatingSelect = (minRating: number, maxRating: number) => {
     console.log(maxRating);
     setSelectedRating(minRating);
   };
   const handleAgeGroupSelect = (ageGroup: string) => {
     setSelectedAgeGroup(ageGroup);
-    setSelectedRating(0);
+    console.log(ageGroup);
+    setSelectedRating(1);
+  };
+  const handleAgeGroupSelectCat = (title: string) => {
+    setSelectedAgeGroupCat(title);
+    // console.log(title);
+    setSelectedRating(1);
   };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
@@ -82,6 +95,16 @@ const DiscoverPage = () => {
         <option value="children">For children</option>
         <option value="adults">For adults</option>
       </select>
+      <select
+        value={selectedAgeGroupCat}
+        onChange={(e) => handleAgeGroupSelectCat(e.target.value)}
+      >
+        {title.map((category) => (
+          <option key={category._id} value={category.title}>
+            {category.title}
+          </option>
+        ))}
+      </select>
       <div>
         <button onClick={() => handleRatingSelect(1, 1.9)}>1</button>
         <button onClick={() => handleRatingSelect(2, 2.9)}>2</button>
@@ -102,11 +125,18 @@ const DiscoverPage = () => {
               </li>
             ))
           : quizes?.map((quiz) => (
-              <li key={quiz._id}>
-                {quiz.theme}
-                <p>{quiz.rating}</p>
-                <p>{quiz.ageGroup}</p>
-              </li>
+              // <li key={quiz._id}>
+              //   {quiz.theme}
+              //   <p>{quiz.rating}</p>
+              //   <p>{quiz.ageGroup}</p>
+              // </li>
+              <QuizListItem
+                key={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
+              />
             ))}
       </ul>
 

@@ -18,25 +18,7 @@ export type QuizBody = {
   rating: number;
   finished: number | null;
 };
-export type Category = {
-  _id: string;
-  ageGroup: string;
-  title: string;
-};
 
-export type Quiz = {
-  result: QuizBody[];
-  totalQuizes: number;
-};
-
-export type QuizByCategories = {
-  data: QuizBody[];
-  categories: Category[];
-  currentPage: number | null;
-  pageSize: number | null;
-  totalPages: number | null;
-  totalQuizzesCount: number;
-};
 export type Category = {
   _id: string;
   ageGroup: string;

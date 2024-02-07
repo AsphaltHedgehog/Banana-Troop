@@ -14,6 +14,9 @@ interface QueryCategories {
   page: number;
   pageSize: number;
   rating: number;
+  finished: number | null;
+  inputText: string | null;
+  title: string;
 }
 
 export const fetchQuizesThunk = createAsyncThunk<
@@ -74,7 +77,8 @@ export const fetchCategoriesThunk = createAsyncThunk<
 >("fetchCategories", async (query, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
-    const { ageGroup, page, pageSize, rating } = query;
+    const { ageGroup, page, pageSize, rating, finished, title, inputText } =
+      query;
 
     const { data } = await instance.get("quizes/category", {
       //   headers: {
@@ -85,6 +89,9 @@ export const fetchCategoriesThunk = createAsyncThunk<
         page,
         pageSize,
         rating,
+        finished,
+        title,
+        inputText,
       },
     });
     return data as QuizByCategories;
