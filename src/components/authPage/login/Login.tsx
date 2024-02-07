@@ -1,7 +1,13 @@
-import { RegisterButton } from "../../../shared/buttons/RegisterButton";
+// import { useDispatch } from "react-redux";
+// import { RegisterButton } from "../../../shared/buttons/RegisterButton";
+// import { loginThunk } from "../../../redux/auth/operations";
 
 const Login: React.FC = () => {
-  const handleSubmit = () => {};
+  // const dispatch = useDispatch();
+
+  // const handleSubmit = (data) => {
+  // dispatch(loginThunk(data));
+  // };
 
   return (
     <div>
@@ -9,7 +15,7 @@ const Login: React.FC = () => {
       <form>
         <input type="email" placeholder="Email" />
         <input type="password" placeholder="Password" />
-        <RegisterButton onSubmit={handleSubmit}>Enter</RegisterButton>
+        {/* <RegisterButton onSubmit={handleSubmit}>Enter</RegisterButton> */}
       </form>
       <a href="#">Restore password</a>
       <a href="#">Register</a>
