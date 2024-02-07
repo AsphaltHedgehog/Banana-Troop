@@ -71,7 +71,7 @@ const QuizListItem = ({
       <StyledCategory>{ageGroup}</StyledCategory>
       <StyledName>{theme}</StyledName>
       <StyledUl>
-        {stars.map((star, index) => (
+        {stars.map((_star, index) => (
           <li key={index}>
             {index < Math.floor(rating) ? ( // Перевірка чи номер зірки менше або дорівнює округленому рейтингу
               <StyledRatingSvg
