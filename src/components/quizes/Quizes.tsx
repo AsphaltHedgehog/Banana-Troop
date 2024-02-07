@@ -6,11 +6,28 @@ import {
   StyledP,
   StyledSection,
 } from "./Quizes.styled";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useEffect } from "react";
+import { fetchQuizesThunk } from "../../redux/quiz/operations";
+import { getQuizList } from "../../redux/quiz/selectors";
 
 //need Auth selector here
 const test = false;
 
 const Quizes = () => {
+  const quizes = useAppSelector(getQuizList);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const query = { pageSize: 20 };
+    dispatch(fetchQuizesThunk(query));
+  }, [dispatch]);
+
+  const childrenQuizes = quizes.filter((quiz) => quiz.ageGroup === "children");
+  const adultQuizes = quizes.filter((quiz) => quiz.ageGroup === "adults");
+  console.log(childrenQuizes);
+  console.log(adultQuizes);
+  
   return (
     <StyledSection>
       <div>

@@ -11,26 +11,26 @@ interface AsyncThunkConfig {
 
 interface QueryCategories {
   ageGroup: string;
-  page: number;
-  pageSize: number;
-  rating: number;
-  finished: number | null;
-  inputText: string | null;
-  title: string;
+  page?: number;
+  pageSize?: number;
+  rating?: number;
+  finished?: number | null;
+  inputText?: string | null;
+  title?: string;
 }
 
 export const fetchQuizesThunk = createAsyncThunk<
   Quiz, // Тип, який повертається
   {
-    page: number;
-    pageSize: number;
+    page?: number;
+    pageSize?: number;
   }, // Тип вхідного параметра
   AsyncThunkConfig
 >("fetchAllQuizes", async ({ page, pageSize }, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    const { data } = await instance.get("quizes", {
+    const { data } = await instance.get("quiz", {
       //   headers: {
       //     Authorization: Bearer ${savedToken},
       //   },
@@ -56,7 +56,7 @@ export const fetchQuizesByRatingThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    const { data } = await instance.get("quizes/rating", {
+    const { data } = await instance.get("quiz/rating", {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
@@ -80,7 +80,7 @@ export const fetchCategoriesThunk = createAsyncThunk<
     const { ageGroup, page, pageSize, rating, finished, title, inputText } =
       query;
 
-    const { data } = await instance.get("quizes/category", {
+    const { data } = await instance.get("quiz/category", {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
@@ -110,7 +110,7 @@ export const getQuizByIdThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    const { data } = await instance.get(`quizes/${_id}`, {
+    const { data } = await instance.get(`quiz/${_id}`, {
       //   headers: {
       //     Authorization: `Bearer ${savedToken}`,
       //   },
@@ -159,7 +159,7 @@ export const deleteQuizesThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
-    const { data } = await instance.delete(`quizes/${_id}`, {
+    const { data } = await instance.delete(`quiz/${_id}`, {
       //   headers: {
       //     Authorization: Bearer ${savedToken},
       //   },
@@ -180,7 +180,7 @@ export const updateQuizesThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
     const { _id, ...body } = quiz;
-    const { data } = await instance.put(`quizes/:${_id}`, body, {
+    const { data } = await instance.put(`quiz/:${_id}`, body, {
       //   headers: {
       //     Authorization: Bearer ${savedToken},
       //   },
