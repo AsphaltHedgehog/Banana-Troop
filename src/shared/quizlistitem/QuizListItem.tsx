@@ -13,7 +13,7 @@ import {
   StyledUl,
 } from "./QuizListItem.styled";
 
-interface IQuizListItemProps {
+export interface IQuizListItemProps {
   theme: string;
   rating: number;
   ageGroup: string;
@@ -72,7 +72,9 @@ const QuizListItem = ({
       <StyledCategory>{`${ageGroup.charAt(0).toUpperCase()}${ageGroup.slice(
         1
       )}`}</StyledCategory>
-      <StyledName>{theme}</StyledName>
+      <StyledName>
+        {theme.length > 15 ? theme.slice(0, 15) + "..." : theme}
+      </StyledName>
       <StyledUl>
         {stars.map((_star, index) => (
           <li key={index}>{_star}</li>
