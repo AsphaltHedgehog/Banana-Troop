@@ -49,7 +49,7 @@ const CreateQuizPage = () => {
           typeof response.payload !== "string" &&
           response.payload !== undefined
         ) {
-          setEditingQuiz(response.payload);
+          // setEditingQuiz(response.payload);
         }
       });
     }
