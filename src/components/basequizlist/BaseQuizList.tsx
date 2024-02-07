@@ -44,12 +44,12 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
     <>
       {width < breakpointsNumbers.tablet ? (
         <Slider {...settingsMobile}>
-          {array.map((item) => (
+          {array.map((quiz) => (
             <QuizListItem
-              theme={item.theme}
-              rating={item.rating}
-              ageGroup={item.ageGroup}
-              finished={item.finished}
+              theme={quiz.theme}
+              rating={quiz.rating}
+              ageGroup={quiz.ageGroup}
+              finished={quiz.finished}
             />
           ))}
         </Slider>

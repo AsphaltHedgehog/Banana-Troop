@@ -10,12 +10,11 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect } from "react";
 import { fetchQuizesThunk } from "../../redux/quiz/operations";
 import { getQuizList } from "../../redux/quiz/selectors";
-
-//need Auth selector here
-const test = false;
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 
 const Quizes = () => {
   const quizes = useAppSelector(getQuizList);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Adult filter */}
           {/* If not Auth, Redirect to QuizListPage with Adult filter */}
           <StyledNavLink
-            to={test ? "/discover?category=adult" : "/randomQuiz?adults"}
+            to={isLoggedIn ? "/discover?category=adult" : "/randomQuiz?adults"}
           >
             See all
           </StyledNavLink>
@@ -60,7 +59,11 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Children filter */}
           {/* If not Auth, Redirect to QuizListPage with Children filter */}
           <StyledNavLink
-            to={test ? "/discover?category=children" : "/randomQuiz?children"}
+            to={
+              isLoggedIn
+                ? "/discover?category=children"
+                : "/randomQuiz?children"
+            }
           >
             See all
           </StyledNavLink>

@@ -73,7 +73,7 @@ const QuizListItem = ({
         1
       )}`}</StyledCategory>
       <StyledName>
-        {theme.length > 17 ? theme.slice(0, 17) + "..." : theme}
+        {theme.length > 15 ? theme.slice(0, 15) + "..." : theme}
       </StyledName>
       <StyledUl>
         {stars.map((_star, index) => (
