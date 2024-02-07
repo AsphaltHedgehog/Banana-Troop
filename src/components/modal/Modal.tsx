@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 
 interface ModalProps {
   children: React.ReactNode;
+  endAnimation?: boolean;
+  setEndAnimation?: React.Dispatch<React.SetStateAction<boolean>>;
   closeModal: () => void;
 }
 
