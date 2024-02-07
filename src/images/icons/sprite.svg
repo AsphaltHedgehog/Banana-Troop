@@ -92,5 +92,8 @@
 <symbol id="long-right" viewBox="0 0 32 32">
 <path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M23 11l5 5M28 16l-5 5M28 16h-24"></path>
 </symbol>
+<symbol id="icon-align-justify" viewBox="0 0 32 32">
+      <path fill="none" stroke="#f4f4f4" style="stroke:var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" d="M28 13.333H4M28 8H4M28 18.667H4M28 24H4"/>
+    </symbol>
 </defs>
 </svg>
