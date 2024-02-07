@@ -15,30 +15,28 @@ import {
 
 const Hero: React.FC = () => {
   return (
-    <StyledBgrImg>
-      <StyledSection>
-        <StyledWrapper>
-          <StyledText>Hello visitor!</StyledText>
-          <StyledText2>
-            On the site you will find quizzes and quizzes with various types of
-            questions: cinema, music, logic and others. Quizzes differ in the
-            degreeof difficulty of questions, the number and type of questions.
-          </StyledText2>
-          <StyledUl>
-            <li>
-              <ChooseButton link="/">Choose a test</ChooseButton>
-            </li>
-            <li>
-              <CreateButton link="/">Create a quest</CreateButton>
-            </li>
-          </StyledUl>
-        </StyledWrapper>
-        <StyledTitle>
-          Are you ready to <br />
-          take the Quiz?
-        </StyledTitle>
-      </StyledSection>
-    </StyledBgrImg>
+    <StyledSection>
+      <StyledWrapper>
+        <StyledText>Hello visitor!</StyledText>
+        <StyledText2>
+          On the site you will find quizzes and quizzes with various types of
+          questions: cinema, music, logic and others. Quizzes differ in the
+          degreeof difficulty of questions, the number and type of questions.
+        </StyledText2>
+        <StyledUl>
+          <li>
+            <ChooseButton link="/">Choose a test</ChooseButton>
+          </li>
+          <li>
+            <CreateButton link="/">Create a quest</CreateButton>
+          </li>
+        </StyledUl>
+      </StyledWrapper>
+      <StyledTitle>
+        Are you ready to <br />
+        take the Quiz?
+      </StyledTitle>
+    </StyledSection>
   );
 };
 

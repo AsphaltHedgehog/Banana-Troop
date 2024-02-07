@@ -19,21 +19,24 @@ import splash_desktop2x_wbp from "../../images/hero/splash_desktop2x.webp";
 const { tablet, desktop } = breakpoints;
 
 export const StyledBgrImg = styled.section`
-  background-image: image-set(
+  /* background-image: image-set(
     url(${splash_mobi1x_wbp}) type("image/webp") 1x,
     url(${splash_mobi2x_wbp}) type("image/webp") 2x,
     url(${splash_mobi1x}) type("image/png") 1x,
     url(${splash_mobi2x}) type("image/png") 2x
-  );
+  ); */
   background-repeat: no-repeat;
-  transform: rotate(-2deg);
-  background-size: 643px 670px;
-  /* background-position: bottom -145px right 8px; */
+  /* background-position: bottom -2px right 2px; */
+  /* background-image: radial-gradient(circle, #ff0000, #0000ff); */
+
+  /* transform: rotate(-2deg); */
+  /* background-size: 643px 670px; */
+  /* background-position: top -30px left 30px; */
   margin: 0 auto;
 
-  max-width: 335px;
+  max-width: 643px;
 
-  @media screen and (min-width: 768px) {
+  /* @media screen and (min-width: 768px) {
     background-image: image-set(
       url(${splash_tablet1x_wbp}) type("image/webp") 1x,
       url(${splash_tablet2x_wbp}) type("image/webp") 2x,
@@ -41,26 +44,23 @@ export const StyledBgrImg = styled.section`
       url(${splash_tablet2x}) type("image/png") 2x
     );
     background-size: 926px 965px;
+    max-width: 926px;
+  } */
 
-    max-width: 704px;
-  }
-
-  @media screen and (min-width: 1440px) {
+  /* @media screen and (min-width: 1440px) {
     background-image: image-set(
       url(${splash_desktop1x_wbp}) type("image/webp") 1x,
       url(${splash_desktop2x_wbp}) type("image/webp") 2x,
       url(${splash_desktop1x}) type("image/png") 1x,
       url(${splash_desktop2x}) type("image/png") 2x
     );
+    background-position: top -112px left 400px;
     background-size: 1070px 1115px;
-    background-position: bottom -2px right 2px;
-    max-width: 1240px;
-  }
+    max-width: 1070px;
+  } */
 `;
 
-export const StyledSection = styled.section`
-  transform: rotate(2deg);
-`;
+export const StyledSection = styled.section``;
 
 export const StyledUl = styled.ul`
   margin-top: 32px;
@@ -74,6 +74,7 @@ export const StyledWrapper = styled.div`
   text-align: left;
   padding-top: 214px;
   max-width: 397px;
+  z-index: 2;
 `;
 
 export const StyledTitle = styled.h1`
