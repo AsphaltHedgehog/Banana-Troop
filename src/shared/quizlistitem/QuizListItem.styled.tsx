@@ -5,7 +5,7 @@ import Svg from "../svg/Svg";
 
 const { tablet, desktop } = breakpoints;
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.li`
   display: flex;
   flex-direction: column;
 
@@ -97,7 +97,7 @@ export const StyledUl = styled.ul`
 `;
 
 export const StyledRatingSvg = styled(Svg)`
-  fill: rgba(244, 244, 244, 0.08);
+  fill: rgba(250, 248, 248, 0.938);
   stroke-width: 0;
 `;
 

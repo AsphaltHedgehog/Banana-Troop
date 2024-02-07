@@ -5,7 +5,7 @@ import {
   StyledUl,
   StyledBox,
 } from "./RandomQuizPage.styled";
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+// import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import CreateQuizCard from "../../shared/createquizcard/CreateQuizCard";
 
 const RandomQuizPage = () => {
@@ -22,6 +22,7 @@ const RandomQuizPage = () => {
       </StyledP>
       <StyledUl>
         <CreateQuizCard />
+        {/* <QuizListItem />
         <QuizListItem />
         <QuizListItem />
         <QuizListItem />
@@ -29,8 +30,7 @@ const RandomQuizPage = () => {
         <QuizListItem />
         <QuizListItem />
         <QuizListItem />
-        <QuizListItem />
-        <QuizListItem />
+        <QuizListItem /> */}
       </StyledUl>
     </StyledBox>
   );

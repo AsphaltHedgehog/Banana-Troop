@@ -14,6 +14,9 @@ interface QueryCategories {
   page: number;
   pageSize: number;
   rating: number;
+  finished: number | null;
+  inputText: string | null;
+  title: string;
 }
 
 export const fetchQuizesThunk = createAsyncThunk<
@@ -29,7 +32,7 @@ export const fetchQuizesThunk = createAsyncThunk<
 
     const { data } = await instance.get("quizes", {
       //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
+      //     Authorization: Bearer ${savedToken},
       //   },
       params: {
         page,
@@ -74,7 +77,8 @@ export const fetchCategoriesThunk = createAsyncThunk<
 >("fetchCategories", async (query, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
-    const { ageGroup, page, pageSize, rating } = query;
+    const { ageGroup, page, pageSize, rating, finished, title, inputText } =
+      query;
 
     const { data } = await instance.get("quizes/category", {
       //   headers: {
@@ -85,6 +89,9 @@ export const fetchCategoriesThunk = createAsyncThunk<
         page,
         pageSize,
         rating,
+        finished,
+        title,
+        inputText,
       },
     });
     return data as QuizByCategories;
@@ -130,7 +137,7 @@ export const addQuizesThunk = createAsyncThunk<
       { theme, ageGroup },
       {
         // headers: {
-        //   Authorization: `Bearer ${savedToken}`,
+        //   Authorization: Bearer ${savedToken},
         // },
       }
     );
@@ -154,7 +161,7 @@ export const deleteQuizesThunk = createAsyncThunk<
 
     const { data } = await instance.delete(`quizes/${_id}`, {
       //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
+      //     Authorization: Bearer ${savedToken},
       //   },
     });
     return data;
@@ -175,7 +182,7 @@ export const updateQuizesThunk = createAsyncThunk<
     const { _id, ...body } = quiz;
     const { data } = await instance.put(`quizes/:${_id}`, body, {
       //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
+      //     Authorization: Bearer ${savedToken},
       //   },
     });
     return data as QuizBody;

@@ -1,4 +1,4 @@
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+// import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -39,11 +39,11 @@ const BaseQuizList = () => {
     <>
       {width < breakpointsNumbers.tablet ? (
         <Slider {...settingsMobile}>
+          {/* <QuizListItem />
           <QuizListItem />
           <QuizListItem />
           <QuizListItem />
-          <QuizListItem />
-          <QuizListItem />
+          <QuizListItem /> */}
         </Slider>
       ) : (
         <></>
@@ -53,7 +53,7 @@ const BaseQuizList = () => {
       width >= breakpointsNumbers.tablet ? (
         <StyledContainer>
           <Slider {...settingsTablet}>
-            <QuizListItem />
+            {/* <QuizListItem />
 
             <QuizListItem />
 
@@ -61,7 +61,7 @@ const BaseQuizList = () => {
 
             <QuizListItem />
 
-            <QuizListItem />
+            <QuizListItem /> */}
           </Slider>
         </StyledContainer>
       ) : (
@@ -71,11 +71,11 @@ const BaseQuizList = () => {
       {width >= breakpointsNumbers.desktop ? (
         <StyledContainer>
           <Slider {...settingsDesktop}>
+            {/* <QuizListItem />
             <QuizListItem />
             <QuizListItem />
             <QuizListItem />
-            <QuizListItem />
-            <QuizListItem />
+            <QuizListItem /> */}
           </Slider>
         </StyledContainer>
       ) : (
