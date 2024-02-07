@@ -38,7 +38,10 @@ const CreateQuizForm = ({
         ageGroup: "children",
       };
       const response = await dispatch(addQuizesThunk(requestData)).unwrap();
-      setEditingQuiz(response);
+      setEditingQuiz({
+        ...response,
+        finished: response.finished as number,
+      });
       setQuizId(response._id);
       setAfterCreate(true);
       reset();
