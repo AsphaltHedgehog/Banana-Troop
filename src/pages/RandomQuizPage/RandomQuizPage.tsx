@@ -5,7 +5,7 @@ import {
   StyledUl,
   StyledBox,
 } from "./RandomQuizPage.styled";
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+// import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import CreateQuizCard from "../../shared/createquizcard/CreateQuizCard";
 
 const RandomQuizPage = () => {
