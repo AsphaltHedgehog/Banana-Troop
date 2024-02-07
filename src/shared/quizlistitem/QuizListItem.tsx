@@ -13,7 +13,7 @@ import {
   StyledUl,
 } from "./QuizListItem.styled";
 
-interface IQuizListItemProps {
+export interface IQuizListItemProps {
   theme: string;
   rating: number;
   ageGroup: string;

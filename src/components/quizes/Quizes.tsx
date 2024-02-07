@@ -25,9 +25,8 @@ const Quizes = () => {
 
   const childrenQuizes = quizes.filter((quiz) => quiz.ageGroup === "children");
   const adultQuizes = quizes.filter((quiz) => quiz.ageGroup === "adults");
-  console.log(childrenQuizes);
-  console.log(adultQuizes);
-  
+  const normalizedLength = Math.min(childrenQuizes.length, adultQuizes.length);
+
   return (
     <StyledSection>
       <div>
@@ -47,7 +46,7 @@ const Quizes = () => {
             See all
           </StyledNavLink>
         </StyledContainer>
-        <BaseQuizList />
+        <BaseQuizList array={adultQuizes.slice(0, normalizedLength)} />
       </div>
       <div>
         <StyledH2>For Children</StyledH2>
@@ -66,7 +65,7 @@ const Quizes = () => {
             See all
           </StyledNavLink>
         </StyledContainer>
-        <BaseQuizList />
+        <BaseQuizList array={childrenQuizes.slice(0, normalizedLength)} />
       </div>
     </StyledSection>
   );
