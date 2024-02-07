@@ -22,6 +22,7 @@ const RandomQuizPage = () => {
       </StyledP>
       <StyledUl>
         <CreateQuizCard />
+        {/* <QuizListItem />
         <QuizListItem />
         <QuizListItem />
         <QuizListItem />
@@ -29,8 +30,7 @@ const RandomQuizPage = () => {
         <QuizListItem />
         <QuizListItem />
         <QuizListItem />
-        <QuizListItem />
-        <QuizListItem />
+        <QuizListItem /> */}
       </StyledUl>
     </StyledBox>
   );
