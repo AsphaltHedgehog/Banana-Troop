@@ -35,6 +35,22 @@ const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
+    setAddedCategory: (state, { payload }) => {
+      state.list.push(payload);
+    },
+    setEditedCategory: (state, { payload }) => {
+      const index = state.list.findIndex(
+        (category) => category._id.$oid === payload._id.$oid
+      );
+      if (index !== -1) {
+        state.list[index] = payload;
+      }
+    },
+    setDeletedCategory: (state, { payload }) => {
+      state.list = state.list.filter(
+        (category) => category._id.$oid !== payload
+      );
+    },
     updateFormOptions: (state, action) => {
       state.formUpdateOptions = {
         ...state.formUpdateOptions,
@@ -68,5 +84,10 @@ const categoriesSlice = createSlice({
   },
 });
 
-export const { updateFormOptions } = categoriesSlice.actions;
+export const {
+  setAddedCategory,
+  setEditedCategory,
+  setDeletedCategory,
+  updateFormOptions,
+} = categoriesSlice.actions;
 export const categoriesReducer = categoriesSlice.reducer;

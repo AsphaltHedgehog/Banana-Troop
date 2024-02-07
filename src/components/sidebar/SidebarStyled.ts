@@ -52,6 +52,7 @@ export const CreateBtnListContainer = styled.div`
 
 export const CreateBtn = styled.button`
   border: 1px solid rgba(244, 244, 244, 0.6);
+  color: white;
   border-radius: 30px;
   padding: 15px 18px;
   display: flex;
@@ -69,12 +70,13 @@ export const CreateListContainer = styled.div`
   position: relative;
   border-radius: 15px;
   background-color: #205bf1;
+
   button {
     display: flex;
     width: 267px;
     justify-content: space-between;
     align-items: center;
-
+    color: white;
     background-color: transparent;
     cursor: pointer;
   }

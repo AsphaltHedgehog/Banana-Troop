@@ -50,6 +50,9 @@ export const ColorfulSpans = styled.div<ColorfulSpansProps>`
       appearance: none;
       transition: all 0.3s;
     }
+    input[type="radio"]:checked + span {
+      border: 1px solid white;
+    }
     span {
       border-radius: 100%;
       display: block;
@@ -64,5 +67,17 @@ export const ColorfulSpans = styled.div<ColorfulSpansProps>`
         border: 2px solid #fff;
       }
     }
+  }
+`;
+
+export const CategoryBtn = styled.button`
+  border-radius: 30px;
+  border: none;
+  color: white;
+  padding: 15px 18px;
+  background-color: transparent;
+  &:active,
+  &:focus {
+    outline: none;
   }
 `;

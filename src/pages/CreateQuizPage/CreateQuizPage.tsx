@@ -41,9 +41,9 @@ const CreateQuizPage = () => {
   useEffect(() => {
     if (quizId && !afterCreate) {
       dispatch(getQuizByIdThunk(quizId)).then((response) => {
-        // if (response.meta.requestStatus === "rejected") {
-        //   return console.log("Congratulations on creating a quiz!");
-        // }
+        if (response.meta.requestStatus === "rejected") {
+          return console.log("Congratulations on creating a quiz!");
+        }
         if (
           response.meta.requestStatus === "fulfilled" &&
           typeof response.payload !== "string" &&
@@ -55,8 +55,13 @@ const CreateQuizPage = () => {
     }
   }, [quizId, dispatch, afterCreate]);
 
-  console.log(editingQuiz);
-  console.log(quizId);
+  // const handleUpdateOrDelete = () => {
+  //   setQuizId('');
+
+  //   setAfterCreate(false);
+
+  //   setEditingQuiz(undefined);
+  // };
 
   return (
     <StyledCommonWrapper>
