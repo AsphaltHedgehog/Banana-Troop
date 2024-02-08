@@ -37,3 +37,9 @@ export const CreateQuizTitle = styled.h1`
     letter-spacing: -0.01em;
   }
 `;
+
+export const CreateQuizTabletWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;

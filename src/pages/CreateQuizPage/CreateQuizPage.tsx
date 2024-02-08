@@ -96,24 +96,26 @@ const CreateQuizPage = () => {
             <div>
               <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
-              {quizId && editingQuiz ? (
-                <UpdateQuizForm
-                  editingQuiz={editingQuiz}
-                  setAfterCreate={setAfterCreate}
+              <div>
+                {quizId && editingQuiz ? (
+                  <UpdateQuizForm
+                    editingQuiz={editingQuiz}
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                  />
+                ) : (
+                  <CreateQuizForm
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                    setEditingQuiz={setEditingQuiz}
+                  />
+                )}
+                <QuestionData
                   setQuizId={setQuizId}
+                  quizId={quizId}
+                  formatQuiz={formatQuiz}
                 />
-              ) : (
-                <CreateQuizForm
-                  setAfterCreate={setAfterCreate}
-                  setQuizId={setQuizId}
-                  setEditingQuiz={setEditingQuiz}
-                />
-              )}
-              <QuestionData
-                setQuizId={setQuizId}
-                quizId={quizId}
-                formatQuiz={formatQuiz}
-              />
+              </div>
               <QuizOptions editingQuiz={editingQuiz} />
             </div>
           ) : (
