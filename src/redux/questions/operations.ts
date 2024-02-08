@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Questions } from "./slice";
-import { instance } from "../fetchInstance";
 import { AppDispatch, RootState } from "../store";
+import { quizApi } from "../auth/operations";
 
 interface AsyncThunkConfig {
   state: RootState;
@@ -9,17 +9,23 @@ interface AsyncThunkConfig {
   rejectValue: string;
 }
 
+interface IImage {
+  _id: string;
+  imageUrl: string;
+}
+
 export const addedQuestionByQuizThunk = createAsyncThunk<
   Questions,
-  Questions<Omit<Questions, "_id">>,
+  Questions,
   AsyncThunkConfig
 >("addedQuestionByQuiz", async (body, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
-    const { data } = await instance.post("quiz/question", body, {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+    const savedToken = thunkApi.getState().auth.token;
+    const { _id, ...question } = body;
+    const { data } = await quizApi.post(`/quiz/question${_id}`, question, {
+      headers: {
+        Authorization: `Bearer ${savedToken}`,
+      },
     });
     // thunkApi.dispatch(fetchQuestionsByQuizThunk());
     return data.createdQuizQuestion; //return object
@@ -36,11 +42,11 @@ export const deleteQuestionByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deletedQuestionById", async (_id, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
-    const { data } = await instance.delete(`quiz/question${_id}`, {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+    const savedToken = thunkApi.getState().auth.token;
+    const { data } = await quizApi.delete(`/quiz/question${_id}`, {
+      headers: {
+        Authorization: `Bearer ${savedToken}`,
+      },
     });
     // thunkApi.dispatch(fetchQuestionsByQuizThunk());
     return data;
@@ -57,16 +63,45 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   AsyncThunkConfig
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
-    //   const savedToken = thunkApi.getState().auth.accessToken;
+    const savedToken = thunkApi.getState().auth.token;
 
     const { _id, ...body } = question;
-    const { data } = await instance.patch(`quiz/question${_id}`, body, {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
+    const { data } = await quizApi.patch(`/quiz/question${_id}`, body, {
+      headers: {
+        Authorization: `Bearer ${savedToken}`,
+      },
     });
 
     return data;
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});
+
+export const updateQuizQuestionImgByIdThunk = createAsyncThunk<
+  string, // Тип, який повертається
+  IImage, // Тип вхідного параметра
+  AsyncThunkConfig
+>("updatedQuestionImgByQuestionId", async (questionFile, thunkApi) => {
+  try {
+    const { _id, imageUrl } = questionFile;
+    const formData = new FormData();
+    formData.append("questionPoster", imageUrl);
+
+    const savedToken = thunkApi.getState().auth.token;
+
+    const { data } = await quizApi.patch(
+      `/quiz/question/img/${_id}`,
+      imageUrl,
+      {
+        headers: {
+          Authorization: `Bearer ${savedToken}`,
+        },
+      }
+    );
+    return data.data.imageUrl as string;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
@@ -80,12 +115,12 @@ export const deleteQuizQuestionImgByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deletedQuestionImgByQuestionId", async (_id, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    const savedToken = thunkApi.getState().auth.token;
 
-    const { data } = await instance.delete(`quiz/question/img/${_id}`, {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+    const { data } = await quizApi.delete(`/quiz/question/img/${_id}`, {
+      headers: {
+        Authorization: `Bearer ${savedToken}`,
+      },
     });
     return data;
   } catch (error: unknown) {
