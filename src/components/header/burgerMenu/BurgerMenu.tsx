@@ -3,13 +3,13 @@ import { useModal } from "../../../hooks/useModal";
 import sprite from "../../../images/icons/sprite.svg";
 import { SvgBurgerMenu } from "../wholeComponent/Header.styled";
 import Modal from "../../modal/Modal";
-
+import Nav from "../nav/Nav";
 export interface BurgerMenuProps {
   endAnimation?: boolean;
   setEndAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BurgerMenu = ({ endAnimation, setEndAnimation }: BurgerMenuProps) => {
+const BurgerMenu = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   //   const openMenuModal = (): void => {
@@ -24,18 +24,11 @@ const BurgerMenu = ({ endAnimation, setEndAnimation }: BurgerMenuProps) => {
     <>
       {isOpen ? (
         <>
-          <SvgBurgerMenu onClick={closeModal}>
-            <use xlinkHref={`${sprite}#icon-x`}></use>
-          </SvgBurgerMenu>
-          <Modal
-            closeModal={closeModal}
-            endAnimation={endAnimation}
-            setEndAnimation={setEndAnimation}
-          >
-            <nav>
-              <div>Register</div>
-              <div>Login</div>
-            </nav>
+          <Modal closeModal={closeModal}>
+            <SvgBurgerMenu onClick={closeModal}>
+              <use xlinkHref={`${sprite}#icon-x`}></use>
+            </SvgBurgerMenu>
+            <Nav closeModal={closeModal} />
           </Modal>
         </>
       ) : (
