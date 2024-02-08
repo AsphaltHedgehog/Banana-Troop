@@ -1,14 +1,24 @@
 import React from "react";
-import { StyledSection, StyledWrapper } from "./SectionButton.styled";
+import {
+  StyledList,
+  StyledListItem,
+  StyledSection,
+} from "./SectionButton.styled";
 
 const SectionButton: React.FC = () => {
   return (
     <StyledSection>
-      <StyledWrapper>
-        <button>Own platform</button>
-        <button>Create exclusive quests</button>
-        <button>Large assortment of quizzes</button>
-      </StyledWrapper>
+      <StyledList>
+        <StyledListItem>
+          <a href="">Own platform</a>
+        </StyledListItem>
+        <StyledListItem>
+          <a href="">Create exclusive quests</a>
+        </StyledListItem>
+        <StyledListItem>
+          <a href="">Create exclusive quests</a>
+        </StyledListItem>
+      </StyledList>
     </StyledSection>
   );
 };

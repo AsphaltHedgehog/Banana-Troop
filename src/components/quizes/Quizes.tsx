@@ -6,11 +6,26 @@ import {
   StyledP,
   StyledSection,
 } from "./Quizes.styled";
-
-//need Auth selector here
-const test = false;
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useEffect } from "react";
+import { fetchQuizesThunk } from "../../redux/quiz/operations";
+import { getQuizList } from "../../redux/quiz/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 
 const Quizes = () => {
+  const quizes = useAppSelector(getQuizList);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const query = { pageSize: 20 };
+    dispatch(fetchQuizesThunk(query));
+  }, [dispatch]);
+
+  const childrenQuizes = quizes.filter((quiz) => quiz.ageGroup === "children");
+  const adultQuizes = quizes.filter((quiz) => quiz.ageGroup === "adults");
+  const normalizedLength = Math.min(childrenQuizes.length, adultQuizes.length);
+
   return (
     <StyledSection>
       <div>
@@ -25,12 +40,12 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Adult filter */}
           {/* If not Auth, Redirect to QuizListPage with Adult filter */}
           <StyledNavLink
-            to={test ? "/discover?category=adult" : "/randomQuiz?adults"}
+            to={isLoggedIn ? "/discover?category=adult" : "/randomQuiz?adults"}
           >
             See all
           </StyledNavLink>
         </StyledContainer>
-        <BaseQuizList />
+        <BaseQuizList array={adultQuizes.slice(0, normalizedLength)} />
       </div>
       <div>
         <StyledH2>For Children</StyledH2>
@@ -44,12 +59,16 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Children filter */}
           {/* If not Auth, Redirect to QuizListPage with Children filter */}
           <StyledNavLink
-            to={test ? "/discover?category=children" : "/randomQuiz?children"}
+            to={
+              isLoggedIn
+                ? "/discover?category=children"
+                : "/randomQuiz?children"
+            }
           >
             See all
           </StyledNavLink>
         </StyledContainer>
-        <BaseQuizList />
+        <BaseQuizList array={childrenQuizes.slice(0, normalizedLength)} />
       </div>
     </StyledSection>
   );

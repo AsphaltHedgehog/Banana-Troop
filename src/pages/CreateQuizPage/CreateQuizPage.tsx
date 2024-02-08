@@ -41,22 +41,27 @@ const CreateQuizPage = () => {
   useEffect(() => {
     if (quizId && !afterCreate) {
       dispatch(getQuizByIdThunk(quizId)).then((response) => {
-        // if (response.meta.requestStatus === "rejected") {
-        //   return console.log("Congratulations on creating a quiz!");
-        // }
+        if (response.meta.requestStatus === "rejected") {
+          return console.log("Congratulations on creating a quiz!");
+        }
         if (
           response.meta.requestStatus === "fulfilled" &&
           typeof response.payload !== "string" &&
           response.payload !== undefined
         ) {
-          setEditingQuiz(response.payload);
+          // setEditingQuiz(response.payload);
         }
       });
     }
   }, [quizId, dispatch, afterCreate]);
 
-  console.log(editingQuiz);
-  console.log(quizId);
+  // const handleUpdateOrDelete = () => {
+  //   setQuizId('');
+
+  //   setAfterCreate(false);
+
+  //   setEditingQuiz(undefined);
+  // };
 
   return (
     <StyledCommonWrapper>
@@ -91,24 +96,26 @@ const CreateQuizPage = () => {
             <div>
               <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
-              {quizId && editingQuiz ? (
-                <UpdateQuizForm
-                  editingQuiz={editingQuiz}
-                  setAfterCreate={setAfterCreate}
+              <div>
+                {quizId && editingQuiz ? (
+                  <UpdateQuizForm
+                    editingQuiz={editingQuiz}
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                  />
+                ) : (
+                  <CreateQuizForm
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                    setEditingQuiz={setEditingQuiz}
+                  />
+                )}
+                <QuestionData
                   setQuizId={setQuizId}
+                  quizId={quizId}
+                  formatQuiz={formatQuiz}
                 />
-              ) : (
-                <CreateQuizForm
-                  setAfterCreate={setAfterCreate}
-                  setQuizId={setQuizId}
-                  setEditingQuiz={setEditingQuiz}
-                />
-              )}
-              <QuestionData
-                setQuizId={setQuizId}
-                quizId={quizId}
-                formatQuiz={formatQuiz}
-              />
+              </div>
               <QuizOptions editingQuiz={editingQuiz} />
             </div>
           ) : (

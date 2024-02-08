@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useMediaQuery } from "react-responsive";
 import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { formUpdateOptions } from "../../redux/categories/selectors";
+import { formUpdateOptions } from "../../redux/updateOptions/selectors";
 import {
   deleteQuizesThunk,
   updateQuizesThunk,
@@ -55,16 +55,17 @@ const UpdateQuizForm = ({
       const { ratingQuantity, rating, finished } = editingQuiz;
 
       const { ageGroup, background, category } = selectOptionsForEditing;
+      const categoryId = category.map((category) => category._id);
 
       const editedQuiz: QuizParams = {
-        ageGroup: ageGroup,
-        background: background,
-        category: category,
         theme: data.theme,
-        _id: editingQuiz._id,
+        category: categoryId,
+        background: background,
+        ageGroup: ageGroup,
         ratingQuantity: ratingQuantity,
         rating: rating,
         finished: finished,
+        _id: editingQuiz._id,
       };
 
       dispatch(updateQuizesThunk(editedQuiz))

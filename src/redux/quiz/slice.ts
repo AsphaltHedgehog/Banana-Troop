@@ -16,8 +16,9 @@ export type QuizBody = {
   ageGroup: string;
   ratingQuantity: number;
   rating: number;
-  finished: number;
+  finished: number | null;
 };
+
 export type Category = {
   _id: string;
   ageGroup: string;

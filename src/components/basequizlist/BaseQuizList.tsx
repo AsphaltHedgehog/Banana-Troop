@@ -1,4 +1,3 @@
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -6,8 +5,19 @@ import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "./BaseQuizList.styled";
 import "./customdots.css";
 import { breakpointsNumbers } from "../../styles";
+import QuizListItem, {
+  IQuizListItemProps,
+} from "../../shared/quizlistitem/QuizListItem";
 
-const BaseQuizList = () => {
+interface IQuizListItem extends IQuizListItemProps {
+  _id: string;
+}
+
+interface IBaseQuizList {
+  array: IQuizListItem[];
+}
+
+const BaseQuizList = ({ array }: IBaseQuizList) => {
   const width = useWidth();
 
   const settingsMobile = {
@@ -39,11 +49,15 @@ const BaseQuizList = () => {
     <>
       {width < breakpointsNumbers.tablet ? (
         <Slider {...settingsMobile}>
-          <QuizListItem />
-          <QuizListItem />
-          <QuizListItem />
-          <QuizListItem />
-          <QuizListItem />
+          {array.map((quiz) => (
+            <QuizListItem
+              key={quiz._id}
+              theme={quiz.theme}
+              rating={quiz.rating}
+              ageGroup={quiz.ageGroup}
+              finished={quiz.finished}
+            />
+          ))}
         </Slider>
       ) : (
         <></>
@@ -53,15 +67,15 @@ const BaseQuizList = () => {
       width >= breakpointsNumbers.tablet ? (
         <StyledContainer>
           <Slider {...settingsTablet}>
-            <QuizListItem />
-
-            <QuizListItem />
-
-            <QuizListItem />
-
-            <QuizListItem />
-
-            <QuizListItem />
+            {array.map((quiz) => (
+              <QuizListItem
+                key={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
+              />
+            ))}
           </Slider>
         </StyledContainer>
       ) : (
@@ -71,11 +85,15 @@ const BaseQuizList = () => {
       {width >= breakpointsNumbers.desktop ? (
         <StyledContainer>
           <Slider {...settingsDesktop}>
-            <QuizListItem />
-            <QuizListItem />
-            <QuizListItem />
-            <QuizListItem />
-            <QuizListItem />
+            {array.map((quiz) => (
+              <QuizListItem
+                key={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
+              />
+            ))}
           </Slider>
         </StyledContainer>
       ) : (

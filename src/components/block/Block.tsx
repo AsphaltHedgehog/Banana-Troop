@@ -1,8 +1,12 @@
 import { ChooseButton } from "../../shared/buttons/chooseQuizBtn";
 import { CreateButton } from "../../shared/buttons/createQuizBtn";
 import { StyledP, StyledSection, StyledTitle, StyledUl } from "./Block.styled";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { useAppSelector } from "../../redux/hooks";
 
 const Block = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+
   return (
     <StyledSection>
       <StyledTitle>Joins, pass quizzes or create them</StyledTitle>
@@ -14,10 +18,14 @@ const Block = () => {
       </StyledP>
       <StyledUl>
         <li>
-          <ChooseButton link="/">Choose a test</ChooseButton>
+          <ChooseButton
+            link={isLoggedIn ? "/discover" : "/randomQuiz?children"}
+          >
+            Choose a test
+          </ChooseButton>
         </li>
         <li>
-          <CreateButton link="/">Create a quest</CreateButton>
+          <CreateButton >Create a quest</CreateButton>
         </li>
       </StyledUl>
     </StyledSection>

@@ -32,8 +32,13 @@
     <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.6667"
         d="M16 20c2.209 0 4-1.791 4-4s-1.791-4-4-4c-2.209 0-4 1.791-4 4s1.791 4 4 4z"></path>
 </symbol>
+    <symbol id="icon-x" viewBox="0 0 32 32">
+      <path fill="none" stroke="#f4f4f4" style="stroke:var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" d="M24 8 8 24M8 8l16 16"/>
+    </symbol>
 <symbol id="icon-close" viewBox="0 0 32 32">
-    <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.2857" d="M24 8l-16 16">
+    <path stroke-linejoin="round" stroke-linecap="round" 
+    fill="white"
+    stroke-miterlimit="4" stroke-width="2.2857" d="M24 8l-16 16">
     </path>
     <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.2857" d="M8 8l16 16">
     </path>
@@ -92,5 +97,8 @@
 <symbol id="long-right" viewBox="0 0 32 32">
 <path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333" d="M23 11l5 5M28 16l-5 5M28 16h-24"></path>
 </symbol>
+<symbol id="icon-open" viewBox="0 0 32 32">
+      <path fill="none" stroke="#f4f4f4" style="stroke:var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" d="M28 13.333H4M28 8H4M28 18.667H4M28 24H4"/>
+    </symbol>
 </defs>
 </svg>

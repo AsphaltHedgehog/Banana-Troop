@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { StyledCreateBtn } from "../buttons/styledButton";
+import { StyledStartBtn } from "../buttons/styledButton";
 import { breakpoints } from "../../styles";
 import Svg from "../svg/Svg";
 
 const { tablet, desktop } = breakpoints;
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.li`
   display: flex;
   flex-direction: column;
 
@@ -97,11 +97,12 @@ export const StyledUl = styled.ul`
 `;
 
 export const StyledRatingSvg = styled(Svg)`
-  fill: rgba(244, 244, 244, 0.08);
+  fill: #f4f4f4;
+  /* fill-opacity: 0.08; */
   stroke-width: 0;
 `;
 
-export const StyledButton = styled(StyledCreateBtn)`
+export const StyledButton = styled(StyledStartBtn)`
   width: 84px;
   height: 40px;
 
