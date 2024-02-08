@@ -11,12 +11,12 @@ import {
 export type QuizBody = {
   _id: string;
   theme: string;
-  category: string[];
+  category: string;
   background: string;
   ageGroup: string;
   ratingQuantity: number;
   rating: number;
-  finished: number | null;
+  finished: number;
 };
 
 export type Category = {
@@ -88,12 +88,12 @@ const quizesSlice = createSlice({
         state.listCategory.totalQuizzesCount = payload.totalQuizzesCount;
         state.isLoading = false;
       })
-      .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
-        if (payload && payload._id) {
-          state.listAll.result.push(payload);
-          state.isLoading = false;
-        }
-      })
+      // .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
+      //   if (payload && payload._id) {
+      //     state.listAll.result.push(payload);
+      //     state.isLoading = false;
+      //   }
+      // })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
         state.listAll.result = state.listAll.result.filter(
           (quiz) => quiz._id !== payload
