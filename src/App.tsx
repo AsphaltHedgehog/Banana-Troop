@@ -7,6 +7,7 @@ import NotFound from "./pages/notFound/NotFound";
 
 // css
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";

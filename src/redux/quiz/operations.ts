@@ -11,19 +11,19 @@ interface AsyncThunkConfig {
 
 interface QueryCategories {
   ageGroup: string;
-  page: number;
-  pageSize: number;
-  rating: number;
-  finished: number | null;
-  inputText: string | null;
-  title: string;
+  page?: number;
+  pageSize?: number;
+  rating?: number;
+  finished?: number | null;
+  inputText?: string | null;
+  title?: string;
 }
 
 export const fetchQuizesThunk = createAsyncThunk<
   Quiz, // Тип, який повертається
   {
-    page: number;
-    pageSize: number;
+    page?: number;
+    pageSize?: number;
   }, // Тип вхідного параметра
   AsyncThunkConfig
 >("fetchAllQuizes", async ({ page, pageSize }, thunkApi) => {

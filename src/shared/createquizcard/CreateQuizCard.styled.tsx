@@ -1,15 +1,23 @@
 import styled from "styled-components";
 import { breakpoints } from "../../styles";
-import { NavLink } from "react-router-dom";
 import Svg from "../svg/Svg";
 const { tablet, desktop } = breakpoints;
 
-export const StyledNavLink = styled(NavLink)`
-  color: inherit;
+export const StyledButton = styled.button`
+   border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
 
-  &:visited {
+    background: transparent;
+
     color: inherit;
-  }
+    font: inherit;
+
+   
+    line-height: normal;
+
 `;
 
 export const StyledContainer = styled.div`

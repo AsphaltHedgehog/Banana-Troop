@@ -97,7 +97,8 @@ export const StyledUl = styled.ul`
 `;
 
 export const StyledRatingSvg = styled(Svg)`
-  fill: rgba(250, 248, 248, 0.938);
+  fill: #f4f4f4;
+  /* fill-opacity: 0.08; */
   stroke-width: 0;
 `;
 

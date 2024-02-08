@@ -13,7 +13,7 @@ import {
   StyledUl,
 } from "./QuizListItem.styled";
 
-interface IQuizListItemProps {
+export interface IQuizListItemProps {
   theme: string;
   rating: number;
   ageGroup: string;
@@ -38,7 +38,7 @@ const QuizListItem = ({
           <StyledRatingSvg
             key={i}
             sprite={sprite}
-            id={`icon-rating-filled`}
+            id={`icon-rating`}
             width={16}
             height={16}
           />
@@ -52,6 +52,7 @@ const QuizListItem = ({
             id={`icon-rating`}
             width={16}
             height={16}
+            fillOpacity={0.08}
           />
         );
       }
@@ -68,27 +69,15 @@ const QuizListItem = ({
         </StyledContainer3>
         <Svg sprite={sprite} id={`icon-heart`} width={20} height={20} />
       </StyledContainer2>
-      <StyledCategory>{ageGroup}</StyledCategory>
-      <StyledName>{theme}</StyledName>
+      <StyledCategory>{`${ageGroup.charAt(0).toUpperCase()}${ageGroup.slice(
+        1
+      )}`}</StyledCategory>
+      <StyledName>
+        {theme.length > 15 ? theme.slice(0, 15) + "..." : theme}
+      </StyledName>
       <StyledUl>
         {stars.map((_star, index) => (
-          <li key={index}>
-            {index < Math.floor(rating) ? ( // Перевірка чи номер зірки менше або дорівнює округленому рейтингу
-              <StyledRatingSvg
-                sprite={sprite}
-                id={`icon-rating`}
-                width={16}
-                height={16}
-              />
-            ) : (
-              <StyledRatingSvg
-                sprite={sprite}
-                id={`icon-rating-filled`}
-                width={16}
-                height={16}
-              />
-            )}
-          </li>
+          <li key={index}>{_star}</li>
         ))}
       </StyledUl>
       <StyledButton to="/">Start</StyledButton>
