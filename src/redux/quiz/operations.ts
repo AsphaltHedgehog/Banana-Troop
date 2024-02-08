@@ -3,13 +3,13 @@ import { quizApi, setToken } from "../auth/operations";
 import { Category, Quiz, QuizBody, QuizByCategories } from "./slice";
 import { AppDispatch, RootState } from "../store";
 
-interface AsyncThunkConfig {
+export interface AsyncThunkConfig {
   state: RootState;
   dispatch: AppDispatch;
   rejectValue: string;
 }
 
-interface QueryCategories {
+export interface QueryCategories {
   ageGroup: string;
   page?: number;
   pageSize?: number;

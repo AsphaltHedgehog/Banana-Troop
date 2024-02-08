@@ -6,7 +6,7 @@ import CreateQuizForm from "../../components/createQuizForm/CreateQuizForm";
 import UpdateQuizForm from "../../components/updateQuizForm/UpdateQuizForm";
 import QuestionData from "../../components/questionData/QuestionForm";
 import { useAppDispatch } from "../../redux/hooks";
-import { getQuizByIdThunk } from "../../redux/quiz/operations";
+import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
 import { CreateQuizTitle, StyledCommonWrapper } from "./CreateQuizPage.styled";
 import { Category, QuizBody } from "../../redux/quiz/slice";
 
