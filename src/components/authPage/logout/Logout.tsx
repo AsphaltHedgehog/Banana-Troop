@@ -1,10 +1,10 @@
-// import { useDispatch } from "react-redux";
-// import { logoutThunk } from "../../../redux/auth/operations";
+import { logoutThunk } from "../../../redux/auth/operations";
+import { useAppDispatch } from "../../../redux/hooks";
 
 const Logout: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleLogOut = () => {
-    // dispatch(logoutThunk());
+    dispatch(logoutThunk());
   };
   return (
     <div>
