@@ -25,7 +25,7 @@ const Block = () => {
           </ChooseButton>
         </li>
         <li>
-          <CreateButton link="/">Create a quest</CreateButton>
+          <CreateButton >Create a quest</CreateButton>
         </li>
       </StyledUl>
     </StyledSection>

@@ -3,11 +3,10 @@ import { useAppSelector } from "../../redux/hooks";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ReactElement } from "react";
 // Вказати шлях до сторінки створення квізів
 
 interface ICreateButton {
-  children: ReactElement;
+  children: string;
 }
 
 export function CreateButton({ children }: ICreateButton) {

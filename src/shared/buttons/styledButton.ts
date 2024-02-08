@@ -62,6 +62,37 @@ export const StyledCreateBtn = styled.button`
   }
 `;
 
+export const StyledStartBtn = styled(Link)`
+  border: 1px solid rgba(244, 244, 244, 0.6);
+  border-radius: 30px;
+  padding: 16px 13px;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+
+  color: #f4f4f4;
+  background-color: transparent;
+
+  &:visited {
+    color: #f4f4f4;
+  }
+  &:hover,
+  &:focus {
+    color: #d4d4d4;
+    border-color: #787878;
+  }
+
+  transition-property: color, border-color;
+
+  @media screen and (min-width: ${tablet}) {
+    padding: 16px 32px;
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
+
 export const WhiteChooseBtn = styled(Link)`
   border-radius: 30px;
   padding: 16px 32px;
@@ -75,7 +106,7 @@ export const WhiteChooseBtn = styled(Link)`
     color: #144ad5;
   }
 
-  transition-property: border color;
+  transition-property: border, color;
 
   font-family: "Gilroy", sans-serif;
   font-weight: 700;
