@@ -4,6 +4,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../helpers/schemas";
 import { useAppDispatch } from "../../../redux/hooks";
+import {
+  AuthLink,
+  StyledAuthForm,
+  StyledAuthInput,
+  StyledRegisterWrapp,
+  StyledTitle,
+} from "../AuthPages.styled";
 
 interface RegisterFormData {
   name: string;
@@ -29,23 +36,33 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
-      <h3>Sign Up</h3>
-      <form onSubmit={handleSubmit(submit)}>
-        <input type="text" placeholder="Name" {...register("name")} />
+    <StyledRegisterWrapp>
+      <StyledTitle>Sign Up</StyledTitle>
+
+      <StyledAuthForm onSubmit={handleSubmit(submit)}>
+        <StyledAuthInput type="text" placeholder="Name" {...register("name")} />
         {errors?.name && <div>{errors.name.message}</div>}
-        <input type="email" placeholder="Email" {...register("email")} />
+
+        <StyledAuthInput
+          type="email"
+          placeholder="Email"
+          {...register("email")}
+        />
         {errors?.email && <div>{errors.email.message}</div>}
-        <input
+
+        <StyledAuthInput
           type="password"
           placeholder="Password"
           {...register("password")}
         />
         {errors?.password && <div>{errors.password.message}</div>}
+
         <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
-      </form>
-      <a href="#">Login</a>
-    </div>
+        {/* Додати на кнопку закриття модалки */}
+      </StyledAuthForm>
+
+      <AuthLink href="#">Login</AuthLink>
+    </StyledRegisterWrapp>
   );
 };
 

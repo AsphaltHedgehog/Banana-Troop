@@ -18,6 +18,7 @@ export const StyledH2 = styled.h2`
 
 export const SvgBurgerMenu = styled.svg`
   position: absolute;
+  top: 20px;
   right: 20px;
   width: 32px;
   height: 32px;
