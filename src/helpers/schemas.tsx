@@ -9,3 +9,7 @@ export const schemaRegister = yup.object().shape({
     .max(64, "Enter a valid Password")
     .required(),
 });
+
+export const schemaSendEmail = yup.object().shape({
+   email: yup.string().email("Email is not valid").required()
+})

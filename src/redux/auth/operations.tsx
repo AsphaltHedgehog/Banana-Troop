@@ -16,6 +16,10 @@ export interface Credentials {
   password: string;
 }
 
+export interface SendEmail{
+  email: string;
+}
+
 export const quizApi = axios.create({
   baseURL: "https://pigs.onrender.com/api",
 });
@@ -82,3 +86,16 @@ export const logoutThunk = createAsyncThunk<void, void>(
     }
   }
 );
+
+export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>('resetPassword', async (credentials, thunkApi) => {
+  try {
+   const { data }: AxiosResponse<ApiResponse> = await quizApi.post('/auth/resetPassword', credentials);
+   return data;
+} catch (error) {
+if (error instanceof Error && typeof error.message === "string") {
+        return thunkApi.rejectWithValue(error.message);
+      } else {
+        return thunkApi.rejectWithValue("An unknown error occurred");
+      }
+}
+})

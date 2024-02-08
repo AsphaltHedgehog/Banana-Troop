@@ -1,32 +1,38 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import svg from '../../images/icons/sprite.svg';
+// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+// import { RootState } from '../../redux/store';
+import { resetPasswordThunk } from '../../redux/auth/operations';
+import { Title } from './RestorePassword.styled';
+import { useAppDispatch } from '../../redux/hooks';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaSendEmail } from '../../helpers/schemas';
 
 interface FormData {
     email: string;
 }
 
-interface Props {
-    closeModal: () => void;
-}
 
-const RestorePassword: React.FC<Props> = ({ closeModal }) => {
-    const { register, handleSubmit, reset } = useForm<FormData>(); // Використання типу FormData
+const RestorePassword: React.FC = () => {
+    const { register, reset, handleSubmit, } = useForm<FormData>({
+    resolver: yupResolver(schemaSendEmail),
+  });
+    const dispatch = useAppDispatch();
 
-    const onSubmit: SubmitHandler<FormData> = (data) => { // Використання типу SubmitHandler<FormData>
-        // Тут можна реалізувати відправку електронного листа з data.email
-        console.log('Відправлено: ', data.email);
-        reset();
+    const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
+        try {
+            dispatch(resetPasswordThunk(data));
+            reset();
+        } catch (error) {
+            console.error('Error occurred:', error);
+        }
     };
 
     return (
         <React.Fragment>
-            <button onClick={closeModal} className="close-button">
-                <use href={svg + '#icon-x'}></use>
-            </button>
-            <h2>Enter email for restore password</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <Title>Enter email for restore password</Title>
+            <form onSubmit={handleSubmit(handleSubmitEmail)}>
                 <input
                     type="email"
                     placeholder="Email"
@@ -34,7 +40,7 @@ const RestorePassword: React.FC<Props> = ({ closeModal }) => {
                 />
                 <button type="submit">Enter</button>
             </form>
-            <Link to="/authPage/register"><button onClick={closeModal}>Back</button></Link>
+            <Link to="/authPage/register">Back</Link>
         </React.Fragment>
     );
 };
