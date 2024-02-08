@@ -12,5 +12,27 @@ export const StyledBackdrop = styled.div`
 `
 
 export const StyledWrapper = styled.div`
+  position: absolute;
+  top: 35vh;
+  left: 30vw;
 
+  padding: 80px 100px;
+
+  max-width: 500px;
+
+  border-radius: 20px;
+  background-color: #1C1C1C;
 `
+
+export const StyledCloseButton = styled.button`
+  border-radius: 30px;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+
+  position: absolute;
+
+  top: 24px;
+  right: 24px
+`;

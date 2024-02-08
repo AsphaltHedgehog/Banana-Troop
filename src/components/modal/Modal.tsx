@@ -1,7 +1,9 @@
 import { useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-import { StyledBackdrop, StyledWrapper } from "./Modal.styled";
+import { StyledBackdrop, StyledWrapper, StyledCloseButton } from "./Modal.styled";
+
+import svg from "../../images/icons/sprite.svg";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -45,6 +47,11 @@ const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
     return ReactDOM.createPortal(
       <StyledBackdrop onClick={handleBackDrop}>
         <StyledWrapper>
+          <StyledCloseButton type="button" title="modal close button" onClick={closeModal}>
+            <svg width={28} height={28}>
+              <use href={svg + '#icon-x'}></use>
+            </svg>
+          </StyledCloseButton>
           {children}
         </StyledWrapper>
       </StyledBackdrop>,
