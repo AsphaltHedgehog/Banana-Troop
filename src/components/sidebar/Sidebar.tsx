@@ -33,6 +33,7 @@ const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
     { id: 2, type: "Quiz" },
   ]);
   const [isCreateListOpen, setCreateListOpen] = useState(false);
+  const [isChevronRotated, setIsChevronRotated] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
   console.log(quizId);
   console.log(setFormatQuiz);
@@ -41,26 +42,28 @@ const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
     setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        listContainerRef.current &&
-        !listContainerRef.current.contains(event.target as Node)
-      ) {
-        setCreateListOpen(false);
-      }
-    };
+  const handleCreateBtnClick = () => {
+    setCreateListOpen(!isCreateListOpen);
+    setIsChevronRotated(!isChevronRotated);
+  };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      listContainerRef.current &&
+      !listContainerRef.current.contains(target) &&
+      !target.classList.contains("CreateBtn")
+    ) {
+      setCreateListOpen(false);
+    }
+  };
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [listContainerRef]);
-
-  const handleCreateBtnClick = () => {
-    setCreateListOpen(!isCreateListOpen);
-  };
+  }, []);
 
   return (
     <QuestionsContainer>
@@ -77,18 +80,24 @@ const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
         ))}
       </QuestionList>
 
-      <CreateBtnListContainer>
+      <CreateBtnListContainer ref={listContainerRef}>
         <CreateBtn onClick={handleCreateBtnClick}>
           Create
-          <Svg sprite={sprite} id={`chevron-down`} width={16} height={16} />
+          <Svg
+            sprite={sprite}
+            id={`chevron-down`}
+            width={16}
+            height={16}
+            style={{ transform: isChevronRotated ? "rotate(180deg)" : "none" }}
+          />
         </CreateBtn>
         {isCreateListOpen && (
-          <CreateListContainer ref={listContainerRef}>
-            <button>
+          <CreateListContainer>
+            <button onClick={handleCreateBtnClick}>
               Quiz{" "}
               <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
             </button>
-            <button>
+            <button onClick={handleCreateBtnClick}>
               True or false{" "}
               <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
             </button>

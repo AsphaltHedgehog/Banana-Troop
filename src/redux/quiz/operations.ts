@@ -106,14 +106,14 @@ export const getQuizByIdThunk = createAsyncThunk<
   QuizBody,
   string,
   AsyncThunkConfig
->("getQuizById", async (_id, thunkApi) => {
+>("getQuizById", async (_id: string, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.accessToken;
 
     const { data } = await instance.get(`quiz/${_id}`, {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
     return data as QuizBody;
   } catch (error: unknown) {
@@ -133,7 +133,7 @@ export const addQuizesThunk = createAsyncThunk<
     const { theme, ageGroup } = quiz;
 
     const { data } = await instance.post(
-      "quizes",
+      "quiz",
       { theme, ageGroup },
       {
         // headers: {

@@ -1,28 +1,43 @@
-import { useState } from "react";
-import { ColorfulSpans, RadioContainer } from "./QuizOptionsStyled";
+import { useEffect, useState } from "react";
+import {
+  ColorfulSpans,
+  RadioContainer,
+  CategoryBtn,
+} from "./QuizOptionsStyled";
 import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+import Svg from "../../shared/svg/Svg";
+import sprite from "../../images/icons/sprite.svg";
 interface QuizOptionsProps {
   editingQuiz?: QuizParams;
 }
 
 const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
+  const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
-  const [selectedAudience, setSelectedAudience] = useState<string>(
-    editingQuiz?.ageGroup || "children"
-  );
+  const [selectedAudience, setSelectedAudience] = useState<string>("children");
 
-  const [selectedColor, setSelectedColor] = useState<string>(
-    editingQuiz?.background || "none"
-  );
+  const [selectedColor, setSelectedColor] = useState<string>("none");
+
+  const handleChooseBtnClick = () => {
+    // setCreateListOpen(!isCreateListOpen);
+    setIsChevronRotated(!isChevronRotated);
+  };
+
+  useEffect(() => {
+    if (editingQuiz) {
+      setSelectedAudience(editingQuiz.ageGroup || "children");
+      setSelectedColor(editingQuiz.background || "none");
+    }
+  }, [editingQuiz]);
+
   const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAudience(event.target.value);
   };
 
   const handleColorClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const color = event.target.value;
-    setSelectedColor(color);
+    setSelectedColor(event.target.value);
   };
   return (
     <div>
@@ -53,7 +68,18 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
         </RadioContainer>
         <div>
           <h3>Categories</h3>
-          <button>Cinema</button>
+          <CategoryBtn onClick={handleChooseBtnClick}>
+            Cinema{" "}
+            <Svg
+              sprite={sprite}
+              id={`chevron-down`}
+              width={16}
+              height={16}
+              style={{
+                transform: isChevronRotated ? "rotate(180deg)" : "none",
+              }}
+            />
+          </CategoryBtn>
         </div>
       </div>
       <div>
