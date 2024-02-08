@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { QuestionFormWrapper } from "./QuestionForm.styled";
 import { addedQuestionByQuizThunk } from "../../redux/questions/operations";
@@ -6,12 +6,6 @@ import { useAppDispatch } from "../../redux/hooks";
 import { Answers } from "../../redux/questions/slice";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-
-interface QuestionFormProps {
-  quizId: string | undefined;
-  setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  formatQuiz: string | undefined;
-}
 
 type FormValues = {
   _id: string;
@@ -23,9 +17,7 @@ type FormValues = {
   validAnswerIndex: string;
 };
 
-const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
-  console.log(setQuizId);
-  console.log(formatQuiz);
+const QuestionForm = () => {
   // const [isEditMode, setIsEditMode] = useState<boolean>(false);
   // const [checked, setCheked] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -81,9 +73,9 @@ const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { time, imageUrl, type, descr, answers, validAnswerIndex } = data;
 
-    if (quizId && data) {
+    if (data) {
       const createNewQuizQuestion = {
-        _id: quizId,
+        _id: "",
         time,
         imageUrl,
         type,
@@ -123,7 +115,7 @@ const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
 
   return (
     <>
-      {quizId ? (
+      {fakeQuestion ? (
         <QuestionFormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
             {handleChangeQuestionImage(fakeQuestion.imageUrl)}

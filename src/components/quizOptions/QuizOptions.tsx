@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ColorfulSpans,
   RadioContainer,
@@ -7,13 +7,8 @@ import {
 
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-import { QuizBody } from "../../redux/quiz/slice";
-import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
-interface QuizOptionsProps {
-  editingQuiz?: QuizCreate | QuizBody;
-}
 
-const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
+const QuizOptions = () => {
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
@@ -26,13 +21,6 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
     // setCreateListOpen(!isCreateListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
-
-  useEffect(() => {
-    if (editingQuiz) {
-      setSelectedAudience(editingQuiz.ageGroup || "children");
-      setSelectedColor(editingQuiz.background || "none");
-    }
-  }, [editingQuiz]);
 
   const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAudience(event.target.value);

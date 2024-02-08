@@ -27,6 +27,14 @@ interface IQuizCreate {
   ageGroup: string;
 }
 
+export type EditQuiz = {
+  _id: string;
+  theme: string;
+  category: string;
+  background: string;
+  ageGroup: string;
+};
+
 export const fetchQuizesThunk = createAsyncThunk<
   Quiz, // Тип, який повертається
   {
@@ -110,26 +118,26 @@ export const fetchCategoriesThunk = createAsyncThunk<
   }
 });
 
-export const getQuizByIdThunk = createAsyncThunk<
-  QuizBody,
-  string,
-  AsyncThunkConfig
->("getQuizById", async (_id: string, thunkApi) => {
-  try {
-    const savedToken = thunkApi.getState().auth.token;
+// export const getQuizByIdThunk = createAsyncThunk<
+//   QuizBody,
+//   string,
+//   AsyncThunkConfig
+// >("getQuizById", async (_id: string, thunkApi) => {
+//   try {
+//     const savedToken = thunkApi.getState().auth.token;
 
-    const { data } = await quizApi.get(`/quiz/${_id}`, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
-    });
-    return data as QuizBody;
-  } catch (error: unknown) {
-    return thunkApi.rejectWithValue(
-      `${(error as Error)?.message ?? "Unknown error"}`
-    );
-  }
-});
+//     const { data } = await quizApi.get(`/quiz/${_id}`, {
+//       headers: {
+//         Authorization: `Bearer ${savedToken}`,
+//       },
+//     });
+//     return data as QuizBody;
+//   } catch (error: unknown) {
+//     return thunkApi.rejectWithValue(
+//       `${(error as Error)?.message ?? "Unknown error"}`
+//     );
+//   }
+// });
 
 export const addQuizesThunk = createAsyncThunk<
   IQuizCreate,
@@ -138,7 +146,7 @@ export const addQuizesThunk = createAsyncThunk<
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzM5OTU2MiwiZXhwIjoxNzA3NDAxMzYyfQ.IO93TceGGLwVal66VKV9V2L5B0A_Hn0P9FZZd4mdBk4"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
     );
     const { theme } = quiz;
 
@@ -168,7 +176,7 @@ export const deleteQuizesThunk = createAsyncThunk<
 >("deleteQuizById", async (_id, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzM5OTU2MiwiZXhwIjoxNzA3NDAxMzYyfQ.IO93TceGGLwVal66VKV9V2L5B0A_Hn0P9FZZd4mdBk4"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
     );
     // const savedToken = thunkApi.getState().auth.token;
 
@@ -187,16 +195,16 @@ export const deleteQuizesThunk = createAsyncThunk<
 
 export const updateQuizesThunk = createAsyncThunk<
   QuizBody,
-  QuizBody,
+  EditQuiz,
   AsyncThunkConfig
 >("updateQuiz", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzM5OTU2MiwiZXhwIjoxNzA3NDAxMzYyfQ.IO93TceGGLwVal66VKV9V2L5B0A_Hn0P9FZZd4mdBk4"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
     );
     // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;
-    const { data } = await quizApi.put(`/quiz/${_id}`, body, {
+    const { data } = await quizApi.patch(`/quiz/${_id}`, body, {
       // headers: {
       //   Authorization: `Bearer ${savedToken}`,
       // },

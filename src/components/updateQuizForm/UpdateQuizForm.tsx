@@ -1,11 +1,9 @@
 // import { useNavigate } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMediaQuery } from "react-responsive";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { formUpdateOptions } from "../../redux/updateOptions/selectors";
-import { QuizBody } from "../../redux/quiz/slice";
 import {
+  EditQuiz,
   deleteQuizesThunk,
   updateQuizesThunk,
 } from "../../redux/quiz/operations";
@@ -18,24 +16,14 @@ import {
 import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 
 type FormValues = {
   theme: string | undefined;
 };
 
-interface UpdateQuizFormProps {
-  editingQuiz: QuizBody | QuizCreate;
-  setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  setAfterCreate: Dispatch<SetStateAction<boolean>>;
-}
-
-const UpdateQuizForm = ({
-  editingQuiz,
-  setAfterCreate,
-  setQuizId,
-}: UpdateQuizFormProps) => {
-  const selectOptionsForEditing = useAppSelector(formUpdateOptions);
+const UpdateQuizForm = () => {
+  const selectOptions = useAppSelector(getUpdateOptions);
   const dispatch = useAppDispatch();
   // const navigate = useNavigate();
   const isDesctop = useMediaQuery({
@@ -45,34 +33,28 @@ const UpdateQuizForm = ({
   //   navigate(-1);
   // };
 
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
-      theme: editingQuiz?.theme || "",
+      theme: selectOptions?.theme || "",
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (data.theme) {
-      const { ratingQuantity, rating, finished } = editingQuiz;
-      const { ageGroup, background, category } = selectOptionsForEditing;
-      const categoryId = category.map((category) => category._id).join();
+    if (data.theme && selectOptions) {
+      const { _id, ageGroup, background, category } = selectOptions;
 
-      const editedQuiz: QuizBody = {
-        _id: editingQuiz._id,
+      const editedQuiz: EditQuiz = {
+        _id,
         theme: data.theme,
-        category: categoryId,
-        background: background,
-        ageGroup: ageGroup,
-        ratingQuantity: ratingQuantity,
-        rating: rating,
-        finished: finished,
+        category,
+        background,
+        ageGroup,
       };
 
       dispatch(updateQuizesThunk(editedQuiz))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            setAfterCreate(false);
-            setQuizId("");
+            reset();
             // handleGoBack();
           }
           return console.log("Failed to update Quiz");
@@ -84,13 +66,11 @@ const UpdateQuizForm = ({
   };
 
   const handleRemoveQuiz = () => {
-    if (editingQuiz?._id) {
-      console.log(editingQuiz?._id);
-      dispatch(deleteQuizesThunk(editingQuiz._id))
+    if (selectOptions) {
+      dispatch(deleteQuizesThunk(selectOptions._id))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            setAfterCreate(false);
-            setQuizId("");
+            reset();
             // handleGoBack();
           }
           return console.log("Failed to delete Quiz");
