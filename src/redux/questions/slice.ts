@@ -8,17 +8,16 @@ import {
 
 export type Answers = {
   descr: string;
-  _id: string;
 };
-export type Questions<TId = string> = {
-  quiz: string;
+
+export type Questions = {
+  _id: string;
   time: string;
-  descr: string;
-  answers: Answers[];
-  validAnswer: string;
   imageUrl: string;
   type: "full-text" | "true-or-false";
-  _id: TId;
+  descr: string;
+  answers: Answers[];
+  validAnswerIndex: string;
 };
 
 type QuestionsState = {

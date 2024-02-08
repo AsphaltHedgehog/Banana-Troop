@@ -1,13 +1,10 @@
 import { RegisterStyled } from "./styledButton";
 
 export interface RegisterButtonProps {
-  onSubmit: () => void;
+  onClick: () => void;
   children: string;
 }
 
-export function RegisterButton({ onSubmit, children }: RegisterButtonProps) {
-  const handleClick = () => {
-    onSubmit();
-  };
-  return <RegisterStyled onClick={handleClick}>{children}</RegisterStyled>;
+export function RegisterButton({ onClick, children }: RegisterButtonProps) {
+  return <RegisterStyled onClick={onClick}>{children}</RegisterStyled>;
 }

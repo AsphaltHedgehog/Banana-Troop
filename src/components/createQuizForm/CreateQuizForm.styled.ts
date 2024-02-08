@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledCreateQuizForm = styled.form`
+  margin-bottom: 20px;
   @media screen and (min-width: 768px) {
     display: flex;
     align-items: center;
@@ -11,12 +12,12 @@ export const StyledCreateQuizForm = styled.form`
 export const CreateQuizInput = styled.input`
   font-family: "Montserrat", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 1;
   letter-spacing: -0.01em;
   background-color: #171717;
-  color: #f4f4f4;
+  color: #fff;
   border: 1px solid rgba(244, 244, 244, 0.3);
   border-radius: 30px;
   padding: 14px 18px;
@@ -28,7 +29,7 @@ export const CreateQuizInput = styled.input`
 
   &:hover,
   &:focus {
-    border-color: #144ad5;
+    border-color: #205bf1;
   }
   @media screen and (min-width: 768px) {
     margin-bottom: 0px;
@@ -49,7 +50,7 @@ export const CreateQuizButton = styled.button`
   font-weight: 700;
   font-size: 14px;
   line-height: 1.14286;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.04em;
   color: #f4f4f4;
   font-family: "Montserrat", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
@@ -66,7 +67,7 @@ export const CreateQuizButton = styled.button`
   @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 1;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.04em;
     padding: 14px 28px;
     width: 150px;
   }

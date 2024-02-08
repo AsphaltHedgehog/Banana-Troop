@@ -6,13 +6,28 @@ const { tablet, desktop } = breakpoints;
 
 export const StyledBox = styled(Box)`
   padding-top: 132px;
+  padding-bottom: 80px;
 
   @media screen and (min-width: ${tablet}) {
     padding-top: 175px;
+    padding-bottom: 100px;
   }
 
   @media screen and (min-width: ${desktop}) {
     padding-top: 168px;
+  }
+`;
+
+export const StyledSection = styled.section`
+  margin: 0 auto;
+  max-width: 335px;
+
+  @media screen and (min-width: ${tablet}) {
+    max-width: 704px;
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    max-width: 1240px;
   }
 `;
 
@@ -60,5 +75,31 @@ export const StyledUl = styled.ul`
     flex-wrap: wrap;
 
     gap: 48px 24px;
+  }
+`;
+
+export const StyledButton = styled.button`
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  color: #f4f4f4;
+
+  margin-top: 40px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+
+    margin-top: 48px;
   }
 `;

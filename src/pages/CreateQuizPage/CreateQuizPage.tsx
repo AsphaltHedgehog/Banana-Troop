@@ -8,17 +8,12 @@ import QuestionData from "../../components/questionData/QuestionForm";
 import { useAppDispatch } from "../../redux/hooks";
 import { getQuizByIdThunk } from "../../redux/quiz/operations";
 import { CreateQuizTitle, StyledCommonWrapper } from "./CreateQuizPage.styled";
+import { Category, QuizBody } from "../../redux/quiz/slice";
 
-// import { useAppSelector } from "../../redux/hooks";
-
-// import { useForm, SubmitHandler } from "react-hook-form";
-// import { useAppDispatch } from "../../redux/hooks";
-// import { getQuizByIdThunk } from "../../redux/quiz/operations";
-
-export type QuizParams = {
+export type QuizCreate = {
   _id: string;
   theme: string;
-  category: string[];
+  categories: Category[];
   background: string;
   ageGroup: string;
   ratingQuantity: number;
@@ -27,10 +22,11 @@ export type QuizParams = {
 };
 
 const CreateQuizPage = () => {
-  //todo: when we act "update" or "delete" - put quizId to "";
   const [afterCreate, setAfterCreate] = useState<boolean>(false);
-  const [quizId, setQuizId] = useState<string | undefined>(""); // todo: add condition("" | id from props) to default state;
-  const [editingQuiz, setEditingQuiz] = useState<QuizParams | undefined>(); //todo: add object for editing drom props
+  const [quizId, setQuizId] = useState<string | undefined>("");
+  const [editingQuiz, setEditingQuiz] = useState<
+    QuizBody | QuizCreate | undefined
+  >();
   const [formatQuiz, setFormatQuiz] = useState<string | undefined>("quiz");
   const isMobile = useMediaQuery({ query: "(max-width: 425px)" });
   const isTablet = useMediaQuery({
@@ -49,19 +45,11 @@ const CreateQuizPage = () => {
           typeof response.payload !== "string" &&
           response.payload !== undefined
         ) {
-          // setEditingQuiz(response.payload);
+          setEditingQuiz(response.payload);
         }
       });
     }
   }, [quizId, dispatch, afterCreate]);
-
-  // const handleUpdateOrDelete = () => {
-  //   setQuizId('');
-
-  //   setAfterCreate(false);
-
-  //   setEditingQuiz(undefined);
-  // };
 
   return (
     <StyledCommonWrapper>
@@ -96,24 +84,26 @@ const CreateQuizPage = () => {
             <div>
               <Sidebar setFormatQuiz={setFormatQuiz} quizId={quizId} />
               {/* if it is tabled options should be under topBar and for this we have to give main div flex direction column*/}
-              {quizId && editingQuiz ? (
-                <UpdateQuizForm
-                  editingQuiz={editingQuiz}
-                  setAfterCreate={setAfterCreate}
+              <div>
+                {quizId && editingQuiz ? (
+                  <UpdateQuizForm
+                    editingQuiz={editingQuiz}
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                  />
+                ) : (
+                  <CreateQuizForm
+                    setAfterCreate={setAfterCreate}
+                    setQuizId={setQuizId}
+                    setEditingQuiz={setEditingQuiz}
+                  />
+                )}
+                <QuestionData
                   setQuizId={setQuizId}
+                  quizId={quizId}
+                  formatQuiz={formatQuiz}
                 />
-              ) : (
-                <CreateQuizForm
-                  setAfterCreate={setAfterCreate}
-                  setQuizId={setQuizId}
-                  setEditingQuiz={setEditingQuiz}
-                />
-              )}
-              <QuestionData
-                setQuizId={setQuizId}
-                quizId={quizId}
-                formatQuiz={formatQuiz}
-              />
+              </div>
               <QuizOptions editingQuiz={editingQuiz} />
             </div>
           ) : (

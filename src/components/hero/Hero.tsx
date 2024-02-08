@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ChooseButton } from "../../shared/buttons/chooseQuizBtnWhite";
-import { CreateButton } from "../../shared/buttons/createQuizBtn";
+// import { CreateButton } from "../../shared/buttons/createQuizBtn";
 
 import {
   StyledSection,
@@ -26,9 +26,7 @@ const Hero: React.FC = () => {
           <li>
             <ChooseButton link="/">Choose a test</ChooseButton>
           </li>
-          <li>
-            <CreateButton link="/">Create a quest</CreateButton>
-          </li>
+          <li>{/* <CreateButton link="/">Create a quest</CreateButton> */}</li>
         </StyledUl>
       </StyledWrapper>
       <StyledTitle>
