@@ -4,7 +4,6 @@ import { ChooseButton } from "../../shared/buttons/chooseQuizBtnWhite";
 import { CreateButton } from "../../shared/buttons/createQuizBtn";
 
 import {
-  StyledBgrImg,
   StyledSection,
   StyledText,
   StyledText2,
