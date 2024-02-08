@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
 
+import { StyledBackdrop, StyledWrapper } from "./Modal.styled";
+
 interface ModalProps {
   children: React.ReactNode;
   endAnimation?: boolean;
@@ -41,7 +43,11 @@ const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
 
   if (rootModal) {
     return ReactDOM.createPortal(
-      <div onClick={handleBackDrop}>{children}</div>,
+      <StyledBackdrop onClick={handleBackDrop}>
+        <StyledWrapper>
+          {children}
+        </StyledWrapper>
+      </StyledBackdrop>,
       rootModal
     );
   }
