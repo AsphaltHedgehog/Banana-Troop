@@ -4,6 +4,14 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../helpers/schemas";
+import {
+  AuthLink,
+  RestoreBtnStyled,
+  StyledAuthForm,
+  StyledAuthInput,
+  StyledRegisterWrapp,
+  StyledTitle,
+} from "../AuthPages.styled";
 
 interface LoginFormData {
   name: string;
@@ -27,22 +35,26 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
-      <h3>Login</h3>
-      <form onSubmit={handleSubmit(submit)}>
-        <input type="email" placeholder="Email" {...register("email")} />
+    <StyledRegisterWrapp>
+      <StyledTitle>Login</StyledTitle>
+      <StyledAuthForm onSubmit={handleSubmit(submit)}>
+        <StyledAuthInput
+          type="email"
+          placeholder="Email"
+          {...register("email")}
+        />
         {errors?.email && <div>{errors.email.message}</div>}
-        <input
+        <StyledAuthInput
           type="password"
           placeholder="Password"
           {...register("password")}
         />
         {errors?.password && <div>{errors.password.message}</div>}
         <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
-      </form>
-      <a href="#">Restore password</a>
-      <a href="#">Register</a>
-    </div>
+      </StyledAuthForm>
+      <RestoreBtnStyled href="#">Restore password</RestoreBtnStyled>
+      <AuthLink href="#">Register</AuthLink>
+    </StyledRegisterWrapp>
   );
 };
 
