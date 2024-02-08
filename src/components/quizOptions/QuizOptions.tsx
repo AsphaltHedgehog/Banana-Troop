@@ -7,8 +7,13 @@ import {
 
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { addCategory } from "../../redux/updateOptions/slice";
 
 const QuizOptions = () => {
+  const dispatch = useAppDispatch();
+  const selectOptions = useAppSelector(getUpdateOptions);
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
@@ -16,6 +21,8 @@ const QuizOptions = () => {
   const [selectedAudience, setSelectedAudience] = useState<string>("children");
 
   const [selectedColor, setSelectedColor] = useState<string>("none");
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const handleChooseBtnClick = () => {
     // setCreateListOpen(!isCreateListOpen);
@@ -29,6 +36,12 @@ const QuizOptions = () => {
   const handleColorClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
   };
+
+  const onHandleClickCategory = (id: string) => {
+    setSelectedCategory(id);
+    dispatch(addCategory({ _id: id }));
+  };
+
   return (
     <div>
       <div>
@@ -57,9 +70,10 @@ const QuizOptions = () => {
           </label>
         </RadioContainer>
         <div>
+          {/* Your work here */}
           <h3>Categories</h3>
           <CategoryBtn onClick={handleChooseBtnClick}>
-            Cinema{" "}
+            {selectedCategory}
             <Svg
               sprite={sprite}
               id={`chevron-down`}
@@ -69,6 +83,22 @@ const QuizOptions = () => {
                 transform: isChevronRotated ? "rotate(180deg)" : "none",
               }}
             />
+            <ul>
+              {selectOptions.categories.map((category) => {
+                return (
+                  <li key={category._id}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onHandleClickCategory(category._id);
+                      }}
+                    >
+                      ${category.title}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </CategoryBtn>
         </div>
       </div>

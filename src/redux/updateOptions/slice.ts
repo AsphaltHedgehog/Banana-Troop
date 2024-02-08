@@ -37,6 +37,9 @@ const updateOptionsSlice = createSlice({
       state.ageGroup = action.payload.ageGroup;
       state.background = action.payload.background;
     },
+    addCategory: (state, action) => {
+      state._id = action.payload._id;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -59,5 +62,5 @@ const updateOptionsSlice = createSlice({
   },
 });
 
-export const { addUpdateOptions } = updateOptionsSlice.actions;
+export const { addUpdateOptions, addCategory } = updateOptionsSlice.actions;
 export const updateOptionsReducer = updateOptionsSlice.reducer;
