@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   ColorfulSpans,
   RadioContainer,
   CategoryBtn,
+  AudienceCategoriesContainer,
+  Titles,
+  MainContainer,
+  ColorContainer,
+  Category,
+  OptionList,
+  OptionBtn,
+  OptionItem,
 } from "./QuizOptionsStyled";
 
 import Svg from "../../shared/svg/Svg";
@@ -21,7 +29,9 @@ interface ICategory {
 const QuizOptions = () => {
   const dispatch = useAppDispatch();
   const selectOptions = useAppSelector(getUpdateOptions);
+  const [OptionListOpen, setOptionListOpen] = useState<boolean>(false);
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
+  const listContainerRef = useRef<HTMLDivElement>(null);
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
@@ -32,10 +42,27 @@ const QuizOptions = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("Choose");
 
   const handleChooseBtnClick = () => {
-    // setCreateListOpen(!isCreateListOpen);
+    setOptionListOpen(!OptionListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      listContainerRef.current &&
+      !listContainerRef.current.contains(target) &&
+      !target.classList.contains("CreateBtn")
+    ) {
+      setOptionListOpen(false);
+      setIsChevronRotated(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
 
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   const handleAudienceChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -55,10 +82,10 @@ const QuizOptions = () => {
   };
 
   return (
-    <div>
-      <div>
+    <MainContainer>
+      <AudienceCategoriesContainer>
         <RadioContainer>
-          <h3>Audience</h3>
+          <Titles>Audience</Titles>
           <label>
             <input
               type="radio"
@@ -81,11 +108,11 @@ const QuizOptions = () => {
             For Adults
           </label>
         </RadioContainer>
-        <div>
+        <div ref={listContainerRef}>
           {/* Your work here */}
-          <h3>Categories</h3>
+          <Titles>Categories</Titles>
           <CategoryBtn onClick={handleChooseBtnClick}>
-            {selectedCategory}
+            <Category>{selectedCategory}</Category>
             <Svg
               sprite={sprite}
               id={`chevron-down`}
@@ -95,27 +122,30 @@ const QuizOptions = () => {
                 transform: isChevronRotated ? "rotate(180deg)" : "none",
               }}
             />
-            <ul>
+          </CategoryBtn>
+          {OptionListOpen && (
+            <OptionList>
               {selectOptions.categories.map((category) => {
                 return (
-                  <li key={category._id}>
-                    <button
+                  <OptionItem key={category._id}>
+                    <OptionBtn
                       type="button"
                       onClick={() => {
                         onHandleClickCategory(category);
                       }}
+                      // I think we should also recive from backend is active boolean, if it is default or active category text color to be white  "active={category.isActive}
                     >
                       {category.title}
-                    </button>
-                  </li>
+                    </OptionBtn>
+                  </OptionItem>
                 );
               })}
-            </ul>
-          </CategoryBtn>
+            </OptionList>
+          )}
         </div>
-      </div>
-      <div>
-        <h3>Background</h3>
+      </AudienceCategoriesContainer>
+      <ColorContainer>
+        <Titles>Background</Titles>
         <ColorfulSpans>
           <label>
             <input
@@ -162,8 +192,8 @@ const QuizOptions = () => {
             <span style={{ backgroundColor: "#000000" }}></span>
           </label>
         </ColorfulSpans>
-      </div>
-    </div>
+      </ColorContainer>
+    </MainContainer>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   QuestionsContainer,
   QuestionsTitle,
@@ -8,6 +8,7 @@ import {
   CreateBtn,
   CreateListContainer,
   CreateBtnListContainer,
+  Divider,
 } from "./SidebarStyled";
 import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
@@ -21,6 +22,7 @@ const Sidebar = () => {
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
+  const [clickedItem, setClickedItem] = useState<string | number | null>(null);
   const handleDelete = (id: number) => {
     // Remove the quiz with the specified id
     setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
@@ -39,6 +41,7 @@ const Sidebar = () => {
       !target.classList.contains("CreateBtn")
     ) {
       setCreateListOpen(false);
+      setIsChevronRotated(false);
     }
   };
   useEffect(() => {
@@ -49,18 +52,28 @@ const Sidebar = () => {
     };
   }, []);
 
+  const handleClick = (id: string | number) => {
+    setClickedItem(id === clickedItem ? null : id);
+  };
+
   return (
     <QuestionsContainer>
       <QuestionsTitle>Questions</QuestionsTitle>
 
       <QuestionList>
-        {quizzes.map((quiz) => (
-          <QuizItem key={quiz.id}>
-            {` ${quiz.type}`}
-            <TrashBtn type="button" onClick={() => handleDelete(quiz.id)}>
-              <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
-            </TrashBtn>
-          </QuizItem>
+        {quizzes.map((quiz, index) => (
+          <React.Fragment key={quiz.id}>
+            <QuizItem
+              clicked={clickedItem === quiz.id}
+              onClick={() => handleClick(quiz.id)}
+            >
+              {`${index + 1}. ${quiz.type}`}
+              <TrashBtn type="button" onClick={() => handleDelete(quiz.id)}>
+                <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
+              </TrashBtn>
+            </QuizItem>
+            {index !== quizzes.length - 1 && <Divider />}
+          </React.Fragment>
         ))}
       </QuestionList>
 

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const StyledCommonWrapper = styled.div`
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
   max-width: 375px;
   padding-left: 20px;
   padding-right: 20px;
@@ -30,7 +33,7 @@ export const CreateQuizTitle = styled.h1`
   line-height: 1.1875;
   letter-spacing: -0.01em;
   color: #f4f4f4;
-  margin-bottom: 40px;
+  text-align: left;
   @media screen and (min-width: 768px) {
     font-size: 44px;
     line-height: 1.09091;
