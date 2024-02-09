@@ -1,4 +1,3 @@
 import { RootState } from "../store";
 
-export const formUpdateOptions = (state: RootState) =>
-  state.updateOptions.formUpdateOptions;
+export const getUpdateOptions = (state: RootState) => state.updateOptions;

@@ -9,11 +9,6 @@ interface AsyncThunkConfig {
   rejectValue: string;
 }
 
-interface IImage {
-  _id: string;
-  imageUrl: string;
-}
-
 export const addedQuestionByQuizThunk = createAsyncThunk<
   Questions,
   Questions,
@@ -82,19 +77,19 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
 
 export const updateQuizQuestionImgByIdThunk = createAsyncThunk<
   string, // Тип, який повертається
-  IImage, // Тип вхідного параметра
+  { _id: string; image: File }, // Тип вхідного параметра
   AsyncThunkConfig
 >("updatedQuestionImgByQuestionId", async (questionFile, thunkApi) => {
   try {
-    const { _id, imageUrl } = questionFile;
+    const { _id, image } = questionFile;
     const formData = new FormData();
-    formData.append("questionPoster", imageUrl);
+    formData.append("questionPoster", image);
 
     const savedToken = thunkApi.getState().auth.token;
 
     const { data } = await quizApi.patch(
       `/quiz/question/img/${_id}`,
-      imageUrl,
+      questionFile,
       {
         headers: {
           Authorization: `Bearer ${savedToken}`,

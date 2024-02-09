@@ -12,14 +12,6 @@ export interface BurgerMenuProps {
 const BurgerMenu = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
-  //   const openMenuModal = (): void => {
-  //     openModal();
-  //   };
-
-  //   const handleCloseClick = (): void => {
-  //     setEndAnimation(true);
-  //   };
-
   return (
     <>
       {isOpen ? (

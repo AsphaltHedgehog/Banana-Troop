@@ -81,5 +81,7 @@ const authSlice = createSlice({
   },
 });
 
+
 export const { deleteFavorite, addFavorite } = authSlice.actions;
+
 export const authReducer = authSlice.reducer;

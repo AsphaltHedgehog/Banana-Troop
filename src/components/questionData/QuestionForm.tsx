@@ -1,102 +1,83 @@
-import { Dispatch, SetStateAction, useState, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
 import { QuestionFormWrapper } from "./QuestionForm.styled";
-import { addedQuestionByQuizThunk } from "../../redux/questions/operations";
-import { useAppDispatch } from "../../redux/hooks";
+import {
+  addedQuestionByQuizThunk,
+  deleteQuizQuestionImgByIdThunk,
+  updateQuizQuestionImgByIdThunk,
+} from "../../redux/questions/operations";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Answers } from "../../redux/questions/slice";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-
-interface QuestionFormProps {
-  quizId: string | undefined;
-  setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  formatQuiz: string | undefined;
-}
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import {
+  getQuestions,
+  getQuestionsIndex,
+} from "../../redux/questions/selectors";
+// import { schemaQuestion } from "../../helpers/schemas";
+import { toast } from "react-toastify";
 
 type FormValues = {
   _id: string;
+  quiz: string;
   time: string;
   imageUrl: string;
   type: "full-text" | "true-or-false";
   descr: string;
   answers: Answers[];
-  validAnswerIndex: string;
+  validAnswer: string;
 };
 
-const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
-  console.log(setQuizId);
-  console.log(formatQuiz);
-  // const [isEditMode, setIsEditMode] = useState<boolean>(false);
-  // const [checked, setCheked] = useState<boolean>(false);
+const QuestionForm = () => {
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(-1);
+  const selectQuiz = useAppSelector(getUpdateOptions);
+  const selectQuestion = useAppSelector(getQuestions);
+  const selectQuestionIndex = useAppSelector(getQuestionsIndex);
   const dispatch = useAppDispatch();
-  const inputRef = useRef(null);
-  const [fakeQuestion] = useState<FormValues>({
-    _id: "3rfqjhcsh3geks",
-    time: "00:45",
-    imageUrl: "http://google.com",
-    type: "full-text",
-    descr: "Коли починати вирощувати свиней?",
-    answers: [
-      {
-        descr: "сьогодні",
-      },
-      {
-        descr: "завтра",
-      },
-      {
-        descr: "не вздумай",
-      },
-      {
-        descr: "та ти шо",
-      },
-    ],
-    validAnswerIndex: "", //todo: pass the index of the correct question
-  });
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  //todo: defaultValues - values from Vugar Sidebar after click on Update button
-  const { register, handleSubmit, reset } = useForm<FormValues>({
+  //todo: selectQuiz.background - put the value to form backgroundcolor
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { isValid },
+  } = useForm<FormValues>({
     defaultValues: {
-      time: "",
-      imageUrl: fakeQuestion.imageUrl || "",
-      type: "full-text",
-      descr: "",
-      answers: [
-        {
-          descr: "",
-        },
-        {
-          descr: "",
-        },
-        {
-          descr: "",
-        },
-        {
-          descr: "",
-        },
-      ],
-      validAnswerIndex: "", //todo: pass the index of the correct question
+      _id: selectQuestion[selectQuestionIndex]._id || "",
+      quiz: selectQuestion[selectQuestionIndex].quiz || "",
+      time: selectQuestion[selectQuestionIndex].time || "",
+      imageUrl: selectQuestion[selectQuestionIndex].imageUrl || "",
+      type: selectQuestion[selectQuestionIndex].type || "full-text",
+      descr: selectQuestion[selectQuestionIndex].descr || "",
+      answers: selectQuestion[selectQuestionIndex].answers || [],
+      validAnswer: selectQuestion[selectQuestionIndex].validAnswer || "",
     },
+    // resolver: yupResolver(schemaQuestion),
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { time, imageUrl, type, descr, answers, validAnswerIndex } = data;
+    const { time, imageUrl, type, descr, answers, validAnswer } = data;
 
-    if (quizId && data) {
+    if (data) {
       const createNewQuizQuestion = {
-        _id: quizId,
+        _id: selectQuestion[selectQuestionIndex]._id,
+        quiz: selectQuiz._id,
         time,
-        imageUrl,
+        imageUrl: `https://pigs.onrender.com/api/${imageUrl}`,
         type,
         descr,
         answers,
-        validAnswerIndex,
+        validAnswer,
       };
 
       dispatch(addedQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            console.log("Congrats! You added question");
-            // setIsEditMode(false); // turn editing mode off after successful save
+            toast.success("Congrats! You added question");
             reset();
           }
           return console.log("Failed to update Question");
@@ -107,72 +88,185 @@ const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
     }
   };
 
-  const handleChangeQuestionImage = (image: string) => {
-    const currentInput = inputRef?.current;
-    console.log(currentInput);
-    if (!image) {
-      //todo: onClick для додавання картинки
+  const handleQuestionImage = (): JSX.Element => {
+    if (selectQuestion[selectQuestionIndex].imageUrl) {
       return (
-        <div>
-          <Svg sprite={sprite} id={`icon-edit`} width={16} height={16} />
-        </div>
+        <img
+          src={selectQuestion[selectQuestionIndex].imageUrl}
+          {...register("imageUrl")}
+        />
       );
     }
-    return <img src={image} {...register("imageUrl")} />;
+    return <Svg sprite={sprite} id={`icon-edit`} width={16} height={16} />;
+  };
+
+  const hangleChengeImageQuestion = () => {
+    const currentInput = inputRef?.current;
+    if (currentInput) {
+      if (currentInput.files) {
+        const image = currentInput.files[0];
+        const questionFile = {
+          _id: selectQuestion[selectQuestionIndex]._id,
+          image: image,
+        };
+        dispatch(updateQuizQuestionImgByIdThunk(questionFile))
+          .unwrap()
+          .then((response: string) => {
+            setValue("imageUrl", response);
+            toast.success("Congrats! You added image to question!");
+          })
+          .catch((error) => {
+            console.error("Error updating quiz:", error);
+          });
+      } else {
+        console.error("Files property is null or undefined");
+      }
+    }
+  };
+
+  const handleRemoveImage = () => {
+    if (selectQuestion[selectQuestionIndex].imageUrl) {
+      dispatch(
+        deleteQuizQuestionImgByIdThunk(selectQuestion[selectQuestionIndex]._id)
+      )
+        .unwrap()
+        .then(() => {
+          toast.success("Image has been removed successfully!");
+        })
+        .catch((error) => error.massage);
+    }
+  };
+
+  const handleAnswerChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const serialNumber = ["A:", "B:", "C:", "D:"];
+    const { value } = e.target;
+    const newValue = `${serialNumber[index]} ${value}`;
+    setValue(`answers.${index}.descr`, newValue);
+  };
+
+  const handleSelectAnswer = (index: number) => {
+    setSelectedAnswerIndex(index);
+  };
+
+  useEffect(() => {
+    if (selectedAnswerIndex !== -1) {
+      setValue("validAnswer", `${selectedAnswerIndex}`);
+    }
+  }, [selectedAnswerIndex, setValue]);
+
+  const onCancel = () => {
+    reset();
   };
 
   return (
     <>
-      {quizId ? (
+      {selectQuestion[selectQuestionIndex].quiz || selectQuiz._id ? (
         <QuestionFormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {handleChangeQuestionImage(fakeQuestion.imageUrl)}
-            {/* <select {...register("time")}>
-              //todo: add questionTime in value params (from Vugar question)
-              {Array.from({ length: 9 }, (_, index) => {
-                const minutes = Math.floor(index / 4);
-                const seconds = (index % 4) * 15;
-                return (
-                  <option
-                    key={index}
-                    value={`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
-                  >
-                    {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
-                  </option>
-                );
-              })}
-            </select>
-            <textarea {...register("descr")} /> //todo: add questionDescr in
-            value params (from Vugar question)
             <div>
-              {data.answers.map((answer, index) => (
-                <div key={index}>
-                  <input
-                    type="text"
-                    value={answer.descr}
-                    onChange={(e) => handleAnswerChange(index, e)} //todo: співставляти значення по індексу з буквами для варіанту відповіді
+              <div>{handleQuestionImage()}</div>
+              <div>
+                <label htmlFor="uploadImage">
+                  <Svg
+                    sprite={sprite}
+                    id={`icon-edit`}
+                    width={16}
+                    height={16}
                   />
-                  <input
-                    type="checkbox"
-                    checked={answer.isCorrect}
-                    onChange={(e) => handleCheckboxChange(index, e)} //todo: передавати індекс в властивість validAnswerIndex
+                </label>
+                <input
+                  id="uploadImage"
+                  type="file"
+                  ref={inputRef}
+                  accept="image/*"
+                  onChange={hangleChengeImageQuestion}
+                />
+                <button onClick={handleRemoveImage}>
+                  <Svg
+                    sprite={sprite}
+                    id={`icon-trash`}
+                    width={16}
+                    height={16}
                   />
-                </div>
-              ))}
+                </button>
+              </div>
             </div>
             <div>
-             {questionNum}/{totalQuestions} //todo: винести підрахунок сторінки 
-              та номера питання по індексу(0-1,1-2, index-number)
+              <ul>
+                {Array.from({ length: 9 }, (_, index) => {
+                  const minutes = Math.floor(index / 4);
+                  const seconds = (index % 4) * 15;
+                  return (
+                    <li
+                      key={index}
+                      onClick={() =>
+                        setValue(
+                          "time",
+                          `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+                        )
+                      }
+                    >
+                      {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
+            <textarea {...register("descr")} />
+            {selectQuestion[selectQuestionIndex].type === "full-text" ? (
+              <ul>
+                {selectQuestion[selectQuestionIndex].answers.map(
+                  (answer, index) => (
+                    <li key={answer._id}>
+                      <input
+                        type="text"
+                        value={answer.descr}
+                        onChange={(e) => handleAnswerChange(index, e)}
+                      />
+                      <input
+                        type="checkbox"
+                        checked={selectedAnswerIndex === index}
+                        onChange={() => handleSelectAnswer(index)}
+                      />
+                    </li>
+                  )
+                )}
+              </ul>
+            ) : (
+              <ul>
+                {selectQuestion[selectQuestionIndex].answers.map(
+                  (answer, index) => (
+                    <li key={answer._id}>
+                      <input
+                        type="text"
+                        value={`${String.fromCharCode(65 + index)}: ${
+                          index === 0 ? "true" : "false"
+                        }`}
+                        onChange={(e) => handleAnswerChange(index, e)}
+                      />
+                      <input
+                        type="checkbox"
+                        checked={selectedAnswerIndex === index}
+                        onChange={() => handleSelectAnswer(index)}
+                      />
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
             <div>
-              {isEditMode ? (
-                <button type="submit">Save</button>
-              ) : (
-                <button>Edit</button> //todo: або винести, вбо тут відправляти питання на редагування onClick={onEdit}
-              )}
+              <button type="submit" disabled={!isValid}>
+                {selectQuestion[selectQuestionIndex]._id ? "Save" : "Edit"}
+              </button>
               <button onClick={onCancel}>Cancel</button>
-            </div> */}
+            </div>
           </form>
+          <div>
+            {selectQuestionIndex}/{selectQuestion.length}
+          </div>
         </QuestionFormWrapper>
       ) : (
         <QuestionFormWrapper></QuestionFormWrapper>
@@ -182,20 +276,3 @@ const QuestionForm = ({ quizId, setQuizId, formatQuiz }: QuestionFormProps) => {
 };
 
 export default QuestionForm;
-// const handleAnswerChange = (
-//   index: string,
-//   e: React.ChangeEvent<HTMLInputElement>
-// ) => {
-//   const { value } = e.target;
-//   setValue(`answers[${index}].descr`, value);
-// };
-
-// const onCancel = () => {
-//   setIsEditMode(false);
-//   reset();
-// };
-
-//   const handleQuestionDescr = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const { value } = e.target;
-
-// };
