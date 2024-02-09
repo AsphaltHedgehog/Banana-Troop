@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+interface QuizItemProps {
+  clicked: boolean;
+}
 export const QuestionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,23 +26,31 @@ export const QuestionList = styled.ol`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  list-style-type: none;
   padding: 0;
 `;
 
-export const QuizItem = styled.li`
+export const QuizItem = styled.li<QuizItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 295px;
-  border-bottom: 1px solid rgba(244, 244, 244, 0.2);
+  border-radius: 15px;
+  padding: 8px 16px;
+  background-color: ${({ clicked }) => (clicked ? "#205bf1" : "transparent")};
+`;
 
-  &:last-child {
-    border-bottom: none;
-  }
+export const Divider = styled.li`
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(244, 244, 244, 0.2);
 `;
 
 export const TrashBtn = styled.button`
   background-color: transparent;
+  border-radius: 15px;
+  padding: 8px 8px;
   cursor: pointer;
 `;
 
