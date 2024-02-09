@@ -26,8 +26,9 @@ import {
 } from "./DiscoverPage.styled";
 import { StyledRatingSvg } from "../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../images/icons/sprite.svg";
-import Svg from "../../shared/svg/Svg";
+
 import Box from "../../components/box/Box";
+
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
   const title = useAppSelector((state) => state.quizes.listCategory.categories);
@@ -96,6 +97,7 @@ const DiscoverPage = () => {
     // console.log(searchTerm);
     console.log(selectedAgeGroupCat);
     // console.log(setSearchTerm(e.target.value));
+    // setSelectedRating(5);
   };
 
   const handleRatingSelect = (minRating: number, maxRating: number) => {
@@ -235,31 +237,35 @@ const DiscoverPage = () => {
       </StyledRaitingResultWrap>
 
       <StyledUlCards>
-        {attemptedFilter && filteredQuizes.length === 0
-          ? ["No quizzes found"]
-          : filteredQuizes.length > 0
-          ? filteredQuizes?.map((quiz) => (
-              <QuizListItem
-                key={quiz._id}
-                theme={quiz.theme}
-                rating={quiz.rating}
-                ageGroup={quiz.ageGroup}
-                finished={quiz.finished}
-              />
-            ))
-          : quizes?.map((quiz) => (
-              <QuizListItem
-                key={quiz._id}
-                theme={quiz.theme}
-                rating={quiz.rating}
-                ageGroup={quiz.ageGroup}
-                finished={quiz.finished}
-              />
-            ))}
+        {attemptedFilter && filteredQuizes.length === 0 ? (
+          <p>No quizzes found</p>
+        ) : filteredQuizes.length > 0 ? (
+          filteredQuizes?.map((quiz) => (
+            <QuizListItem
+              key={quiz._id}
+              theme={quiz.theme}
+              rating={quiz.rating}
+              ageGroup={quiz.ageGroup}
+              finished={quiz.finished}
+            />
+          ))
+        ) : (
+          quizes?.map((quiz) => (
+            <QuizListItem
+              key={quiz._id}
+              theme={quiz.theme}
+              rating={quiz.rating}
+              ageGroup={quiz.ageGroup}
+              finished={quiz.finished}
+            />
+          ))
+        )}
       </StyledUlCards>
-      {quizes.length < total && (
-        <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
-      )}
+      <div>
+        {quizes.length < total && (
+          <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
+        )}
+      </div>
     </Box>
   );
 };

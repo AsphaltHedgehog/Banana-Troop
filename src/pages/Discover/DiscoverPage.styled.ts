@@ -78,8 +78,10 @@ export const StyledBtnTitle = styled.button`
   color: #fff;
   padding: 10px 20px;
 `;
-
-export const StyledTitleWrap = styled.div`
+interface StyledTitleWrapProps {
+  isOpen: boolean;
+}
+export const StyledTitleWrap = styled.div<StyledTitleWrapProps>`
   position: absolute; /* Додаємо абсолютне позиціонування */
   top: calc(100% + 5px);
   /* bottom: calc(100% + 5px); */
