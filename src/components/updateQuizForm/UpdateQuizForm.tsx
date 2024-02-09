@@ -13,7 +13,6 @@ import {
   StyledUpdateQuizWrapper,
   UpdateQuizInput,
 } from "./UpdateQuizForm.styled";
-import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
