@@ -15,6 +15,7 @@ import { authReducer } from "./auth/authSlice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
 import { updateOptionsReducer } from "./updateOptions/slice";
+import { userReducer } from "./user/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -22,9 +23,15 @@ const authPersistConfig = {
   whitelist: ["token", "favorites"],
 };
 
+const userPersistConfig = {
+  key: "user",
+  storage,
+  whitelist: ["favorite"],
+};
+
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  //   user: userReducer,
+  user: persistReducer(userPersistConfig, userReducer),
   updateOptions: updateOptionsReducer,
   //   reviews: reviewsReducer,
   quizes: quizesReducer,
