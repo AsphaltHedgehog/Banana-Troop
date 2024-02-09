@@ -1,5 +1,11 @@
 import React from "react";
-import { NavWrapper } from "./Nav.styled";
+import {
+  AuthWrapper,
+  CategoriesWrapper,
+  NavLinkLogin,
+  NavLinkRegister,
+  NavWrapper,
+} from "./Nav.styled";
 import { StyledH2 } from "../wholeComponent/Header.styled";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -21,12 +27,16 @@ const Nav: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     <>
       <NavWrapper onClick={handleClick}>
         <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
-        <NavLink to="/forAdults" onClick={closeModal}>
-          For adults
-        </NavLink>
-        <NavLink to="/forChildren">For children</NavLink>
-        <NavLink to="/register">Register</NavLink>
-        <NavLink to="/login"> Login</NavLink>
+        <CategoriesWrapper>
+          <NavLink to="/forAdults" onClick={closeModal}>
+            For adults
+          </NavLink>
+          <NavLink to="/forChildren">For children</NavLink>
+        </CategoriesWrapper>
+        <AuthWrapper>
+          <NavLinkRegister to="/register">Register</NavLinkRegister>
+          <NavLinkLogin to="/login"> Login</NavLinkLogin>
+        </AuthWrapper>
       </NavWrapper>
     </>
   );
