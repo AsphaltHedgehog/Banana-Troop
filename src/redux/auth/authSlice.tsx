@@ -46,7 +46,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
-        state.user.email = payload.user.email;
+        state.user.email = payload?.user?.email || '';
         state.error = null; 
         state.isLoading = false;
       })
