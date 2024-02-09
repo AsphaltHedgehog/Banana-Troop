@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ColorfulSpans,
   RadioContainer,
@@ -7,40 +7,53 @@ import {
 
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-import { QuizBody } from "../../redux/quiz/slice";
-import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
-interface QuizOptionsProps {
-  editingQuiz?: QuizCreate | QuizBody;
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { addCategory, addBackground } from "../../redux/updateOptions/slice";
+import { fetchCategoriesThunk } from "../../redux/updateOptions/operations";
+
+interface ICategory {
+  _id: string;
+  ageGroup: string;
+  title: string;
 }
 
-const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
+const QuizOptions = () => {
+  const dispatch = useAppDispatch();
+  const selectOptions = useAppSelector(getUpdateOptions);
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
-  const [selectedAudience, setSelectedAudience] = useState<string>("children");
+  const [selectedAudience, setSelectedAudience] = useState<string>("adults");
 
   const [selectedColor, setSelectedColor] = useState<string>("none");
+
+  const [selectedCategory, setSelectedCategory] = useState<string>("Choose");
 
   const handleChooseBtnClick = () => {
     // setCreateListOpen(!isCreateListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
 
-  useEffect(() => {
-    if (editingQuiz) {
-      setSelectedAudience(editingQuiz.ageGroup || "children");
-      setSelectedColor(editingQuiz.background || "none");
-    }
-  }, [editingQuiz]);
-
-  const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAudienceChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    await dispatch(fetchCategoriesThunk({ ageGroup: event.target.value }));
     setSelectedAudience(event.target.value);
+    setSelectedCategory("Choose");
   };
 
   const handleColorClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
+    dispatch(addBackground(event.target.value));
   };
+
+  const onHandleClickCategory = (category: ICategory) => {
+    setSelectedCategory(category.title);
+    dispatch(addCategory(category._id));
+  };
+
   return (
     <div>
       <div>
@@ -69,9 +82,10 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
           </label>
         </RadioContainer>
         <div>
+          {/* Your work here */}
           <h3>Categories</h3>
           <CategoryBtn onClick={handleChooseBtnClick}>
-            Cinema{" "}
+            {selectedCategory}
             <Svg
               sprite={sprite}
               id={`chevron-down`}
@@ -81,6 +95,22 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
                 transform: isChevronRotated ? "rotate(180deg)" : "none",
               }}
             />
+            <ul>
+              {selectOptions.categories.map((category) => {
+                return (
+                  <li key={category._id}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onHandleClickCategory(category);
+                      }}
+                    >
+                      {category.title}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
           </CategoryBtn>
         </div>
       </div>

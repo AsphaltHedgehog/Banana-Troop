@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { useEffect, useState, useRef } from "react";
 import {
   QuestionsContainer,
@@ -14,20 +13,7 @@ import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 
-interface SideBarProps {
-  setFormatQuiz: Dispatch<SetStateAction<string | undefined>>;
-  quizId: string | undefined;
-}
-
-// const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
-//   console.log(setFormatQuiz);
-//todo: on this prop ID(quizId)) you need to make a request for all questions,
-//todo: this is the ID of the quiz that comes for editing, accordingly,
-//todo: you need to extract all questions on it, if there are any
-//todo: please inform me about format of Quiz('quiz' or 'true/false' with setFormatQuiz function)
-// console.log(quizId);
-
-const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
+const Sidebar = () => {
   const [quizzes, setQuizzes] = useState([
     { id: 1, type: "True or False" },
     { id: 2, type: "Quiz" },
@@ -35,8 +21,6 @@ const Sidebar = ({ quizId, setFormatQuiz }: SideBarProps) => {
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
-  console.log(quizId);
-  console.log(setFormatQuiz);
   const handleDelete = (id: number) => {
     // Remove the quiz with the specified id
     setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
