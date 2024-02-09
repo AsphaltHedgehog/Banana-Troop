@@ -1,9 +1,37 @@
 #root {
   width: 100vw;
-  /* max-width: 1280px; */
   margin: 0 auto;
-  /* padding: 2rem; */
   text-align: center;
+  background-repeat: no-repeat;
+  background-position: top 0px right 0px;
+  background-size: contain;
+
+  background-image: image-set(
+    url("./images/hero/splash_mobi1x.webp") type("image/webp") 1x,
+    url("./images/hero/splash_mobi1x.webp") type("image/webp") 2x,
+    url("./images/hero/splash_mobi1x.png") type("image/png") 1x,
+    url("./images/hero/splash_mobi2x.png") type("image/png") 2x
+  );
+
+  @media screen and (min-width: 768px) {
+    background-image: image-set(
+      url("./images/hero/splash_tablet1x.webp") type("image/webp") 1x,
+      url("./images/hero/splash_tablet2x.webp") type("image/webp") 2x,
+      url("./images/hero/splash_tablet1x.png") type("image/png") 1x,
+      url("./images/hero/splash_tablet2x.png") type("image/png") 2x
+    );
+    background-size: 926px 965px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    background-image: image-set(
+      url("./images/hero/splash_desktop1x.webp") type("image/webp") 1x,
+      url("./images/hero/splash_desktop2x.webp") type("image/webp") 2x,
+      url("./images/hero/splash_desktop1x.png") type("image/png") 1x,
+      url("./images/hero/splash_desktop2x.png") type("image/png") 2x
+    );
+    background-size: 1070px 1115px;
+  }
 }
 
 .logo {
