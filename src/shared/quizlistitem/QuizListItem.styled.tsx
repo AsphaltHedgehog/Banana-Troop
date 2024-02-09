@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledCreateBtn } from "../buttons/styledButton";
+import { StyledStartBtn } from "../buttons/styledButton";
 import { breakpoints } from "../../styles";
 import Svg from "../svg/Svg";
 
@@ -102,7 +102,7 @@ export const StyledRatingSvg = styled(Svg)`
   stroke-width: 0;
 `;
 
-export const StyledButton = styled(StyledCreateBtn)`
+export const StyledButton = styled(StyledStartBtn)`
   width: 84px;
   height: 40px;
 

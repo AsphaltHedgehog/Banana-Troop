@@ -4,11 +4,13 @@ import {
   RadioContainer,
   CategoryBtn,
 } from "./QuizOptionsStyled";
-import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
+import { QuizBody } from "../../redux/quiz/slice";
+import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
 interface QuizOptionsProps {
-  editingQuiz?: QuizParams;
+  editingQuiz?: QuizCreate | QuizBody;
 }
 
 const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {

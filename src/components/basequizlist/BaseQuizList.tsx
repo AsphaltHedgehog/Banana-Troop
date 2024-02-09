@@ -5,11 +5,16 @@ import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "./BaseQuizList.styled";
 import "./customdots.css";
 import { breakpointsNumbers } from "../../styles";
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
-import { IQuizListItemProps } from "../../shared/quizlistitem/QuizListItem";
+import QuizListItem, {
+  IQuizListItemProps,
+} from "../../shared/quizlistitem/QuizListItem";
+
+interface IQuizListItem extends IQuizListItemProps {
+  _id: string;
+}
 
 interface IBaseQuizList {
-  array: IQuizListItemProps[];
+  array: IQuizListItem[];
 }
 
 const BaseQuizList = ({ array }: IBaseQuizList) => {
@@ -46,6 +51,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
         <Slider {...settingsMobile}>
           {array.map((quiz) => (
             <QuizListItem
+              key={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
@@ -61,12 +67,13 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
       width >= breakpointsNumbers.tablet ? (
         <StyledContainer>
           <Slider {...settingsTablet}>
-            {array.map((item) => (
+            {array.map((quiz) => (
               <QuizListItem
-                theme={item.theme}
-                rating={item.rating}
-                ageGroup={item.ageGroup}
-                finished={item.finished}
+                key={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
               />
             ))}
           </Slider>
@@ -78,12 +85,13 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
       {width >= breakpointsNumbers.desktop ? (
         <StyledContainer>
           <Slider {...settingsDesktop}>
-            {array.map((item) => (
+            {array.map((quiz) => (
               <QuizListItem
-                theme={item.theme}
-                rating={item.rating}
-                ageGroup={item.ageGroup}
-                finished={item.finished}
+                key={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
               />
             ))}
           </Slider>

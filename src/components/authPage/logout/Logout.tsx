@@ -1,18 +1,24 @@
-// import { useDispatch } from "react-redux";
-// import { logoutThunk } from "../../../redux/auth/operations";
+import { logoutThunk } from "../../../redux/auth/operations";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RegisterButton } from "../../../shared/buttons/RegisterButton";
+import {
+  StyledLogoutWrapp,
+  StyledText,
+  StyledTitle,
+} from "../AuthPages.styled";
 
 const Logout: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleLogOut = () => {
-    // dispatch(logoutThunk());
+    dispatch(logoutThunk());
   };
   return (
-    <div>
-      <h3>Log out</h3>
-      <p>Are you sure you want to log out of your account?</p>
-      <button onClick={handleLogOut}>Log out</button>
+    <StyledLogoutWrapp>
+      <StyledTitle>Log out</StyledTitle>
+      <StyledText>Are you sure you want to log out of your account?</StyledText>
+      <RegisterButton onClick={handleLogOut}>Log out</RegisterButton>
       <a href="#">Cancel</a>
-    </div>
+    </StyledLogoutWrapp>
   );
 };
 

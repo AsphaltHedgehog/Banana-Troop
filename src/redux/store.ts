@@ -12,9 +12,9 @@ import {
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/authSlice";
 // import { userReducer } from "./user/slice";
-import { categoriesReducer } from "./categories/slice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
+import { updateOptionsReducer } from "./updateOptions/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -25,7 +25,7 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   //   user: userReducer,
-  categories: categoriesReducer,
+  updateOptions: updateOptionsReducer,
   //   reviews: reviewsReducer,
   quizes: quizesReducer,
   questions: questionsReducer,

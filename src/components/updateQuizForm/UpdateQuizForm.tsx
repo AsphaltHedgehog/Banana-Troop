@@ -2,9 +2,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMediaQuery } from "react-responsive";
-import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { formUpdateOptions } from "../../redux/categories/selectors";
+import { formUpdateOptions } from "../../redux/updateOptions/selectors";
+import { QuizBody } from "../../redux/quiz/slice";
 import {
   deleteQuizesThunk,
   updateQuizesThunk,
@@ -18,13 +18,14 @@ import {
 import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
+import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
 
 type FormValues = {
   theme: string | undefined;
 };
 
 interface UpdateQuizFormProps {
-  editingQuiz: QuizParams;
+  editingQuiz: QuizBody | QuizCreate;
   setQuizId: Dispatch<SetStateAction<string | undefined>>;
   setAfterCreate: Dispatch<SetStateAction<boolean>>;
 }
@@ -53,15 +54,15 @@ const UpdateQuizForm = ({
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     if (data.theme) {
       const { ratingQuantity, rating, finished } = editingQuiz;
-
       const { ageGroup, background, category } = selectOptionsForEditing;
+      const categoryId = category.map((category) => category._id).join();
 
-      const editedQuiz: QuizParams = {
-        ageGroup: ageGroup,
-        background: background,
-        category: category,
-        theme: data.theme,
+      const editedQuiz: QuizBody = {
         _id: editingQuiz._id,
+        theme: data.theme,
+        category: categoryId,
+        background: background,
+        ageGroup: ageGroup,
         ratingQuantity: ratingQuantity,
         rating: rating,
         finished: finished,

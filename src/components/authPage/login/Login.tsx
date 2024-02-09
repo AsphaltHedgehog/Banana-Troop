@@ -1,25 +1,60 @@
-// import { useDispatch } from "react-redux";
-// import { RegisterButton } from "../../../shared/buttons/RegisterButton";
-// import { loginThunk } from "../../../redux/auth/operations";
+import { RegisterButton } from "../../../shared/buttons/RegisterButton";
+import { loginThunk } from "../../../redux/auth/operations";
+import { useAppDispatch } from "../../../redux/hooks";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schemaRegister } from "../../../helpers/schemas";
+import {
+  AuthLink,
+  RestoreBtnStyled,
+  StyledAuthForm,
+  StyledAuthInput,
+  StyledRegisterWrapp,
+  StyledTitle,
+} from "../AuthPages.styled";
+
+interface LoginFormData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  // const handleSubmit = (data) => {
-  // dispatch(loginThunk(data));
-  // };
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({ resolver: yupResolver(schemaRegister) });
+
+  const submit: SubmitHandler<LoginFormData> = (data) => {
+    dispatch(loginThunk(data));
+    reset();
+  };
 
   return (
-    <div>
-      <h3>Login</h3>
-      <form>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        {/* <RegisterButton onSubmit={handleSubmit}>Enter</RegisterButton> */}
-      </form>
-      <a href="#">Restore password</a>
-      <a href="#">Register</a>
-    </div>
+    <StyledRegisterWrapp>
+      <StyledTitle>Login</StyledTitle>
+      <StyledAuthForm onSubmit={handleSubmit(submit)}>
+        <StyledAuthInput
+          type="email"
+          placeholder="Email"
+          {...register("email")}
+        />
+        {errors?.email && <div>{errors.email.message}</div>}
+        <StyledAuthInput
+          type="password"
+          placeholder="Password"
+          {...register("password")}
+        />
+        {errors?.password && <div>{errors.password.message}</div>}
+        <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
+      </StyledAuthForm>
+      <RestoreBtnStyled href="#">Restore password</RestoreBtnStyled>
+      <AuthLink href="#">Register</AuthLink>
+    </StyledRegisterWrapp>
   );
 };
 

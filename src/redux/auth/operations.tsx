@@ -6,12 +6,12 @@ interface User {
   email: string;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   user: User;
   token: string;
 }
-
-interface Credentials {
+export interface Credentials {
+  name: string;
   email: string;
   password: string;
 }
