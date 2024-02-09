@@ -47,6 +47,16 @@ export const StyledContainer3 = styled.div`
   display: flex;
 `;
 
+export const StyledFavoriteButton = styled.button`
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+`;
+
 export const StyledNumbers = styled.p`
   margin-left: 6px;
   font-size: 14px;
