@@ -9,7 +9,14 @@ import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
-import { addCategory } from "../../redux/updateOptions/slice";
+import { addCategory, addBackground } from "../../redux/updateOptions/slice";
+import { fetchCategoriesThunk } from "../../redux/updateOptions/operations";
+
+interface ICategory {
+  _id: string;
+  ageGroup: string;
+  title: string;
+}
 
 const QuizOptions = () => {
   const dispatch = useAppDispatch();
@@ -18,28 +25,33 @@ const QuizOptions = () => {
   //todo: I threw props the values that will come from the editing object when the editing quiz comes
   //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
-  const [selectedAudience, setSelectedAudience] = useState<string>("children");
+  const [selectedAudience, setSelectedAudience] = useState<string>("adults");
 
   const [selectedColor, setSelectedColor] = useState<string>("none");
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Choose");
 
   const handleChooseBtnClick = () => {
     // setCreateListOpen(!isCreateListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
 
-  const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAudienceChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    await dispatch(fetchCategoriesThunk({ ageGroup: event.target.value }));
     setSelectedAudience(event.target.value);
+    setSelectedCategory("Choose");
   };
 
   const handleColorClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
+    dispatch(addBackground(event.target.value));
   };
 
-  const onHandleClickCategory = (id: string) => {
-    setSelectedCategory(id);
-    dispatch(addCategory({ _id: id }));
+  const onHandleClickCategory = (category: ICategory) => {
+    setSelectedCategory(category.title);
+    dispatch(addCategory(category._id));
   };
 
   return (
@@ -90,10 +102,10 @@ const QuizOptions = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        onHandleClickCategory(category._id);
+                        onHandleClickCategory(category);
                       }}
                     >
-                      ${category.title}
+                      {category.title}
                     </button>
                   </li>
                 );

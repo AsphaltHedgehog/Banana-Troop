@@ -146,7 +146,7 @@ export const addQuizesThunk = createAsyncThunk<
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzM5MTVkNzYzYTFjYmNhN2Q2YjE5MCIsImlhdCI6MTcwNzQ3MTMwNCwiZXhwIjoxNzA3NDczMTA0fQ.x3-GEPNS-2J1Uo5VyVk1fBoTMXjVkwet6qm1rY3J81M"
     );
     const { theme } = quiz;
 
