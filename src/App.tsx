@@ -19,20 +19,22 @@ import ForChildren from "./components/forChildren/ForChildren";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forAdults" element={<ForAdults />} />
-        <Route path="forChildren" element={<ForChildren />} />
-        <Route path="createQuiz" element={<CreateQuizPage />} />
-        <Route path="discover" element={<DiscoverPage />} />
-        <Route path="randomQuiz" element={<RandomQuizPage />} />
-        <Route path="favorites" element={<FavoritePage />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forAdults" element={<ForAdults />} />
+          <Route path="forChildren" element={<ForChildren />} />
+          <Route path="createQuiz" element={<CreateQuizPage />} />
+          <Route path="discover" element={<DiscoverPage />} />
+          <Route path="randomQuiz" element={<RandomQuizPage />} />
+          <Route path="favorites" element={<FavoritePage />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 }
 
