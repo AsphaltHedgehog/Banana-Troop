@@ -1,55 +1,70 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { fetchCategoriesThunk, getQuizByIdThunk } from "./operations";
+import { addQuizesThunk } from "../quiz/operations";
 
-export type Category = {
+export type categoriesType = {
   _id: string;
   ageGroup: string;
   title: string;
 };
 
-export type UpdateOptionsState = {
-  isLoading: boolean;
-  error: string | null;
-  formUpdateOptions: {
-    ageGroup: string;
-    background: string;
-    category: Category[];
-  };
+export type PayloadType = {
+  _id: string;
+  theme: string;
+  ageGroup: string;
+  background: string;
+  category: string;
+  categories: categoriesType[];
 };
 
-const initialState: UpdateOptionsState = {
-  isLoading: false,
-  error: null,
-  formUpdateOptions: {
-    ageGroup: "",
-    background: "",
-    category: [],
-  },
+const initialState: PayloadType = {
+  _id: "",
+  theme: "",
+  category: "",
+  categories: [],
+  ageGroup: "",
+  background: "",
 };
 
 const updateOptionsSlice = createSlice({
   name: "updateOptions",
   initialState,
   reducers: {
-    addUpdateOptions: (state, action: PayloadAction<Category>) => {
-      state.formUpdateOptions.category.push(action.payload);
+    addUpdateOptions: (state, action: PayloadAction<PayloadType>) => {
+      state._id = action.payload._id;
+      state.theme = action.payload.theme;
+      state.category = action.payload.category;
+      state.ageGroup = action.payload.ageGroup;
+      state.background = action.payload.background;
     },
-    editedUpdateOptions: (state, action: PayloadAction<Category>) => {
-      const index = state.formUpdateOptions.category.findIndex(
-        (category) => category._id === action.payload._id
-      );
-      if (index !== -1) {
-        state.formUpdateOptions.category[index] = action.payload;
-      }
+    addCategory: (state, action) => {
+      state.category = action.payload;
     },
-    deleteUpdateOptions: (state, action: PayloadAction<string>) => {
-      state.formUpdateOptions.category =
-        state.formUpdateOptions.category.filter(
-          (category) => category._id !== action.payload
-        );
+    addBackground: (state, action) => {
+      state.background = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
+        state.categories = payload.categories;
+      })
+      .addCase(getQuizByIdThunk.fulfilled, (state, { payload }) => {
+        state._id = payload._id;
+        state.theme = payload.theme;
+        state.background = payload.background;
+        state.ageGroup = payload.ageGroup;
+      })
+      .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
+        state._id = payload._id;
+        state.theme = payload.theme;
+        state.categories = payload.categories;
+        state.background = payload.background;
+        state.ageGroup = payload.ageGroup;
+      });
   },
 });
 
-export const { addUpdateOptions, editedUpdateOptions, deleteUpdateOptions } =
+export const { addUpdateOptions, addCategory, addBackground } =
   updateOptionsSlice.actions;
 export const updateOptionsReducer = updateOptionsSlice.reducer;

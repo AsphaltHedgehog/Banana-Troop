@@ -1,14 +1,12 @@
-import { Dispatch, SetStateAction } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useAppDispatch } from "../../redux/hooks";
 import { addQuizesThunk } from "../../redux/quiz/operations";
-import { QuizCreate } from "../../pages/CreateQuizPage/CreateQuizPage";
+
 import {
   CreateQuizButton,
   CreateQuizInput,
   StyledCreateQuizForm,
 } from "./CreateQuizForm.styled";
-import { QuizBody } from "../../redux/quiz/slice";
 
 type FormValues = {
   theme: string;
@@ -18,17 +16,7 @@ type RequestData = {
   theme: string;
 };
 
-interface CreateQuizFormProps {
-  setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  setEditingQuiz: Dispatch<SetStateAction<QuizCreate | QuizBody | undefined>>;
-  setAfterCreate: Dispatch<SetStateAction<boolean>>;
-}
-
-const CreateQuizForm = ({
-  setQuizId,
-  setEditingQuiz,
-  setAfterCreate,
-}: CreateQuizFormProps) => {
+const CreateQuizForm = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -36,23 +24,7 @@ const CreateQuizForm = ({
       const requestData: RequestData = {
         theme: data.theme,
       };
-      const response = await dispatch(addQuizesThunk(requestData)).unwrap();
-
-      const { _id, theme, categories, background, ageGroup } = response;
-
-      const quizForUpdate = {
-        _id,
-        theme,
-        categories,
-        background,
-        ageGroup,
-        ratingQuantity: 0,
-        rating: 0,
-        finished: 0,
-      };
-      setEditingQuiz(quizForUpdate);
-      setQuizId(quizForUpdate._id);
-      setAfterCreate(true);
+      await dispatch(addQuizesThunk(requestData)).unwrap();
       reset();
     } catch (error) {
       console.error("Error creating quiz:", error);

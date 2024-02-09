@@ -13,3 +13,29 @@ export const schemaRegister = yup.object().shape({
 export const schemaSendEmail = yup.object().shape({
    email: yup.string().email("Email is not valid").required()
 })
+export const answersSchema = yup.object().shape({
+  descr: yup
+    .string()
+    .required("Answer description is required")
+    .min(1, "Answer description must be at least 1 character")
+    .max(28, "Answer description must not exceed 28 characters"),
+  _id: yup.string(),
+});
+
+export const schemaQuestion = yup.object().shape({
+  _id: yup.string().required("Question ID is required"),
+  quiz: yup.string().required("Quiz ID is required"),
+  time: yup.string().required("Time is required"),
+  imageUrl: yup.string().required("Image URL is required"),
+  type: yup
+    .string()
+    .required("Type is required")
+    .oneOf(["full-text", "true-or-false"]),
+  descr: yup
+    .string()
+    .required("Question description is required")
+    .min(8, "Question description must be at least 8 characters")
+    .max(128, "Question description must not exceed 128 characters"),
+  answers: yup.array().of(answersSchema).required("Answers are required"),
+  validAnswer: yup.string().required("Valid answer is required"),
+});

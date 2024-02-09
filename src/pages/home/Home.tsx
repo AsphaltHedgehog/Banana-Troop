@@ -5,8 +5,9 @@ import Stats from "../../components/stats/Stats";
 import Hero from "../../components/hero/Hero";
 import SectionButton from "../../components/sectionButton/SectionButton";
 import Reviews from "../../components/reviews/Reviews";
+import { FC } from "react";
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <>
       <Box>
