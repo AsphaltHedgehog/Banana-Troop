@@ -150,6 +150,7 @@ export const StyledChooseWhiteBtn = styled(Link)`
 export const RegisterStyled = styled.button`
   border-radius: 30px;
   padding: 16px 13px;
+  margin-top: 18px;
 
   background: #205bf1;
 
