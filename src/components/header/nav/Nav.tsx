@@ -12,7 +12,7 @@ const Nav: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLDivElement;
-    if (target.tagName === "A") {
+    if (target.tagName === "A" || target.tagName === "H2") {
       closeModal();
     }
   };

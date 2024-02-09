@@ -2,6 +2,7 @@ import { FC } from "react";
 import { HeaderWrapper, StyledH2 } from "./Header.styled";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import { useNavigate } from "react-router";
+
 // import UserDropout from "../userDropout/userDropout";
 
 const Header: FC = () => {
