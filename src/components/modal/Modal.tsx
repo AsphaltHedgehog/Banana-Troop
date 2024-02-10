@@ -11,21 +11,29 @@ import {
 
 interface ModalProps {
   children: React.ReactNode;
-  endAnimation?: boolean;
-  setEndAnimation?: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpenBurger?: boolean;
+  setIsOpenBurger: React.Dispatch<React.SetStateAction<boolean>>;
   closeModal: () => void;
 }
 
 const rootModal = document.querySelector("#modal");
 
-const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
+const Modal: React.FC<ModalProps> = ({
+  children,
+  closeModal,
+  isOpenBurger,
+  setIsOpenBurger,
+}) => {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeModal();
+        setIsOpenBurger(false);
+        setTimeout(() => {
+          closeModal();
+        }, 470);
       }
     },
-    [closeModal]
+    [closeModal, setIsOpenBurger]
   );
 
   useEffect(() => {
@@ -50,7 +58,7 @@ const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
   if (rootModal) {
     return ReactDOM.createPortal(
       <StyledBackdrop onClick={handleBackDrop}>
-        <StyledWrapper>
+        <StyledWrapper $isOpenBurger={isOpenBurger}>
           {/* <StyledCloseButton type="button" title="modal close button" onClick={closeModal}>
             <svg width={28} height={28}>
               <use href={svg + '#icon-x'}></use>
