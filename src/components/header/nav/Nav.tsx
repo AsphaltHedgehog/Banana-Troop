@@ -9,17 +9,22 @@ import {
 import { StyledH2 } from "../wholeComponent/Header.styled";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Nav: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+interface NavProps {
+  handleCloseBurger: () => void;
+}
+
+const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
+    handleCloseBurger();
     navigate("/");
   };
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLDivElement;
     if (target.tagName === "A" || target.tagName === "H2") {
-      closeModal();
+      handleCloseBurger();
     }
   };
 
@@ -28,9 +33,7 @@ const Nav: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       <NavWrapper onClick={handleClick}>
         <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
         <CategoriesWrapper>
-          <NavLink to="/forAdults" onClick={closeModal}>
-            For adults
-          </NavLink>
+          <NavLink to="/forAdults">For adults</NavLink>
           <NavLink to="/forChildren">For children</NavLink>
         </CategoriesWrapper>
         <AuthWrapper>
