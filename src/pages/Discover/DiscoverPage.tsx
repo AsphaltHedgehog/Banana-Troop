@@ -32,7 +32,9 @@ import Box from "../../components/box/Box";
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
   const title = useAppSelector((state) => state.quizes.listCategory.categories);
-  const quizes = useAppSelector((state) => state.quizes.listCategory.data);
+  const quizes = useAppSelector(
+    (state) => state.quizes.listCategory.data.result
+  );
   const total = useAppSelector(
     (state) => state.quizes.listCategory.totalQuizzesCount
   );
@@ -243,6 +245,7 @@ const DiscoverPage = () => {
           filteredQuizes?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
+              id={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
@@ -253,6 +256,7 @@ const DiscoverPage = () => {
           quizes?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
+              id={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}

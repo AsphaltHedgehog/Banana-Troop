@@ -16,10 +16,10 @@ export interface Credentials {
   password: string;
 }
 
-export interface SendEmail{
+export interface SendEmail {
   email: string;
 }
-export interface NewPassword{
+export interface NewPassword {
   password: string;
 }
 
@@ -90,27 +90,56 @@ export const logoutThunk = createAsyncThunk<void, void>(
   }
 );
 
-export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>('resetPassword', async (credentials, thunkApi) => {
-  try {
-   const { data }: AxiosResponse<ApiResponse> = await quizApi.post('/auth/resetPassword', credentials);
-   return data;
-} catch (error) {
-if (error instanceof Error && typeof error.message === "string") {
+export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>(
+  "resetPassword",
+  async (credentials, thunkApi) => {
+    try {
+      const { data }: AxiosResponse<ApiResponse> = await quizApi.post(
+        "/auth/resetPassword",
+        credentials
+      );
+      return data;
+    } catch (error) {
+      if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);
       } else {
         return thunkApi.rejectWithValue("An unknown error occurred");
       }
-}
-})
+    }
+  }
+);
 
-export const newPasswordThunk = createAsyncThunk<ApiResponse, NewPassword & { token: string }>(
-  'newPassword',
-  async ({ password, token }, thunkApi) => {
-    try {
-      const response: AxiosResponse<ApiResponse> = await axios.post(`/api/auth/newPassword/${token}`, {
+export const newPasswordThunk = createAsyncThunk<
+  ApiResponse,
+  NewPassword & { token: string }
+>("newPassword", async ({ password, token }, thunkApi) => {
+  try {
+    const response: AxiosResponse<ApiResponse> = await axios.post(
+      `/api/auth/newPassword/${token}`,
+      {
         password,
-      });
-      return response.data;
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error && typeof error.message === "string") {
+      return thunkApi.rejectWithValue(error.message);
+    } else {
+      return thunkApi.rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+
+export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
+  "user/updateFavorite",
+  async (body, thunkApi) => {
+    try {
+      //delete later
+      setToken(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzM5MTVkNzYzYTFjYmNhN2Q2YjE5MCIsImlhdCI6MTcwNzU1Mzg0OSwiZXhwIjoxNzA3NTU1NjQ5fQ.ClNIWi0SnbHZfRLibLYt0MyUXpBozj75dLPPt7p2_aM"
+      );
+      const addFavorite = await quizApi.patch("/user/favorite", body);
+      return addFavorite.data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);

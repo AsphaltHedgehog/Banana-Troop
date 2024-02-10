@@ -52,6 +52,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
           {array.map((quiz) => (
             <QuizListItem
               key={quiz._id}
+              id={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
@@ -70,6 +71,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
             {array.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
+                id={quiz._id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
@@ -88,6 +90,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
             {array.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
+                id={quiz._id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
