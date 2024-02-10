@@ -10,6 +10,7 @@ import {
 
 export type QuizBody = {
   _id: string;
+  id: string;
   theme: string;
   category: string;
   background: string;
