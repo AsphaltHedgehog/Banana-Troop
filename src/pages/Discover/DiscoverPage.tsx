@@ -32,7 +32,9 @@ import Box from "../../components/box/Box";
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
   const title = useAppSelector((state) => state.quizes.listCategory.categories);
-  const quizes = useAppSelector((state) => state.quizes.listCategory.data);
+  const quizes = useAppSelector(
+    (state) => state.quizes.listCategory.data.result
+  );
   const total = useAppSelector(
     (state) => state.quizes.listCategory.totalQuizzesCount
   );

@@ -34,9 +34,9 @@ const RandomQuizPage = () => {
         console.log(data);
         return setQuizes((prevQuizes) => {
           if (prevQuizes.length === 0) {
-            return [...data.data];
+            return [...data.data.result];
           }
-          return [...prevQuizes, ...data.data];
+          return [...prevQuizes, ...data.data.result];
         });
       });
   }, [dispatch, page, param]);
