@@ -3,8 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 import { QuestionFormWrapper } from "./QuestionForm.styled";
 import {
-  addedQuestionByQuizThunk,
   deleteQuizQuestionImgByIdThunk,
+  updateQuestionByQuizThunk,
   updateQuizQuestionImgByIdThunk,
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -18,16 +18,18 @@ import {
 } from "../../redux/questions/selectors";
 // import { schemaQuestion } from "../../helpers/schemas";
 import { toast } from "react-toastify";
+import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
+import QuestionTime from "./questionTime/QuestionTime";
 
 type FormValues = {
-  _id: string;
-  quiz: string;
-  time: string;
-  imageUrl: string;
-  type: "full-text" | "true-or-false";
-  descr: string;
-  answers: Answers[];
-  validAnswer: string;
+  _id?: string;
+  quiz?: string;
+  time?: string;
+  imageUrl?: string;
+  type?: "full-text" | "true-or-false";
+  descr?: string;
+  answers?: Answers[];
+  validAnswer?: string;
 };
 
 const QuestionForm = () => {
@@ -37,8 +39,17 @@ const QuestionForm = () => {
   const selectQuestionIndex = useAppSelector(getQuestionsIndex);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  //todo: selectQuiz.background - put the value to form backgroundcolor
+  useEffect(() => {
+    if (selectQuestion.length >= 1) {
+      setSubmitted(true);
+    }
+    if (selectQuestion.length === 0) {
+      setSubmitted(false);
+    }
+  }, [selectQuestion]);
+
   const {
     register,
     handleSubmit,
@@ -47,34 +58,33 @@ const QuestionForm = () => {
     formState: { isValid },
   } = useForm<FormValues>({
     defaultValues: {
-      _id: selectQuestion[selectQuestionIndex]._id || "",
-      quiz: selectQuestion[selectQuestionIndex].quiz || "",
-      time: selectQuestion[selectQuestionIndex].time || "",
-      imageUrl: selectQuestion[selectQuestionIndex].imageUrl || "",
-      type: selectQuestion[selectQuestionIndex].type || "full-text",
-      descr: selectQuestion[selectQuestionIndex].descr || "",
-      answers: selectQuestion[selectQuestionIndex].answers || [],
-      validAnswer: selectQuestion[selectQuestionIndex].validAnswer || "",
+      _id: selectQuestion[selectQuestionIndex]?._id || "",
+      quiz: selectQuestion[selectQuestionIndex]?.quiz || "",
+      time: selectQuestion[selectQuestionIndex]?.time || "",
+      imageUrl: selectQuestion[selectQuestionIndex]?.imageUrl || "",
+      type: selectQuestion[selectQuestionIndex]?.type || "full-text",
+      descr: selectQuestion[selectQuestionIndex]?.descr || "",
+      answers: selectQuestion[selectQuestionIndex]?.answers || [],
+      validAnswer: selectQuestion[selectQuestionIndex]?.validAnswer || "",
     },
     // resolver: yupResolver(schemaQuestion),
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { time, imageUrl, type, descr, answers, validAnswer } = data;
-
+    const { time, imageUrl, type, descr, answers } = data;
     if (data) {
       const createNewQuizQuestion = {
         _id: selectQuestion[selectQuestionIndex]._id,
         quiz: selectQuiz._id,
         time,
-        imageUrl: `https://pigs.onrender.com/api/${imageUrl}`,
+        imageUrl: `${imageUrl}`,
         type,
         descr,
         answers,
-        validAnswer,
+        validAnswer: String(selectedAnswerIndex),
       };
 
-      dispatch(addedQuestionByQuizThunk(createNewQuizQuestion))
+      dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
@@ -89,10 +99,11 @@ const QuestionForm = () => {
   };
 
   const handleQuestionImage = (): JSX.Element => {
-    if (selectQuestion[selectQuestionIndex].imageUrl) {
+    const imageUrl = { imageUrl: selectQuestion[selectQuestionIndex].imageUrl };
+    if (imageUrl) {
       return (
         <img
-          src={selectQuestion[selectQuestionIndex].imageUrl}
+          src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
           {...register("imageUrl")}
         />
       );
@@ -127,7 +138,9 @@ const QuestionForm = () => {
   const handleRemoveImage = () => {
     if (selectQuestion[selectQuestionIndex].imageUrl) {
       dispatch(
-        deleteQuizQuestionImgByIdThunk(selectQuestion[selectQuestionIndex]._id)
+        deleteQuizQuestionImgByIdThunk({
+          _id: selectQuestion[selectQuestionIndex]._id,
+        })
       )
         .unwrap()
         .then(() => {
@@ -137,14 +150,14 @@ const QuestionForm = () => {
     }
   };
 
+  //===================================================================================
+
   const handleAnswerChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const serialNumber = ["A:", "B:", "C:", "D:"];
     const { value } = e.target;
-    const newValue = `${serialNumber[index]} ${value}`;
-    setValue(`answers.${index}.descr`, newValue);
+    setValue(`answers.${index}.descr`, value);
   };
 
   const handleSelectAnswer = (index: number) => {
@@ -157,115 +170,107 @@ const QuestionForm = () => {
     }
   }, [selectedAnswerIndex, setValue]);
 
+  const handleTimeClick = (minutes: number, seconds: number) => {
+    setValue("time", `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+  };
+
   const onCancel = () => {
     reset();
   };
 
+  const arrayMission = () => {
+    const answers = selectQuestion[selectQuestionIndex]?.answers;
+    if (answers && answers.length > 0) {
+      return answers;
+    }
+    const type = selectQuestion[selectQuestionIndex]?.type;
+    if (type === "true-or-false") {
+      const arrTrueFalse = [
+        { descr: "", _id: "" },
+        { descr: "", _id: "" },
+      ];
+      return arrTrueFalse;
+    }
+    const arrFullText = [
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+    ];
+    return arrFullText;
+  };
+
   return (
     <>
-      {selectQuestion[selectQuestionIndex].quiz || selectQuiz._id ? (
+      {submitted ? (
         <QuestionFormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div>{handleQuestionImage()}</div>
-              <div>
-                <label htmlFor="uploadImage">
-                  <Svg
-                    sprite={sprite}
-                    id={`icon-edit`}
-                    width={16}
-                    height={16}
-                  />
-                </label>
-                <input
-                  id="uploadImage"
-                  type="file"
-                  ref={inputRef}
-                  accept="image/*"
-                  onChange={hangleChengeImageQuestion}
-                />
-                <button onClick={handleRemoveImage}>
-                  <Svg
-                    sprite={sprite}
-                    id={`icon-trash`}
-                    width={16}
-                    height={16}
-                  />
-                </button>
-              </div>
+              <QuestionImageButtons
+                hangleChengeImageQuestion={hangleChengeImageQuestion}
+                handleRemoveImage={handleRemoveImage}
+                inputRef={inputRef}
+              />
             </div>
             <div>
-              <ul>
-                {Array.from({ length: 9 }, (_, index) => {
-                  const minutes = Math.floor(index / 4);
-                  const seconds = (index % 4) * 15;
-                  return (
-                    <li
-                      key={index}
-                      onClick={() =>
-                        setValue(
-                          "time",
-                          `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
-                        )
-                      }
-                    >
-                      {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
-                    </li>
-                  );
-                })}
-              </ul>
+              <QuestionTime handleTimeClick={handleTimeClick} />
             </div>
-            <textarea {...register("descr")} />
+            <textarea
+              {...register("descr")}
+              defaultValue={selectQuestion[selectQuestionIndex].descr}
+            />
+
             {selectQuestion[selectQuestionIndex].type === "full-text" ? (
               <ul>
-                {selectQuestion[selectQuestionIndex].answers.map(
-                  (answer, index) => (
-                    <li key={answer._id}>
-                      <input
-                        type="text"
-                        value={answer.descr}
-                        onChange={(e) => handleAnswerChange(index, e)}
-                      />
-                      <input
-                        type="checkbox"
-                        checked={selectedAnswerIndex === index}
-                        onChange={() => handleSelectAnswer(index)}
-                      />
-                    </li>
-                  )
-                )}
+                {arrayMission().map((answer, index) => (
+                  <li key={index}>
+                    <span>{`${String.fromCharCode(65 + index)}:`}</span>
+                    <input
+                      type="text"
+                      defaultValue={answer.descr}
+                      onChange={(e) => handleAnswerChange(index, e)}
+                      // {...register(`answers.${index}.descr`)}
+                    />
+                    <input
+                      type="checkbox"
+                      checked={selectedAnswerIndex === index}
+                      onChange={() => handleSelectAnswer(index)}
+                    />
+                  </li>
+                ))}
               </ul>
             ) : (
               <ul>
-                {selectQuestion[selectQuestionIndex].answers.map(
-                  (answer, index) => (
-                    <li key={answer._id}>
-                      <input
-                        type="text"
-                        value={`${String.fromCharCode(65 + index)}: ${
-                          index === 0 ? "true" : "false"
-                        }`}
-                        onChange={(e) => handleAnswerChange(index, e)}
-                      />
-                      <input
-                        type="checkbox"
-                        checked={selectedAnswerIndex === index}
-                        onChange={() => handleSelectAnswer(index)}
-                      />
-                    </li>
-                  )
-                )}
+                {arrayMission().map((answer, index) => (
+                  <li key={answer._id}>
+                    <input
+                      type="text"
+                      defaultValue={`${String.fromCharCode(65 + index)}: ${
+                        index === 0 ? "true" : "false"
+                      }`}
+                    />
+                    <input
+                      type="checkbox"
+                      checked={selectedAnswerIndex === index}
+                      onChange={() => handleSelectAnswer(index)}
+                    />
+                  </li>
+                ))}
               </ul>
             )}
+
             <div>
               <button type="submit" disabled={!isValid}>
-                {selectQuestion[selectQuestionIndex]._id ? "Save" : "Edit"}
+                Edit
               </button>
-              <button onClick={onCancel}>Cancel</button>
+              <button type="button" onClick={onCancel}>
+                Cancel
+              </button>
             </div>
           </form>
           <div>
-            {selectQuestionIndex}/{selectQuestion.length}
+            {selectQuestionIndex + 1}/{selectQuestion.length}
           </div>
         </QuestionFormWrapper>
       ) : (

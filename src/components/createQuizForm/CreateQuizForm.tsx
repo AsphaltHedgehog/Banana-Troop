@@ -7,6 +7,8 @@ import {
   CreateQuizInput,
   StyledCreateQuizForm,
 } from "./CreateQuizForm.styled";
+// import { fetchQuestionsByQuizThunk } from "../../redux/questions/operations";
+// import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 
 type FormValues = {
   theme: string;
@@ -19,6 +21,7 @@ type RequestData = {
 const CreateQuizForm = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<FormValues>();
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const requestData: RequestData = {
