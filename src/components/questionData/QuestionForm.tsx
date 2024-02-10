@@ -1,7 +1,21 @@
 import { useRef, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
-import { QuestionFormWrapper } from "./QuestionForm.styled";
+import {
+  FixPositoinWrapper,
+  QuestFormWrapper,
+  QuestionFormInputForUpdate,
+  QuestionFormInputLabel,
+  QuestionFormStyles,
+  QuestionFormWrapper,
+  QuestionImage,
+  QuestionImageWrapper,
+  QuestionTextarea,
+  SubmitQBtnNumWrapper,
+  SubmitQuizButton,
+  SubmitQuizButtonWrapper,
+  SubmitQuizNumSpan,
+} from "./QuestionForm.styled";
 import {
   deleteQuizQuestionImgByIdThunk,
   updateQuestionByQuizThunk,
@@ -9,8 +23,8 @@ import {
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Answers } from "../../redux/questions/slice";
-import Svg from "../../shared/svg/Svg";
-import sprite from "../../images/icons/sprite.svg";
+// import Svg from "../../shared/svg/Svg";
+// import sprite from "../../images/icons/sprite.svg";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 import {
   getQuestions,
@@ -20,6 +34,7 @@ import {
 import { toast } from "react-toastify";
 import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
 import QuestionTime from "./questionTime/QuestionTime";
+import AnswerList from "./аnswerList/AnswerList";
 
 type FormValues = {
   _id?: string;
@@ -40,6 +55,7 @@ const QuestionForm = () => {
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [tempImage, setTempImage] = useState<string>("");
 
   useEffect(() => {
     if (selectQuestion.length >= 1) {
@@ -99,16 +115,38 @@ const QuestionForm = () => {
   };
 
   const handleQuestionImage = (): JSX.Element => {
-    const imageUrl = { imageUrl: selectQuestion[selectQuestionIndex].imageUrl };
+    const imageUrl = selectQuestion[selectQuestionIndex].imageUrl || tempImage;
     if (imageUrl) {
       return (
-        <img
-          src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
-          {...register("imageUrl")}
-        />
+        <QuestionImageWrapper
+          imageurl={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
+        >
+          <QuestionImage
+            src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
+            {...register("imageUrl")}
+          />
+        </QuestionImageWrapper>
+      );
+    } else {
+      return (
+        <>
+          <QuestionImageWrapper
+            imageurl={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
+          >
+            <QuestionFormInputLabel htmlFor="upload">
+              обрати//todo: absolute + Svg
+            </QuestionFormInputLabel>
+            <QuestionFormInputForUpdate
+              id="upload"
+              type="file"
+              ref={inputRef}
+              accept="image/*"
+              onChange={hangleChengeImageQuestion}
+            />
+          </QuestionImageWrapper>
+        </>
       );
     }
-    return <Svg sprite={sprite} id={`icon-edit`} width={16} height={16} />;
   };
 
   const hangleChengeImageQuestion = () => {
@@ -123,6 +161,7 @@ const QuestionForm = () => {
         dispatch(updateQuizQuestionImgByIdThunk(questionFile))
           .unwrap()
           .then((response: string) => {
+            setTempImage(response);
             setValue("imageUrl", response);
             toast.success("Congrats! You added image to question!");
           })
@@ -186,8 +225,8 @@ const QuestionForm = () => {
     const type = selectQuestion[selectQuestionIndex]?.type;
     if (type === "true-or-false") {
       const arrTrueFalse = [
-        { descr: "", _id: "" },
-        { descr: "", _id: "" },
+        { descr: "true", _id: "" },
+        { descr: "false", _id: "" },
       ];
       return arrTrueFalse;
     }
@@ -204,74 +243,48 @@ const QuestionForm = () => {
     <>
       {submitted ? (
         <QuestionFormWrapper>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <div>{handleQuestionImage()}</div>
-              <QuestionImageButtons
-                hangleChengeImageQuestion={hangleChengeImageQuestion}
-                handleRemoveImage={handleRemoveImage}
-                inputRef={inputRef}
+          <QuestionFormStyles onSubmit={handleSubmit(onSubmit)}>
+            <FixPositoinWrapper>
+              <QuestFormWrapper>
+                {handleQuestionImage()}
+                {selectQuestion[selectQuestionIndex].imageUrl || tempImage ? (
+                  <QuestionImageButtons
+                    hangleChengeImageQuestion={hangleChengeImageQuestion}
+                    handleRemoveImage={handleRemoveImage}
+                    inputRef={inputRef}
+                  />
+                ) : null}
+              </QuestFormWrapper>
+              <div>
+                <QuestionTime handleTimeClick={handleTimeClick} />
+              </div>
+              <QuestionTextarea
+                autoComplete="off"
+                placeholder="Enter a question"
+                {...register("descr")}
+                defaultValue={selectQuestion[selectQuestionIndex].descr}
               />
-            </div>
-            <div>
-              <QuestionTime handleTimeClick={handleTimeClick} />
-            </div>
-            <textarea
-              {...register("descr")}
-              defaultValue={selectQuestion[selectQuestionIndex].descr}
-            />
-
-            {selectQuestion[selectQuestionIndex].type === "full-text" ? (
-              <ul>
-                {arrayMission().map((answer, index) => (
-                  <li key={index}>
-                    <span>{`${String.fromCharCode(65 + index)}:`}</span>
-                    <input
-                      type="text"
-                      defaultValue={answer.descr}
-                      onChange={(e) => handleAnswerChange(index, e)}
-                      // {...register(`answers.${index}.descr`)}
-                    />
-                    <input
-                      type="checkbox"
-                      checked={selectedAnswerIndex === index}
-                      onChange={() => handleSelectAnswer(index)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <ul>
-                {arrayMission().map((answer, index) => (
-                  <li key={answer._id}>
-                    <input
-                      type="text"
-                      defaultValue={`${String.fromCharCode(65 + index)}: ${
-                        index === 0 ? "true" : "false"
-                      }`}
-                    />
-                    <input
-                      type="checkbox"
-                      checked={selectedAnswerIndex === index}
-                      onChange={() => handleSelectAnswer(index)}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            <div>
-              <button type="submit" disabled={!isValid}>
-                Edit
-              </button>
-              <button type="button" onClick={onCancel}>
-                Cancel
-              </button>
-            </div>
-          </form>
-          <div>
-            {selectQuestionIndex + 1}/{selectQuestion.length}
-          </div>
+              <AnswerList
+                answers={arrayMission()}
+                selectedAnswerIndex={selectedAnswerIndex}
+                handleAnswerChange={handleAnswerChange}
+                handleSelectAnswer={handleSelectAnswer}
+              />
+            </FixPositoinWrapper>
+            <SubmitQBtnNumWrapper>
+              <SubmitQuizNumSpan>
+                {selectQuestionIndex + 1}/{selectQuestion.length}
+              </SubmitQuizNumSpan>
+              <SubmitQuizButtonWrapper>
+                <SubmitQuizButton type="submit" disabled={!isValid}>
+                  Save
+                </SubmitQuizButton>
+                <SubmitQuizButton type="button" onClick={onCancel}>
+                  Cancel
+                </SubmitQuizButton>
+              </SubmitQuizButtonWrapper>
+            </SubmitQBtnNumWrapper>
+          </QuestionFormStyles>
         </QuestionFormWrapper>
       ) : (
         <QuestionFormWrapper></QuestionFormWrapper>

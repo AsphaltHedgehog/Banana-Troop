@@ -16,8 +16,8 @@ import sprite from "../../images/icons/sprite.svg";
 
 const Sidebar = () => {
   const [quizzes, setQuizzes] = useState([
-    { id: 1, type: "True or False" },
-    { id: 2, type: "Quiz" },
+    { id: 1, type: "true-or-false" },
+    { id: 2, type: "full-text" },
   ]);
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
