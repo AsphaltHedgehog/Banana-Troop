@@ -11,8 +11,8 @@ export const schemaRegister = yup.object().shape({
 });
 
 export const schemaSendEmail = yup.object().shape({
-   email: yup.string().email("Email is not valid").required()
-})
+  email: yup.string().email("Email is not valid").required(),
+});
 
 export const schemaNewPassword = yup.object().shape({
   password: yup
@@ -22,8 +22,8 @@ export const schemaNewPassword = yup.object().shape({
     .required("Password is required"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required')
+    .oneOf([yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
 });
 
 export const answersSchema = yup.object().shape({
@@ -51,4 +51,25 @@ export const schemaQuestion = yup.object().shape({
     .max(128, "Question description must not exceed 128 characters"),
   answers: yup.array().of(answersSchema).required("Answers are required"),
   validAnswer: yup.string().required("Valid answer is required"),
+});
+
+export const schemaSettingsInput = yup.object().shape({
+  name: yup
+    .string()
+    .trim()
+    .required("The name is required")
+    .min(1, "Enter at least 1 character")
+    .max(32, "Enter the name no longer than 32 characters"),
+  email: yup
+    .string()
+    .trim()
+    .required("The email is required")
+    .min(8, "Enter at least 8 characters")
+    .max(64, "Enter the email no longer than 64 characters"),
+  password: yup
+    .string()
+    .trim()
+    .required("The password is required")
+    .min(8, "Enter at least 8 characters")
+    .max(64, "Enter the password no longer than 64 characters"),
 });

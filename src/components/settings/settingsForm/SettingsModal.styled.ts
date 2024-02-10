@@ -12,7 +12,8 @@ export const SettingsForm = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
+  position: relative;
 
   input {
     color: white;
@@ -27,4 +28,26 @@ export const SettingsForm = styled.form`
     border-radius: 30px;
     border: 1px solid #f4f4f44d;
   }
+
+  p {
+    position: absolute;
+    color: #e74a3b;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0em;
+    left: 68px;
+  }
+`;
+
+export const StyledNameError = styled.p`
+  top: 50px;
+`;
+
+export const StyledEmailError = styled.p`
+  top: 120px;
+`;
+
+export const StyledPasswordError = styled.p`
+  top: 188px;
 `;
