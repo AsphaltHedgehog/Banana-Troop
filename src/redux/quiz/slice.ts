@@ -32,6 +32,7 @@ export type Quiz = {
 };
 
 export type QuizByCategories = {
+  categories: string;
   data: { result: QuizBody[]; category: Category[]; total: number };
 
   currentPage: number;
@@ -62,6 +63,7 @@ const initialState: QuizState = {
     currentPage: 0,
     pageSize: 0,
     totalPages: 0,
+    categories: ""
   },
   listRaiting: [],
   isLoading: false,

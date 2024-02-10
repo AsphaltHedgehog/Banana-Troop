@@ -47,7 +47,7 @@ const updateOptionsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
-        state.categories = payload.categories;
+        state.category = payload.categories;
       })
       .addCase(getQuizByIdThunk.fulfilled, (state, { payload }) => {
         state._id = payload._id;

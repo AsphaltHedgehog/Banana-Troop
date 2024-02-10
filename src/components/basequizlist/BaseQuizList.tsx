@@ -10,7 +10,7 @@ import QuizListItem, {
 } from "../../shared/quizlistitem/QuizListItem";
 
 interface IQuizListItem extends IQuizListItemProps {
-  _id: string;
+  id: string;
 }
 
 interface IBaseQuizList {
@@ -51,8 +51,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
         <Slider {...settingsMobile}>
           {array.map((quiz) => (
             <QuizListItem
-              key={quiz._id}
-              id={quiz._id}
+              key={quiz.id}
+              id={quiz.id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
@@ -70,8 +70,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
           <Slider {...settingsTablet}>
             {array.map((quiz) => (
               <QuizListItem
-                key={quiz._id}
-                id={quiz._id}
+                key={quiz.id}
+                id={quiz.id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
@@ -89,8 +89,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
           <Slider {...settingsDesktop}>
             {array.map((quiz) => (
               <QuizListItem
-                key={quiz._id}
-                id={quiz._id}
+                key={quiz.id}
+                id={quiz.id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
