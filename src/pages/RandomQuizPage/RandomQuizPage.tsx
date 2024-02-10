@@ -14,35 +14,32 @@ import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import { useState } from "react";
 import { QuizBody } from "../../redux/quiz/slice";
-import { getQuizCategoryPageSize } from "../../redux/quiz/selectors";
+import { getQuizCategoryTotal } from "../../redux/quiz/selectors";
 
 const RandomQuizPage = () => {
   const location = useLocation();
   const param = location.search.substring(1);
   const dispatch = useAppDispatch();
-  const totalPages = useAppSelector(getQuizCategoryPageSize);
+  const total = useAppSelector(getQuizCategoryTotal);
 
-  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(7);
   const [quizes, setQuizes] = useState<QuizBody[]>([]);
 
   useEffect(() => {
-    const query = { ageGroup: param, page: page, pageSize: 7 };
+    const query = { ageGroup: param, pageSize: pageSize };
 
     dispatch(fetchCategoriesThunk(query))
       .unwrap()
       .then((data) => {
         console.log(data);
-        return setQuizes((prevQuizes) => {
-          if (prevQuizes.length === 0) {
-            return [...data.data.result];
-          }
-          return [...prevQuizes, ...data.data.result];
+        return setQuizes(() => {
+          return [...data.data.result];
         });
       });
-  }, [dispatch, page, param]);
+  }, [dispatch, pageSize, param]);
 
   const handleLoadMore = () => {
-    if (page <= totalPages) return setPage(page + 1);
+    if (quizes.length < total) return setPageSize(pageSize + 8);
   };
 
   return (
@@ -69,7 +66,7 @@ const RandomQuizPage = () => {
             />
           ))}
         </StyledUl>
-        {page < totalPages ? (
+        {quizes.length < total ? (
           <StyledButton type="button" onClick={handleLoadMore}>
             Load More
           </StyledButton>

@@ -32,7 +32,10 @@ export type Quiz = {
 };
 
 export type QuizByCategories = {
-  data: { result: QuizBody[] };
+  data: {
+    total: number;
+    result: QuizBody[];
+  };
   categories: Category[];
   currentPage: number;
   pageSize: number;
