@@ -25,25 +25,23 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
     0.5s ease-in-out;
 `;
 
+//TODO: set animation for different screens (now only for mobile)
 const slideInAnimation = keyframes`
   from {
-    transform: translateX(100%);
-    /* opacity: 0; */
+    transform: translate3d(425px, -506px, 0px);
   }
   to {
-    transform: translateX(0);
-    /* opacity: 1; */
+    transform: translate3d(0);
   }
+
 `;
 
 const slideOutAnimation = keyframes`
   from {
-    transform: translateX(0);
-    /* opacity: 1; */
+    transform: translate3d(0);
   }
   to {
-    transform: translateX(100%);
-    /* opacity: 0; */
+    transform: translate3d(-425px, 506px, 0px);
   }
 `;
 
