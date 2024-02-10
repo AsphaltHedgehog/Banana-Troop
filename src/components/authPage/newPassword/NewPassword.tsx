@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { newPasswordThunk } from '../../../redux/auth/operations';
 import { schemaNewPassword } from '../../../helpers/schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,7 +15,7 @@ interface FormValues {
 }
 
 const NewPassword: React.FC = () => {
-  // const { token } = useParams<{ token: string }>();
+  const { token = '' } = useParams<{ token?: string }>();
   const dispatch = useAppDispatch();
   
 
@@ -26,7 +26,7 @@ const NewPassword: React.FC = () => {
   const onSubmit = (data: FormValues) => {
     dispatch(newPasswordThunk({
         password: data.password,
-        token: ''
+        token: token 
     }));
   };
 

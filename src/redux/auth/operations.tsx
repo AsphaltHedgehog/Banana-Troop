@@ -116,6 +116,7 @@ export const newPasswordThunk = createAsyncThunk<
   try {
     const response: AxiosResponse<ApiResponse> = await axios.patch(
       `/auth/newPassword/${token}`,
+
       {
         password,
       }
