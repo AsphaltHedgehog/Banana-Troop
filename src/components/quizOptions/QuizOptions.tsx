@@ -32,8 +32,6 @@ const QuizOptions = () => {
   const [OptionListOpen, setOptionListOpen] = useState<boolean>(false);
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
-  //todo: I threw props the values that will come from the editing object when the editing quiz comes
-  //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
 
   const [selectedAudience, setSelectedAudience] = useState<string>("adults");
 

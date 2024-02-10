@@ -60,7 +60,7 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU3Nzk1MSwiZXhwIjoxNzA3NTk5NTUxfQ._3TQ7rJDFubIZNo5W1SCOE7E57k8fD93_LbKqL8jonU"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYwMDY2OCwiZXhwIjoxNzA3NjIyMjY4fQ.c7EFCwpguM_GxbJSteOETppAC4AkDJBtZeBe85ohqG4"
     );
     const { _id, ...body } = question;
     const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
