@@ -32,8 +32,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addFavorite: (state, { payload }) => {
-      const favoriteId = payload;
-      state.user.favorite?.push(favoriteId);
+      state.user.favorite = [...(state.user.favorite || []), payload];
     },
     deleteFavorite: (state, { payload }) => {
       state.user.favorite = state.user.favorite?.filter(
