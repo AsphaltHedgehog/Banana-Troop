@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react';
-import Modal from '../../modal/Modal';
-import { useModal } from '../../../hooks/useModal';
-import LogoutModal from '../../logoutModal/logoutModal';
+// import { useEffect, useState } from 'react';
+// import Modal from '../../modal/Modal';
+// import { useModal } from '../../../hooks/useModal';
+// import LogoutModal from '../../logoutModal/logoutModal';
 
-const UserDropout = () => {
-  const { isOpen, openModal, closeModal } = useModal();
-  
-  const [modal, setModal] = useState(<LogoutModal />);
+// const UserDropout = () => {
+//   const { isOpen, openModal, closeModal } = useModal();
 
-  useEffect(() => {
-    setModal(<LogoutModal/>)
-  }, [])
+//   const [modal, setModal] = useState(<LogoutModal />);
 
-  return (
-    <>
-      <button onClick={openModal}>Logout</button>
-      {isOpen && modal && <Modal children={modal} closeModal={closeModal} />}
-    </>
-  )
-};
+//   useEffect(() => {
+//     setModal(<LogoutModal/>)
+//   }, [])
 
-export default UserDropout
+//   return (
+//     <>
+//       <button onClick={openModal}>Logout</button>
+//       {isOpen && modal && <Modal children={modal} closeModal={closeModal} />}
+//     </>
+//   )
+// };
+
+// export default UserDropout
