@@ -29,6 +29,7 @@ export const SettingsHeaderWrapper = styled.div`
     font-weight: 700;
     line-height: 1.18;
     letter-spacing: -0.01em;
+    margin-bottom: 40px;
   }
 `;
 

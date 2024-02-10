@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import sprite from "../../images/icons/sprite.svg";
+import sprite from "../../../images/icons/sprite.svg";
 import { SettingMainWrapper, SettingsHeaderWrapper } from "./Settings.styled";
+import SettingsModal from "../settingsForm/SettingsModal";
 
 const Settings: FC = () => {
   const navigate = useNavigate();
@@ -21,10 +22,8 @@ const Settings: FC = () => {
           Back
         </NavLink>
         <h2>Settings</h2>
-        <svg>
-          <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
-        </svg>
       </SettingsHeaderWrapper>
+      <SettingsModal />
     </SettingMainWrapper>
   );
 };

@@ -19,7 +19,7 @@ import NewPassword from "./components/authPage/newPassword/NewPassword";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import Settings from "./components/settings/Settings";
+import Settings from "./components/settings/wholeComponent/Settings";
 
 function App() {
   return (
