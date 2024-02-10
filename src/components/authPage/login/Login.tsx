@@ -52,7 +52,7 @@ const Login: React.FC = () => {
         {errors?.password && <div>{errors.password.message}</div>}
         <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
       </StyledAuthForm>
-      <RestoreBtnStyled href="#">Restore password</RestoreBtnStyled>
+      <RestoreBtnStyled href="/restorePassword">Restore password</RestoreBtnStyled>
       <AuthLink href="#">Register</AuthLink>
     </StyledRegisterWrapp>
   );
