@@ -20,6 +20,7 @@ import {
 } from "../../redux/auth/selectors";
 import { toast } from "react-toastify";
 import { deleteFavorite, addFavorite } from "../../redux/auth/authSlice";
+import { updateFavoriteThunk } from "../../redux/auth/operations";
 
 export interface IQuizListItemProps {
   id: string;
@@ -75,11 +76,13 @@ const QuizListItem = ({
 
   const handleFavoriteClick = () => {
     if (isLoggedIn) {
+      dispatch(updateFavoriteThunk({ favorite: id }));
       if (userFavorites.includes(id)) {
         return dispatch(deleteFavorite(id));
       }
       return dispatch(addFavorite(id));
     }
+
     return toast.error("You have to be logged in to do that!");
   };
 
