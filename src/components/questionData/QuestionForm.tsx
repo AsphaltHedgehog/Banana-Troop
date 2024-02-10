@@ -18,16 +18,18 @@ import {
 } from "../../redux/questions/selectors";
 // import { schemaQuestion } from "../../helpers/schemas";
 import { toast } from "react-toastify";
+import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
+import QuestionTime from "./questionTime/QuestionTime";
 
 type FormValues = {
   _id: string;
-  quiz: string;
-  time: string;
-  imageUrl: string;
+  quiz: string | undefined;
+  time: string | undefined;
+  imageUrl: string | undefined;
   type: "full-text" | "true-or-false";
-  descr: string;
-  answers: Answers[];
-  validAnswer: string;
+  descr: string | undefined;
+  answers: Answers[] | [];
+  validAnswer: string | undefined;
 };
 
 const QuestionForm = () => {
@@ -60,18 +62,17 @@ const QuestionForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { time, imageUrl, type, descr, answers, validAnswer } = data;
-
+    const { time, imageUrl, type, descr, answers } = data;
     if (data) {
       const createNewQuizQuestion = {
         _id: selectQuestion[selectQuestionIndex]._id,
         quiz: selectQuiz._id,
         time,
-        imageUrl: `https://pigs.onrender.com/api/${imageUrl}`,
+        imageUrl: `${imageUrl}`,
         type,
         descr,
         answers,
-        validAnswer,
+        validAnswer: String(selectedAnswerIndex),
       };
 
       dispatch(addedQuestionByQuizThunk(createNewQuizQuestion))
@@ -92,7 +93,7 @@ const QuestionForm = () => {
     if (selectQuestion[selectQuestionIndex].imageUrl) {
       return (
         <img
-          src={selectQuestion[selectQuestionIndex].imageUrl}
+          src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${selectQuestion[selectQuestionIndex].imageUrl}`}
           {...register("imageUrl")}
         />
       );
@@ -106,7 +107,7 @@ const QuestionForm = () => {
       if (currentInput.files) {
         const image = currentInput.files[0];
         const questionFile = {
-          _id: selectQuestion[selectQuestionIndex]._id,
+          _id: selectQuestion[selectQuestionIndex]._id, //todo: як звертатись, якщо немає ще айді питання
           image: image,
         };
         dispatch(updateQuizQuestionImgByIdThunk(questionFile))
@@ -127,7 +128,7 @@ const QuestionForm = () => {
   const handleRemoveImage = () => {
     if (selectQuestion[selectQuestionIndex].imageUrl) {
       dispatch(
-        deleteQuizQuestionImgByIdThunk(selectQuestion[selectQuestionIndex]._id)
+        deleteQuizQuestionImgByIdThunk(selectQuestion[selectQuestionIndex]._id) //todo: як звертатись, якщо немає ще айді питання
       )
         .unwrap()
         .then(() => {
@@ -136,15 +137,14 @@ const QuestionForm = () => {
         .catch((error) => error.massage);
     }
   };
+  //===================================================================================
 
   const handleAnswerChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const serialNumber = ["A:", "B:", "C:", "D:"];
     const { value } = e.target;
-    const newValue = `${serialNumber[index]} ${value}`;
-    setValue(`answers.${index}.descr`, newValue);
+    setValue(`answers.${index}.descr`, value);
   };
 
   const handleSelectAnswer = (index: number) => {
@@ -157,6 +157,10 @@ const QuestionForm = () => {
     }
   }, [selectedAnswerIndex, setValue]);
 
+  const handleTimeClick = (minutes: number, seconds: number) => {
+    setValue("time", `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
+  };
+
   const onCancel = () => {
     reset();
   };
@@ -168,63 +172,31 @@ const QuestionForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div>{handleQuestionImage()}</div>
-              <div>
-                <label htmlFor="uploadImage">
-                  <Svg
-                    sprite={sprite}
-                    id={`icon-edit`}
-                    width={16}
-                    height={16}
-                  />
-                </label>
-                <input
-                  id="uploadImage"
-                  type="file"
-                  ref={inputRef}
-                  accept="image/*"
-                  onChange={hangleChengeImageQuestion}
-                />
-                <button onClick={handleRemoveImage}>
-                  <Svg
-                    sprite={sprite}
-                    id={`icon-trash`}
-                    width={16}
-                    height={16}
-                  />
-                </button>
-              </div>
+              <QuestionImageButtons
+                hangleChengeImageQuestion={hangleChengeImageQuestion}
+                handleRemoveImage={handleRemoveImage}
+                inputRef={inputRef}
+              />
             </div>
             <div>
-              <ul>
-                {Array.from({ length: 9 }, (_, index) => {
-                  const minutes = Math.floor(index / 4);
-                  const seconds = (index % 4) * 15;
-                  return (
-                    <li
-                      key={index}
-                      onClick={() =>
-                        setValue(
-                          "time",
-                          `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
-                        )
-                      }
-                    >
-                      {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
-                    </li>
-                  );
-                })}
-              </ul>
+              <QuestionTime handleTimeClick={handleTimeClick} />
             </div>
-            <textarea {...register("descr")} />
+            <textarea
+              {...register("descr")}
+              defaultValue={selectQuestion[selectQuestionIndex].descr}
+            />
+
             {selectQuestion[selectQuestionIndex].type === "full-text" ? (
               <ul>
                 {selectQuestion[selectQuestionIndex].answers.map(
                   (answer, index) => (
-                    <li key={answer._id}>
+                    <li key={index}>
+                      <span>{`${String.fromCharCode(65 + index)}:`}</span>
                       <input
                         type="text"
-                        value={answer.descr}
+                        defaultValue={answer.descr}
                         onChange={(e) => handleAnswerChange(index, e)}
+                        // {...register(`answers.${index}.descr`)}
                       />
                       <input
                         type="checkbox"
@@ -242,10 +214,9 @@ const QuestionForm = () => {
                     <li key={answer._id}>
                       <input
                         type="text"
-                        value={`${String.fromCharCode(65 + index)}: ${
+                        defaultValue={`${String.fromCharCode(65 + index)}: ${
                           index === 0 ? "true" : "false"
                         }`}
-                        onChange={(e) => handleAnswerChange(index, e)}
                       />
                       <input
                         type="checkbox"
@@ -257,15 +228,18 @@ const QuestionForm = () => {
                 )}
               </ul>
             )}
+
             <div>
               <button type="submit" disabled={!isValid}>
-                {selectQuestion[selectQuestionIndex]._id ? "Save" : "Edit"}
+                {selectQuestion[selectQuestionIndex].quiz ? "Edit" : "Save"}
               </button>
-              <button onClick={onCancel}>Cancel</button>
+              <button type="button" onClick={onCancel}>
+                Cancel
+              </button>
             </div>
           </form>
           <div>
-            {selectQuestionIndex}/{selectQuestion.length}
+            {selectQuestionIndex + 1}/{selectQuestion.length}
           </div>
         </QuestionFormWrapper>
       ) : (

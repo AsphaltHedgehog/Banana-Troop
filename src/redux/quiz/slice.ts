@@ -88,12 +88,6 @@ const quizesSlice = createSlice({
         state.listCategory.totalQuizzesCount = payload.totalQuizzesCount;
         state.isLoading = false;
       })
-      // .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
-      //   if (payload && payload._id) {
-      //     state.listAll.result.push(payload);
-      //     state.isLoading = false;
-      //   }
-      // })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
         state.listAll.result = state.listAll.result.filter(
           (quiz) => quiz._id !== payload
