@@ -15,7 +15,7 @@ interface FormValues {
 }
 
 const NewPassword: React.FC = () => {
-  const { token = '' } = useParams<{ token?: string }>();
+  const { resetToken = '' } = useParams<{ resetToken?: string }>();
   const dispatch = useAppDispatch();
   
 
@@ -26,7 +26,7 @@ const NewPassword: React.FC = () => {
   const onSubmit = (data: FormValues) => {
     dispatch(newPasswordThunk({
         password: data.password,
-        token: token 
+        resetToken: resetToken 
     }));
   };
 

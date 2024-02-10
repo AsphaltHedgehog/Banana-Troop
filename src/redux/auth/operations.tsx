@@ -111,16 +111,15 @@ export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>(
 
 export const newPasswordThunk = createAsyncThunk<
   ApiResponse,
-  NewPassword & { token: string }
->("newPassword", async ({ password, token }, thunkApi) => {
+  NewPassword & { resetToken: string }
+>("newPassword", async ({ password, resetToken }, thunkApi) => {
   try {
-    const response: AxiosResponse<ApiResponse> = await axios.patch(
-      `/auth/newPassword/${token}`,
-
-      {
-        password,
-      }
-    );
+    const response: AxiosResponse<ApiResponse> = await quizApi.patch(
+  `/auth/newPassword/${resetToken}`,
+  {
+    password,
+  }
+);
     return response.data;
   } catch (error) {
     if (error instanceof Error && typeof error.message === "string") {
@@ -135,7 +134,7 @@ export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
   "user/updateFavorite",
   async (body, thunkApi) => {
     try {
-      //delete later
+//       //delete later
       setToken(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzM5MTVkNzYzYTFjYmNhN2Q2YjE5MCIsImlhdCI6MTcwNzU1Mzg0OSwiZXhwIjoxNzA3NTU1NjQ5fQ.ClNIWi0SnbHZfRLibLYt0MyUXpBozj75dLPPt7p2_aM"
       );
