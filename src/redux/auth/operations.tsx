@@ -114,7 +114,7 @@ export const newPasswordThunk = createAsyncThunk<
   NewPassword & { token: string }
 >("newPassword", async ({ password, token }, thunkApi) => {
   try {
-    const response: AxiosResponse<ApiResponse> = await axios.post(
+    const response: AxiosResponse<ApiResponse> = await axios.patch(
       `/api/auth/newPassword/${token}`,
       {
         password,
