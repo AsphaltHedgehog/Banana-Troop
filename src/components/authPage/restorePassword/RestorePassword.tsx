@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { resetPasswordThunk } from '../../redux/auth/operations';
-import { useAppDispatch } from '../../redux/hooks';
+import { resetPasswordThunk } from '../../../redux/auth/operations';
+import { useAppDispatch } from '../../../redux/hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaSendEmail } from '../../helpers/schemas';
-import { StyledAuthForm, StyledAuthInput, StyledTitle } from '../authPage/AuthPages.styled';
-import { RegisterButton } from '../../shared/buttons/RegisterButton';
+import { schemaSendEmail } from '../../../helpers/schemas';
+import { StyledAuthForm, StyledAuthInput, StyledTitle } from '../AuthPages.styled';
+import { RegisterButton } from '../../../shared/buttons/RegisterButton';
 import { StyledBack, StyledEmail, StyledNotification, StyledRestoreTitle, StyledRestoreWrap } from './RestorePassword.styled';
 import { AxiosError } from 'axios';
 
@@ -37,29 +37,9 @@ const RestorePassword: React.FC = () => {
     const dispatch = useAppDispatch();
     const [isEmailSent, setIsEmailSent] = useState(false);
     const [email, setEmail] = useState<string>('');
-    const [isEmailError, setIsEmailError]= useState(false)
-
-    // const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
-    //     try {
-    //         dispatch(resetPasswordThunk(data)).then((response: CustomResponse) => {
-    //             reset()
-    //             if (response.error) {
-    //                 setIsEmailError(true)
-    //                 return
-    //             }
-    //             setEmail(data.email)
-    //             setIsEmailSent(true)
-    //         })
-            
-    //     } catch (error) {
-    //        if ((error as AxiosError).response && (error as AxiosError).response?.status === 400) {
-    //             setIsEmailSent(false);
-    //         } else {
-    //             console.error('Error occurred:', error);
-    //         }
-    //     }
-    // };
-const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
+    const [isEmailError, setIsEmailError] = useState(false)
+    
+    const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
     try {
         dispatch(resetPasswordThunk(data)).then((response) => {
                 reset()

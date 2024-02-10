@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledRegisterWrapp = styled.div`
@@ -37,7 +38,7 @@ export const StyledAuthInput = styled.input`
   }
 `;
 
-export const AuthLink = styled.a`
+export const AuthLink = styled(NavLink)`
   color: #f4f4f4 !important;
   text-decoration: underline;
   text-align: center;
@@ -74,4 +75,11 @@ export const StyledText = styled.p`
   text-align: center;
   color: #f4f4f4;
   margin-bottom: 16px;
+`;
+
+export const StyledModal = styled.div`
+  position: relative;
+  background-color: black;
+  width: 500px;
+  z-index: 6000000000;
 `;

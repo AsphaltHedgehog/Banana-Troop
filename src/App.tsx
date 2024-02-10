@@ -10,9 +10,11 @@ import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
 import Login from "./components/authPage/login/Login";
 import Register from "./components/authPage/register/Register";
+import Logout from "./components/authPage/logout/Logout";
 import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
-import RestorePassword from "./components/restorePassword/RestorePassword";
+import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
+import NewPassword from "./components/authPage/newPassword/NewPassword";
 
 // css
 import "./App.css";
@@ -26,7 +28,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="restorePassword" element={<RestorePassword />} />
+          <Route path="newPassword" element={<NewPassword />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<CreateQuizPage />} />

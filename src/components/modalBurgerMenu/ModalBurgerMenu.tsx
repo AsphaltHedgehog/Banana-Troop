@@ -5,7 +5,7 @@ import {
   StyledBackdrop,
   StyledWrapper,
   // StyledCloseButton,
-} from "./Modal.styled";
+} from "./ModalBurgerMenu.styled";
 
 // import svg from "../../images/icons/sprite.svg";
 
@@ -75,10 +75,3 @@ const Modal: React.FC<ModalProps> = ({
 };
 
 export default Modal;
-
-// const { isOpen, openModal, closeModal } = useModal();
-// const [modal, setModal] = useState(null);
-// {
-//   isOpen && modal && <Modal children={modal} closeModal={closeModal} />;
-// }
-// підключення модалки до необхідних частин, при необхідності треба додаткова перевірка.
