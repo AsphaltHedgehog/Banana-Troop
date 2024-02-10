@@ -63,7 +63,7 @@ const initialState: QuizState = {
     currentPage: 0,
     pageSize: 0,
     totalPages: 0,
-    categories: ""
+    categories: "",
   },
   listRaiting: [],
   isLoading: false,
@@ -116,7 +116,8 @@ const quizesSlice = createSlice({
           fetchQuizesThunk.pending,
           addQuizesThunk.pending,
           deleteQuizesThunk.pending,
-          updateQuizesThunk.pending
+          updateQuizesThunk.pending,
+          fetchCategoriesThunk.pending
         ),
         (state) => {
           state.isLoading = true;
