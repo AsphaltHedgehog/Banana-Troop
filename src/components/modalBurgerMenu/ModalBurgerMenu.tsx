@@ -1,13 +1,7 @@
 import { useCallback, useEffect } from "react";
 import ReactDOM from "react-dom";
 
-import {
-  StyledBackdrop,
-  StyledWrapper,
-  // StyledCloseButton,
-} from "./ModalBurgerMenu.styled";
-
-// import svg from "../../images/icons/sprite.svg";
+import { StyledBackdrop, StyledWrapper } from "./ModalBurgerMenu.styled";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -58,14 +52,7 @@ const Modal: React.FC<ModalProps> = ({
   if (rootModal) {
     return ReactDOM.createPortal(
       <StyledBackdrop onClick={handleBackDrop}>
-        <StyledWrapper $isOpenBurger={isOpenBurger}>
-          {/* <StyledCloseButton type="button" title="modal close button" onClick={closeModal}>
-            <svg width={28} height={28}>
-              <use href={svg + '#icon-x'}></use>
-            </svg>
-          </StyledCloseButton> */}
-          {children}
-        </StyledWrapper>
+        <StyledWrapper $isOpenBurger={isOpenBurger}>{children}</StyledWrapper>
       </StyledBackdrop>,
       rootModal
     );

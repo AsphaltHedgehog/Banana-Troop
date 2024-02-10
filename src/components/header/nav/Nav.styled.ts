@@ -33,12 +33,16 @@ export const CategoriesWrapper = styled.div`
 export const AuthWrapper = styled.div`
   display: flex;
   gap: 16px;
-
   line-height: 1;
   justify-content: center;
   align-items: center;
   a {
     font-weight: 700;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
   }
 `;
 
@@ -50,4 +54,24 @@ export const NavLinkRegister = styled(NavLink)`
 
 export const NavLinkLogin = styled(NavLink)`
   text-decoration: underline;
+`;
+
+export const NavLinkSettings = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+export const LogOutButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 5px;
+  border: none;
+  color: white;
+  padding: 0.6em 1.2em;
+  background-color: transparent;
 `;
