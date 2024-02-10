@@ -10,6 +10,7 @@ import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
 import Login from "./components/authPage/login/Login";
 import Register from "./components/authPage/register/Register";
+import Logout from "./components/authPage/logout/Logout";
 import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
 import RestorePassword from "./components/restorePassword/RestorePassword";
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="restorePassword" element={<RestorePassword />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
