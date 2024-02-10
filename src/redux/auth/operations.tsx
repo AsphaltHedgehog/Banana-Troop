@@ -19,6 +19,9 @@ export interface Credentials {
 export interface SendEmail{
   email: string;
 }
+export interface NewPassword{
+  password: string;
+}
 
 export const quizApi = axios.create({
   baseURL: "https://pigs.onrender.com/api",
@@ -99,3 +102,21 @@ if (error instanceof Error && typeof error.message === "string") {
       }
 }
 })
+
+export const newPasswordThunk = createAsyncThunk<ApiResponse, NewPassword & { token: string }>(
+  'newPassword',
+  async ({ password, token }, thunkApi) => {
+    try {
+      const response: AxiosResponse<ApiResponse> = await axios.post(`/api/auth/newPassword/${token}`, {
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      if (error instanceof Error && typeof error.message === "string") {
+        return thunkApi.rejectWithValue(error.message);
+      } else {
+        return thunkApi.rejectWithValue("An unknown error occurred");
+      }
+    }
+  }
+);

@@ -7,9 +7,27 @@ import { schemaSendEmail } from '../../helpers/schemas';
 import { StyledAuthForm, StyledAuthInput, StyledTitle } from '../authPage/AuthPages.styled';
 import { RegisterButton } from '../../shared/buttons/RegisterButton';
 import { StyledBack, StyledEmail, StyledNotification, StyledRestoreTitle, StyledRestoreWrap } from './RestorePassword.styled';
+import { AxiosError } from 'axios';
 
 interface FormData {
     email: string;
+}
+interface CustomResponse {
+    error?: {
+       message: string; 
+    }
+  type?: string;
+  payload?: string;
+    meta?: {
+        aborted?: boolean;
+        arg?: {
+            email: string;
+        }; 
+        condition?: boolean;
+        rejectedWithValue?:boolean
+    requestId?: string;
+    requestStatus?: string;
+  };
 }
 
 const RestorePassword: React.FC = () => {
@@ -19,18 +37,48 @@ const RestorePassword: React.FC = () => {
     const dispatch = useAppDispatch();
     const [isEmailSent, setIsEmailSent] = useState(false);
     const [email, setEmail] = useState<string>('');
+    const [isEmailError, setIsEmailError]= useState(false)
 
-    const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
-        try {
-            dispatch(resetPasswordThunk(data));
-            reset();
-            setEmail(data.email);
-            setIsEmailSent(true);
-        } catch (error) {
+    // const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
+    //     try {
+    //         dispatch(resetPasswordThunk(data)).then((response: CustomResponse) => {
+    //             reset()
+    //             if (response.error) {
+    //                 setIsEmailError(true)
+    //                 return
+    //             }
+    //             setEmail(data.email)
+    //             setIsEmailSent(true)
+    //         })
+            
+    //     } catch (error) {
+    //        if ((error as AxiosError).response && (error as AxiosError).response?.status === 400) {
+    //             setIsEmailSent(false);
+    //         } else {
+    //             console.error('Error occurred:', error);
+    //         }
+    //     }
+    // };
+const handleSubmitEmail: SubmitHandler<FormData> = async (data) => {
+    try {
+        dispatch(resetPasswordThunk(data)).then((response) => {
+                reset()
+                const customResponse = response as CustomResponse;
+                if (customResponse.error) {
+                    setIsEmailError(true)
+                    return
+                }
+                setEmail(data.email)
+                setIsEmailSent(true)
+            })
+    } catch (error) {
+        if ((error as AxiosError).response && (error as AxiosError).response?.status === 400) {
+            setIsEmailSent(false);
+        } else {
             console.error('Error occurred:', error);
         }
-    };
-
+    }
+};
     return (
         <React.Fragment>
             <StyledRestoreWrap>
@@ -50,7 +98,9 @@ const RestorePassword: React.FC = () => {
                                 type="email"
                                 placeholder="Email"
                                 {...register('email', { required: true })}
+                                style={{ borderColor: isEmailError ? 'red' : 'initial' }}
                             />
+                                {isEmailError && <p style={{ color: 'red' }}>Input value cannot be empty</p>}
                             <RegisterButton onClick={handleSubmit(handleSubmitEmail)}>Enter</RegisterButton>
                         </StyledAuthForm>
                         <StyledBack href="/login">Back</StyledBack>
