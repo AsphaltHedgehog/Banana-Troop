@@ -34,9 +34,9 @@ const RandomQuizPage = () => {
         console.log(data);
         return setQuizes((prevQuizes) => {
           if (prevQuizes.length === 0) {
-            return [...data.data];
+            return [...data.data.result];
           }
-          return [...prevQuizes, ...data.data];
+          return [...prevQuizes, ...data.data.result];
         });
       });
   }, [dispatch, page, param]);
@@ -61,7 +61,7 @@ const RandomQuizPage = () => {
           {quizes.map((quiz) => (
             <QuizListItem
               key={quiz._id}
-              id={quiz._id}
+              _id={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}

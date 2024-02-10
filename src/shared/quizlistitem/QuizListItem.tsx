@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 import { deleteFavorite, addFavorite } from "../../redux/auth/authSlice";
 
 export interface IQuizListItemProps {
-  id: string;
+  _id: string;
   theme: string;
   rating: number;
   ageGroup: string;
@@ -30,7 +30,7 @@ export interface IQuizListItemProps {
 }
 
 const QuizListItem = ({
-  id,
+  _id,
   theme,
   rating,
   ageGroup,
@@ -75,10 +75,10 @@ const QuizListItem = ({
 
   const handleFavoriteClick = () => {
     if (isLoggedIn) {
-      if (userFavorites.includes(id)) {
-        return dispatch(deleteFavorite(id));
+      if (userFavorites.includes(_id)) {
+        return dispatch(deleteFavorite(_id));
       }
-      return dispatch(addFavorite(id));
+      return dispatch(addFavorite(_id));
     }
     return toast.error("You have to be logged in to do that!");
   };
@@ -95,7 +95,7 @@ const QuizListItem = ({
             handleFavoriteClick();
           }}
         >
-          {userFavorites.includes(id) ? (
+          {userFavorites.includes(_id) ? (
             <Svg
               sprite={sprite}
               id={`icon-heart`}
