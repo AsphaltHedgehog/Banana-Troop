@@ -124,3 +124,25 @@ export const deleteQuizQuestionImgByIdThunk = createAsyncThunk<
     );
   }
 });
+
+export const fetchQuestionsByQuizThunk = createAsyncThunk<
+  Questions[],
+  string,
+  AsyncThunkConfig
+>("fetchedQuestionsByQuiz", async (_id, thunkApi) => {
+  try {
+    const savedToken = thunkApi.getState().auth.token;
+
+    const { data } = await quizApi.get(`/quiz/question${_id}`, {
+      headers: {
+        Authorization: `Bearer ${savedToken}`,
+      },
+    });
+
+    return data as Questions[];
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});

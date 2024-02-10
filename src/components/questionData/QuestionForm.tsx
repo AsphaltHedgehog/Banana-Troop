@@ -167,7 +167,7 @@ const QuestionForm = () => {
 
   return (
     <>
-      {selectQuestion[selectQuestionIndex].quiz || selectQuiz._id ? (
+      {selectQuiz._id ? (
         <QuestionFormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
