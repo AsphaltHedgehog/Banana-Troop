@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Questions } from "./slice";
 import { AppDispatch, RootState } from "../store";
-import { quizApi } from "../auth/operations";
+import { quizApi, setToken } from "../auth/operations";
 
 interface AsyncThunkConfig {
   state: RootState;
@@ -131,12 +131,14 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchedQuestionsByQuiz", async (_id, thunkApi) => {
   try {
-    const savedToken = thunkApi.getState().auth.token;
-
+    // const savedToken = thunkApi.getState().auth.token;
+    setToken(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU2NzU5MiwiZXhwIjoxNzA3NTY5MzkyfQ.Q453cdb30At-ncwRmBP86AL8CaaEdxXdo7hf1QDLzew"
+    );
     const { data } = await quizApi.get(`/quiz/question${_id}`, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
 
     return data as Questions[];

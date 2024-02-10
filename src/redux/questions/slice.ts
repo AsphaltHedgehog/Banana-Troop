@@ -31,33 +31,33 @@ type QuestionsState = {
 
 const initialState: QuestionsState = {
   list: [
-    {
-      _id: "65befd710e00dce39b3e7b5f",
-      quiz: "65b9bbe690b27011571e122f",
-      time: "00:45",
-      descr: "Какой нахуй ужас...",
-      answers: [
-        {
-          descr: "Ага, ебанёшься",
-          _id: "65befd710e00dce39b3e7b5b",
-        },
-        {
-          descr: "АААААА",
-          _id: "65befd710e00dce39b3e7b5c",
-        },
-        {
-          descr: "...",
-          _id: "65befd710e00dce39b3e7b5d",
-        },
-        {
-          descr: "биб буп",
-          _id: "65befd710e00dce39b3e7b5e",
-        },
-      ],
-      validAnswer: "65befd710e00dce39b3e7b5c",
-      imageUrl: "sfirroot5cdwxhftzxzi",
-      type: "full-text",
-    },
+    // {
+    //   _id: "65befd710e00dce39b3e7b5f",
+    //   quiz: "65b9bbe690b27011571e122f",
+    //   time: "00:45",
+    //   descr: "Какой нахуй ужас...",
+    //   answers: [
+    //     {
+    //       descr: "Ага, ебанёшься",
+    //       _id: "65befd710e00dce39b3e7b5b",
+    //     },
+    //     {
+    //       descr: "АААААА",
+    //       _id: "65befd710e00dce39b3e7b5c",
+    //     },
+    //     {
+    //       descr: "...",
+    //       _id: "65befd710e00dce39b3e7b5d",
+    //     },
+    //     {
+    //       descr: "биб буп",
+    //       _id: "65befd710e00dce39b3e7b5e",
+    //     },
+    //   ],
+    //   validAnswer: "65befd710e00dce39b3e7b5c",
+    //   imageUrl: "sfirroot5cdwxhftzxzi",
+    //   type: "full-text",
+    // },
     // {
     //   _id: "65befd8b0e00dce39b3e7b69",
     //   quiz: "65b9bbe690b27011571e122f",
