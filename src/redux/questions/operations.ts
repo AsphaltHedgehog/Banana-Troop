@@ -58,13 +58,15 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   AsyncThunkConfig
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
-    const savedToken = thunkApi.getState().auth.token;
-
+    // const savedToken = thunkApi.getState().auth.token;
+    setToken(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU3Nzk1MSwiZXhwIjoxNzA3NTk5NTUxfQ._3TQ7rJDFubIZNo5W1SCOE7E57k8fD93_LbKqL8jonU"
+    );
     const { _id, ...body } = question;
-    const { data } = await quizApi.patch(`/quiz/question${_id}`, body, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
+    const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
 
     return data;
@@ -77,7 +79,7 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
 
 export const updateQuizQuestionImgByIdThunk = createAsyncThunk<
   string, // Тип, який повертається
-  { _id: string; image: File }, // Тип вхідного параметра
+  { _id?: string; image: File }, // Тип вхідного параметра
   AsyncThunkConfig
 >("updatedQuestionImgByQuestionId", async (questionFile, thunkApi) => {
   try {
@@ -89,7 +91,7 @@ export const updateQuizQuestionImgByIdThunk = createAsyncThunk<
 
     const { data } = await quizApi.patch(
       `/quiz/question/img/${_id}`,
-      questionFile,
+      formData,
       {
         headers: {
           Authorization: `Bearer ${savedToken}`,
@@ -106,9 +108,9 @@ export const updateQuizQuestionImgByIdThunk = createAsyncThunk<
 
 export const deleteQuizQuestionImgByIdThunk = createAsyncThunk<
   string, // Тип, який повертається
-  string, // Тип вхідного параметра
+  { _id?: string }, // Тип вхідного параметра
   AsyncThunkConfig
->("deletedQuestionImgByQuestionId", async (_id, thunkApi) => {
+>("deletedQuestionImgByQuestionId", async ({ _id }, thunkApi) => {
   try {
     const savedToken = thunkApi.getState().auth.token;
 
@@ -133,15 +135,15 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU2NzU5MiwiZXhwIjoxNzA3NTY5MzkyfQ.Q453cdb30At-ncwRmBP86AL8CaaEdxXdo7hf1QDLzew"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU3MjI2NCwiZXhwIjoxNzA3NTkzODY0fQ.tN-iZxCCme6SpSJSD3RVXVg0l3XTp_zKYTd6PpYuOWw"
     );
-    const { data } = await quizApi.get(`/quiz/question${_id}`, {
+    const { data } = await quizApi.get(`/quiz/question/${_id}`, {
       // headers: {
       //   Authorization: `Bearer ${savedToken}`,
       // },
     });
 
-    return data as Questions[];
+    return data.data as Questions[];
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`

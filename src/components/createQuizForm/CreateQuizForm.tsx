@@ -7,7 +7,8 @@ import {
   CreateQuizInput,
   StyledCreateQuizForm,
 } from "./CreateQuizForm.styled";
-import { fetchQuestionsByQuizThunk } from "../../redux/questions/operations";
+// import { fetchQuestionsByQuizThunk } from "../../redux/questions/operations";
+// import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 
 type FormValues = {
   theme: string;
@@ -20,13 +21,13 @@ type RequestData = {
 const CreateQuizForm = () => {
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm<FormValues>();
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const requestData: RequestData = {
         theme: data.theme,
       };
-      const response = await dispatch(addQuizesThunk(requestData)).unwrap();
-      await dispatch(fetchQuestionsByQuizThunk(response._id));
+      await dispatch(addQuizesThunk(requestData)).unwrap();
       reset();
     } catch (error) {
       console.error("Error creating quiz:", error);

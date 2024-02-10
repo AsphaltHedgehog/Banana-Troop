@@ -3,8 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 import { QuestionFormWrapper } from "./QuestionForm.styled";
 import {
-  addedQuestionByQuizThunk,
   deleteQuizQuestionImgByIdThunk,
+  updateQuestionByQuizThunk,
   updateQuizQuestionImgByIdThunk,
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -22,14 +22,14 @@ import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
 import QuestionTime from "./questionTime/QuestionTime";
 
 type FormValues = {
-  _id: string;
-  quiz: string | undefined;
-  time: string | undefined;
-  imageUrl: string | undefined;
-  type: "full-text" | "true-or-false";
-  descr: string | undefined;
-  answers: Answers[] | [];
-  validAnswer: string | undefined;
+  _id?: string;
+  quiz?: string;
+  time?: string;
+  imageUrl?: string;
+  type?: "full-text" | "true-or-false";
+  descr?: string;
+  answers?: Answers[];
+  validAnswer?: string;
 };
 
 const QuestionForm = () => {
@@ -39,8 +39,17 @@ const QuestionForm = () => {
   const selectQuestionIndex = useAppSelector(getQuestionsIndex);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  //todo: selectQuiz.background - put the value to form backgroundcolor
+  useEffect(() => {
+    if (selectQuestion.length >= 1) {
+      setSubmitted(true);
+    }
+    if (selectQuestion.length === 0) {
+      setSubmitted(false);
+    }
+  }, [selectQuestion]);
+
   const {
     register,
     handleSubmit,
@@ -49,14 +58,14 @@ const QuestionForm = () => {
     formState: { isValid },
   } = useForm<FormValues>({
     defaultValues: {
-      _id: selectQuestion[selectQuestionIndex]._id || "",
-      quiz: selectQuestion[selectQuestionIndex].quiz || "",
-      time: selectQuestion[selectQuestionIndex].time || "",
-      imageUrl: selectQuestion[selectQuestionIndex].imageUrl || "",
-      type: selectQuestion[selectQuestionIndex].type || "full-text",
-      descr: selectQuestion[selectQuestionIndex].descr || "",
-      answers: selectQuestion[selectQuestionIndex].answers || [],
-      validAnswer: selectQuestion[selectQuestionIndex].validAnswer || "",
+      _id: selectQuestion[selectQuestionIndex]?._id || "",
+      quiz: selectQuestion[selectQuestionIndex]?.quiz || "",
+      time: selectQuestion[selectQuestionIndex]?.time || "",
+      imageUrl: selectQuestion[selectQuestionIndex]?.imageUrl || "",
+      type: selectQuestion[selectQuestionIndex]?.type || "full-text",
+      descr: selectQuestion[selectQuestionIndex]?.descr || "",
+      answers: selectQuestion[selectQuestionIndex]?.answers || [],
+      validAnswer: selectQuestion[selectQuestionIndex]?.validAnswer || "",
     },
     // resolver: yupResolver(schemaQuestion),
   });
@@ -75,7 +84,7 @@ const QuestionForm = () => {
         validAnswer: String(selectedAnswerIndex),
       };
 
-      dispatch(addedQuestionByQuizThunk(createNewQuizQuestion))
+      dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
@@ -90,10 +99,11 @@ const QuestionForm = () => {
   };
 
   const handleQuestionImage = (): JSX.Element => {
-    if (selectQuestion[selectQuestionIndex].imageUrl) {
+    const imageUrl = { imageUrl: selectQuestion[selectQuestionIndex].imageUrl };
+    if (imageUrl) {
       return (
         <img
-          src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${selectQuestion[selectQuestionIndex].imageUrl}`}
+          src={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
           {...register("imageUrl")}
         />
       );
@@ -107,7 +117,7 @@ const QuestionForm = () => {
       if (currentInput.files) {
         const image = currentInput.files[0];
         const questionFile = {
-          _id: selectQuestion[selectQuestionIndex]._id, //todo: як звертатись, якщо немає ще айді питання
+          _id: selectQuestion[selectQuestionIndex]._id,
           image: image,
         };
         dispatch(updateQuizQuestionImgByIdThunk(questionFile))
@@ -128,7 +138,9 @@ const QuestionForm = () => {
   const handleRemoveImage = () => {
     if (selectQuestion[selectQuestionIndex].imageUrl) {
       dispatch(
-        deleteQuizQuestionImgByIdThunk(selectQuestion[selectQuestionIndex]._id) //todo: як звертатись, якщо немає ще айді питання
+        deleteQuizQuestionImgByIdThunk({
+          _id: selectQuestion[selectQuestionIndex]._id,
+        })
       )
         .unwrap()
         .then(() => {
@@ -137,6 +149,7 @@ const QuestionForm = () => {
         .catch((error) => error.massage);
     }
   };
+
   //===================================================================================
 
   const handleAnswerChange = (
@@ -165,9 +178,31 @@ const QuestionForm = () => {
     reset();
   };
 
+  const arrayMission = () => {
+    const answers = selectQuestion[selectQuestionIndex]?.answers;
+    if (answers && answers.length > 0) {
+      return answers;
+    }
+    const type = selectQuestion[selectQuestionIndex]?.type;
+    if (type === "true-or-false") {
+      const arrTrueFalse = [
+        { descr: "", _id: "" },
+        { descr: "", _id: "" },
+      ];
+      return arrTrueFalse;
+    }
+    const arrFullText = [
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+      { descr: "", _id: "" },
+    ];
+    return arrFullText;
+  };
+
   return (
     <>
-      {selectQuiz._id ? (
+      {submitted ? (
         <QuestionFormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
@@ -188,50 +223,46 @@ const QuestionForm = () => {
 
             {selectQuestion[selectQuestionIndex].type === "full-text" ? (
               <ul>
-                {selectQuestion[selectQuestionIndex].answers.map(
-                  (answer, index) => (
-                    <li key={index}>
-                      <span>{`${String.fromCharCode(65 + index)}:`}</span>
-                      <input
-                        type="text"
-                        defaultValue={answer.descr}
-                        onChange={(e) => handleAnswerChange(index, e)}
-                        // {...register(`answers.${index}.descr`)}
-                      />
-                      <input
-                        type="checkbox"
-                        checked={selectedAnswerIndex === index}
-                        onChange={() => handleSelectAnswer(index)}
-                      />
-                    </li>
-                  )
-                )}
+                {arrayMission().map((answer, index) => (
+                  <li key={index}>
+                    <span>{`${String.fromCharCode(65 + index)}:`}</span>
+                    <input
+                      type="text"
+                      defaultValue={answer.descr}
+                      onChange={(e) => handleAnswerChange(index, e)}
+                      // {...register(`answers.${index}.descr`)}
+                    />
+                    <input
+                      type="checkbox"
+                      checked={selectedAnswerIndex === index}
+                      onChange={() => handleSelectAnswer(index)}
+                    />
+                  </li>
+                ))}
               </ul>
             ) : (
               <ul>
-                {selectQuestion[selectQuestionIndex].answers.map(
-                  (answer, index) => (
-                    <li key={answer._id}>
-                      <input
-                        type="text"
-                        defaultValue={`${String.fromCharCode(65 + index)}: ${
-                          index === 0 ? "true" : "false"
-                        }`}
-                      />
-                      <input
-                        type="checkbox"
-                        checked={selectedAnswerIndex === index}
-                        onChange={() => handleSelectAnswer(index)}
-                      />
-                    </li>
-                  )
-                )}
+                {arrayMission().map((answer, index) => (
+                  <li key={answer._id}>
+                    <input
+                      type="text"
+                      defaultValue={`${String.fromCharCode(65 + index)}: ${
+                        index === 0 ? "true" : "false"
+                      }`}
+                    />
+                    <input
+                      type="checkbox"
+                      checked={selectedAnswerIndex === index}
+                      onChange={() => handleSelectAnswer(index)}
+                    />
+                  </li>
+                ))}
               </ul>
             )}
 
             <div>
               <button type="submit" disabled={!isValid}>
-                {selectQuestion[selectQuestionIndex].quiz ? "Edit" : "Save"}
+                Edit
               </button>
               <button type="button" onClick={onCancel}>
                 Cancel
