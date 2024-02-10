@@ -19,6 +19,7 @@ import NewPassword from "./components/authPage/newPassword/NewPassword";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
+import Settings from "./components/settings/Settings";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="restorePassword" element={<RestorePassword />} />
           <Route path="newPassword" element={<NewPassword />} />
           <Route path="forAdults" element={<ForAdults />} />
