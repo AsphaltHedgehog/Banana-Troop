@@ -32,7 +32,10 @@ export type Quiz = {
 };
 
 export type QuizByCategories = {
-  data: { result: QuizBody[] };
+  data: {
+    total: number;
+    result: QuizBody[];
+  };
   categories: Category[];
   currentPage: number;
   pageSize: number;
@@ -54,7 +57,7 @@ const initialState: QuizState = {
     totalQuizes: 0,
   },
   listCategory: {
-    data: { result: [] },
+    data: { result: [], total: 0 },
     categories: [],
     currentPage: 0,
     pageSize: 0,
