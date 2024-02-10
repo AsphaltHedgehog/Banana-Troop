@@ -57,7 +57,7 @@ const initialState: QuizState = {
     totalQuizes: 0,
   },
   listCategory: {
-    data: { result: [] },
+    data: { result: [], total: 0 },
     categories: [],
     currentPage: 0,
     pageSize: 0,
