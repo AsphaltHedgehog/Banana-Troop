@@ -36,7 +36,7 @@ const Layout = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
+        theme="dark"
         transition={Slide}
       />
       <Header />

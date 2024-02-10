@@ -30,16 +30,7 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    addFavorite: (state, { payload }) => {
-      state.user.favorite = [...(state.user.favorite || []), payload];
-    },
-    deleteFavorite: (state, { payload }) => {
-      state.user.favorite = state.user.favorite?.filter(
-        (fav) => fav !== payload
-      );
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
@@ -84,5 +75,4 @@ const userSlice = createSlice({
   },
 });
 
-export const { addFavorite, deleteFavorite } = userSlice.actions;
 export const userReducer = userSlice.reducer;

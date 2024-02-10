@@ -44,16 +44,3 @@ const slideOutAnimation = keyframes`
     transform: translate3d(-425px, 506px, 0px);
   }
 `;
-
-// export const StyledCloseButton = styled.button`
-//   border-radius: 30px;
-//   padding: 5px;
-//   width: 40px;
-//   height: 40px;
-//   background-color: transparent;
-
-//   position: absolute;
-
-//   top: 24px;
-//   right: 24px;
-// `;
