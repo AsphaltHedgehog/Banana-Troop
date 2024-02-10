@@ -31,18 +31,21 @@ import Box from "../../components/box/Box";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
-  const title = useAppSelector((state) => state.quizes.listCategory.categories);
+  const title = useAppSelector(
+    (state) => state.quizes.listCategory.data.category
+  );
   const quizes = useAppSelector(
     (state) => state.quizes.listCategory.data.result
   );
-  const total = useAppSelector(
-    (state) => state.quizes.listCategory.totalQuizzesCount
-  );
+  const total = useAppSelector((state) => state.quizes.listCategory.data.total);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredQuizes, setFilteredQuizes] = useState<QuizBody[] | []>([]);
   const [selectedRating, setSelectedRating] = useState<number>(5);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("adults");
-  const [selectedAgeGroupCat, setSelectedAgeGroupCat] = useState<string>("");
+  const [selectCatID, setSelectCatID] = useState<string>("");
+  const [filterClicked, setFilterClicked] = useState<boolean>(false);
+  const [selectedAgeGroupCat, setSelectedAgeGroupCat] =
+    useState<string>("adults");
   const [attemptedFilter, setAttemptedFilter] = useState<boolean>(false);
   const [pageParam, SetPageParam] = useState<number>(1);
   const [sizeParam, SetSizeParam] = useState<number>(8);
@@ -59,9 +62,9 @@ const DiscoverPage = () => {
     page: pageParam,
     pageSize: sizeParam,
     // rating: selectedRating,
-    finished: 5,
+    // finished: 5,
     inputText: searchTerm,
-    title: selectedAgeGroupCat,
+    // title: selectedAgeGroupCat,
   });
 
   useEffect(() => {
@@ -69,37 +72,50 @@ const DiscoverPage = () => {
   }, [dispatch, query]);
 
   useEffect(() => {
-    const newQuery = {
-      ...query,
-      page: pageParam,
-      pageSize: sizeParam,
-      // ageGroup: selectedAgeGroup,
-      // rating: selectedRating,
-    };
-    dispatch(fetchCategoriesThunk(newQuery));
-  }, [dispatch, pageParam, query, selectedAgeGroup, sizeParam]);
-  useEffect(() => {
-    // Фільтруємо quizes за вибраним рейтингом
-    const filteredQuizes = quizes.filter(
-      (quiz) =>
-        quiz.rating >= selectedRating && quiz.rating < selectedRating + 1
-    );
-    // Встановлюємо відфільтровані quizes у стан filteredQuizes
-    setFilteredQuizes(filteredQuizes);
-  }, [selectedRating, quizes]);
+    if (filterClicked) {
+      const newQuery = {
+        ...query,
+        page: pageParam,
+        pageSize: sizeParam,
+        ageGroup: selectedAgeGroup,
+        title: selectCatID,
+        rating: selectedRating,
+      };
+
+      dispatch(fetchCategoriesThunk(newQuery));
+    }
+  }, [
+    dispatch,
+    filterClicked,
+    pageParam,
+    query,
+    selectCatID,
+    selectedAgeGroup,
+    selectedRating,
+    sizeParam,
+  ]);
+
+  // useEffect(() => {
+  //   // Фільтруємо quizes за вибраним рейтингом
+  //   const filteredQuizes = quizes.filter(
+  //     (quiz) =>
+  //       quiz.rating >= selectedRating && quiz.rating < selectedRating + 1
+  //   );
+  //   // Встановлюємо відфільтровані quizes у стан filteredQuizes
+  //   setFilteredQuizes(filteredQuizes);
+  // }, [selectedRating, quizes]);
+
   const handleFilter = () => {
     SetPageParam(1);
     const newQuery = {
       ...query,
-      ageGroup: selectedAgeGroup,
+      // ageGroup: selectedAgeGroup,
       // rating: selectedRating,
       page: 1, // Скидаємо сторінку на першу при застосуванні фільтра
     };
     setQuery(newQuery);
-    // console.log(searchTerm);
-    console.log(selectedAgeGroupCat);
-    // console.log(setSearchTerm(e.target.value));
-    // setSelectedRating(5);
+    setIsCategoryListOpen(false);
+    setFilterClicked(true);
   };
 
   const handleRatingSelect = (minRating: number, maxRating: number) => {
@@ -114,7 +130,7 @@ const DiscoverPage = () => {
   };
   const handleAgeGroupSelect = (ageGroup: string) => {
     setSelectedAgeGroup(ageGroup);
-    console.log(ageGroup);
+    setFilterClicked(false);
     // setSelectedRating(1);
   };
   const handleAgeGroupSelectCat = (title: string) => {
@@ -122,13 +138,17 @@ const DiscoverPage = () => {
     // console.log(title);
     // setSelectedRating(1);
   };
+  const HandleId = (id: string) => {
+    setSelectCatID(id);
+    setFilterClicked(false);
+  };
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchTerm.trim() !== "") {
       handleFilter();
     }
   };
   const handleLoadMore = () => {
-    SetSizeParam((prev) => prev + 2);
+    SetSizeParam((prev) => prev + 8);
     // console.log(object);
   };
 
@@ -165,18 +185,26 @@ const DiscoverPage = () => {
 
           {/* Список чекбоксів, який відображається тільки при відкритті */}
           {isCategoryListOpen && (
-            <StyledTitleWrap isOpen={isCategoryListOpen}>
-              {title.map((category) => (
-                <StyledLabel key={category._id}>
-                  <StyledInput
-                    type="checkbox"
-                    value={category.title}
-                    // Обробник зміни стану, який ви маєте вже реалізувати
-                    onChange={(e) => handleAgeGroupSelectCat(e.target.value)}
-                  />
-                  {category.title}
-                </StyledLabel>
-              ))}
+            <StyledTitleWrap $isOpen={isCategoryListOpen}>
+              {title.map(
+                (category) =>
+                  // Додайте умову, щоб відображати категорії тільки для вибраної вікової групи
+                  category.ageGroup === selectedAgeGroup && (
+                    <StyledLabel key={category._id}>
+                      <StyledInput
+                        type="checkbox"
+                        id={category._id}
+                        value={category.title}
+                        // Обробник зміни стану, який ви маєте вже реалізувати
+                        onChange={(e) => {
+                          handleAgeGroupSelectCat(e.target.value);
+                          HandleId(e.target.id);
+                        }}
+                      />
+                      {category.title}
+                    </StyledLabel>
+                  )
+              )}
             </StyledTitleWrap>
           )}
         </StyledTitleWrapForm>

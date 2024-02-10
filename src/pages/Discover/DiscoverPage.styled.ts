@@ -79,27 +79,20 @@ export const StyledBtnTitle = styled.button`
   padding: 10px 20px;
 `;
 interface StyledTitleWrapProps {
-  isOpen: boolean;
+  $isOpen: boolean;
 }
 export const StyledTitleWrap = styled.div<StyledTitleWrapProps>`
-  position: absolute; /* Додаємо абсолютне позиціонування */
+  position: absolute;
   top: calc(100% + 5px);
-  /* bottom: calc(100% + 5px); */
-  left: 0; /* Вирівнюємо до лівого краю */
-  z-index: 1; /* Додаємо z-index, щоб він був вище за інші елементи */
-  display: ${({ isOpen }) =>
-    isOpen ? "block" : "none"}; /* Відображаємо тільки якщо isOpen === true */
+
+  left: 0;
+  z-index: 1;
+  display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   flex-direction: column;
   border-radius: 20px;
-  background: #205bf1; // Змініть колір відповідно до зображення
+  background: #205bf1;
   color: #fff;
   padding: 15px 18px;
-  /* display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  background: #205bf1; // Змініть колір відповідно до зображення
-  color: #fff;
-  padding: 15px 18px; */
 `;
 export const StyledLabel = styled.label`
   display: flex;
