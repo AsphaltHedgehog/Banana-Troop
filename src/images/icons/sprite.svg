@@ -81,10 +81,11 @@
 <symbol id="icon-rating" viewBox="0 0 14 14">
    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.19168 1.14006C6.49034 0.422062 7.50901 0.422062 7.80768 1.14006L9.19568 4.47806L12.7983 4.76673C13.5743 4.82873 13.889 5.79673 13.2977 6.3034L10.553 8.65473L11.391 12.1701C11.5717 12.9274 10.7483 13.5254 10.0843 13.1201L6.99968 11.2361L3.91501 13.1201C3.25101 13.5254 2.42768 12.9267 2.60834 12.1701L3.44634 8.65473L0.701676 6.3034C0.110343 5.79673 0.425009 4.82873 1.20101 4.76673L4.80368 4.47806L6.19168 1.14006Z" />
 </symbol>
-<symbol id="icon-plus" viewBox="0 0 25 24">
-   <path d="M12.5 5V19"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M5.5 12H19.5"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-  
+<symbol id="icon-plus-photo" viewBox="0 0 33 32">
+      <path fill="#010102" style="fill:var(--color1, #205bf1)" d="M16.533.533C25.075.533 32 7.458 32 16s-6.925 15.467-15.467 15.467C7.991 31.467 1.066 24.542 1.066 16S7.991.533 16.533.533z"/>
+      <path fill="none" stroke="#205bf1" style="stroke:var(--color1, #205bf1)" stroke-width="1.067" d="M16.533.533C25.075.533 32 7.458 32 16s-6.925 15.467-15.467 15.467C7.991 31.467 1.066 24.542 1.066 16S7.991.533 16.533.533z"/>
+      <path fill="none" stroke="#fff" style="stroke:var(--color2, #fff)" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6" d="M16.533 8.533v14.933M9.067 16H24"/>
+    </symbol>
 <symbol id="chevron-down" viewBox="0 0 32 32">
 <path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.4286" d="M5.714 12l10.286 10.286 10.286-10.286"></path>
 </symbol>

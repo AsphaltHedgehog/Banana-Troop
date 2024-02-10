@@ -21,6 +21,9 @@ const Settings: FC = () => {
           Back
         </NavLink>
         <h2>Settings</h2>
+        <svg>
+          <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
+        </svg>
       </SettingsHeaderWrapper>
     </SettingMainWrapper>
   );
