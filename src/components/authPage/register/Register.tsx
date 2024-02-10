@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../helpers/schemas";
 import { useAppDispatch } from "../../../redux/hooks";
+// import { useModal } from "../../../hooks/useModal";
 import {
   AuthLink,
   StyledAuthForm,
@@ -19,6 +20,8 @@ interface RegisterFormData {
 }
 
 const Register: React.FC = () => {
+  // const { isOpen, openModal, closeModal } = useModal();
+
   const dispatch = useAppDispatch();
 
   const {
@@ -33,6 +36,7 @@ const Register: React.FC = () => {
   const submit: SubmitHandler<RegisterFormData> = (data) => {
     dispatch(registerThunk(data));
     reset();
+    // closeModal();
   };
 
   return (
@@ -58,12 +62,31 @@ const Register: React.FC = () => {
         {errors?.password && <div>{errors.password.message}</div>}
 
         <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
-        {/* Додати на кнопку закриття модалки */}
       </StyledAuthForm>
 
-      <AuthLink href="#">Login</AuthLink>
+      <AuthLink to="/login">Login</AuthLink>
     </StyledRegisterWrapp>
   );
 };
 
 export default Register;
+
+// const { isOpen, openModal, closeModal } = useModal();
+// const [modal, setModal] = useState(null);
+// {
+//   isOpen && modal && <Modal children={modal} closeModal={closeModal} />;
+// }
+// підключення модалки до необхідних частин, при необхідності треба додаткова перевірка.
+
+// export const StyledCloseButton = styled.button`
+//   border-radius: 30px;
+//   padding: 5px;
+//   width: 40px;
+//   height: 40px;
+//   background-color: transparent;
+
+//   position: absolute;
+
+//   top: 24px;
+//   right: 24px;
+// `;
