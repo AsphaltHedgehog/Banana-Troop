@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   ArrowSvg,
@@ -63,7 +63,7 @@ const QuestionTime = ({
               const minutes = Math.floor(index / 4);
               const seconds = (index % 4) * 15;
               return (
-                <>
+                <React.Fragment key={index}>
                   {index > 1 && (
                     <QuestionTimeElem
                       key={index}
@@ -72,7 +72,7 @@ const QuestionTime = ({
                       {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
                     </QuestionTimeElem>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </RenderList>

@@ -40,7 +40,9 @@ const initialState: QuestionsState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    // getSelectedIndex: ,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuestionsByQuizThunk.fulfilled, (state, { payload }) => {

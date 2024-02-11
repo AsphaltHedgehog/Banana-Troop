@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMediaQuery } from "react-responsive";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -16,6 +16,7 @@ import {
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { toast } from "react-toastify";
 
 type FormValues = {
   theme: string | undefined;
@@ -24,13 +25,13 @@ type FormValues = {
 const UpdateQuizForm = () => {
   const selectOptions = useAppSelector(getUpdateOptions);
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const isDesctop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
-  // const handleGoBack = () => {
-  //   navigate(-1);
-  // };
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   const { register, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
@@ -54,9 +55,9 @@ const UpdateQuizForm = () => {
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             reset();
-            // handleGoBack();
+            handleGoBack();
           }
-          return console.log("Failed to update Quiz");
+          toast.success("Congrats! You updated quiz!");
         })
         .catch((error) => {
           console.error("Error updating quiz:", error);
@@ -70,9 +71,9 @@ const UpdateQuizForm = () => {
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             reset();
-            // handleGoBack();
+            handleGoBack();
           }
-          return console.log("Failed to delete Quiz");
+          toast.success("Congrats! You deleted quiz!");
         })
         .catch((error) => {
           console.error("Error removing quiz:", error);
