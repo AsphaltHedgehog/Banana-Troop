@@ -17,7 +17,7 @@ export const addedQuestionByQuizThunk = createAsyncThunk<
   try {
     const savedToken = thunkApi.getState().auth.token;
     const { _id, ...question } = body;
-    const { data } = await quizApi.post(`/quiz/question${_id}`, question, {
+    const { data } = await quizApi.post(`/quiz/question/${_id}`, question, {
       headers: {
         Authorization: `Bearer ${savedToken}`,
       },
