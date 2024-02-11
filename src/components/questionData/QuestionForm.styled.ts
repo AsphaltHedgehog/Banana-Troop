@@ -10,11 +10,12 @@ export const QuestFormWrapper = styled.div`
   }
 `;
 
-export const QuestionFormWrapper = styled.div`
+export const QuestionFormWrapper = styled.div<{ background: string }>`
   border-radius: 20px;
   max-width: 335px;
   height: 590px;
-  background: rgba(255, 255, 255, 0.02);
+  background: ${({ background }) =>
+    background === "none" ? "rgba(255, 255, 255, 0.02)" : background};
 
   @media screen and (min-width: 768px) {
     max-width: 440px;

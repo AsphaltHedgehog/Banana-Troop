@@ -267,7 +267,7 @@ const QuestionForm = () => {
   return (
     <>
       {submitted ? (
-        <QuestionFormWrapper>
+        <QuestionFormWrapper background={`${selectQuiz.background}`}>
           <QuestionFormStyles onSubmit={handleSubmit(onSubmit)}>
             <FixPositoinWrapper>
               <QuestFormWrapper>
@@ -318,7 +318,9 @@ const QuestionForm = () => {
           </QuestionFormStyles>
         </QuestionFormWrapper>
       ) : (
-        <QuestionFormWrapper></QuestionFormWrapper>
+        <QuestionFormWrapper
+          background={`${selectQuiz.background}`}
+        ></QuestionFormWrapper>
       )}
     </>
   );
