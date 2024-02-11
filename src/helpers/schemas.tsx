@@ -15,14 +15,14 @@ export const schemaSendEmail = yup.object().shape({
 })
 
 export const schemaNewPassword = yup.object().shape({
-  password: yup
+  newPassword: yup
     .string()
     .min(8, "Password must be at least 8 characters")
     .max(64, "Password must be at most 64 characters")
     .required("Password is required"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
+    .oneOf([yup.ref('newPassword')], 'Passwords must match')
     .required('Confirm Password is required')
 });
 

@@ -111,15 +111,13 @@ export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>(
 
 export const newPasswordThunk = createAsyncThunk<
   ApiResponse,
-  NewPassword & { resetToken: string }
->("newPassword", async ({ password, resetToken }, thunkApi) => {
+  { newPassword: string; resetToken: string }
+>("newPassword", async ({ newPassword, resetToken }, thunkApi) => {
   try {
     const response: AxiosResponse<ApiResponse> = await quizApi.patch(
-  `/auth/newPassword/${resetToken}`,
-  {
-    password,
-  }
-);
+      `/auth/newPassword/${resetToken}`,
+      { newPassword }
+    );
     return response.data;
   } catch (error) {
     if (error instanceof Error && typeof error.message === "string") {
