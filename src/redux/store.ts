@@ -15,6 +15,7 @@ import { authReducer } from "./auth/authSlice";
 import { categoriesReducer } from "./categories/slice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
+import { reviewsReducer } from "./reviews/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   //   user: userReducer,
   categories: categoriesReducer,
-  //   reviews: reviewsReducer,
+  reviews: reviewsReducer,
   quizes: quizesReducer,
   questions: questionsReducer,
 });
