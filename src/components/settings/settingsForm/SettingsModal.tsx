@@ -35,7 +35,7 @@ const SettingsModal: FC = () => {
   const passwordValue = watch("password");
 
   useEffect(() => {
-    if (nameValue?.length >= 1 && nameValue?.length <= 32) {
+    if (nameValue?.length <= 32) {
       setIsValidNameValue(true);
     } else {
       setIsValidNameValue(false);
@@ -63,10 +63,12 @@ const SettingsModal: FC = () => {
           $nameValue={nameValue}
           $isValidNameValue={isValidNameValue}
         />
-        {(errors?.name || !isValidNameValue) && (
+        {errors?.name && (
+          <StyledNameError>{errors.name?.message}</StyledNameError>
+        )}
+        {!isValidNameValue && nameValue?.length > 1 && (
           <StyledNameError>
-            {errors.name?.message ||
-              (nameValue && "The name length must be from 8 to 32 characters")}
+            Enter the name no longer than 32 characters
           </StyledNameError>
         )}
         {!errors.name && nameValue && isValidNameValue && (
