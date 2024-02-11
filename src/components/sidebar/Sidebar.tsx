@@ -40,7 +40,7 @@ const Sidebar = () => {
       };
       dispatch(addedQuestionByQuizThunk(newQuestion))
         .unwrap()
-        .then(() => toast.error("Congratulation! You create Question!"))
+        .then(() => toast.success("Congratulation! You create Question!"))
         .catch(() => toast.error("Something went wrong"));
     }
   };

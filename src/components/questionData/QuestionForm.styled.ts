@@ -9,8 +9,11 @@ export const QuestionFormWrapper = styled.div`
   max-width: 335px;
   height: 590px;
   background: rgba(255, 255, 255, 0.02);
+
   @media screen and (min-width: 768px) {
     max-width: 440px;
+    height: 562px;
+    margin-bottom: 98px;
   }
   @media screen and (min-width: 1280px) {
     max-width: 744px;
@@ -24,6 +27,14 @@ export const QuestionFormStyles = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    padding: 32px;
+    align-items: flex-start;
+  }
+  @media screen and (min-width: 1280px) {
+    max-width: 744px;
+    padding: 64px;
+  }
 `;
 
 export const QuestionImageWrapper = styled.div<{ imageurl: string }>`
@@ -58,6 +69,11 @@ export const QuestionTextarea = styled.input`
   letter-spacing: -0.01em;
   color: #f4f4f4;
   margin-bottom: 16px;
+  @media screen and (min-width: 768px) {
+    min-width: 376px;
+  }
+  @media screen and (min-width: 1280px) {
+  }
 `;
 
 export const QuestionFormInputLabel = styled.label`
@@ -84,7 +100,7 @@ export const SubmitQuizButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  max-width: 100%;
   height: 48px;
   border-radius: 30px;
   border: none;
@@ -113,9 +129,8 @@ export const SubmitQuizButton = styled.button`
   @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 1;
-    letter-spacing: -0.04em;
-    padding: 14px 28px;
-    width: 150px;
+    letter-spacing: -0.06em;
+    padding: 16px 32px;
   }
 `;
 
@@ -133,4 +148,6 @@ export const FixPositoinWrapper = styled.div`
 `;
 export const SubmitQuizNumSpan = styled.span`
   color: #f4f4f4;
+  margin-left: 4px;
+  margin-top: 18px;
 `;

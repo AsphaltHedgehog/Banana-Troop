@@ -26,6 +26,15 @@ export const AnswerWrapperSpan = styled.span`
   line-height: 1.14286;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  @media screen and (min-width: 768px) {
+    max-width: 180px;
+    height: 62px;
+    font-size: 16px;
+
+    top: 14px;
+  }
+  @media screen and (min-width: 1280px) {
+  }
 `;
 
 export const QuestionInputAnswerQuiz = styled.input`
@@ -36,6 +45,13 @@ export const QuestionInputAnswerQuiz = styled.input`
   height: 64px;
   background-color: transparent;
   color: #f4f4f4;
+  @media screen and (min-width: 768px) {
+    max-width: 180px;
+    height: 62px;
+    font-size: 16px;
+  }
+  @media screen and (min-width: 1280px) {
+  }
 `;
 
 export const QuestionFakeAnswerCheckbox = styled.div`
@@ -49,6 +65,12 @@ export const QuestionFakeAnswerCheckbox = styled.div`
   height: 14px;
   left: 14px;
   bottom: 20%;
+  @media screen and (min-width: 768px) {
+    left: 150px;
+    top: 28%;
+  }
+  @media screen and (min-width: 1280px) {
+  }
 `;
 
 export const QuestionInputAnswerCheckbox = styled.input`
