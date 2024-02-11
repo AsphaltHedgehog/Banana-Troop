@@ -69,6 +69,7 @@ const questionsSlice = createSlice({
       })
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.pending,
           addedQuestionByQuizThunk.pending,
           deleteQuestionByIdThunk.pending,
@@ -80,6 +81,7 @@ const questionsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.rejected,
           addedQuestionByQuizThunk.rejected,
           deleteQuestionByIdThunk.rejected,

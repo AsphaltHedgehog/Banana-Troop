@@ -99,7 +99,7 @@ const QuestionForm = () => {
         answers,
         validAnswer: String(selectedAnswerIndex),
       };
-
+      console.log(createNewQuizQuestion);
       dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
@@ -188,7 +188,7 @@ const QuestionForm = () => {
   };
 
   const handleRemoveImage = () => {
-    if (selectQuestion[selectQuestionIndex].imageUrl) {
+    if (selectQuestion[selectQuestionIndex].imageUrl || tempImage) {
       dispatch(
         deleteQuizQuestionImgByIdThunk({
           _id: selectQuestion[selectQuestionIndex]._id,
@@ -196,6 +196,7 @@ const QuestionForm = () => {
       )
         .unwrap()
         .then(() => {
+          setTempImage("");
           toast.success("Image has been removed successfully!");
         })
         .catch((error) => error.massage);
@@ -234,6 +235,7 @@ const QuestionForm = () => {
     )
       .unwrap()
       .then(() => {
+        setTempImage("");
         toast.success("Image has been removed successfully!");
       })
       .catch((error) => error.massage);
@@ -280,7 +282,10 @@ const QuestionForm = () => {
                 ) : null}
               </QuestFormWrapper>
               <div>
-                <QuestionTime handleTimeClick={handleTimeClick} />
+                <QuestionTime
+                  handleTimeClick={handleTimeClick}
+                  selectedAnswerIndex={selectedAnswerIndex}
+                />
               </div>
               <QuestionTextarea
                 autoComplete="off"

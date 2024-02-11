@@ -118,27 +118,6 @@ export const fetchCategoriesThunk = createAsyncThunk<
   }
 });
 
-// export const getQuizByIdThunk = createAsyncThunk<
-//   QuizBody,
-//   string,
-//   AsyncThunkConfig
-// >("getQuizById", async (_id: string, thunkApi) => {
-//   try {
-//     const savedToken = thunkApi.getState().auth.token;
-
-//     const { data } = await quizApi.get(`/quiz/${_id}`, {
-//       headers: {
-//         Authorization: `Bearer ${savedToken}`,
-//       },
-//     });
-//     return data as QuizBody;
-//   } catch (error: unknown) {
-//     return thunkApi.rejectWithValue(
-//       `${(error as Error)?.message ?? "Unknown error"}`
-//     );
-//   }
-// });
-
 export const addQuizesThunk = createAsyncThunk<
   IQuizCreate,
   { theme: string },
