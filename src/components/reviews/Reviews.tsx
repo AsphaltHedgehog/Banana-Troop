@@ -10,17 +10,18 @@ import {
 } from "./Reviews.styled";
 import logo from "../../images/65b42324f6e8dba3e778f9fb_sobachki-krasivye-kartinki-40.jpg";
 import { useSelector } from "react-redux";
-import { selectUserId, selectUserName } from "../../redux/reviews/selectors";
+import { reviews } from "../../redux/reviews/selectors";
+// import { reviewsThunk } from "../../redux/reviews/operations";
+// import { useDispatch } from "react-redux";
 
 const Reviews: React.FC = () => {
-  const id = useSelector(selectUserId);
-  const name = useSelector(selectUserName);
+  const AllReviews = useSelector(reviews);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatchEvent(reviewsThunk());
+  // }, []);
+  console.log(AllReviews);
 
-  useEffect(() => {
-    dispatchEvent(fetchAllReviews());
-  }, []);
-  console.log(id);
-  console.log(name);
   return (
     <StyledSection>
       <StyledTitle>Reviews</StyledTitle>

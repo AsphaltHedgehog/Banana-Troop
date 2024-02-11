@@ -8,10 +8,9 @@ interface Review {
   review: string;
 }
 interface ApiResponse {
-  id: string;
-  userName: string;
-  avatarUrl: string;
-  review: string;
+  review: Review;
+  error: string | null;
+  isLoading: boolean;
 }
 
 interface ReviewsThunkParams {
