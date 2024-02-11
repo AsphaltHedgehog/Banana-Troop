@@ -7,10 +7,9 @@ interface Review {
   avatarUrl: string;
   review: string;
 }
-interface ApiResponse {
-  review: Review;
-  error: string | null;
-  isLoading: boolean;
+
+interface Reviews {
+  reviews: Review[];
 }
 
 interface ReviewsThunkParams {
@@ -22,16 +21,21 @@ export const quizApi = axios.create({
   baseURL: "https://pigs.onrender.com/api",
 });
 
-export const reviewsThunk = createAsyncThunk<ApiResponse, ReviewsThunkParams>(
+export const reviewsThunk = createAsyncThunk<Reviews, ReviewsThunkParams>(
   "reviews",
   async ({ page = 1, limit = 6 }, thunkApi) => {
     try {
-      const { data }: AxiosResponse<Review> = await quizApi.get("/getReviews", {
-        params: {
-          page: page,
-          limit: limit,
-        },
-      });
+      const { data }: AxiosResponse<Review> = await quizApi.get(
+        "/reviews/getReviews",
+        {
+          params: {
+            page: page,
+            limit: limit,
+          },
+        }
+      );
+      console.log(data);
+
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {

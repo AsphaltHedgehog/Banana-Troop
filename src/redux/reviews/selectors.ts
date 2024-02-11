@@ -1,3 +1,5 @@
+import { RootState } from "../store";
+
 interface Review {
   id: string;
   userName: string;
@@ -5,12 +7,11 @@ interface Review {
   review: string;
 }
 interface Reviews {
-  review: Review;
+  review: Review[];
   error: string | null;
   isLoading: boolean;
 }
 
-import { RootState } from "../store";
 export const reviews = (state: RootState): Reviews => state.reviews;
 // export const selectUserId = (state: RootState): string =>
 //   state.reviews.review.id;

@@ -8,18 +8,20 @@ interface Review {
   review: string;
 }
 interface AuthState {
-  review: Review;
+  review: Review[];
   error: string | null;
   isLoading: boolean;
 }
 
 const initialState: AuthState = {
-  review: {
-    id: "",
-    userName: "",
-    avatarUrl: "",
-    review: "",
-  },
+  review: [
+    {
+      id: "",
+      userName: "",
+      avatarUrl: "",
+      review: "",
+    },
+  ],
   error: null,
   isLoading: false,
 };
@@ -37,7 +39,8 @@ const reviewsSlice = createSlice({
       .addCase(
         reviewsThunk.fulfilled,
         (state, { payload }: PayloadAction<ApiResponse>) => {
-          state.review = payload;
+          state.review = payload.data;
+
           state.isLoading = false;
           state.error = null;
         }
