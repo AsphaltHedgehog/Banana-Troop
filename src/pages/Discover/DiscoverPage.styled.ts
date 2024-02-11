@@ -21,7 +21,7 @@ export const StyledUlCards = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  justify-content: center;
+  /* justify-content: center; */
   @media screen and (min-width: ${tablet}) {
     flex-direction: row;
     flex-wrap: wrap;
