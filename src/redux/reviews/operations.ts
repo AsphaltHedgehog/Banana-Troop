@@ -1,30 +1,38 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-interface Reviews {
+interface Review {
+  id: string;
+  userName: string;
+  avatarUrl: string;
+  review: string;
+}
+interface ApiResponse {
   id: string;
   userName: string;
   avatarUrl: string;
   review: string;
 }
 
+interface ReviewsThunkParams {
+  page: number;
+  limit: number;
+}
+
 export const quizApi = axios.create({
   baseURL: "https://pigs.onrender.com/api",
 });
 
-export const reviewsThunk = createAsyncThunk<ApiResponse>(
+export const reviewsThunk = createAsyncThunk<ApiResponse, ReviewsThunkParams>(
   "reviews",
   async ({ page = 1, limit = 6 }, thunkApi) => {
     try {
-      const { data }: AxiosResponse<Reviews> = await quizApi.get(
-        "/getReviews",
-        {
-          params: {
-            page: page,
-            limit: limit,
-          },
-        }
-      );
+      const { data }: AxiosResponse<Review> = await quizApi.get("/getReviews", {
+        params: {
+          page: page,
+          limit: limit,
+        },
+      });
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {

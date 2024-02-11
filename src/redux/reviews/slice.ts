@@ -1,21 +1,20 @@
-//
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { reviewsThunk } from "./operations";
 
-interface Reviews {
+import { reviewsThunk } from "./operations";
+interface Review {
   id: string;
   userName: string;
   avatarUrl: string;
   review: string;
 }
 interface AuthState {
-  reviews: Reviews;
+  review: Review;
   error: string | null;
   isLoading: boolean;
 }
 
 const initialState: AuthState = {
-  reviews: {
+  review: {
     id: "",
     userName: "",
     avatarUrl: "",
@@ -31,21 +30,25 @@ const reviewsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(reviewsThunk.pending, (state, { payload }) => {
-        state.reviews.userName = payload.reviews.userName;
-        state.reviews.avatarUrl = payload.reviews.avatarUrl;
-        state.reviews.review = payload.reviews.avatarUrl;
+      .addCase(reviewsThunk.pending, (state) => {
+        state.isLoading = true;
         state.error = null;
       })
-      .addCase(reviewsThunk.fulfilled, (state, { payload }) => {
-        state.reviews = [...state.reviews, ...payload];
-        state.isLoading = false;
-        state.error = null;
-      })
-      .addCase(reviewsThunk.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = payload;
-      });
+      .addCase(
+        reviewsThunk.fulfilled,
+        (state, { payload }: PayloadAction<ApiResponse>) => {
+          state.review = payload;
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        reviewsThunk.rejected,
+        (state, { payload }: PayloadAction<ApiResponse>) => {
+          state.isLoading = false;
+          state.error = payload;
+        }
+      );
   },
 });
 

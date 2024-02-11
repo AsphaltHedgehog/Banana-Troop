@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyledButton,
   StyledButtonWrapper,
@@ -9,7 +9,18 @@ import {
   StyledTitleName,
 } from "./Reviews.styled";
 import logo from "../../images/65b42324f6e8dba3e778f9fb_sobachki-krasivye-kartinki-40.jpg";
+import { useSelector } from "react-redux";
+import { selectUserId, selectUserName } from "../../redux/reviews/selectors";
+
 const Reviews: React.FC = () => {
+  const id = useSelector(selectUserId);
+  const name = useSelector(selectUserName);
+
+  useEffect(() => {
+    dispatchEvent(fetchAllReviews());
+  }, []);
+  console.log(id);
+  console.log(name);
   return (
     <StyledSection>
       <StyledTitle>Reviews</StyledTitle>
