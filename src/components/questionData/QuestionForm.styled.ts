@@ -44,7 +44,7 @@ export const QuestionImage = styled.img`
   display: none;
 `;
 
-export const QuestionTextarea = styled.textarea`
+export const QuestionTextarea = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding: 14px 18px;

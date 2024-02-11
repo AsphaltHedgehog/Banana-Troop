@@ -104,6 +104,7 @@ const QuestionForm = () => {
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
+            setSelectedAnswerIndex(-1);
             reset();
           }
           return console.log("Failed to update Question");
@@ -226,6 +227,17 @@ const QuestionForm = () => {
   };
 
   const onCancel = () => {
+    dispatch(
+      deleteQuizQuestionImgByIdThunk({
+        _id: selectQuestion[selectQuestionIndex]._id,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Image has been removed successfully!");
+      })
+      .catch((error) => error.massage);
+    setSelectedAnswerIndex(-1);
     reset();
   };
 
