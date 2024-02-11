@@ -33,7 +33,7 @@ const QuestionImageButtons: React.FC<QuestionImageProps> = ({
           accept="image/*"
           onChange={hangleChengeImageQuestion}
         />
-        <QuestionDelImgButton onClick={handleRemoveImage}>
+        <QuestionDelImgButton type="button" onClick={handleRemoveImage}>
           <Svg sprite={sprite} id={`icon-trash`} width={12} height={12} />
         </QuestionDelImgButton>
       </QuestionImageContainer>

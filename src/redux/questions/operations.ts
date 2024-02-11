@@ -17,7 +17,7 @@ export const addedQuestionByQuizThunk = createAsyncThunk<
   try {
     const savedToken = thunkApi.getState().auth.token;
     const { _id, ...question } = body;
-    const { data } = await quizApi.post(`/quiz/question${_id}`, question, {
+    const { data } = await quizApi.post(`/quiz/question/${_id}`, question, {
       headers: {
         Authorization: `Bearer ${savedToken}`,
       },
@@ -60,7 +60,7 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYwMDY2OCwiZXhwIjoxNzA3NjIyMjY4fQ.c7EFCwpguM_GxbJSteOETppAC4AkDJBtZeBe85ohqG4"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { _id, ...body } = question;
     const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
@@ -135,7 +135,7 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU3MjI2NCwiZXhwIjoxNzA3NTkzODY0fQ.tN-iZxCCme6SpSJSD3RVXVg0l3XTp_zKYTd6PpYuOWw"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { data } = await quizApi.get(`/quiz/question/${_id}`, {
       // headers: {

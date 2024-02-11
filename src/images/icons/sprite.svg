@@ -131,5 +131,11 @@
                 <path fill="none" stroke="#f4f4f4" style="stroke: var(--color1, #f4f4f4)" stroke-linejoin="round"
                     stroke-linecap="round" stroke-miterlimit="4" stroke-width="4.8" d="M3.5 17.25l10 10 15-22.5"></path>
             </symbol>
+            <symbol id="icon-plus" viewBox="0 0 31 32">
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5238"
+                    d="M15.619 6.889v18.222"></path>
+                <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.5238"
+                    d="M6.507 16h18.222"></path>
+            </symbol>
     </defs>
 </svg>

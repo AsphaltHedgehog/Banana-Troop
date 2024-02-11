@@ -53,10 +53,9 @@ export const QuestionFakeAnswerCheckbox = styled.div`
 
 export const QuestionInputAnswerCheckbox = styled.input`
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
-  left: 12px;
+  left: 14px;
   bottom: 20%;
-  opacity: 0;
 `;
