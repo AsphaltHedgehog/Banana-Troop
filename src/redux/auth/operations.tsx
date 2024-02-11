@@ -10,8 +10,13 @@ export interface ApiResponse {
   user: User;
   token: string;
 }
-export interface Credentials {
+export interface RegisterCredentials {
   name: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginCredentials {
   email: string;
   password: string;
 }
@@ -34,7 +39,7 @@ export const clearToken = (): void => {
   quizApi.defaults.headers.common.Authorization = "";
 };
 
-export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const registerThunk = createAsyncThunk<ApiResponse, RegisterCredentials>(
   "register",
   async (credentials, thunkApi) => {
     try {
@@ -54,7 +59,7 @@ export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
   }
 );
 
-export const loginThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const loginThunk = createAsyncThunk<ApiResponse, LoginCredentials>(
   "login",
   async (credentials, thunkApi) => {
     try {
