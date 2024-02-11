@@ -3,6 +3,7 @@ import Svg from "../../../shared/svg/Svg";
 
 export const TimeWrapper = styled.div`
   margin-bottom: 32px;
+  position: relative;
 `;
 
 export const SelectTimeWrapper = styled.div`
@@ -53,6 +54,9 @@ export const RenderList = styled.ul`
   width: 83px;
   border-radius: 20px;
   padding: 8px 18px;
+  top: 100%;
+  left: 69%;
+  transform: translate(-50%);
 `;
 
 export const ArrowSvg = styled(Svg)`

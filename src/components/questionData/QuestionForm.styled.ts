@@ -44,7 +44,7 @@ export const QuestionImage = styled.img`
   display: none;
 `;
 
-export const QuestionTextarea = styled.textarea`
+export const QuestionTextarea = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding: 14px 18px;
@@ -65,17 +65,7 @@ export const QuestionFormInputLabel = styled.label`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(244, 244, 244, 0.6);
-  background-color: #171717;
-  transition-duration: 250ms;
-  transition-timing-function: ease-in-out;
-
-  &:hover,
-  &:focus {
-    background-color: #205bf1;
-    border: none;
-  }
+  stroke: #171717;
 `;
 export const QuestionFormInputForUpdate = styled.input`
   position: absolute;
