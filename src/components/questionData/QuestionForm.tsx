@@ -23,8 +23,8 @@ import {
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Answers } from "../../redux/questions/slice";
-// import Svg from "../../shared/svg/Svg";
-// import sprite from "../../images/icons/sprite.svg";
+import Svg from "../../shared/svg/Svg";
+import sprite from "../../images/icons/sprite.svg";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 import {
   getQuestions,
@@ -99,11 +99,12 @@ const QuestionForm = () => {
         answers,
         validAnswer: String(selectedAnswerIndex),
       };
-
+      console.log(createNewQuizQuestion);
       dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
+            setSelectedAnswerIndex(-1);
             reset();
           }
           return console.log("Failed to update Question");
@@ -134,7 +135,19 @@ const QuestionForm = () => {
             imageurl={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
           >
             <QuestionFormInputLabel htmlFor="upload">
-              обрати//todo: absolute + Svg
+              <Svg
+                sprite={sprite}
+                id={`icon-plus`}
+                style={{
+                  stroke: `${
+                    selectQuiz.background !== "none"
+                      ? selectQuiz.background
+                      : "#171717"
+                  }`,
+                  width: "40px",
+                  height: "40px",
+                }}
+              />
             </QuestionFormInputLabel>
             <QuestionFormInputForUpdate
               id="upload"
@@ -175,7 +188,7 @@ const QuestionForm = () => {
   };
 
   const handleRemoveImage = () => {
-    if (selectQuestion[selectQuestionIndex].imageUrl) {
+    if (selectQuestion[selectQuestionIndex].imageUrl || tempImage) {
       dispatch(
         deleteQuizQuestionImgByIdThunk({
           _id: selectQuestion[selectQuestionIndex]._id,
@@ -183,6 +196,7 @@ const QuestionForm = () => {
       )
         .unwrap()
         .then(() => {
+          setTempImage("");
           toast.success("Image has been removed successfully!");
         })
         .catch((error) => error.massage);
@@ -214,6 +228,18 @@ const QuestionForm = () => {
   };
 
   const onCancel = () => {
+    dispatch(
+      deleteQuizQuestionImgByIdThunk({
+        _id: selectQuestion[selectQuestionIndex]._id,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setTempImage("");
+        toast.success("Image has been removed successfully!");
+      })
+      .catch((error) => error.massage);
+    setSelectedAnswerIndex(-1);
     reset();
   };
 
@@ -256,7 +282,10 @@ const QuestionForm = () => {
                 ) : null}
               </QuestFormWrapper>
               <div>
-                <QuestionTime handleTimeClick={handleTimeClick} />
+                <QuestionTime
+                  handleTimeClick={handleTimeClick}
+                  selectedAnswerIndex={selectedAnswerIndex}
+                />
               </div>
               <QuestionTextarea
                 autoComplete="off"

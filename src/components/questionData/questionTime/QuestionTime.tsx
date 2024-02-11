@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   ArrowSvg,
@@ -15,15 +15,25 @@ import sprite from "../../../images/icons/sprite.svg";
 
 type QuestionTimeProps = {
   handleTimeClick: (minutes: number, seconds: number) => void;
+  selectedAnswerIndex: number;
 };
 
-const QuestionTime = ({ handleTimeClick }: QuestionTimeProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedTime, setSelectedTime] = useState("0:00");
+const QuestionTime = ({
+  handleTimeClick,
+  selectedAnswerIndex,
+}: QuestionTimeProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedTime, setSelectedTime] = useState<string>("0:00");
+
+  useEffect(() => {
+    if (selectedAnswerIndex === -1) {
+      setSelectedTime("0:00");
+    }
+  }, [selectedAnswerIndex]);
 
   const handleClick = (minutes: number, seconds: number) => {
     handleTimeClick(minutes, seconds);
-    setIsOpen(false); // Закриваємо список після вибору елемента
+    setIsOpen(false);
     setSelectedTime(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
   };
 
@@ -53,7 +63,7 @@ const QuestionTime = ({ handleTimeClick }: QuestionTimeProps) => {
               const minutes = Math.floor(index / 4);
               const seconds = (index % 4) * 15;
               return (
-                <>
+                <React.Fragment key={index}>
                   {index > 1 && (
                     <QuestionTimeElem
                       key={index}
@@ -62,7 +72,7 @@ const QuestionTime = ({ handleTimeClick }: QuestionTimeProps) => {
                       {`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`}
                     </QuestionTimeElem>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </RenderList>
