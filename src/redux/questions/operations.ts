@@ -60,7 +60,7 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { _id, ...body } = question;
     const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
@@ -135,7 +135,7 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { data } = await quizApi.get(`/quiz/question/${_id}`, {
       // headers: {

@@ -102,12 +102,12 @@ const QuestionForm = () => {
       console.log(createNewQuizQuestion);
       dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
+          console.log(1);
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
             setSelectedAnswerIndex(-1);
             reset();
           }
-          return console.log("Failed to update Question");
         })
         .catch((error) => {
           console.error("Error updating quiz:", error);

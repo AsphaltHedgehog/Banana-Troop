@@ -125,7 +125,7 @@ export const addQuizesThunk = createAsyncThunk<
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { theme } = quiz;
 
@@ -155,7 +155,7 @@ export const deleteQuizesThunk = createAsyncThunk<
 >("deleteQuizById", async (_id, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     // const savedToken = thunkApi.getState().auth.token;
 
@@ -179,7 +179,7 @@ export const updateQuizesThunk = createAsyncThunk<
 >("updateQuiz", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;
