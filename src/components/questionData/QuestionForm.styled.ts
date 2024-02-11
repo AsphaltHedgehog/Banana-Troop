@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 export const QuestFormWrapper = styled.div`
   margin-bottom: 20px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0px;
+  }
+  @media screen and (min-width: 1280px) {
+    margin-right: 32px;
+  }
 `;
 
 export const QuestionFormWrapper = styled.div`
@@ -13,10 +19,10 @@ export const QuestionFormWrapper = styled.div`
   @media screen and (min-width: 768px) {
     max-width: 440px;
     height: 562px;
-    margin-bottom: 98px;
   }
   @media screen and (min-width: 1280px) {
     max-width: 744px;
+    height: 521px;
   }
 `;
 
@@ -29,9 +35,9 @@ export const QuestionFormStyles = styled.form`
   justify-content: space-between;
   @media screen and (min-width: 768px) {
     padding: 32px;
-    align-items: flex-start;
   }
   @media screen and (min-width: 1280px) {
+    align-items: flex-end;
     max-width: 744px;
     padding: 64px;
   }
@@ -49,6 +55,10 @@ export const QuestionImageWrapper = styled.div<{ imageurl: string }>`
   background-image: url(${(props) => props.imageurl});
   background-size: cover;
   margin-bottom: 8px;
+  @media screen and (min-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 export const QuestionImage = styled.img`
@@ -73,6 +83,8 @@ export const QuestionTextarea = styled.input`
     min-width: 376px;
   }
   @media screen and (min-width: 1280px) {
+    min-width: 460px;
+    margin-top: 65px;
   }
 `;
 
@@ -95,6 +107,10 @@ export const SubmitQuizButtonWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 14px;
+  @media screen and (min-width: 1280px) {
+    justify-content: flex-start;
+    margin-left: 134px;
+  }
 `;
 export const SubmitQuizButton = styled.button`
   display: flex;
@@ -139,12 +155,21 @@ export const SubmitQBtnNumWrapper = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  @media screen and (min-width: 1280px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const FixPositoinWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
+  @media screen and (min-width: 1280px) {
+    flex-direction: row;
+  }
 `;
 export const SubmitQuizNumSpan = styled.span`
   color: #f4f4f4;

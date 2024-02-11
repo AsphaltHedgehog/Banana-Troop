@@ -1,12 +1,12 @@
 // import React from 'react'
 
-import Svg from "../../../shared/svg";
 import sprite from "../../../images/icons/sprite.svg";
 import {
   QuestionDelImgButton,
   QuestionImageContainer,
   QuestionInputForUpdate,
   QuestionInputLabel,
+  SvgStyles,
 } from "./QuestionImageButtons.styled";
 
 interface QuestionImageProps {
@@ -24,7 +24,7 @@ const QuestionImageButtons: React.FC<QuestionImageProps> = ({
     <>
       <QuestionImageContainer>
         <QuestionInputLabel htmlFor="uploadImage">
-          <Svg sprite={sprite} id={`icon-edit`} width={12} height={12} />
+          <SvgStyles sprite={sprite} id={`icon-edit`} />
         </QuestionInputLabel>
         <QuestionInputForUpdate
           id="uploadImage"
@@ -34,7 +34,7 @@ const QuestionImageButtons: React.FC<QuestionImageProps> = ({
           onChange={hangleChengeImageQuestion}
         />
         <QuestionDelImgButton type="button" onClick={handleRemoveImage}>
-          <Svg sprite={sprite} id={`icon-trash`} width={12} height={12} />
+          <SvgStyles sprite={sprite} id={`icon-trash`} />
         </QuestionDelImgButton>
       </QuestionImageContainer>
     </>

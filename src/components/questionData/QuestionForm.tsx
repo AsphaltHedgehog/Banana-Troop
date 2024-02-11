@@ -286,18 +286,21 @@ const QuestionForm = () => {
                   selectedAnswerIndex={selectedAnswerIndex}
                 />
               </div>
-              <QuestionTextarea
-                autoComplete="off"
-                placeholder="Enter a question"
-                {...register("descr")}
-                defaultValue={selectQuestion[selectQuestionIndex].descr}
-              />
-              <AnswerList
-                answers={arrayMission()}
-                selectedAnswerIndex={selectedAnswerIndex}
-                handleAnswerChange={handleAnswerChange}
-                handleSelectAnswer={handleSelectAnswer}
-              />
+              <div>
+                {" "}
+                <QuestionTextarea
+                  autoComplete="off"
+                  placeholder="Enter a question"
+                  {...register("descr")}
+                  defaultValue={selectQuestion[selectQuestionIndex].descr}
+                />
+                <AnswerList
+                  answers={arrayMission()}
+                  selectedAnswerIndex={selectedAnswerIndex}
+                  handleAnswerChange={handleAnswerChange}
+                  handleSelectAnswer={handleSelectAnswer}
+                />
+              </div>
             </FixPositoinWrapper>
             <SubmitQBtnNumWrapper>
               <SubmitQuizNumSpan>

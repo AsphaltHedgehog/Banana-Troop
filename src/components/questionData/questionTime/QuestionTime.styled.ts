@@ -12,7 +12,13 @@ export const SelectTimeWrapper = styled.div`
   gap: 14px;
   @media screen and (min-width: 768px) {
     position: absolute;
-    /* bottom: 32px; */
+    bottom: 4px;
+    left: 240px;
+  }
+  @media screen and (min-width: 1280px) {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
   }
 `;
 export const TimeSpan = styled.span`
@@ -64,6 +70,13 @@ export const RenderList = styled.ul`
   top: 100%;
   left: 69%;
   transform: translate(-50%);
+  @media screen and (min-width: 768px) {
+    left: 332px;
+  }
+  @media screen and (min-width: 1280px) {
+    top: 34px;
+    left: 92px;
+  }
 `;
 
 export const ArrowSvg = styled(Svg)`
