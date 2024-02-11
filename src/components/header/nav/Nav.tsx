@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import {
   AuthWrapper,
   CategoriesWrapper,
   LogOutButton,
-  NavLinkLogin,
-  NavLinkRegister,
+  // NavLinkLogin,
+  // NavLinkRegister,
   NavLinkSettings,
   NavWrapper,
 } from "./Nav.styled";
@@ -12,10 +12,10 @@ import { StyledH2 } from "../wholeComponent/Header.styled";
 import { NavLink, NavigateFunction, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-import { logoutThunk } from "../../../redux/auth/operations";
-import { toast } from "react-toastify";
+// import { logoutThunk } from "../../../redux/auth/operations";
+// import { toast } from "react-toastify";
 import sprite from "../../../images/icons/sprite.svg";
-import { useAppDispatch } from "../../../redux/hooks";
+// import { useAppDispatch } from "../../../redux/hooks";
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../modal/Modal";
 import Register from "../../authPage/register/Register";
@@ -44,7 +44,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
   } = useModal();
 
   const navigate: NavigateFunction = useNavigate();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -81,7 +81,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
           <NavLink to="/forChildren">For children</NavLink>
         </CategoriesWrapper>
         <AuthWrapper>
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <>
               <NavLinkSettings to="/settings">
                 <svg onClick={handleCloseBurger}>

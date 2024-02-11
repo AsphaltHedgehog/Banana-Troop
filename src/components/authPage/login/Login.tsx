@@ -29,7 +29,7 @@ const Login: React.FC = () => {
   } = useForm<LoginFormData>({ resolver: yupResolver(schemaLogin) });
 
   const submit: SubmitHandler<LoginFormData> = (data) => {
-    dispatch(loginThunk(data));
+    dispatch(loginThunk(data)).unwrap();
     reset();
   };
 

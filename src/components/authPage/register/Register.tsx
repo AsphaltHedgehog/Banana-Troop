@@ -32,7 +32,7 @@ const Register: React.FC = () => {
   });
 
   const submit: SubmitHandler<RegisterFormData> = (data) => {
-    dispatch(registerThunk(data));
+    dispatch(registerThunk(data)).unwrap();
     reset();
   };
 
