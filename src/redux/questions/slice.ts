@@ -31,35 +31,7 @@ type QuestionsState = {
 };
 
 const initialState: QuestionsState = {
-  list: [
-    // {
-    //   _id: "65befd710e00dce39b3e7b5f",
-    //   quiz: "65b9bbe690b27011571e122f",
-    //   time: "00:45",
-    //   descr: "",
-    //   answers: [
-    //     {
-    //       descr: "Ага, ебанёшься",
-    //       _id: "65befd710e00dce39b3e7b5b",
-    //     },
-    //     {
-    //       descr: "АААААА",
-    //       _id: "65befd710e00dce39b3e7b5c",
-    //     },
-    //     {
-    //       descr: "...",
-    //       _id: "65befd710e00dce39b3e7b5d",
-    //     },
-    //     {
-    //       descr: "биб буп",
-    //       _id: "65befd710e00dce39b3e7b5e",
-    //     },
-    //   ],
-    //   validAnswer: "65befd710e00dce39b3e7b5c",
-    //   imageUrl: "sfirroot5cdwxhftzxzi",
-    //   type: "full-text",
-    // },
-  ],
+  list: [],
   selectedIndex: 0,
   isLoading: false,
   error: null,
@@ -68,7 +40,9 @@ const initialState: QuestionsState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    // getSelectedIndex: ,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuestionsByQuizThunk.fulfilled, (state, { payload }) => {
@@ -95,17 +69,9 @@ const questionsSlice = createSlice({
         }
         state.isLoading = false;
       })
-      // .addCase(
-      //   deleteQuizQuestionImgByIdThunk.fulfilled,
-      //   (state, { payload }) => {
-      //     state.list = state.list.filter(
-      //       (question) => question._id !== payload
-      //     );
-      //     state.isLoading = false;
-      //   }
-      // )
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.pending,
           addedQuestionByQuizThunk.pending,
           deleteQuestionByIdThunk.pending,
@@ -117,6 +83,7 @@ const questionsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.rejected,
           addedQuestionByQuizThunk.rejected,
           deleteQuestionByIdThunk.rejected,

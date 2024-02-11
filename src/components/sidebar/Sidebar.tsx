@@ -13,22 +13,45 @@ import {
 import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addedQuestionByQuizThunk } from "../../redux/questions/operations";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 
 const Sidebar = () => {
   const [quizzes, setQuizzes] = useState([
-    { id: 1, type: "True or False" },
-    { id: 2, type: "Quiz" },
+    { id: "1", type: "true-or-false" },
+    { id: "2", type: "full-text" },
   ]);
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
-  const [clickedItem, setClickedItem] = useState<string | number | null>(null);
-  const handleDelete = (id: number) => {
+  const [clickedItem, setClickedItem] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const selectQuiz = useAppSelector(getUpdateOptions);
+  const handleDelete = (id: string) => {
     // Remove the quiz with the specified id
     setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
   };
 
-  const handleCreateBtnClick = () => {
+  const handleCreateBtnClick = (type: "full-text" | "true-or-false") => {
+    if (selectQuiz._id) {
+      console.log(selectQuiz._id);
+      const newQuestion = {
+        _id: selectQuiz._id,
+        time: "0:00",
+        imageUrl: "",
+        type,
+        descr: "",
+        answers: [],
+        validAnswerIndex: "",
+      };
+      dispatch(addedQuestionByQuizThunk(newQuestion))
+        .unwrap()
+        .then((res) => console.log(res));
+    }
+  };
+
+  const handleToggleBtnClick = () => {
     setCreateListOpen(!isCreateListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
@@ -52,8 +75,8 @@ const Sidebar = () => {
     };
   }, []);
 
-  const handleClick = (id: string | number) => {
-    setClickedItem(id === clickedItem ? null : id);
+  const handleClick = (id: string) => {
+    setClickedItem(id === clickedItem ? "" : id);
   };
 
   return (
@@ -78,7 +101,7 @@ const Sidebar = () => {
       </QuestionList>
 
       <CreateBtnListContainer ref={listContainerRef}>
-        <CreateBtn onClick={handleCreateBtnClick}>
+        <CreateBtn onClick={handleToggleBtnClick}>
           Create
           <Svg
             sprite={sprite}
@@ -90,12 +113,12 @@ const Sidebar = () => {
         </CreateBtn>
         {isCreateListOpen && (
           <CreateListContainer>
-            <button onClick={handleCreateBtnClick}>
-              Quiz{" "}
+            <button onClick={() => handleCreateBtnClick("full-text")}>
+              Quiz
               <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
             </button>
-            <button onClick={handleCreateBtnClick}>
-              True or false{" "}
+            <button onClick={() => handleCreateBtnClick("true-or-false")}>
+              True or false
               <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
             </button>
           </CreateListContainer>

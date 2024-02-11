@@ -30,7 +30,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="logout" element={<Logout />} /> */}
           <Route path="restorePassword" element={<RestorePassword />} />
-          <Route path="newPassword" element={<NewPassword />} />
+          <Route path="newPassword/:resetToken" element={<NewPassword />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<CreateQuizPage />} />

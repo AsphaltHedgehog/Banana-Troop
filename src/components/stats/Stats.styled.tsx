@@ -93,10 +93,14 @@ export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width: ${tablet}) and (max-width: ${desktop}) {
+  @media screen and (min-width: ${tablet}) {
     flex-direction: row;
     justify-content: flex-end;
     gap: 40px;
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    justify-content: center;
   }
 `;
 
