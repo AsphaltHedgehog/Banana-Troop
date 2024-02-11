@@ -1,17 +1,33 @@
 import styled from "styled-components";
+import { breakpoints } from "../../styles";
 
+const { tablet, desktop } = breakpoints;
 export const StyledDiscoverHeader = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 40px;
+
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    align-items: center;
+    gap: 48px 24px;
+  }
 `;
 
 export const StyledUlCards = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-bottom: 48px;
+  flex-direction: column;
+  gap: 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 48px 24px;
+  }
 `;
 export const StyledFilterWrap = styled.div`
   display: flex;
@@ -40,6 +56,10 @@ export const StyledLoadMore = styled.button`
   background: none;
   &:hover {
     color: #205bf1; /* Колір для ховеру */
+  }
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
   }
 `;
 export const StyledRaitingResultWrap = styled.div`

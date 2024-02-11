@@ -28,6 +28,7 @@ import { StyledRatingSvg } from "../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../images/icons/sprite.svg";
 
 import Box from "../../components/box/Box";
+import { StyledH2 } from "../../components/quizes/Quizes.styled";
 
 const DiscoverPage = () => {
   const dispatch = useAppDispatch();
@@ -67,28 +68,40 @@ const DiscoverPage = () => {
     // title: selectedAgeGroupCat,
   });
 
-  useEffect(() => {
-    dispatch(fetchCategoriesThunk(query));
-  }, [dispatch, query]);
+  // useEffect(() => {
+  //   dispatch(fetchCategoriesThunk(query));
+  // }, [dispatch, query]);
 
   useEffect(() => {
     if (filterClicked) {
       const newQuery = {
         ...query,
-        page: pageParam,
+        // page: pageParam,
         pageSize: sizeParam,
         ageGroup: selectedAgeGroup,
         title: selectCatID,
         rating: selectedRating,
+        // inputText: searchTerm,
       };
 
       dispatch(fetchCategoriesThunk(newQuery));
+    } else {
+      const newQuery = {
+        ...query,
+
+        pageSize: sizeParam,
+      };
+
+      dispatch(fetchCategoriesThunk(newQuery));
+      console.log(newQuery);
     }
+    console.log(sizeParam);
   }, [
     dispatch,
     filterClicked,
     pageParam,
     query,
+    // searchTerm,
     selectCatID,
     selectedAgeGroup,
     selectedRating,
@@ -107,8 +120,10 @@ const DiscoverPage = () => {
 
   const handleFilter = () => {
     SetPageParam(1);
+    SetSizeParam(8);
     const newQuery = {
       ...query,
+      title: "",
       // ageGroup: selectedAgeGroup,
       // rating: selectedRating,
       page: 1, // Скидаємо сторінку на першу при застосуванні фільтра
@@ -155,7 +170,7 @@ const DiscoverPage = () => {
   return (
     <Box>
       <StyledDiscoverHeader>
-        <h1>Discover</h1>
+        <StyledH2>Discover</StyledH2>
         <CreateQuizLink />
       </StyledDiscoverHeader>
       <StyledFilterWrap>
@@ -267,7 +282,7 @@ const DiscoverPage = () => {
       </StyledRaitingResultWrap>
 
       <StyledUlCards>
-        {attemptedFilter && filteredQuizes.length === 0 ? (
+        {/* {attemptedFilter && filteredQuizes.length === 0 ? (
           <p>No quizzes found</p>
         ) : filteredQuizes.length > 0 ? (
           filteredQuizes?.map((quiz) => (
@@ -280,18 +295,18 @@ const DiscoverPage = () => {
               finished={quiz.finished}
             />
           ))
-        ) : (
-          quizes?.map((quiz) => (
-            <QuizListItem
-              key={quiz._id}
-              id={quiz._id}
-              theme={quiz.theme}
-              rating={quiz.rating}
-              ageGroup={quiz.ageGroup}
-              finished={quiz.finished}
-            />
-          ))
-        )}
+        ) : ( */}
+        {quizes?.map((quiz) => (
+          <QuizListItem
+            key={quiz._id}
+            id={quiz._id}
+            theme={quiz.theme}
+            rating={quiz.rating}
+            ageGroup={quiz.ageGroup}
+            finished={quiz.finished}
+          />
+        ))}
+        {/* )} */}
       </StyledUlCards>
       <div>
         {quizes.length < total && (
