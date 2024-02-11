@@ -52,7 +52,7 @@ export const StyledSection = styled.section`
     background-position: bottom -52px right -63px;
 
     padding-top: 88px;
-    padding-inline: 64px 493px;
+    padding-inline: 64px 400px;
     padding-bottom: 88px;
 
     max-width: 1240px;
