@@ -60,7 +60,7 @@ const UpdateQuizForm = () => {
           toast.success("Congrats! You updated quiz!");
         })
         .catch((error) => {
-          console.error("Error updating quiz:", error);
+          toast.error("Error updating quiz:", error);
         });
     }
   };
@@ -76,7 +76,7 @@ const UpdateQuizForm = () => {
           toast.success("Congrats! You deleted quiz!");
         })
         .catch((error) => {
-          console.error("Error removing quiz:", error);
+          toast.error("Error removing quiz:", error);
         });
     }
   };

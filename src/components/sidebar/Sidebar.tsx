@@ -33,7 +33,6 @@ const Sidebar = () => {
 
   const handleCreateBtnClick = (type: "full-text" | "true-or-false") => {
     if (selectQuiz._id) {
-      console.log(selectQuiz._id);
       const newQuestion = {
         _id: selectQuiz._id,
         type,
@@ -41,7 +40,8 @@ const Sidebar = () => {
       };
       dispatch(addedQuestionByQuizThunk(newQuestion))
         .unwrap()
-        .then((res) => console.log(res));
+        .then(() => toast.error("Congratulation! You create Question!"))
+        .catch(() => toast.error("Something went wrong"));
     }
   };
 
@@ -82,7 +82,7 @@ const Sidebar = () => {
         .then(() => {
           toast.success("Question has been removed successfully!");
         })
-        .catch((error) => console.error(error.message));
+        .catch((error) => toast.error(error.message));
     }
   };
 
