@@ -10,50 +10,44 @@ import {
   CreateBtnListContainer,
   Divider,
 } from "./SidebarStyled";
-import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { addedQuestionByQuizThunk } from "../../redux/questions/operations";
+import {
+  addedQuestionByQuizThunk,
+  deleteQuestionByIdThunk,
+} from "../../redux/questions/operations";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { getQuestions } from "../../redux/questions/selectors";
+import { toast } from "react-toastify";
+import { getSelectedIndex } from "../../redux/questions/slice";
 
 const Sidebar = () => {
-  const [quizzes, setQuizzes] = useState([
-    { id: "1", type: "true-or-false" },
-    { id: "2", type: "full-text" },
-  ]);
+  const questions = useAppSelector(getQuestions);
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
-  const [clickedItem, setClickedItem] = useState<string | null>(null);
+  const [clickedItem, setClickedItem] = useState<string>("");
   const dispatch = useAppDispatch();
   const selectQuiz = useAppSelector(getUpdateOptions);
-  const handleDelete = (id: string) => {
-    // Remove the quiz with the specified id
-    setQuizzes((prevQuizzes) => prevQuizzes.filter((quiz) => quiz.id !== id));
-  };
 
   const handleCreateBtnClick = (type: "full-text" | "true-or-false") => {
     if (selectQuiz._id) {
-      console.log(selectQuiz._id);
       const newQuestion = {
         _id: selectQuiz._id,
-        time: "0:00",
-        imageUrl: "",
         type,
-        descr: "",
-        answers: [],
-        validAnswerIndex: "",
+        validAnswerIndex: "0",
       };
       dispatch(addedQuestionByQuizThunk(newQuestion))
         .unwrap()
-        .then((res) => console.log(res));
+        .then(() => toast.error("Congratulation! You create Question!"))
+        .catch(() => toast.error("Something went wrong"));
     }
   };
 
   const handleToggleBtnClick = () => {
-    setCreateListOpen(!isCreateListOpen);
-    setIsChevronRotated(!isChevronRotated);
+    setCreateListOpen((prev) => !prev);
+    setIsChevronRotated((prev) => !prev);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -67,6 +61,7 @@ const Sidebar = () => {
       setIsChevronRotated(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -75,8 +70,20 @@ const Sidebar = () => {
     };
   }, []);
 
-  const handleClick = (id: string) => {
-    setClickedItem(id === clickedItem ? "" : id);
+  const handleClick = (id: string, index: number) => {
+    setClickedItem((prev) => (prev === id ? "" : id));
+    dispatch(getSelectedIndex(index));
+  };
+
+  const handleDelete = (_id: string) => {
+    if (_id) {
+      dispatch(deleteQuestionByIdThunk(_id))
+        .unwrap()
+        .then(() => {
+          toast.success("Question has been removed successfully!");
+        })
+        .catch((error) => toast.error(error.message));
+    }
   };
 
   return (
@@ -84,18 +91,29 @@ const Sidebar = () => {
       <QuestionsTitle>Questions</QuestionsTitle>
 
       <QuestionList>
-        {quizzes.map((quiz, index) => (
-          <React.Fragment key={quiz.id}>
+        {questions?.map((question, index) => (
+          <React.Fragment key={question._id}>
             <QuizItem
-              clicked={clickedItem === quiz.id}
-              onClick={() => handleClick(quiz.id)}
+              clicked={clickedItem === question._id}
+              onClick={() => {
+                if (question._id) {
+                  handleClick(question._id, index);
+                }
+              }}
             >
-              {`${index + 1}. ${quiz.type}`}
-              <TrashBtn type="button" onClick={() => handleDelete(quiz.id)}>
+              {`${index + 1}. ${question.type}`}
+              <TrashBtn
+                type="button"
+                onClick={() => {
+                  if (question._id) {
+                    handleDelete(question._id);
+                  }
+                }}
+              >
                 <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
               </TrashBtn>
             </QuizItem>
-            {index !== quizzes.length - 1 && <Divider />}
+            {index !== questions.length - 1 && <Divider />}
           </React.Fragment>
         ))}
       </QuestionList>

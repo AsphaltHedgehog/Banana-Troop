@@ -99,7 +99,7 @@ const QuestionForm = () => {
         answers,
         validAnswer: String(selectedAnswerIndex),
       };
-      console.log(createNewQuizQuestion);
+
       dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
@@ -107,10 +107,9 @@ const QuestionForm = () => {
             setSelectedAnswerIndex(-1);
             reset();
           }
-          return console.log("Failed to update Question");
         })
         .catch((error) => {
-          console.error("Error updating quiz:", error);
+          toast.error("Error updating quiz:", error);
         });
     }
   };
@@ -179,10 +178,10 @@ const QuestionForm = () => {
             toast.success("Congrats! You added image to question!");
           })
           .catch((error) => {
-            console.error("Error updating quiz:", error);
+            toast.error("Error updating quiz:", error);
           });
       } else {
-        console.error("Files property is null or undefined");
+        toast.error("Files property is null or undefined");
       }
     }
   };
@@ -238,7 +237,7 @@ const QuestionForm = () => {
         setTempImage("");
         toast.success("Image has been removed successfully!");
       })
-      .catch((error) => error.massage);
+      .catch((error) => toast.error(error.massage));
     setSelectedAnswerIndex(-1);
     reset();
   };

@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, isAnyOf } from "@reduxjs/toolkit";
 import {
   addedQuestionByQuizThunk,
   deleteQuestionByIdThunk,
@@ -41,7 +41,9 @@ const questionsSlice = createSlice({
   name: "questions",
   initialState,
   reducers: {
-    // getSelectedIndex: ,
+    getSelectedIndex: (state, action: PayloadAction<number>) => {
+      state.selectedIndex = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,4 +99,5 @@ const questionsSlice = createSlice({
   },
 });
 
+export const { getSelectedIndex } = questionsSlice.actions;
 export const questionsReducer = questionsSlice.reducer;
