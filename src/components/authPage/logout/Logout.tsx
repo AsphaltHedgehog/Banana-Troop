@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { logoutThunk } from "../../../redux/auth/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RegisterButton } from "../../../shared/buttons/RegisterButton";
@@ -9,8 +10,14 @@ import {
 
 const Logout: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const handleLogOut = () => {
-    dispatch(logoutThunk());
+    dispatch(logoutThunk())
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      });
   };
   return (
     <StyledLogoutWrapp>

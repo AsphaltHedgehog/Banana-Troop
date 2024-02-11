@@ -1,5 +1,11 @@
 import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { loginThunk, logoutThunk, newPasswordThunk, registerThunk, resetPasswordThunk } from "./operations";
+import {
+  loginThunk,
+  logoutThunk,
+  newPasswordThunk,
+  registerThunk,
+  resetPasswordThunk,
+} from "./operations";
 
 interface User {
   name: string;
@@ -44,27 +50,25 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
+        state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
+        state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
-        state.user.email = payload?.user?.email || '';
-        state.error = null; 
+        state.user.email = payload?.user?.email || "";
+        state.error = null;
         state.isLoading = false;
       })
       .addCase(newPasswordThunk.fulfilled, (state, { payload }) => {
-        state.user.email = payload?.user?.email || '';
-        state.error = null; 
+        state.user.email = payload?.user?.email || "";
+        state.error = null;
         state.isLoading = false;
       })
       .addCase(logoutThunk.fulfilled, () => {
@@ -84,7 +88,13 @@ const authSlice = createSlice({
         }
       )
       .addMatcher(
-        isAnyOf(registerThunk.pending, loginThunk.pending, logoutThunk.pending, resetPasswordThunk.pending, newPasswordThunk.rejected),
+        isAnyOf(
+          registerThunk.pending,
+          loginThunk.pending,
+          logoutThunk.pending,
+          resetPasswordThunk.pending,
+          newPasswordThunk.rejected
+        ),
         (state) => {
           state.error = null;
           state.isLoading = true;
@@ -92,7 +102,6 @@ const authSlice = createSlice({
       );
   },
 });
-
 
 export const { deleteFavorite, addFavorite } = authSlice.actions;
 

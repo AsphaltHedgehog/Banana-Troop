@@ -10,9 +10,18 @@ export const schemaRegister = yup.object().shape({
     .required(),
 });
 
+export const schemaLogin = yup.object().shape({
+  email: yup.string().email("Email is not valid").required(),
+  password: yup
+    .string()
+    .min(8, "Enter a valid Password")
+    .max(64, "Enter a valid Password")
+    .required(),
+});
+
 export const schemaSendEmail = yup.object().shape({
-   email: yup.string().email("Email is not valid").required()
-})
+  email: yup.string().email("Email is not valid").required(),
+});
 
 export const schemaNewPassword = yup.object().shape({
   newPassword: yup
@@ -22,8 +31,8 @@ export const schemaNewPassword = yup.object().shape({
     .required("Password is required"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword')], 'Passwords must match')
-    .required('Confirm Password is required')
+    .oneOf([yup.ref("newPassword")], "Passwords must match")
+    .required("Confirm Password is required"),
 });
 
 export const answersSchema = yup.object().shape({
