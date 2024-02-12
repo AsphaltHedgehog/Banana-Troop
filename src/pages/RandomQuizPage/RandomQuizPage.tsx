@@ -44,7 +44,7 @@ const RandomQuizPage = () => {
   }, [dispatch, pageSize, param]);
 
   const handleLoadMore = () => {
-    if (quizes.length < total) return setPageSize(pageSize + 8);
+    setPageSize((prev) => prev + 8);
   };
 
   return (
@@ -72,7 +72,7 @@ const RandomQuizPage = () => {
           ))}
         </StyledUl>
         {isLoading ? <Loader /> : <></>}
-        {quizes.length < total && !isLoading ? (
+        {quizes.length < total[0]?.count && !isLoading ? (
           <StyledButton type="button" onClick={handleLoadMore}>
             Load More
           </StyledButton>
