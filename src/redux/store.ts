@@ -12,10 +12,11 @@ import {
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/authSlice";
 // import { userReducer } from "./user/slice";
-import { categoriesReducer } from "./categories/slice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
 import { reviewsReducer } from "./reviews/slice";
+import { updateOptionsReducer } from "./updateOptions/slice";
+import { userReducer } from "./user/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -23,11 +24,19 @@ const authPersistConfig = {
   whitelist: ["token", "favorites"],
 };
 
+const userPersistConfig = {
+  key: "user",
+  storage,
+  whitelist: ["favorite"],
+};
+
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  //   user: userReducer,
-  categories: categoriesReducer,
+
   reviews: reviewsReducer,
+  user: persistReducer(userPersistConfig, userReducer),
+  updateOptions: updateOptionsReducer,
+
   quizes: quizesReducer,
   questions: questionsReducer,
 });

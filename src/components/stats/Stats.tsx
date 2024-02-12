@@ -6,6 +6,7 @@ import {
   StyledNumber,
   StyledSection,
   StyledUl,
+  StyledWrapper,
 } from "./Stats.styled";
 
 const Stats = () => {
@@ -15,7 +16,7 @@ const Stats = () => {
         <StyledNumber>129865</StyledNumber>
         <StyledDescr>People passed the quiz</StyledDescr>
       </StyledContainer>
-      <div>
+      <StyledWrapper>
         <StyledCopyright>© QuizMaster 2023 All rights reserved</StyledCopyright>
         <StyledUl>
           <li>
@@ -25,7 +26,7 @@ const Stats = () => {
             <StyledLink to="/terms-of-service">Terms of Service</StyledLink>
           </li>
         </StyledUl>
-      </div>
+      </StyledWrapper>
     </StyledSection>
   );
 };

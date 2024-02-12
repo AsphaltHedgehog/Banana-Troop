@@ -3,6 +3,7 @@ export const StyledUpdateQuizWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 20px;
 `;
 export const StyledUpdateQuizForm = styled.form`
   display: flex;
@@ -18,7 +19,7 @@ export const StyledUpdateQuizForm = styled.form`
 export const UpdateQuizInput = styled.input`
   font-family: "Montserrat", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -34,7 +35,7 @@ export const UpdateQuizInput = styled.input`
 
   &:hover,
   &:focus {
-    border-color: #144ad5;
+    border-color: #205bf1;
   }
   @media screen and (min-width: 768px) {
     margin-bottom: 0px;

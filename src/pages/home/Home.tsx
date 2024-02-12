@@ -5,17 +5,11 @@ import Stats from "../../components/stats/Stats";
 import Hero from "../../components/hero/Hero";
 import SectionButton from "../../components/sectionButton/SectionButton";
 import Reviews from "../../components/reviews/Reviews";
-import HeroImg from "../../components/heroDec/HeroImg";
-// import HeroGrad from "../../components/heroDec/HeroGrad";
-import { HeroDecWrapper } from "../../components/heroDec/HeroDecWrapper.styled";
+import { FC } from "react";
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <>
-      <HeroDecWrapper>
-        <HeroImg />
-        {/* <HeroGrad /> */}
-      </HeroDecWrapper>
       <Box>
         <Hero />
         <SectionButton />

@@ -1,49 +1,89 @@
-import { useEffect, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   ColorfulSpans,
   RadioContainer,
   CategoryBtn,
+  AudienceCategoriesContainer,
+  Titles,
+  MainContainer,
+  ColorContainer,
+  Category,
+  OptionList,
+  OptionBtn,
+  OptionItem,
 } from "./QuizOptionsStyled";
-import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
+
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
-interface QuizOptionsProps {
-  editingQuiz?: QuizParams;
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { addCategory, addBackground } from "../../redux/updateOptions/slice";
+import { fetchCategoriesThunk } from "../../redux/updateOptions/operations";
+
+interface ICategory {
+  _id: string;
+  ageGroup: string;
+  title: string;
 }
 
-const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
+const QuizOptions = () => {
+  const dispatch = useAppDispatch();
+  const selectOptions = useAppSelector(getUpdateOptions);
+  const [OptionListOpen, setOptionListOpen] = useState<boolean>(false);
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
-  //todo: I threw props the values that will come from the editing object when the editing quiz comes
-  //todo: please make them appear in your inputs by default and use the value from editingQuiz.ageGroup by default
+  const listContainerRef = useRef<HTMLDivElement>(null);
 
-  const [selectedAudience, setSelectedAudience] = useState<string>("children");
+  const [selectedAudience, setSelectedAudience] = useState<string>("adults");
 
   const [selectedColor, setSelectedColor] = useState<string>("none");
 
+  const [selectedCategory, setSelectedCategory] = useState<string>("Choose");
+
   const handleChooseBtnClick = () => {
-    // setCreateListOpen(!isCreateListOpen);
+    setOptionListOpen(!OptionListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
-
-  useEffect(() => {
-    if (editingQuiz) {
-      setSelectedAudience(editingQuiz.ageGroup || "children");
-      setSelectedColor(editingQuiz.background || "none");
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      listContainerRef.current &&
+      !listContainerRef.current.contains(target) &&
+      !target.classList.contains("CreateBtn")
+    ) {
+      setOptionListOpen(false);
+      setIsChevronRotated(false);
     }
-  }, [editingQuiz]);
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
 
-  const handleAudienceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  const handleAudienceChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    await dispatch(fetchCategoriesThunk({ ageGroup: event.target.value }));
     setSelectedAudience(event.target.value);
+    setSelectedCategory("Choose");
   };
 
   const handleColorClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(event.target.value);
+    dispatch(addBackground(event.target.value));
   };
+
+  const onHandleClickCategory = (category: ICategory) => {
+    setSelectedCategory(category.title);
+    dispatch(addCategory(category._id));
+  };
+
   return (
-    <div>
-      <div>
+    <MainContainer>
+      <AudienceCategoriesContainer>
         <RadioContainer>
-          <h3>Audience</h3>
+          <Titles>Audience</Titles>
           <label>
             <input
               type="radio"
@@ -66,10 +106,11 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
             For Adults
           </label>
         </RadioContainer>
-        <div>
-          <h3>Categories</h3>
+        <div ref={listContainerRef}>
+          {/* Your work here */}
+          <Titles>Categories</Titles>
           <CategoryBtn onClick={handleChooseBtnClick}>
-            Cinema{" "}
+            <Category>{selectedCategory}</Category>
             <Svg
               sprite={sprite}
               id={`chevron-down`}
@@ -80,10 +121,29 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
               }}
             />
           </CategoryBtn>
+          {OptionListOpen && (
+            <OptionList>
+              {selectOptions.categories.map((category) => {
+                return (
+                  <OptionItem key={category._id}>
+                    <OptionBtn
+                      type="button"
+                      onClick={() => {
+                        onHandleClickCategory(category);
+                      }}
+                      // I think we should also recive from backend is active boolean, if it is default or active category text color to be white  "active={category.isActive}
+                    >
+                      {category.title}
+                    </OptionBtn>
+                  </OptionItem>
+                );
+              })}
+            </OptionList>
+          )}
         </div>
-      </div>
-      <div>
-        <h3>Background</h3>
+      </AudienceCategoriesContainer>
+      <ColorContainer>
+        <Titles>Background</Titles>
         <ColorfulSpans>
           <label>
             <input
@@ -130,8 +190,8 @@ const QuizOptions = ({ editingQuiz }: QuizOptionsProps) => {
             <span style={{ backgroundColor: "#000000" }}></span>
           </label>
         </ColorfulSpans>
-      </div>
-    </div>
+      </ColorContainer>
+    </MainContainer>
   );
 };
 

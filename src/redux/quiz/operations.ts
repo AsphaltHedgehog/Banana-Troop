@@ -1,15 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { instance } from "../fetchInstance";
-import { Quiz, QuizBody, QuizByCategories } from "./slice";
+import { quizApi } from "../auth/operations";
+import { Category, Quiz, QuizBody, QuizByCategories } from "./slice";
 import { AppDispatch, RootState } from "../store";
 
-interface AsyncThunkConfig {
+export interface AsyncThunkConfig {
   state: RootState;
   dispatch: AppDispatch;
   rejectValue: string;
 }
 
-interface QueryCategories {
+export interface QueryCategories {
   ageGroup: string;
   page?: number;
   pageSize?: number;
@@ -18,6 +18,22 @@ interface QueryCategories {
   inputText?: string | null;
   title?: string;
 }
+
+interface IQuizCreate {
+  _id: string;
+  theme: string;
+  categories: Category[];
+  background: string;
+  ageGroup: string;
+}
+
+export type EditQuiz = {
+  _id: string;
+  theme: string;
+  category: string;
+  background: string;
+  ageGroup: string;
+};
 
 export const fetchQuizesThunk = createAsyncThunk<
   Quiz, // Тип, який повертається
@@ -28,18 +44,18 @@ export const fetchQuizesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchAllQuizes", async ({ page, pageSize }, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    // const savedToken = thunkApi.getState().auth.token;
 
-    const { data } = await instance.get("quiz", {
-      //   headers: {
-      //     Authorization: Bearer ${savedToken},
-      //   },
+    const { data } = await quizApi.get("/quiz", {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
       params: {
         page,
         pageSize,
       },
     });
-    // console.log(data);
+
     return data as Quiz;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -54,14 +70,14 @@ export const fetchQuizesByRatingThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchQuizesByRating", async (_, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    // const savedToken = thunkApi.getState().auth.token;
 
-    const { data } = await instance.get("quiz/rating", {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+    const { data } = await quizApi.get("/quiz/rating", {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
-    // console.log(data);
+
     return data as QuizBody[];
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -76,14 +92,14 @@ export const fetchCategoriesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchCategories", async (query, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    // const savedToken = thunkApi.getState().auth.token;
     const { ageGroup, page, pageSize, rating, finished, title, inputText } =
       query;
 
-    const { data } = await instance.get("quiz/category", {
-      //   headers: {
-      //     Authorization: `Bearer ${savedToken}`,
-      //   },
+    const { data } = await quizApi.get("/quiz/category", {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
       params: {
         category: ageGroup,
         page,
@@ -102,48 +118,26 @@ export const fetchCategoriesThunk = createAsyncThunk<
   }
 });
 
-export const getQuizByIdThunk = createAsyncThunk<
-  QuizBody,
-  string,
-  AsyncThunkConfig
->("getQuizById", async (_id: string, thunkApi) => {
-  try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
-
-    const { data } = await instance.get(`quiz/${_id}`, {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
-    });
-    return data as QuizBody;
-  } catch (error: unknown) {
-    return thunkApi.rejectWithValue(
-      `${(error as Error)?.message ?? "Unknown error"}`
-    );
-  }
-});
-
 export const addQuizesThunk = createAsyncThunk<
-  QuizBody,
-  { theme: string; ageGroup: string },
+  IQuizCreate,
+  { theme: string },
   AsyncThunkConfig
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
-    const { theme, ageGroup } = quiz;
+    const { theme } = quiz;
 
-    const { data } = await instance.post(
-      "quiz",
-      { theme, ageGroup },
+    const { data } = await quizApi.post(
+      "/quiz",
+      { theme },
       {
         // headers: {
-        //   Authorization: Bearer ${savedToken},
+        //   Authorization: `Bearer ${savedToken}`,
         // },
       }
     );
     // thunkApi.dispatch(fetchQuizesThunk());
     //   console.log(data);
-    return data as QuizBody;
+    return data.data as IQuizCreate;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
@@ -157,12 +151,12 @@ export const deleteQuizesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deleteQuizById", async (_id, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    // const savedToken = thunkApi.getState().auth.token;
 
-    const { data } = await instance.delete(`quiz/${_id}`, {
-      //   headers: {
-      //     Authorization: Bearer ${savedToken},
-      //   },
+    const { data } = await quizApi.delete(`/quiz/${_id}`, {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
     return data;
   } catch (error: unknown) {
@@ -174,16 +168,16 @@ export const deleteQuizesThunk = createAsyncThunk<
 
 export const updateQuizesThunk = createAsyncThunk<
   QuizBody,
-  QuizBody,
+  EditQuiz,
   AsyncThunkConfig
 >("updateQuiz", async (quiz, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.accessToken;
+    // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;
-    const { data } = await instance.put(`quiz/:${_id}`, body, {
-      //   headers: {
-      //     Authorization: Bearer ${savedToken},
-      //   },
+    const { data } = await quizApi.patch(`/quiz/${_id}`, body, {
+      // headers: {
+      //   Authorization: `Bearer ${savedToken}`,
+      // },
     });
     return data as QuizBody;
   } catch (error: unknown) {

@@ -1,7 +1,27 @@
 import { StyledCreateBtn } from "./styledButton";
-import { IChooseButton } from "./chooseQuizBtn";
+import { useAppSelector } from "../../redux/hooks";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 // Вказати шлях до сторінки створення квізів
 
-export function CreateButton({ link, children }: IChooseButton) {
-  return <StyledCreateBtn to={`${link}`}>{children}</StyledCreateBtn>;
+interface ICreateButton {
+  children: string;
+}
+
+export function CreateButton({ children }: ICreateButton) {
+  const navigate = useNavigate();
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (event && isLoggedIn) {
+      return navigate("/createQuiz");
+    }
+    return toast.error("You have to be logged in to do that!");
+  };
+
+  return (
+    <StyledCreateBtn type="button" onClick={handleClick}>
+      {children}
+    </StyledCreateBtn>
+  );
 }

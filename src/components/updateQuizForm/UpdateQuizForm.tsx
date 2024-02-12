@@ -1,11 +1,9 @@
-// import { useNavigate } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMediaQuery } from "react-responsive";
-import { QuizParams } from "../../pages/CreateQuizPage/CreateQuizPage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { formUpdateOptions } from "../../redux/categories/selectors";
 import {
+  EditQuiz,
   deleteQuizesThunk,
   updateQuizesThunk,
 } from "../../redux/quiz/operations";
@@ -15,87 +13,70 @@ import {
   StyledUpdateQuizWrapper,
   UpdateQuizInput,
 } from "./UpdateQuizForm.styled";
-import "../../images/icons/sprite.svg";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
+import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { toast } from "react-toastify";
 
 type FormValues = {
   theme: string | undefined;
 };
 
-interface UpdateQuizFormProps {
-  editingQuiz: QuizParams;
-  setQuizId: Dispatch<SetStateAction<string | undefined>>;
-  setAfterCreate: Dispatch<SetStateAction<boolean>>;
-}
-
-const UpdateQuizForm = ({
-  editingQuiz,
-  setAfterCreate,
-  setQuizId,
-}: UpdateQuizFormProps) => {
-  const selectOptionsForEditing = useAppSelector(formUpdateOptions);
+const UpdateQuizForm = () => {
+  const selectOptions = useAppSelector(getUpdateOptions);
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const isDesctop = useMediaQuery({
     query: "(min-width: 1280px)",
   });
-  // const handleGoBack = () => {
-  //   navigate(-1);
-  // };
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { register, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
-      theme: editingQuiz?.theme || "",
+      theme: selectOptions?.theme || "",
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    if (data.theme) {
-      const { ratingQuantity, rating, finished } = editingQuiz;
+    if (data.theme && selectOptions) {
+      const { _id, ageGroup, background, category } = selectOptions;
 
-      const { ageGroup, background, category } = selectOptionsForEditing;
-
-      const editedQuiz: QuizParams = {
-        ageGroup: ageGroup,
-        background: background,
-        category: category,
+      const editedQuiz: EditQuiz = {
+        _id,
         theme: data.theme,
-        _id: editingQuiz._id,
-        ratingQuantity: ratingQuantity,
-        rating: rating,
-        finished: finished,
+        category,
+        background,
+        ageGroup,
       };
 
       dispatch(updateQuizesThunk(editedQuiz))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            setAfterCreate(false);
-            setQuizId("");
-            // handleGoBack();
+            reset();
+            handleGoBack();
           }
-          return console.log("Failed to update Quiz");
+          toast.success("Congrats! You updated quiz!");
         })
         .catch((error) => {
-          console.error("Error updating quiz:", error);
+          toast.error("Error updating quiz:", error);
         });
     }
   };
 
   const handleRemoveQuiz = () => {
-    if (editingQuiz?._id) {
-      console.log(editingQuiz?._id);
-      dispatch(deleteQuizesThunk(editingQuiz._id))
+    if (selectOptions) {
+      dispatch(deleteQuizesThunk(selectOptions._id))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            setAfterCreate(false);
-            setQuizId("");
-            // handleGoBack();
+            reset();
+            handleGoBack();
           }
-          return console.log("Failed to delete Quiz");
+          toast.success("Congrats! You deleted quiz!");
         })
         .catch((error) => {
-          console.error("Error removing quiz:", error);
+          toast.error("Error removing quiz:", error);
         });
     }
   };

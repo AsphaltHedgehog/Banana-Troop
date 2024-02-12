@@ -89,6 +89,21 @@ export const StyledDescr = styled.p`
   }
 `;
 
+export const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    justify-content: center;
+  }
+`;
+
 export const StyledCopyright = styled.p`
   font-weight: 700;
   font-size: 14px;

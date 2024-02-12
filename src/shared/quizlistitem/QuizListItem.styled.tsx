@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledCreateBtn } from "../buttons/styledButton";
+import { StyledStartBtn } from "../buttons/styledButton";
 import { breakpoints } from "../../styles";
 import Svg from "../svg/Svg";
 
@@ -45,6 +45,16 @@ export const StyledContainer2 = styled.div`
 
 export const StyledContainer3 = styled.div`
   display: flex;
+`;
+
+export const StyledFavoriteButton = styled.button`
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
 `;
 
 export const StyledNumbers = styled.p`
@@ -102,7 +112,7 @@ export const StyledRatingSvg = styled(Svg)`
   stroke-width: 0;
 `;
 
-export const StyledButton = styled(StyledCreateBtn)`
+export const StyledButton = styled(StyledStartBtn)`
   width: 84px;
   height: 40px;
 

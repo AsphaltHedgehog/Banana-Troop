@@ -1,19 +1,19 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { HeaderWrapper, StyledH2 } from "./Header.styled";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
-import UserDropout from "../userDropout/userDropout";
+import { useNavigate } from "react-router";
 
 const Header: FC = () => {
-  const [endAnimation, setEndAnimation] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    navigate("/");
+  };
 
   return (
     <HeaderWrapper>
-      <UserDropout/>
-      <StyledH2>QuizMaster</StyledH2>
-      <BurgerMenu
-        endAnimation={endAnimation}
-        setEndAnimation={setEndAnimation}
-      />
+      <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
+      <BurgerMenu />
     </HeaderWrapper>
   );
 };

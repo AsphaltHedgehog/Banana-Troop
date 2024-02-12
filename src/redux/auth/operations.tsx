@@ -6,13 +6,25 @@ interface User {
   email: string;
 }
 
-interface ApiResponse {
+export interface ApiResponse {
   user: User;
   token: string;
 }
-
-interface Credentials {
+export interface RegisterCredentials {
+  name: string;
   email: string;
+  password: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface SendEmail {
+  email: string;
+}
+export interface NewPassword {
   password: string;
 }
 
@@ -27,7 +39,7 @@ export const clearToken = (): void => {
   quizApi.defaults.headers.common.Authorization = "";
 };
 
-export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const registerThunk = createAsyncThunk<ApiResponse, RegisterCredentials>(
   "register",
   async (credentials, thunkApi) => {
     try {
@@ -47,7 +59,7 @@ export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
   }
 );
 
-export const loginThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const loginThunk = createAsyncThunk<ApiResponse, LoginCredentials>(
   "login",
   async (credentials, thunkApi) => {
     try {
@@ -82,3 +94,42 @@ export const logoutThunk = createAsyncThunk<void, void>(
     }
   }
 );
+
+export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>(
+  "resetPassword",
+  async (credentials, thunkApi) => {
+    try {
+      const { data }: AxiosResponse<ApiResponse> = await quizApi.post(
+        "/auth/resetPassword",
+        credentials
+      );
+      return data;
+    } catch (error) {
+      if (error instanceof Error && typeof error.message === "string") {
+        return thunkApi.rejectWithValue(error.message);
+      } else {
+        return thunkApi.rejectWithValue("An unknown error occurred");
+      }
+    }
+  }
+);
+
+export const newPasswordThunk = createAsyncThunk<
+  ApiResponse,
+  { newPassword: string; resetToken: string }
+>("newPassword", async ({ newPassword, resetToken }, thunkApi) => {
+  try {
+    const response: AxiosResponse<ApiResponse> = await quizApi.patch(
+      `/auth/newPassword/${resetToken}`,
+      { newPassword }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error && typeof error.message === "string") {
+      return thunkApi.rejectWithValue(error.message);
+    } else {
+      return thunkApi.rejectWithValue("An unknown error occurred");
+    }
+  }
+});
+

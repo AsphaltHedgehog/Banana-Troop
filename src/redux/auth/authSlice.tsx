@@ -1,5 +1,11 @@
 import { PayloadAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { loginThunk, logoutThunk, registerThunk } from "./operations";
+import {
+  loginThunk,
+  logoutThunk,
+  newPasswordThunk,
+  registerThunk,
+  resetPasswordThunk,
+} from "./operations";
 
 interface User {
   name: string;
@@ -28,22 +34,34 @@ const initialState: AuthState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setLoggedIn: (state, { payload }) => {
+      state.isLoggedIn = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
+        state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
         state.error = null;
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
+        state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
         state.error = null;
+      })
+      .addCase(resetPasswordThunk.fulfilled, (state, { payload }) => {
+        state.user.email = payload?.user?.email || "";
+        state.error = null;
+        state.isLoading = false;
+      })
+      .addCase(newPasswordThunk.fulfilled, (state, { payload }) => {
+        state.user.email = payload?.user?.email || "";
+        state.error = null;
+        state.isLoading = false;
       })
       .addCase(logoutThunk.fulfilled, () => {
         initialState;
@@ -52,7 +70,9 @@ const authSlice = createSlice({
         isAnyOf(
           registerThunk.rejected,
           loginThunk.rejected,
-          logoutThunk.rejected
+          logoutThunk.rejected,
+          resetPasswordThunk.rejected,
+          newPasswordThunk.rejected
         ),
         (state, action: PayloadAction<unknown>) => {
           state.error = action.payload as string;
@@ -60,7 +80,13 @@ const authSlice = createSlice({
         }
       )
       .addMatcher(
-        isAnyOf(registerThunk.pending, loginThunk.pending, logoutThunk.pending),
+        isAnyOf(
+          registerThunk.pending,
+          loginThunk.pending,
+          logoutThunk.pending,
+          resetPasswordThunk.pending,
+          newPasswordThunk.rejected
+        ),
         (state) => {
           state.error = null;
           state.isLoading = true;
@@ -70,3 +96,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { setLoggedIn } = authSlice.actions;

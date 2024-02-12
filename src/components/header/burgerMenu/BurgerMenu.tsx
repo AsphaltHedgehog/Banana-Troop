@@ -1,45 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { useModal } from "../../../hooks/useModal";
 import sprite from "../../../images/icons/sprite.svg";
 import { SvgBurgerMenu } from "../wholeComponent/Header.styled";
-import Modal from "../../modal/Modal";
-
+import Modal from "../../modalBurgerMenu/ModalBurgerMenu";
+import Nav from "../nav/Nav";
 export interface BurgerMenuProps {
   endAnimation?: boolean;
   setEndAnimation: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BurgerMenu = ({ endAnimation, setEndAnimation }: BurgerMenuProps) => {
+const BurgerMenu = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
-  //   const openMenuModal = (): void => {
-  //     openModal();
-  //   };
+  const [isOpenBurger, setIsOpenBurger] = useState<boolean>(false);
 
-  //   const handleCloseClick = (): void => {
-  //     setEndAnimation(true);
-  //   };
+  const handleOpenBurger = () => {
+    setIsOpenBurger(true);
+    openModal();
+  };
+
+  const handleCloseBurger = () => {
+    setIsOpenBurger(false);
+    setTimeout(() => {
+      closeModal();
+    }, 470);
+  };
 
   return (
     <>
       {isOpen ? (
         <>
-          <SvgBurgerMenu onClick={closeModal}>
-            <use xlinkHref={`${sprite}#icon-x`}></use>
-          </SvgBurgerMenu>
           <Modal
             closeModal={closeModal}
-            endAnimation={endAnimation}
-            setEndAnimation={setEndAnimation}
+            isOpenBurger={isOpenBurger}
+            setIsOpenBurger={setIsOpenBurger}
           >
-            <nav>
-              <div>Register</div>
-              <div>Login</div>
-            </nav>
+            <SvgBurgerMenu onClick={handleCloseBurger}>
+              <use xlinkHref={`${sprite}#icon-x`}></use>
+            </SvgBurgerMenu>
+            <Nav handleCloseBurger={handleCloseBurger} />
           </Modal>
         </>
       ) : (
-        <SvgBurgerMenu onClick={openModal}>
+        <SvgBurgerMenu onClick={handleOpenBurger}>
           <use xlinkHref={`${sprite}#icon-open`}></use>
         </SvgBurgerMenu>
       )}

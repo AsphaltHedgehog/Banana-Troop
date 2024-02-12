@@ -1,34 +1,38 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, isAnyOf } from "@reduxjs/toolkit";
 import {
   addedQuestionByQuizThunk,
   deleteQuestionByIdThunk,
   deleteQuizQuestionImgByIdThunk,
+  fetchQuestionsByQuizThunk,
   updateQuestionByQuizThunk,
 } from "./operations";
 
 export type Answers = {
-  descr: string;
-  _id: string;
+  descr?: string;
+  _id?: string;
 };
-export type Questions<TId = string> = {
-  quiz: string;
-  time: string;
-  descr: string;
-  answers: Answers[];
-  validAnswer: string;
-  imageUrl: string;
-  type: "full-text" | "true-or-false";
-  _id: TId;
+
+export type Questions = {
+  _id?: string;
+  quiz?: string;
+  time?: string;
+  imageUrl?: string;
+  type?: "full-text" | "true-or-false";
+  descr?: string;
+  answers?: Answers[];
+  validAnswer?: string;
 };
 
 type QuestionsState = {
   list: Questions[];
+  selectedIndex: number;
   isLoading: boolean;
   error: string | null;
 };
 
 const initialState: QuestionsState = {
   list: [],
+  selectedIndex: 0,
   isLoading: false,
   error: null,
 };
@@ -36,9 +40,17 @@ const initialState: QuestionsState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    getSelectedIndex: (state, action: PayloadAction<number>) => {
+      state.selectedIndex = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchQuestionsByQuizThunk.fulfilled, (state, { payload }) => {
+        state.list = payload;
+        state.isLoading = false;
+      })
       .addCase(addedQuestionByQuizThunk.fulfilled, (state, { payload }) => {
         state.list.push(payload);
         state.isLoading = false;
@@ -59,17 +71,9 @@ const questionsSlice = createSlice({
         }
         state.isLoading = false;
       })
-      .addCase(
-        deleteQuizQuestionImgByIdThunk.fulfilled,
-        (state, { payload }) => {
-          state.list = state.list.filter(
-            (question) => question.imageUrl !== payload
-          );
-          state.isLoading = false;
-        }
-      )
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.pending,
           addedQuestionByQuizThunk.pending,
           deleteQuestionByIdThunk.pending,
@@ -81,6 +85,7 @@ const questionsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
+          fetchQuestionsByQuizThunk.pending,
           deleteQuizQuestionImgByIdThunk.rejected,
           addedQuestionByQuizThunk.rejected,
           deleteQuestionByIdThunk.rejected,
@@ -94,4 +99,5 @@ const questionsSlice = createSlice({
   },
 });
 
+export const { getSelectedIndex } = questionsSlice.actions;
 export const questionsReducer = questionsSlice.reducer;

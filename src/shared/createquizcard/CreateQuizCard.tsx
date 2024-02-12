@@ -22,12 +22,14 @@ const CreateQuizCard = () => {
 
   return (
     // Add toastify if user is not authenticated
-    <StyledButton type="button" onClick={handleClick}>
-      <StyledContainer>
-        <StyledSvg sprite={sprite} id="icon-plus" width={24} height={24} />
-        <StyledP>Create quiz</StyledP>
-      </StyledContainer>
-    </StyledButton>
+    <li>
+      <StyledButton type="button" onClick={handleClick}>
+        <StyledContainer>
+          <StyledSvg sprite={sprite} id="icon-plus" width={24} height={24} />
+          <StyledP>Create quiz</StyledP>
+        </StyledContainer>
+      </StyledButton>
+    </li>
   );
 };
 
