@@ -41,16 +41,16 @@ export const StyledAuthInput = styled.input`
     outline: none;
 
     &:focus {
-      border-color: #0ef387;
+      border-color: #097b45;
       color: #fafafa;
     }
 
     &:hover {
-      border-color: #0ef387;
+      border-color: #097b45;
     }
 
     &.valid {
-      border-color: #0ef387;
+      border-color: #097b45;
     }
 
     &.invalid {
