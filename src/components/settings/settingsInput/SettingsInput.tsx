@@ -48,10 +48,10 @@ const SettingsInput: FC<SettingsInputProps> = ({
           disabledInput ? "Currently unavailable to change" : placeholder
         }
         {...register(name)}
-        value={name === "name" ? defaultValue : watch(name)}
         $error={errors[name]?.message}
         $inputValue={watch(name)}
         disabled={disabledInput}
+        defaultValue={defaultValue}
       />
       {name === "name" && (
         <>

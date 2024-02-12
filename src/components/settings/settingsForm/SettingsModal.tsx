@@ -25,7 +25,6 @@ const inputItems: InputItem[] = [
 
 const SettingsModal: FC = () => {
   // const dispatch = useAppDispatch();
-
   const { name } = useSelector(selectGetUser);
 
   const {
@@ -58,7 +57,7 @@ const SettingsModal: FC = () => {
             watch={watch}
             register={register}
             errors={errors}
-            defaultValue={name}
+            defaultValue={input.name === "name" ? name : ""}
           />
         ))}
         <button>Save</button>
