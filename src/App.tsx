@@ -15,7 +15,7 @@ import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
 import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
 import NewPassword from "./components/authPage/newPassword/NewPassword";
-import QuizMachen from "./pages/quizMachen/quizMachen";
+import QuizMachen from "./pages/quizMachen/QuizMachen";
 
 
 // css
