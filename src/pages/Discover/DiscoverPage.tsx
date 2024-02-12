@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useLocation } from "react-router-dom";
 
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";
@@ -34,6 +35,8 @@ import { StyledH2 } from "../../components/quizes/Quizes.styled";
 import Svg from "../../shared/svg";
 
 const DiscoverPage = () => {
+  const location = useLocation();
+  const param = location.search?.substring(1);
   const dispatch = useAppDispatch();
 
   const title = useAppSelector(
@@ -44,7 +47,9 @@ const DiscoverPage = () => {
   );
   const total = useAppSelector((state) => state.quizes.listCategory.data.total);
 
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>("adults");
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>(
+    param ? param : "adults"
+  );
   const [pageParam, setPageParam] = useState<number>(1);
   const [sizeParam, setSizeParam] = useState<number>(8);
   const [selectedRating, setSelectedRating] = useState<number>(5);
