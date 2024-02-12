@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "./customdots.css";
 import {
   StyledContainer,
-  StyledList,
   StyledListItem,
   StyledSection,
   StyledTitle,
@@ -15,16 +14,16 @@ import { reviewsThunk } from "../../redux/reviews/operations";
 import { useAppDispatch } from "../../redux/hooks";
 import { breakpointsNumbers } from "../../styles";
 import { useWidth } from "../../hooks/useWidth";
-interface Review {
-  id: string;
-  userName: string;
-  avatarUrl: string;
-  review: string;
-}
-interface ReviewsThunkParams {
-  page: number;
-  limit: number;
-}
+// interface Review {
+//   id: string;
+//   userName: string;
+//   avatarUrl: string;
+//   review: string;
+// }
+// interface ReviewsThunkParams {
+//   page: number;
+//   limit: number;
+// }
 
 const Reviews: React.FC = () => {
   const width = useWidth();

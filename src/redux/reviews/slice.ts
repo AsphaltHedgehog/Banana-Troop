@@ -7,6 +7,10 @@ interface Review {
   avatarUrl: string;
   review: string;
 }
+// interface ApiResponse {
+//   data: object;
+// }
+
 interface AuthState {
   review: Review[];
   error: string | null;
@@ -38,18 +42,17 @@ const reviewsSlice = createSlice({
       })
       .addCase(
         reviewsThunk.fulfilled,
-        (state, { payload }: PayloadAction<ApiResponse>) => {
-          state.review = payload.data;
-
+        (state, { payload }: PayloadAction<unknown>) => {
+          state.review = payload.review;
           state.isLoading = false;
-          state.error = null;
+          state.error = payload as string;
         }
       )
       .addCase(
         reviewsThunk.rejected,
-        (state, { payload }: PayloadAction<ApiResponse>) => {
+        (state, { payload }: PayloadAction<unknown>) => {
           state.isLoading = false;
-          state.error = payload;
+          state.error = payload as string;
         }
       );
   },
