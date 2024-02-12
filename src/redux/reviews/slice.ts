@@ -1,20 +1,9 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { reviewsThunk } from "./operations";
-interface Review {
-  id: string;
-  userName: string;
-  avatarUrl: string;
-  review: string;
-}
-interface ApiResponse {
-  status: string;
-  code: string;
-  data: object;
-}
 
 interface AuthState {
-  review: Review[];
+  review: unknown;
   error: string | null;
   isLoading: boolean;
 }
@@ -22,10 +11,12 @@ interface AuthState {
 const initialState: AuthState = {
   review: [
     {
-      id: "",
+      _id: "",
       userName: "",
       avatarUrl: "",
       review: "",
+      createdAt: "",
+      updatedAt: "",
     },
   ],
   error: null,
@@ -42,21 +33,16 @@ const reviewsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(
-        reviewsThunk.fulfilled,
-        (state, { payload }: PayloadAction<unknown>) => {
-          state.review = payload.data;
-          state.isLoading = false;
-          state.error = null;
-        }
-      )
-      .addCase(
-        reviewsThunk.rejected,
-        (state, { payload }: PayloadAction<unknown>) => {
-          state.isLoading = false;
-          state.error = payload as string;
-        }
-      );
+      .addCase(reviewsThunk.fulfilled, (state, { payload }) => {
+        state.review = payload;
+
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(reviewsThunk.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      });
   },
 });
 
