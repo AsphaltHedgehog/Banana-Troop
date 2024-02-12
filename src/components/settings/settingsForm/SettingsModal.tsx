@@ -1,24 +1,28 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import sprite from "../../../images/icons/sprite.svg";
-import {
-  SettingsForm,
-  SettingsInput,
-  SettingsPhotoWrapper,
-  StyledEmailError,
-  StyledEmailValid,
-  StyledNameError,
-  StyledNameValid,
-  StyledPasswordError,
-  StyledPasswordValid,
-} from "./SettingsModal.styled";
+import { SettingsForm, SettingsPhotoWrapper } from "./SettingsModal.styled";
 // import { useAppDispatch } from "../../../redux/hooks";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaSettingsInput } from "../../../helpers/schemas";
+import SettingsInput from "../settingsInput/SettingsInput";
+
+type FieldName = "name" | "email" | "password";
+interface InputItem {
+  name: FieldName;
+  type: string;
+  placeholder: string;
+  id: number;
+}
+
+const inputItems: InputItem[] = [
+  { name: "name", placeholder: "Name", type: "text", id: 1 },
+  { name: "email", placeholder: "Email", type: "text", id: 2 },
+  { name: "password", placeholder: "Password", type: "text", id: 3 },
+];
 
 const SettingsModal: FC = () => {
   // const dispatch = useAppDispatch();
-  const [isValidNameValue, setIsValidNameValue] = useState(false);
 
   const {
     register,
@@ -29,18 +33,6 @@ const SettingsModal: FC = () => {
   } = useForm({
     resolver: yupResolver(schemaSettingsInput),
   });
-
-  const nameValue = watch("name");
-  const emailValue = watch("email");
-  const passwordValue = watch("password");
-
-  useEffect(() => {
-    if (nameValue?.length <= 32) {
-      setIsValidNameValue(true);
-    } else {
-      setIsValidNameValue(false);
-    }
-  }, [nameValue?.length]);
 
   const submit = () => {
     reset();
@@ -55,49 +47,15 @@ const SettingsModal: FC = () => {
         </svg>
       </SettingsPhotoWrapper>
       <SettingsForm onSubmit={handleSubmit(submit)}>
-        <SettingsInput
-          type="text"
-          placeholder="Name"
-          {...register("name")}
-          $error={errors.name?.message}
-          $nameValue={nameValue}
-          $isValidNameValue={isValidNameValue}
-        />
-        {errors?.name && (
-          <StyledNameError>{errors.name?.message}</StyledNameError>
-        )}
-        {!isValidNameValue && nameValue?.length > 1 && (
-          <StyledNameError>
-            Enter the name no longer than 32 characters
-          </StyledNameError>
-        )}
-        {!errors.name && nameValue && isValidNameValue && (
-          <StyledNameValid>Valid name</StyledNameValid>
-        )}
-        <SettingsInput
-          type="text"
-          placeholder="Email"
-          {...register("email")}
-          $error={errors.email?.message}
-        />
-        {errors?.email && (
-          <StyledEmailError>{errors.email.message}</StyledEmailError>
-        )}
-        {!errors.email && emailValue && (
-          <StyledEmailValid>Valid email</StyledEmailValid>
-        )}
-        <SettingsInput
-          type="text"
-          placeholder="Password"
-          {...register("password")}
-          $error={errors.password?.message}
-        />
-        {errors?.password && (
-          <StyledPasswordError>{errors.password.message}</StyledPasswordError>
-        )}
-        {!errors.password && passwordValue && (
-          <StyledPasswordValid>Valid password</StyledPasswordValid>
-        )}
+        {inputItems?.map((input) => (
+          <SettingsInput
+            key={input.id}
+            {...input}
+            watch={watch}
+            register={register}
+            errors={errors}
+          />
+        ))}
         <button>Save</button>
       </SettingsForm>
     </>

@@ -56,20 +56,53 @@ export const schemaQuestion = yup.object().shape({
 export const schemaSettingsInput = yup.object().shape({
   name: yup
     .string()
-    .trim()
     .required("The name is required")
     .min(1, "Enter at least 1 character")
-    .max(32, "Enter the name no longer than 32 characters"),
+    .max(32, "Enter the name no longer than 32 characters")
+    .matches(
+      /^[a-zA-Z0-9-]+$/,
+      "Name can only contain letters, numbers, and dashes"
+    )
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
   email: yup
     .string()
-    .trim()
     .required("The email is required")
     .min(8, "Enter at least 8 characters")
-    .max(64, "Enter the email no longer than 64 characters"),
+    .max(64, "Enter the email no longer than 64 characters")
+    .notOneOf(
+      [
+        "!",
+        "#",
+        "$",
+        "%",
+        "&",
+        "'",
+        "*",
+        "+",
+        "/",
+        "=",
+        "?",
+        "^",
+        "_",
+        "`",
+        "{",
+        "|",
+        "}",
+        "~",
+        '"',
+        "\n",
+        "\r",
+      ],
+      "This character is not allowed"
+    )
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
   password: yup
     .string()
-    .trim()
     .required("The password is required")
     .min(8, "Enter at least 8 characters")
-    .max(64, "Enter the password no longer than 64 characters"),
+    .max(64, "Enter the password no longer than 64 characters")
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
 });
