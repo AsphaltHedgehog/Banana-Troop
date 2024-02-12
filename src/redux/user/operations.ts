@@ -10,7 +10,7 @@ interface UserInfo {
   name: string;
   email: string;
   _id: string;
-  favorites: string[];
+  favorite: string[];
   passedQuizes: number;
   averageSuccess: string;
 }
@@ -22,12 +22,18 @@ interface UserBody {
   avatar?: string;
 }
 
-export const getUserThunk = createAsyncThunk<unknown, string>(
+interface IResponse {
+  code: number;
+  data: { user: UserInfo };
+  status: string;
+}
+
+export const getUserThunk = createAsyncThunk<unknown, void>(
   "getUserInfo",
   async (_, thunkApi) => {
     try {
-      const { data }: AxiosResponse<UserInfo> = await instance.get("info");
-      return data;
+      const { data }: AxiosResponse<IResponse> = await quizApi.get("user/info");
+      return data.data.user;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);

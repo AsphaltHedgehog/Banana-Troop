@@ -6,7 +6,7 @@ interface User {
   name: string;
   email: string;
   photo?: string;
-  favorites: string[];
+  favorite: string[];
 }
 
 export interface UserState {
@@ -21,7 +21,7 @@ const initialState: UserState = {
     name: "",
     email: "",
     photo: "",
-    favorites: [],
+    favorite: [],
   },
   error: null,
   isLoading: false,
@@ -32,13 +32,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     deleteFavorite: (state, { payload }) => {
-      const newState = state.user.favorites.filter(
+      const newState = state.user.favorite.filter(
         (favorite) => favorite !== payload
       );
-      state.user.favorites = newState;
+      state.user.favorite = newState;
     },
     addFavorite: (state, { payload }) => {
-      state.user.favorites = [...state.user.favorites, payload];
+      state.user.favorite = [...state.user.favorite, payload];
     },
   },
   extraReducers: (builder) => {

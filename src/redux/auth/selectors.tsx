@@ -7,3 +7,4 @@ export const selectUserName = (state: RootState): string =>
   state.auth.user.name;
 export const selectUserEmail = (state: RootState): string =>
   state.auth.user.email;
+export const selectUserToken = (state: RootState): string => state.auth.token;
