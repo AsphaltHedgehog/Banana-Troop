@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Svg from "../../../shared/svg/Svg";
 
 export const QuestionImageContainer = styled.div`
   display: flex;
@@ -22,6 +23,9 @@ export const QuestionInputLabel = styled.label`
     background-color: #205bf1;
     border: none;
   }
+  @media screen and (min-width: 768px) {
+    padding: 12px;
+  }
 `;
 export const QuestionInputForUpdate = styled.input`
   position: absolute;
@@ -44,5 +48,18 @@ export const QuestionDelImgButton = styled.button`
   &:focus {
     background-color: #205bf1;
     border: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 12px;
+  }
+`;
+
+export const SvgStyles = styled(Svg)`
+  width: 12px;
+  height: 12px;
+  @media screen and (min-width: 768px) {
+    width: 14px;
+    height: 14px;
   }
 `;

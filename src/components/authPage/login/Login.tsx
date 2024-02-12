@@ -3,7 +3,7 @@ import { loginThunk } from "../../../redux/auth/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaRegister } from "../../../helpers/schemas";
+import { schemaLogin } from "../../../helpers/schemas";
 import {
   AuthLink,
   RestoreBtnStyled,
@@ -14,7 +14,6 @@ import {
 } from "../AuthPages.styled";
 
 interface LoginFormData {
-  name: string;
   email: string;
   password: string;
 }
@@ -27,10 +26,10 @@ const Login: React.FC = () => {
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({ resolver: yupResolver(schemaRegister) });
+  } = useForm<LoginFormData>({ resolver: yupResolver(schemaLogin) });
 
   const submit: SubmitHandler<LoginFormData> = (data) => {
-    dispatch(loginThunk(data));
+    dispatch(loginThunk(data)).unwrap();
     reset();
   };
 

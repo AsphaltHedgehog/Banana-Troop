@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { quizApi, setToken } from "../auth/operations";
+import { quizApi } from "../auth/operations";
 import { Category, Quiz, QuizBody, QuizByCategories } from "./slice";
 import { AppDispatch, RootState } from "../store";
 
@@ -124,9 +124,6 @@ export const addQuizesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
-    setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
-    );
     const { theme } = quiz;
 
     const { data } = await quizApi.post(
@@ -154,9 +151,6 @@ export const deleteQuizesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deleteQuizById", async (_id, thunkApi) => {
   try {
-    setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
-    );
     // const savedToken = thunkApi.getState().auth.token;
 
     const { data } = await quizApi.delete(`/quiz/${_id}`, {
@@ -178,9 +172,6 @@ export const updateQuizesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("updateQuiz", async (quiz, thunkApi) => {
   try {
-    setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzYzOTY3NiwiZXhwIjoxNzA3NjYxMjc2fQ.u77UDrCh0OCr8eZfqt19DJyHYoCqUU4xYJs6K5-xR70"
-    );
     // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;
     const { data } = await quizApi.patch(`/quiz/${_id}`, body, {

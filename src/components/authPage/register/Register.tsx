@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../helpers/schemas";
 import { useAppDispatch } from "../../../redux/hooks";
-// import { useModal } from "../../../hooks/useModal";
+
 import {
   AuthLink,
   StyledAuthForm,
@@ -20,8 +20,6 @@ interface RegisterFormData {
 }
 
 const Register: React.FC = () => {
-  // const { isOpen, openModal, closeModal } = useModal();
-
   const dispatch = useAppDispatch();
 
   const {
@@ -34,9 +32,8 @@ const Register: React.FC = () => {
   });
 
   const submit: SubmitHandler<RegisterFormData> = (data) => {
-    dispatch(registerThunk(data));
+    dispatch(registerThunk(data)).unwrap();
     reset();
-    // closeModal();
   };
 
   return (
@@ -77,16 +74,3 @@ export default Register;
 //   isOpen && modal && <Modal children={modal} closeModal={closeModal} />;
 // }
 // підключення модалки до необхідних частин, при необхідності треба додаткова перевірка.
-
-// export const StyledCloseButton = styled.button`
-//   border-radius: 30px;
-//   padding: 5px;
-//   width: 40px;
-//   height: 40px;
-//   background-color: transparent;
-
-//   position: absolute;
-
-//   top: 24px;
-//   right: 24px;
-// `;

@@ -9,15 +9,9 @@ const SectionButton: React.FC = () => {
   return (
     <StyledSection>
       <StyledList>
-        <StyledListItem>
-          <a href="">Own platform</a>
-        </StyledListItem>
-        <StyledListItem>
-          <a href="">Create exclusive quests</a>
-        </StyledListItem>
-        <StyledListItem>
-          <a href="">Create exclusive quests</a>
-        </StyledListItem>
+        <StyledListItem>Own platform</StyledListItem>
+        <StyledListItem>Create exclusive quests</StyledListItem>
+        <StyledListItem>Large assortment of quizzes</StyledListItem>
       </StyledList>
     </StyledSection>
   );

@@ -10,9 +10,18 @@ export const schemaRegister = yup.object().shape({
     .required(),
 });
 
+export const schemaLogin = yup.object().shape({
+  email: yup.string().email("Email is not valid").required(),
+  password: yup
+    .string()
+    .min(8, "Enter a valid Password")
+    .max(64, "Enter a valid Password")
+    .required(),
+});
+
 export const schemaSendEmail = yup.object().shape({
-   email: yup.string().email("Email is not valid").required()
-})
+  email: yup.string().email("Email is not valid").required(),
+});
 
 export const schemaNewPassword = yup.object().shape({
   newPassword: yup
@@ -22,8 +31,8 @@ export const schemaNewPassword = yup.object().shape({
     .required("Password is required"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword')], 'Passwords must match')
-    .required('Confirm Password is required')
+    .oneOf([yup.ref("newPassword")], "Passwords must match")
+    .required("Confirm Password is required"),
 });
 
 export const answersSchema = yup.object().shape({
@@ -51,4 +60,58 @@ export const schemaQuestion = yup.object().shape({
     .max(128, "Question description must not exceed 128 characters"),
   answers: yup.array().of(answersSchema).required("Answers are required"),
   validAnswer: yup.string().required("Valid answer is required"),
+});
+
+export const schemaSettingsInput = yup.object().shape({
+  name: yup
+    .string()
+    .required("The name is required")
+    .min(1, "Enter at least 1 character")
+    .max(32, "Enter the name no longer than 32 characters")
+    .matches(
+      /^[a-zA-Z0-9-]+$/,
+      "Name can only contain letters, numbers, and dashes"
+    )
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
+  email: yup
+    .string()
+    .required("The email is required")
+    .min(8, "Enter at least 8 characters")
+    .max(64, "Enter the email no longer than 64 characters")
+    .notOneOf(
+      [
+        "!",
+        "#",
+        "$",
+        "%",
+        "&",
+        "'",
+        "*",
+        "+",
+        "/",
+        "=",
+        "?",
+        "^",
+        "_",
+        "`",
+        "{",
+        "|",
+        "}",
+        "~",
+        '"',
+        "\n",
+        "\r",
+      ],
+      "This character is not allowed"
+    )
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
+  password: yup
+    .string()
+    .required("The password is required")
+    .min(8, "Enter at least 8 characters")
+    .max(64, "Enter the password no longer than 64 characters")
+    .transform((value) => value.replace(/\s+/g, ""))
+    .trim(),
 });
