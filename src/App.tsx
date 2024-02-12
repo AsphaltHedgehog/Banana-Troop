@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/notFound/NotFound";
-import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
@@ -19,6 +18,7 @@ import NewPassword from "./components/authPage/newPassword/NewPassword";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
+import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
           <Route path="newPassword/:resetToken" element={<NewPassword />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
-          <Route path="createQuiz" element={<CreateQuizPage />} />
+          <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
           <Route path="discover" element={<DiscoverPage />} />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="favorites" element={<FavoritePage />} />
