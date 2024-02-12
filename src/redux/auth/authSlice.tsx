@@ -35,7 +35,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-  
+    setLoggedIn: (state, { payload }) => {
+      state.isLoggedIn = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,3 +96,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const { setLoggedIn } = authSlice.actions;

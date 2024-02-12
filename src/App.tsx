@@ -25,6 +25,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 // import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
+import { setLoggedIn } from "./redux/auth/authSlice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,7 +33,11 @@ function App() {
 
   useEffect(() => {
     setToken(userToken);
-    dispatch(getUserThunk());
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(setLoggedIn(true));
+      });
   }, [dispatch, userToken]);
 
   return (
