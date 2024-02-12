@@ -81,7 +81,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
           <NavLink to="/randomQuiz?children">For children</NavLink>
         </CategoriesWrapper>
         <AuthWrapper>
-          {isLoggedIn ? (
+          {!isLoggedIn ? (
             <>
               <NavLinkSettings to="/settings">
                 <svg onClick={handleCloseBurger}>

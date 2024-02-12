@@ -36,15 +36,19 @@ const SettingsInput: FC<SettingsInputProps> = ({
   register,
 }) => {
   const fieldName = watch(name)?.trim();
+  const disabledInput = name === "email" || name === "password";
 
   return (
     <>
       <StyledSettingsInput
         type={type}
-        placeholder={placeholder}
+        placeholder={
+          disabledInput ? "Currently unavailable to change" : placeholder
+        }
         {...register(name)}
         $error={errors[name]?.message}
         $inputValue={watch(name)}
+        disabled={disabledInput}
       />
       {name === "name" && (
         <>
