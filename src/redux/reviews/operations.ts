@@ -5,7 +5,18 @@ interface ReviewsThunkParams {
   page: number;
   limit: number;
 }
+interface Review {
+  _id: string;
+  userName: string;
+  avatarUrl: string;
+  review: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
+// interface Reviews {
+//   reviews: Review[];
+// }
 interface IResponse {
   code: number;
   data: unknown[];
@@ -15,7 +26,7 @@ export const quizApi = axios.create({
   baseURL: "https://pigs.onrender.com/api",
 });
 
-export const reviewsThunk = createAsyncThunk<unknown, ReviewsThunkParams>(
+export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
   "reviews",
   async ({ page = 1, limit = 6 }, thunkApi) => {
     try {
@@ -29,12 +40,12 @@ export const reviewsThunk = createAsyncThunk<unknown, ReviewsThunkParams>(
         }
       );
 
-      return data.data;
+      return data.data as Review[];
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);
       } else {
-        return thunkApi.rejectWithValue("An unknown error occurred");
+        return thunkApi.rejectWithValue("Произошла неизвестная ошибка");
       }
     }
   }
