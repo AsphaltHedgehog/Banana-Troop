@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
+import { quizApi } from "../auth/operations";
 
 const instance = axios.create({
   baseURL: "https://pigs.onrender.com/api/user/",
@@ -63,6 +64,22 @@ export const editPhotoThunk = createAsyncThunk<UserBody, string>(
         thunkApi.rejectWithValue(error.message);
       }
       return thunkApi.rejectWithValue("An unknown error occurred");
+    }
+  }
+);
+
+export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
+  "updateFavorite",
+  async (body, thunkApi) => {
+    try {
+      const addFavorite = await quizApi.patch("/user/favorite", body);
+      return addFavorite.data;
+    } catch (error) {
+      if (error instanceof Error && typeof error.message === "string") {
+        return thunkApi.rejectWithValue(error.message);
+      } else {
+        return thunkApi.rejectWithValue("An unknown error occurred");
+      }
     }
   }
 );

@@ -14,13 +14,11 @@ import {
   StyledFavoriteButton,
 } from "./QuizListItem.styled";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import {
-  selectIsLoggedIn,
-  selectUserFavorites,
-} from "../../redux/auth/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { toast } from "react-toastify";
-import { deleteFavorite, addFavorite } from "../../redux/auth/authSlice";
-import { updateFavoriteThunk } from "../../redux/auth/operations";
+import { deleteFavorite, addFavorite } from "../../redux/user/slice";
+import { updateFavoriteThunk } from "../../redux/user/operations";
+import { selectGetUserFavorite } from "../../redux/user/selectors";
 
 export interface IQuizListItemProps {
   id: string;
@@ -40,7 +38,7 @@ const QuizListItem = ({
   const dispatch = useAppDispatch();
   const [stars, setStars] = useState<JSX.Element[]>([]);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const userFavorites = useAppSelector(selectUserFavorites);
+  const userFavorites = useAppSelector(selectGetUserFavorite);
 
   useEffect(() => {
     // Формування масиву із рейтингу зірочок
@@ -75,15 +73,18 @@ const QuizListItem = ({
   }, [rating]); // Викликаємо зміну масиву зірок, якщо змінюється рейтинг
 
   const handleFavoriteClick = () => {
-    if (isLoggedIn) {
-      dispatch(updateFavoriteThunk({ favorite: id }));
-      if (userFavorites.includes(id)) {
-        return dispatch(deleteFavorite(id));
+    try {
+      if (isLoggedIn) {
+        dispatch(updateFavoriteThunk({ favorite: id }));
+        if (userFavorites.includes(id)) {
+          return dispatch(deleteFavorite(id));
+        }
+        return dispatch(addFavorite(id));
       }
-      return dispatch(addFavorite(id));
+      return toast.error("You have to be logged in to do that!");
+    } catch (error) {
+      toast.error("Something went wrong");
     }
-
-    return toast.error("You have to be logged in to do that!");
   };
 
   return (

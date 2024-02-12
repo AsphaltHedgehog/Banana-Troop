@@ -15,7 +15,6 @@ interface User {
 interface AuthState {
   user: User;
   token: string;
-  favorites: string[];
   isLoggedIn: boolean;
   error: string | null;
   isLoading: boolean;
@@ -27,7 +26,6 @@ const initialState: AuthState = {
     email: "",
   },
   token: "",
-  favorites: [],
   isLoggedIn: false,
   error: null,
   isLoading: false,
@@ -37,15 +35,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    deleteFavorite: (state, { payload }) => {
-      const newState = state.favorites.filter(
-        (favorite) => favorite !== payload
-      );
-      state.favorites = newState;
-    },
-    addFavorite: (state, { payload }) => {
-      state.favorites = [...state.favorites, payload];
-    },
+  
   },
   extraReducers: (builder) => {
     builder
@@ -102,7 +92,5 @@ const authSlice = createSlice({
       );
   },
 });
-
-export const { deleteFavorite, addFavorite } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

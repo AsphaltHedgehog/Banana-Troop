@@ -6,7 +6,7 @@ interface User {
   name: string;
   email: string;
   photo?: string;
-  favorite?: string[];
+  favorites: string[];
 }
 
 export interface UserState {
@@ -21,7 +21,7 @@ const initialState: UserState = {
     name: "",
     email: "",
     photo: "",
-    favorite: [],
+    favorites: [],
   },
   error: null,
   isLoading: false,
@@ -30,7 +30,17 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteFavorite: (state, { payload }) => {
+      const newState = state.user.favorites.filter(
+        (favorite) => favorite !== payload
+      );
+      state.user.favorites = newState;
+    },
+    addFavorite: (state, { payload }) => {
+      state.user.favorites = [...state.user.favorites, payload];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
@@ -76,3 +86,5 @@ const userSlice = createSlice({
 });
 
 export const userReducer = userSlice.reducer;
+
+export const { deleteFavorite, addFavorite } = userSlice.actions;
