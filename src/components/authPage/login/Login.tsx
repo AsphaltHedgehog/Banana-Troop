@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       <RestoreBtnStyled href="/restorePassword">
         Restore password
       </RestoreBtnStyled>
-      <AuthLink to="/register">Register</AuthLink>
+      <AuthLink>Register</AuthLink>
     </StyledRegisterWrapp>
   );
 };
