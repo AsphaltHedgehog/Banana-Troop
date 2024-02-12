@@ -25,16 +25,51 @@ export const StyledAuthForm = styled.form`
 `;
 
 export const StyledAuthInput = styled.input`
+  position: relative;
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding-left: 18px;
   height: 44px;
   background-color: transparent;
   color: #fafafa;
+  width: 314px;
+  
+  && {
+    background-color: #0c0d0d;
+    color: rgba(250, 250, 250, 0.4);
+    border: 1px solid rgba(250, 250, 250, 0.2);
+    outline: none;
 
-  &::placeholder {
-    margin-left: 18px;
-    white-space: nowrap;
+    &:focus {
+      border-color: #097b45;
+      color: #fafafa;
+    }
+
+    &:hover {
+      border-color: #097b45;
+    }
+
+    &.valid {
+      border-color: #097b45;
+    }
+
+    &.invalid {
+      border-color: #e74a3b;
+    }
+
+    &::placeholder {
+      margin-left: 18px;
+      white-space: nowrap;
+    }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fafafa !important;
+    caret-color: #fafafa !important;
   }
 `;
 
@@ -76,3 +111,42 @@ export const StyledText = styled.p`
   color: #f4f4f4;
   margin-bottom: 16px;
 `;
+
+export const StyledModal = styled.div`
+  position: relative;
+  background-color: black;
+  width: 500px;
+  z-index: 6000000000;
+`;
+
+export const PasswordToggle = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  
+  /* Задаємо розміри для SVG */
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`
+export const WrapPass = styled.div`
+   display: flex;
+  flex-direction: column;
+  gap: 14px
+`
+export const WrapInPass = styled.div`
+position: relative;
+`
+
+export const StyledError = styled.p`
+font-weight: 400;
+  font-size: 10px;
+  text-align: left;
+  color: #e74a3b;
+  margin-left: 18px ;`
