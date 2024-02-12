@@ -13,7 +13,6 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import { useState } from "react";
-import { QuizBody } from "../../redux/quiz/slice";
 import {
   getQuizCategoryTotal,
   getQuizIsLoading,
@@ -27,20 +26,14 @@ const RandomQuizPage = () => {
   const total = useAppSelector(getQuizCategoryTotal);
   const isLoading = useAppSelector(getQuizIsLoading);
 
+  const quizes = useAppSelector(
+    (state) => state.quizes.listCategory.data.result
+  );
   const [pageSize, setPageSize] = useState(7);
-  const [quizes, setQuizes] = useState<QuizBody[]>([]);
 
   useEffect(() => {
-    const query = { ageGroup: param, pageSize: pageSize };
-
-    dispatch(fetchCategoriesThunk(query))
-      .unwrap()
-      .then((data) => {
-        console.log(data);
-        return setQuizes(() => {
-          return [...data.data.result];
-        });
-      });
+    const query = { ageGroup: param, page: 1, pageSize: pageSize };
+    dispatch(fetchCategoriesThunk(query));
   }, [dispatch, pageSize, param]);
 
   const handleLoadMore = () => {
@@ -60,7 +53,7 @@ const RandomQuizPage = () => {
         </StyledP>
         <StyledUl>
           <CreateQuizCard />
-          {quizes.map((quiz) => (
+          {quizes?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
               id={quiz._id}
@@ -72,7 +65,7 @@ const RandomQuizPage = () => {
           ))}
         </StyledUl>
         {isLoading ? <Loader /> : <></>}
-        {quizes.length < total[0]?.count && !isLoading ? (
+        {quizes?.length < total[0]?.count && !isLoading ? (
           <StyledButton type="button" onClick={handleLoadMore}>
             Load More
           </StyledButton>
