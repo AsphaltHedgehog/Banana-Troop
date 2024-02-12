@@ -26,10 +26,12 @@ export type Category = {
   title: string;
 };
 
-// export type Total = {
-//   _id: string;
-//   count: number | undefined;
-// };
+export type Total = [
+  {
+    _id: string;
+    count: number;
+  }
+];
 
 export type Quiz = {
   result: QuizBody[];
@@ -38,7 +40,7 @@ export type Quiz = {
 
 export type QuizByCategories = {
   categories: string;
-  data: { result: QuizBody[]; category: Category[]; total: number };
+  data: { result: QuizBody[]; category: Category[]; total: Total };
 
   currentPage: number;
   pageSize: number;
@@ -62,7 +64,7 @@ const initialState: QuizState = {
     data: {
       result: [],
       category: [],
-      total: 44,
+      total: [{ _id: "", count: 0 }],
     },
 
     currentPage: 0,
@@ -91,13 +93,12 @@ const quizesSlice = createSlice({
       })
       .addCase(fetchCategoriesThunk.fulfilled, (state, { payload }) => {
         state.listCategory.data = payload.data;
-        console.log(payload);
         state.listCategory.data.category = payload.data.category;
         state.listCategory.currentPage = payload.currentPage;
         state.listCategory.pageSize = payload.pageSize;
         state.listCategory.totalPages = payload.totalPages;
         state.listCategory.data.total = payload.data.total;
-        console.log(state.listCategory.data.total[0]?.count);
+
         state.isLoading = false;
       })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {

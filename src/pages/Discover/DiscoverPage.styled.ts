@@ -137,7 +137,11 @@ export const StyledBtnStars = styled.button`
   border: none;
   background: none;
   padding: 0;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
+
 export const StyledBtnFilter = styled.button`
   display: flex;
   gap: 8px;
