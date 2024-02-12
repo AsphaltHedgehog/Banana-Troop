@@ -1,4 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { useEffect } from "react";
+import { getUserThunk } from "./redux/user/operations";
+import { setToken } from "./redux/auth/operations";
+import { selectUserToken } from "./redux/auth/selectors";
 
 // components
 import Layout from "./components/layout/Layout";
@@ -20,8 +25,21 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 // import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
+import { setLoggedIn } from "./redux/auth/authSlice";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const userToken = useAppSelector(selectUserToken);
+
+  useEffect(() => {
+    setToken(userToken);
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(setLoggedIn(true));
+      });
+  }, [dispatch, userToken]);
+
   return (
     <div>
       <Routes>
