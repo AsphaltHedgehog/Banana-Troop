@@ -120,7 +120,7 @@ const Sidebar = () => {
 
       <CreateBtnListContainer ref={listContainerRef}>
         <CreateBtn onClick={handleToggleBtnClick}>
-          Create
+          <p>Create</p>
           <Svg
             sprite={sprite}
             id={`chevron-down`}

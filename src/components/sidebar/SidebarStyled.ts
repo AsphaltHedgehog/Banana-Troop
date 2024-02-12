@@ -9,17 +9,30 @@ export const QuestionsContainer = styled.div`
   padding: 40px 20px 40px 20px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 20px;
-  width: 335px;
+  @media screen and (min-width: 375px) {
+    width: 335px;
+  }
   @media screen and (min-width: 768px) {
+    width: 240px;
+    height: 630px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: space-between;
+  }
+  @media screen and (min-width: 1440px) {
+    width: 343px;
+    height: 589px;
+    padding: 30px;
   }
 `;
 
 export const QuestionsTitle = styled.h2`
   font-family: "Gilroy", sans-serif;
-  font-weight: 700;
   font-size: 20px;
-  line-height: 1.4;
   color: #f4f4f4;
+  @media screen and (min-width: 1440px) {
+    font-size: 24px;
+  }
 `;
 
 export const QuestionList = styled.ol`
@@ -62,32 +75,66 @@ export const CreateBtnListContainer = styled.div`
 
 export const CreateBtn = styled.button`
   border: 1px solid rgba(244, 244, 244, 0.6);
-  color: white;
   border-radius: 30px;
   padding: 15px 18px;
   display: flex;
   align-items: center;
-  gap: 190px;
+  justify-content: space-between;
   background-color: transparent;
   cursor: pointer;
+  font-family: "Gilroy", sans-serif;
+  font-size: 14px;
+  color: #f4f4f4;
+  width: 245px;
+  @media screen and (min-width: 375px) {
+    width: 295px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 155px;
+  }
+  @media screen and (min-width: 1440px) {
+    width: 277px;
+    position: absolute;
+    bottom: 235px;
+  }
 `;
 
 export const CreateListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 8px;
   padding: 15px;
   position: relative;
   border-radius: 15px;
   background-color: #205bf1;
+
+  @media screen and (min-width: 768px) {
+    width: 155px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 277px;
+  }
 
   button {
     display: flex;
     width: 267px;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: #f4f4f4;
     background-color: transparent;
+    font-size: 16px;
+    font-family: "Gilroy", sans-serif;
     cursor: pointer;
+    border: none;
+
+    @media screen and (min-width: 768px) {
+      width: 136px;
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: 257px;
+    }
   }
 `;
