@@ -15,7 +15,7 @@ interface IApiResponse {
   status: string;
 }
 
-export const getQuizById = createAsyncThunk<Quiz, AsyncThunkConfig>("getQuizById", async (id, thunkApi) => {
+export const getQuizByIdThunk = createAsyncThunk<Quiz, AsyncThunkConfig>("getQuizById", async (id, thunkApi) => {
   try {
     const { data }:IApiResponse = await quizApi.get(`/quiz/:${id}`);
     console.log(data);

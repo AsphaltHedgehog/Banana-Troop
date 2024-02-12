@@ -4,7 +4,7 @@ import {
   isAnyOf
 } from "@reduxjs/toolkit";
 import {
-  getQuizById,
+  getQuizByIdThunk,
 } from "./operations";
 
 export type Answers = {
@@ -17,7 +17,10 @@ export type Questions = {
   quiz?: string;
   time?: string;
   descr?: string;
-  answers?: Answers[];
+  validAnswer?: string
+  imageUrl?: string;
+  type?: "true-or-false" | "full-text";
+  answers: Answers[];
 };
 
 export type Quiz = {
@@ -50,17 +53,18 @@ const quizMachenSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getQuizById.fulfilled, (state) => {
+      .addCase(getQuizByIdThunk.fulfilled, (state, {payload}) => {
+        state.quiz = payload
         state.isLoading = false;
       })
       .addMatcher(
-        isAnyOf(getQuizById.pending),
+        isAnyOf(getQuizByIdThunk.pending),
         (state) => {
           state.isLoading = true;
         }
       )
       .addMatcher(
-        isAnyOf(getQuizById.rejected),
+        isAnyOf(getQuizByIdThunk.rejected),
         (state, action) => {
           state.isLoading = false;
           state.error = action.payload === "string" ? action.payload : null;
