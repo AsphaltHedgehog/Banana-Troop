@@ -101,7 +101,7 @@ export const fetchCategoriesThunk = createAsyncThunk<
       //   Authorization: `Bearer ${savedToken}`,
       // },
       params: {
-        category: ageGroup,
+        ageGroup,
         page,
         pageSize,
         rating,

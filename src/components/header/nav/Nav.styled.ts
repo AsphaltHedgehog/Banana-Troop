@@ -5,7 +5,7 @@ export const NavWrapper = styled.div`
   background-color: #205bf1;
   min-height: 100vh;
   min-width: 100vw;
-  padding: 20px;
+  padding: 24px 20px 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

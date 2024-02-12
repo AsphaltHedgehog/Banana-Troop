@@ -44,7 +44,7 @@ const QuizListItem = ({
     // Формування масиву із рейтингу зірочок
     const starsArray: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
-      if (i < Math.floor(rating)) {
+      if (i < Math.ceil(rating)) {
         // Якщо зірка повинна бути заповненою
         starsArray.push(
           <StyledRatingSvg
