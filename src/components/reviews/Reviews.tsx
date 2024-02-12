@@ -68,7 +68,7 @@ const Reviews: React.FC = () => {
         {width < breakpointsNumbers.tablet ? (
           <Slider {...settingsMobile}>
             {allReviews.review.map((review) => (
-              <StyledListItem key={review.id}>
+              <StyledListItem key={review._id}>
                 <div>
                   <img src={review.avatarUrl} alt={review.userName} />
                   <StyledTitleName>{review.userName}</StyledTitleName>
@@ -86,7 +86,7 @@ const Reviews: React.FC = () => {
           <StyledContainer>
             <Slider {...settingsTablet}>
               {allReviews.review.map((review) => (
-                <StyledListItem key={review.id}>
+                <StyledListItem key={review._id}>
                   <div>
                     <img src={review.avatarUrl} alt={review.userName} />
                     <StyledTitleName>{review.userName}</StyledTitleName>
@@ -104,7 +104,7 @@ const Reviews: React.FC = () => {
           <StyledContainer>
             <Slider {...settingsDesktop}>
               {allReviews.review.map((review) => (
-                <StyledListItem key={review.id}>
+                <StyledListItem key={review._id}>
                   <div>
                     <img src={review.avatarUrl} alt={review.userName} />
                     <StyledTitleName>{review.userName}</StyledTitleName>

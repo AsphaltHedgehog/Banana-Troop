@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { reviewsThunk } from "./operations";
-
+interface Review {
+  _id: string;
+  userName: string;
+  avatarUrl: string;
+  review: string;
+  createdAt: string;
+  updatedAt: string;
+}
 interface AuthState {
-  review: unknown;
+  review: Review[];
   error: string | null;
   isLoading: boolean;
 }
