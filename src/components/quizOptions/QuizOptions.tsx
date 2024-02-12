@@ -84,6 +84,7 @@ const QuizOptions = () => {
       <AudienceCategoriesContainer>
         <RadioContainer>
           <Titles>Audience</Titles>
+
           <label>
             <input
               type="radio"
@@ -182,8 +183,8 @@ const QuizOptions = () => {
             <input
               type="radio"
               name="color"
-              value="#000000"
-              checked={selectedColor === "#000000"}
+              value="rgba(255, 255, 255, 0.02)"
+              checked={selectedColor === "rgba(255, 255, 255, 0.02)"}
               onChange={handleColorClick}
               aria-label="Dark"
             />

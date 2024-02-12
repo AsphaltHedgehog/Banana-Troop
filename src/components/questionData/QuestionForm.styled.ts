@@ -12,17 +12,17 @@ export const QuestFormWrapper = styled.div`
 
 export const QuestionFormWrapper = styled.div<{ background: string }>`
   border-radius: 20px;
-  max-width: 335px;
+  min-width: 286px;
   height: 590px;
   background: ${({ background }) =>
-    background === "none" ? "rgba(255, 255, 255, 0.02)" : background};
+    background ? background : "rgba(255, 255, 255, 0.02)"};
+  // background === "none" ? "rgba(255, 255, 255, 0.02)" : background};
 
   @media screen and (min-width: 768px) {
-    max-width: 440px;
     height: 562px;
   }
   @media screen and (min-width: 1280px) {
-    max-width: 744px;
+    width: 744px;
     height: 521px;
   }
 `;

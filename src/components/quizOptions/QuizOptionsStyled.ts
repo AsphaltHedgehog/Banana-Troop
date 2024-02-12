@@ -7,11 +7,24 @@ export const MainContainer = styled.div`
   display: flex;
   gap: 40px;
   flex-direction: column;
+  @media screen and (min-width: 768px) {
+    position: relative;
+    left: -205px;
+    flex-direction: row;
+  }
+  @media screen and (min-width: 1440px) {
+    position: static;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 export const AudienceCategoriesContainer = styled.div`
   display: flex;
   gap: 40px;
+  @media screen and (min-width: 1440px) {
+    flex-direction: column;
+  }
 `;
 
 export const Titles = styled.h3`
@@ -20,6 +33,9 @@ export const Titles = styled.h3`
   font-weight: 700;
   font-size: 14px;
   color: #f4f4f4;
+  @media screen and (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const RadioContainer = styled.div`
@@ -32,6 +48,17 @@ export const RadioContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 7px;
+    font-family: "Gilroy", sans-serif;
+    font-size: 14px;
+    color: #f4f4f4;
+    text-align: left;
+    @media screen and (min-width: 768px) {
+      width: 111px;
+    }
+    @media screen and (min-width: 1440px) {
+      font-size: 16px;
+      width: 125px;
+    }
 
     input[type="radio"] {
       appearance: none;
@@ -40,8 +67,6 @@ export const RadioContainer = styled.div`
       border-radius: 50%;
       border: 2px solid var(--radio-color);
       outline: none;
-      margin-right: 5px;
-      vertical-align: middle;
       transition: all 0.3s;
 
       &:checked {
@@ -68,7 +93,11 @@ export const ColorfulSpans = styled.div<ColorfulSpansProps>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
+  @media screen and (min-width: 1440px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
   label {
     display: flex;
     align-items: center;
@@ -112,6 +141,12 @@ export const CategoryBtn = styled.button`
 `;
 export const Category = styled.p`
   margin-right: 8px;
+  font-family: "Gilroy", sans-serif;
+  font-size: 14px;
+  color: #f4f4f4;
+  @media screen and (min-width: 1440px) {
+    font-size: 16px;
+  }
 `;
 
 export const OptionList = styled.ul`
@@ -121,14 +156,25 @@ export const OptionList = styled.ul`
   border-radius: 20px;
   background: #205bf1;
   list-style-type: none;
-  position: relative;
+  position: absolute;
   padding: 15px;
   width: 112px;
-  max-height: 134px;
+  height: 134px;
   overflow-y: auto;
+  @media screen and (min-width: 768px) {
+    bottom: 57px;
+  }
+  @media screen and (min-width: 1440px) {
+    bottom: 300px;
+  }
 `;
 
-export const OptionItem = styled.li``;
+export const OptionItem = styled.li`
+  @media screen and (min-width: 1440px) {
+    font-size: 16px;
+    color: #f4f4f4;
+  }
+`;
 
 interface OptionBtnProps {
   active?: boolean;
@@ -139,4 +185,8 @@ export const OptionBtn = styled.button<OptionBtnProps>`
   font-weight: 400;
   font-size: 14px;
   color: ${({ active }) => (active ? "#f4f4f4" : "rgba(244, 244, 244, 0.5)")};
+  @media screen and (min-width: 1440px) {
+    font-size: 16px;
+    color: #f4f4f4;
+  }
 `;
