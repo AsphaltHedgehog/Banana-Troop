@@ -11,6 +11,7 @@ import {
   QuestionImage,
   QuestionImageWrapper,
   QuestionTextarea,
+  StyledSvg,
   SubmitQBtnNumWrapper,
   SubmitQuizButton,
   SubmitQuizButtonWrapper,
@@ -23,7 +24,7 @@ import {
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Answers } from "../../redux/questions/slice";
-import Svg from "../../shared/svg/Svg";
+
 import sprite from "../../images/icons/sprite.svg";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 import {
@@ -134,18 +135,10 @@ const QuestionForm = () => {
             imageurl={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
           >
             <QuestionFormInputLabel htmlFor="upload">
-              <Svg
+              <StyledSvg
                 sprite={sprite}
                 id={`icon-plus`}
-                style={{
-                  stroke: `${
-                    selectQuiz.background !== "none"
-                      ? selectQuiz.background
-                      : "#171717"
-                  }`,
-                  width: "40px",
-                  height: "40px",
-                }}
+                background={`${selectQuiz.background}`}
               />
             </QuestionFormInputLabel>
             <QuestionFormInputForUpdate

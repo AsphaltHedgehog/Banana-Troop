@@ -9,7 +9,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   @media screen and (min-width: 768px) {
     position: relative;
-    left: -205px;
+    left: -188px;
     flex-direction: row;
   }
   @media screen and (min-width: 1440px) {
@@ -157,14 +157,18 @@ export const OptionList = styled.ul`
   background: #205bf1;
   list-style-type: none;
   position: absolute;
-  padding: 15px;
+
   width: 112px;
   height: 134px;
   overflow-y: auto;
+  padding: 10px 5px;
+
   @media screen and (min-width: 768px) {
+    padding: 15px;
     bottom: 57px;
   }
   @media screen and (min-width: 1440px) {
+    width: 126px;
     bottom: 300px;
   }
 `;
@@ -184,9 +188,12 @@ export const OptionBtn = styled.button<OptionBtnProps>`
   font-family: "Gilroy", sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: ${({ active }) => (active ? "#f4f4f4" : "rgba(244, 244, 244, 0.5)")};
+  color: rgba(244, 244, 244, 0.5);
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  overflow-x: hidden;
   @media screen and (min-width: 1440px) {
     font-size: 16px;
-    color: #f4f4f4;
   }
 `;

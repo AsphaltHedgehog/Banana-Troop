@@ -1,4 +1,12 @@
 import styled from "styled-components";
+import Svg from "../../shared/svg/Svg";
+
+export const StyledSvg = styled(Svg)<{ background: string }>`
+  stroke: ${({ background }) =>
+    background ? background : "rgba(255, 255, 255, 0.02)"};
+  width: 40px;
+  height: 40px;
+`;
 
 export const QuestFormWrapper = styled.div`
   margin-bottom: 20px;

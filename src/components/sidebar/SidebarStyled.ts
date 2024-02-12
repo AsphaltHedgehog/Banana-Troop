@@ -17,7 +17,7 @@ export const QuestionsContainer = styled.div`
     height: 630px;
     overflow-y: auto;
     overflow-x: hidden;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   @media screen and (min-width: 1440px) {
     width: 343px;
@@ -47,10 +47,16 @@ export const QuizItem = styled.li<QuizItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 295px;
+  width: 255px;
   border-radius: 15px;
-  padding: 8px 16px;
+  padding: 5px 10px;
   background-color: ${({ clicked }) => (clicked ? "#205bf1" : "transparent")};
+  @media screen and (min-width: 375px) {
+    width: 295px;
+  }
+  @media screen and (min-width: 1440px) {
+    width: 272px;
+  }
 `;
 
 export const Divider = styled.li`
@@ -71,6 +77,10 @@ export const CreateBtnListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    position: relative;
+    bottom: -320px;
+  }
 `;
 
 export const CreateBtn = styled.button`
@@ -90,10 +100,10 @@ export const CreateBtn = styled.button`
     width: 295px;
   }
   @media screen and (min-width: 768px) {
-    width: 155px;
+    width: 140px;
   }
   @media screen and (min-width: 1440px) {
-    width: 277px;
+    width: 260px;
     position: absolute;
     bottom: 235px;
   }
@@ -105,21 +115,28 @@ export const CreateListContainer = styled.div`
   align-items: flex-start;
   gap: 8px;
   padding: 15px;
-  position: relative;
+  position: absolute;
   border-radius: 15px;
   background-color: #205bf1;
+  width: 244px;
+  bottom: -462px;
 
-  @media screen and (min-width: 768px) {
-    width: 155px;
+  @media screen and (min-width: 375px) {
+    width: 294px;
   }
-
+  @media screen and (min-width: 768px) {
+    width: 140px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1439px) {
+    bottom: -80px;
+  }
   @media screen and (min-width: 1440px) {
-    width: 277px;
+    bottom: 151px;
+    width: 260px;
   }
 
   button {
     display: flex;
-    width: 267px;
     justify-content: space-between;
     align-items: center;
     color: #f4f4f4;
@@ -128,13 +145,17 @@ export const CreateListContainer = styled.div`
     font-family: "Gilroy", sans-serif;
     cursor: pointer;
     border: none;
+    width: 222px;
 
+    @media screen and (min-width: 375px) {
+      width: 267px;
+    }
     @media screen and (min-width: 768px) {
-      width: 136px;
+      width: 122px;
     }
 
     @media screen and (min-width: 1440px) {
-      width: 257px;
+      width: 235px;
     }
   }
 `;
