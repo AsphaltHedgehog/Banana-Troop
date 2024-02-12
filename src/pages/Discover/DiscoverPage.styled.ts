@@ -21,11 +21,12 @@ export const StyledUlCards = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 40px;
   /* justify-content: center; */
   @media screen and (min-width: ${tablet}) {
     flex-direction: row;
     flex-wrap: wrap;
-
+    margin-bottom: 48px;
     gap: 48px 24px;
   }
 `;
@@ -74,6 +75,9 @@ export const StyledSelectAge = styled.select`
   line-height: 1.28571;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  &:hover {
+    background: #205bf1;
+  }
   @media screen and (min-width: ${tablet}) {
     border: 1px solid rgba(244, 244, 244, 0.3);
     border-radius: 30px;
@@ -88,7 +92,7 @@ export const StyledLoadMore = styled.button`
   text-decoration: underline;
   border: none;
   background: none;
-  margin-top: 40px;
+
   margin-bottom: 80px;
   &:hover {
     color: #205bf1; /* Колір для ховеру */
@@ -146,6 +150,9 @@ export const StyledBtnFilter = styled.button`
   font-size: 14px;
   line-height: 1.28571;
   letter-spacing: -0.01em;
+  &:hover {
+    background: #205bf1;
+  }
 `;
 
 export const StyledBtnTitle = styled.button`
@@ -167,6 +174,10 @@ export const StyledBtnTitle = styled.button`
   line-height: 1.28571;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  &:hover {
+    background: #205bf1;
+  }
+
   @media screen and (min-width: ${tablet}) {
     border: 1px solid rgba(244, 244, 244, 0.3);
     border-radius: 30px;
