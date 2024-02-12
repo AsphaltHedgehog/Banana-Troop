@@ -143,3 +143,10 @@ export const WrapPass = styled.div`
 export const WrapInPass = styled.div`
 position: relative;
 `
+
+export const StyledError = styled.p`
+font-weight: 400;
+  font-size: 10px;
+  text-align: left;
+  color: #e74a3b;
+  margin-left: 18px ;`

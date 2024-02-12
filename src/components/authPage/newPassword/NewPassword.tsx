@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { newPasswordThunk } from '../../../redux/auth/operations';
 import { schemaNewPassword } from '../../../helpers/schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { PasswordToggle, StyledAuthForm, StyledAuthInput, StyledTitle, WrapPass, WrapInPass } from '../AuthPages.styled';
+import { PasswordToggle, StyledAuthForm, StyledAuthInput, StyledTitle, WrapPass, WrapInPass, StyledError } from '../AuthPages.styled';
 import { useAppDispatch } from '../../../redux/hooks';
 import { RegisterButton } from '../../../shared/buttons/RegisterButton';
 import { StyledRestoreWrap } from '../restorePassword/RestorePassword.styled';
@@ -24,6 +24,7 @@ const NewPassword: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   
+  
   const { register, handleSubmit, formState: { errors: formErrors }, setValue } = useForm<FormValues>({
     resolver: yupResolver(schemaNewPassword)
   });
@@ -33,7 +34,10 @@ const NewPassword: React.FC = () => {
   };
 const isPasswordValid = () => {
   return password.length >= 8 && password.length <= 64 && !formErrors.newPassword;
-};
+  };
+    const isConfirmPasswordValid = () => {
+    return confirmPassword === password || confirmPassword === '';
+  };
 
  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
@@ -73,37 +77,36 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
         <WrapPass>
         <WrapInPass>
           <StyledAuthInput
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Password"
-          {...register("newPassword", { 
+           type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              {...register("newPassword", {
                 required: 'Enter a valid Password',
-                 minLength: { 
-    value: 8, 
-    message: 'Password must be at least 8 characters long' 
-  },
-  maxLength: { 
-    value: 64, 
-    message: 'Password cannot exceed 64 characters' 
-  }
-          })}
-          onChange={handlePasswordChange}
-          className={`${
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters long'
+                },
+                maxLength: {
+                  value: 64,
+                  message: 'Password cannot exceed 64 characters'
+                }
+              })}
+              onChange={handlePasswordChange}
+              className={`${
                 password.length === 0
                   ? 'empty'
                   : isPasswordValid()
-                  ? 'valid'
-                  : 'invalid'
+                    ? 'valid'
+                    : 'invalid'
               }`}
-        />
+            />
         <PasswordToggle onClick={togglePasswordVisibility} type="button">
               {showPassword ? <svg><use xlinkHref={`${sprite}#icon-eye`} width={18} height={18}></use></svg> : <svg><use xlinkHref={`${sprite}#icon-eye-off`}width={18} height={18}></use></svg> }
-          </PasswordToggle></WrapInPass>
+            </PasswordToggle></WrapInPass>
         <WrapInPass>
           <StyledAuthInput
-         type={showPassword ? 'text' : 'password'}
+          type={showPassword ? 'text' : 'password'}
               placeholder="Repeat password"
               {...register("confirmPassword", {
-                required: 'Enter a valid Password',
                 minLength: {
                   value: 8,
                   message: 'Password must be at least 8 characters long'
@@ -117,7 +120,7 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
               className={`${
                 confirmPassword.length === 0
                   ? 'empty'
-                  : isPasswordValid(confirmPassword)
+                  : isConfirmPasswordValid()
                     ? 'valid'
                     : 'invalid'
               }`}
@@ -125,7 +128,7 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
         <PasswordToggle onClick={togglePasswordVisibility} type="button">
               {showPassword ? <svg><use xlinkHref={`${sprite}#icon-eye`} width={18} height={18}></use></svg> : <svg><use xlinkHref={`${sprite}#icon-eye-off`}width={18} height={18}></use></svg> }
             </PasswordToggle></WrapInPass>
-          {formErrors.confirmPassword && <p>{formErrors.confirmPassword.message}</p>}</WrapPass>
+{confirmPassword !== '' && confirmPassword !== password && <StyledError>Passwords do not match</StyledError>}</WrapPass>
         <RegisterButton onClick={handleSubmit(onSubmit)}>Enter</RegisterButton>
       </StyledAuthForm>
     </StyledRestoreWrap>
