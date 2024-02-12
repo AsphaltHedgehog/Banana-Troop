@@ -49,6 +49,7 @@ export const QuestionTimeList = styled.div`
 `;
 
 export const QuestionTimeElem = styled.li`
+  cursor: pointer;
   &:hover {
     background-color: #205bf1;
   }
