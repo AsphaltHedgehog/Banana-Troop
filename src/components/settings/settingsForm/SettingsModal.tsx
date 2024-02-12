@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaSettingsInput } from "../../../helpers/schemas";
 import SettingsInput from "../settingsInput/SettingsInput";
+import { useSelector } from "react-redux";
+import { selectGetUser } from "../../../redux/user/selectors";
 
 type FieldName = "name" | "email" | "password";
 interface InputItem {
@@ -23,6 +25,8 @@ const inputItems: InputItem[] = [
 
 const SettingsModal: FC = () => {
   // const dispatch = useAppDispatch();
+
+  const { name } = useSelector(selectGetUser);
 
   const {
     register,
@@ -54,6 +58,7 @@ const SettingsModal: FC = () => {
             watch={watch}
             register={register}
             errors={errors}
+            defaultValue={name}
           />
         ))}
         <button>Save</button>

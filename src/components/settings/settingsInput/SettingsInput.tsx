@@ -22,6 +22,7 @@ interface SettingsInputProps {
   type: string;
   placeholder: string;
   name: FieldName;
+  defaultValue: string;
   errors: FieldErrors<Record<FieldName, FieldError>>;
   watch: UseFormWatch<Record<FieldName, string>>;
   register: UseFormRegister<Record<FieldName, string>>;
@@ -34,6 +35,7 @@ const SettingsInput: FC<SettingsInputProps> = ({
   errors,
   watch,
   register,
+  defaultValue,
 }) => {
   const fieldName = watch(name)?.trim();
   const disabledInput = name === "email" || name === "password";
@@ -46,6 +48,7 @@ const SettingsInput: FC<SettingsInputProps> = ({
           disabledInput ? "Currently unavailable to change" : placeholder
         }
         {...register(name)}
+        value={name === "name" ? defaultValue : watch(name)}
         $error={errors[name]?.message}
         $inputValue={watch(name)}
         disabled={disabledInput}
