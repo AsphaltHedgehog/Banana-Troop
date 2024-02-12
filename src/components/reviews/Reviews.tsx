@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "./customdots.css";
 import {
-  StyledContainer,
   StyledListItem,
   StyledSection,
   StyledTitle,
@@ -14,6 +13,7 @@ import { reviewsThunk } from "../../redux/reviews/operations";
 import { useAppDispatch } from "../../redux/hooks";
 import { breakpointsNumbers } from "../../styles";
 import { useWidth } from "../../hooks/useWidth";
+import { StyledContainer } from "../basequizlist/BaseQuizList.styled";
 // interface Review {
 //   id: string;
 //   userName: string;
@@ -118,24 +118,6 @@ const Reviews: React.FC = () => {
           <></>
         )}
       </>
-      {/* <StyledList>
-        <StyledListItem>
-          {allReviews.review.map((review) => (
-            <StyledListItem key={review.id}>
-              <div>
-                <img src={review.avatarUrl} alt={review.userName} />
-                <StyledTitleName>{review.userName}</StyledTitleName>
-              </div>
-              <p>{review.review}</p>
-            </StyledListItem>
-          ))}
-        </StyledListItem>
-      </StyledList>
-      <StyledButtonWrapper>
-        <StyledButton></StyledButton>
-        <StyledButton></StyledButton>
-        <StyledButton></StyledButton>
-      </StyledButtonWrapper>  */}
     </StyledSection>
   );
 };
