@@ -7,7 +7,11 @@ interface Review {
   avatarUrl: string;
   review: string;
 }
-
+interface ApiResponse {
+  status: string;
+  code: string;
+  data: object;
+}
 interface Reviews {
   reviews: Review[];
 }
@@ -25,7 +29,7 @@ export const reviewsThunk = createAsyncThunk<Reviews, ReviewsThunkParams>(
   "reviews",
   async ({ page = 1, limit = 6 }, thunkApi) => {
     try {
-      const { data }: AxiosResponse<Review> = await quizApi.get(
+      const { data }: AxiosResponse<ApiResponse> = await quizApi.get(
         "/reviews/getReviews",
         {
           params: {

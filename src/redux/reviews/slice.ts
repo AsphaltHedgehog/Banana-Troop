@@ -7,9 +7,11 @@ interface Review {
   avatarUrl: string;
   review: string;
 }
-// interface ApiResponse {
-//   data: object;
-// }
+interface ApiResponse {
+  status: string;
+  code: string;
+  data: object;
+}
 
 interface AuthState {
   review: Review[];
@@ -43,9 +45,9 @@ const reviewsSlice = createSlice({
       .addCase(
         reviewsThunk.fulfilled,
         (state, { payload }: PayloadAction<unknown>) => {
-          state.review = payload.review;
+          state.review = payload.data;
           state.isLoading = false;
-          state.error = payload as string;
+          state.error = null;
         }
       )
       .addCase(
