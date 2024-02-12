@@ -1,10 +1,10 @@
-import React from "react";
+// import React, { useState } from "react";
 import {
   AuthWrapper,
   CategoriesWrapper,
   LogOutButton,
-  NavLinkLogin,
-  NavLinkRegister,
+  // NavLinkLogin,
+  // NavLinkRegister,
   NavLinkSettings,
   NavWrapper,
 } from "./Nav.styled";
@@ -12,18 +12,39 @@ import { StyledH2 } from "../wholeComponent/Header.styled";
 import { NavLink, NavigateFunction, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-import { logoutThunk } from "../../../redux/auth/operations";
-import { toast } from "react-toastify";
+// import { logoutThunk } from "../../../redux/auth/operations";
+// import { toast } from "react-toastify";
 import sprite from "../../../images/icons/sprite.svg";
-import { useAppDispatch } from "../../../redux/hooks";
+// import { useAppDispatch } from "../../../redux/hooks";
+import { useModal } from "../../../hooks/useModal";
+import Modal from "../../modal/Modal";
+import Register from "../../authPage/register/Register";
+import Login from "../../authPage/login/Login";
+import Logout from "../../authPage/logout/Logout";
 
 interface NavProps {
   handleCloseBurger: () => void;
 }
 
 const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
+  const {
+    isOpen: isOpenRegisterModal,
+    openModal: openRegisterModal,
+    closeModal: closeRegisterModal,
+  } = useModal();
+  const {
+    isOpen: isOpenLoginModal,
+    openModal: openLoginModal,
+    closeModal: closeLoginModal,
+  } = useModal();
+  const {
+    isOpen: isOpenLogoutModal,
+    openModal: openLogoutModal,
+    closeModal: closeLogoutModal,
+  } = useModal();
+
   const navigate: NavigateFunction = useNavigate();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -39,17 +60,17 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
     }
   };
 
-  const handleLogOut = () => {
-    dispatch(logoutThunk())
-      .unwrap()
-      .then(() => {
-        handleCloseBurger();
-        navigate("/login");
-      })
-      .catch(() => {
-        toast.warning("Oops, something went wrong! Try again, please!");
-      });
-  };
+  // const handleLogOut = () => {
+  //   dispatch(logoutThunk())
+  //     .unwrap()
+  //     .then(() => {
+  //       handleCloseBurger();
+  //       navigate("/login");
+  //     })
+  //     .catch(() => {
+  //       toast.warning("Oops, something went wrong! Try again, please!");
+  //     });
+  // };
 
   return (
     <>
@@ -60,7 +81,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
           <NavLink to="/forChildren">For children</NavLink>
         </CategoriesWrapper>
         <AuthWrapper>
-          {!isLoggedIn ? (
+          {isLoggedIn ? (
             <>
               <NavLinkSettings to="/settings">
                 <svg onClick={handleCloseBurger}>
@@ -68,7 +89,12 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
                 </svg>
                 Settings
               </NavLinkSettings>
-              <LogOutButton onClick={handleLogOut}>
+              {isOpenLogoutModal && (
+                <Modal closeModal={closeLogoutModal}>
+                  <Logout />
+                </Modal>
+              )}
+              <LogOutButton onClick={openLogoutModal}>
                 <svg onClick={handleCloseBurger}>
                   <use xlinkHref={`${sprite}#icon-log-out`}></use>
                 </svg>
@@ -77,8 +103,20 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
             </>
           ) : (
             <>
-              <NavLinkRegister to="/register">Register</NavLinkRegister>
-              <NavLinkLogin to="/login"> Login</NavLinkLogin>
+              {isOpenRegisterModal && (
+                <Modal closeModal={closeRegisterModal}>
+                  <Register />
+                </Modal>
+              )}
+              <button onClick={openRegisterModal}>Register</button>
+              {isOpenLoginModal && (
+                <Modal closeModal={closeLoginModal}>
+                  <Login />
+                </Modal>
+              )}
+              <button onClick={openLoginModal}>Login</button>
+              {/* <NavLinkRegister to="/register">Register</NavLinkRegister>
+            <NavLinkLogin to="/login"> Login</NavLinkLogin> */}
             </>
           )}
         </AuthWrapper>

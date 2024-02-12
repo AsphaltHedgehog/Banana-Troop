@@ -10,8 +10,13 @@ export interface ApiResponse {
   user: User;
   token: string;
 }
-export interface Credentials {
+export interface RegisterCredentials {
   name: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginCredentials {
   email: string;
   password: string;
 }
@@ -34,7 +39,7 @@ export const clearToken = (): void => {
   quizApi.defaults.headers.common.Authorization = "";
 };
 
-export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const registerThunk = createAsyncThunk<ApiResponse, RegisterCredentials>(
   "register",
   async (credentials, thunkApi) => {
     try {
@@ -54,7 +59,7 @@ export const registerThunk = createAsyncThunk<ApiResponse, Credentials>(
   }
 );
 
-export const loginThunk = createAsyncThunk<ApiResponse, Credentials>(
+export const loginThunk = createAsyncThunk<ApiResponse, LoginCredentials>(
   "login",
   async (credentials, thunkApi) => {
     try {
@@ -111,14 +116,12 @@ export const resetPasswordThunk = createAsyncThunk<ApiResponse, SendEmail>(
 
 export const newPasswordThunk = createAsyncThunk<
   ApiResponse,
-  NewPassword & { token: string }
->("newPassword", async ({ password, token }, thunkApi) => {
+  { newPassword: string; resetToken: string }
+>("newPassword", async ({ newPassword, resetToken }, thunkApi) => {
   try {
-    const response: AxiosResponse<ApiResponse> = await axios.post(
-      `/api/auth/newPassword/${token}`,
-      {
-        password,
-      }
+    const response: AxiosResponse<ApiResponse> = await quizApi.patch(
+      `/auth/newPassword/${resetToken}`,
+      { newPassword }
     );
     return response.data;
   } catch (error) {
@@ -134,7 +137,7 @@ export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
   "user/updateFavorite",
   async (body, thunkApi) => {
     try {
-      //delete later
+//       //delete later
       setToken(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzM5MTVkNzYzYTFjYmNhN2Q2YjE5MCIsImlhdCI6MTcwNzU1Mzg0OSwiZXhwIjoxNzA3NTU1NjQ5fQ.ClNIWi0SnbHZfRLibLYt0MyUXpBozj75dLPPt7p2_aM"
       );

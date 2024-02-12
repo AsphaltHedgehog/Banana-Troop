@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-// import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { newPasswordThunk } from '../../../redux/auth/operations';
 import { schemaNewPassword } from '../../../helpers/schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,26 +8,38 @@ import { StyledAuthForm, StyledAuthInput, StyledTitle } from '../AuthPages.style
 import { useAppDispatch } from '../../../redux/hooks';
 import { RegisterButton } from '../../../shared/buttons/RegisterButton';
 import { StyledRestoreWrap } from '../restorePassword/RestorePassword.styled';
+import { toast } from 'react-toastify';
+
 
 interface FormValues {
-  password: string;
+  newPassword: string;
   confirmPassword: string;
 }
 
 const NewPassword: React.FC = () => {
-  // const { token } = useParams<{ token: string }>();
+  const { resetToken = '' } = useParams<{ resetToken?: string }>();
   const dispatch = useAppDispatch();
-  
+  const navigate = useNavigate()
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: yupResolver(schemaNewPassword)
   });
 
-  const onSubmit = (data: FormValues) => {
-    dispatch(newPasswordThunk({
-        password: data.password,
-        token: ''
-    }));
+  const onSubmit = async (data: FormValues)  => {
+    if (data.newPassword === data.confirmPassword) {
+      try {
+        await dispatch(newPasswordThunk({
+          newPassword: data.newPassword,
+          resetToken: resetToken 
+        }));
+        toast.success('Password changed successfully');
+        navigate('/login');
+      } catch (error) {
+        toast.error('Failed to change password');
+      }
+    } else {
+      alert('Passwords do not match');
+    }
   };
 
   return (
@@ -37,7 +49,7 @@ const NewPassword: React.FC = () => {
           <StyledAuthInput
           type="password"
           placeholder="Password"
-          {...register("password")}
+          {...register("newPassword")}
         />
           <StyledAuthInput
           type="password"

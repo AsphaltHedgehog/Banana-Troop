@@ -14,13 +14,18 @@ import { fetchCategoriesThunk } from "../../redux/quiz/operations";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import { useState } from "react";
 import { QuizBody } from "../../redux/quiz/slice";
-import { getQuizCategoryTotal } from "../../redux/quiz/selectors";
+import {
+  getQuizCategoryTotal,
+  getQuizIsLoading,
+} from "../../redux/quiz/selectors";
+import Loader from "../../shared/loader-spinner/Loader";
 
 const RandomQuizPage = () => {
   const location = useLocation();
   const param = location.search.substring(1);
   const dispatch = useAppDispatch();
   const total = useAppSelector(getQuizCategoryTotal);
+  const isLoading = useAppSelector(getQuizIsLoading);
 
   const [pageSize, setPageSize] = useState(7);
   const [quizes, setQuizes] = useState<QuizBody[]>([]);
@@ -66,7 +71,8 @@ const RandomQuizPage = () => {
             />
           ))}
         </StyledUl>
-        {quizes.length < total ? (
+        {isLoading ? <Loader /> : <></>}
+        {quizes.length < total && !isLoading ? (
           <StyledButton type="button" onClick={handleLoadMore}>
             Load More
           </StyledButton>

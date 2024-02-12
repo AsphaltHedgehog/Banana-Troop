@@ -5,16 +5,23 @@ import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "./BaseQuizList.styled";
 import "./customdots.css";
 import { breakpointsNumbers } from "../../styles";
-import QuizListItem, {
-  IQuizListItemProps,
-} from "../../shared/quizlistitem/QuizListItem";
+import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 
-interface IQuizListItem extends IQuizListItemProps {
-  id: string;
-}
+// interface IQuizListItem extends IQuizListItemProps {
+//   id: string;
+// }
 
 interface IBaseQuizList {
-  array: IQuizListItem[];
+  array: {
+    _id: string;
+    theme: string;
+    category: string;
+    background: string;
+    ageGroup: string;
+    ratingQuantity: number;
+    rating: number;
+    finished: number;
+  }[];
 }
 
 const BaseQuizList = ({ array }: IBaseQuizList) => {
@@ -51,8 +58,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
         <Slider {...settingsMobile}>
           {array.map((quiz) => (
             <QuizListItem
-              key={quiz.id}
-              id={quiz.id}
+              key={quiz._id}
+              id={quiz._id}
               theme={quiz.theme}
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
@@ -70,8 +77,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
           <Slider {...settingsTablet}>
             {array.map((quiz) => (
               <QuizListItem
-                key={quiz.id}
-                id={quiz.id}
+                key={quiz._id}
+                id={quiz._id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
@@ -89,8 +96,8 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
           <Slider {...settingsDesktop}>
             {array.map((quiz) => (
               <QuizListItem
-                key={quiz.id}
-                id={quiz.id}
+                key={quiz._id}
+                id={quiz._id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}

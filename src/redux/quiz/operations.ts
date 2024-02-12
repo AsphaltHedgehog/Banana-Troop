@@ -118,27 +118,6 @@ export const fetchCategoriesThunk = createAsyncThunk<
   }
 });
 
-// export const getQuizByIdThunk = createAsyncThunk<
-//   QuizBody,
-//   string,
-//   AsyncThunkConfig
-// >("getQuizById", async (_id: string, thunkApi) => {
-//   try {
-//     const savedToken = thunkApi.getState().auth.token;
-
-//     const { data } = await quizApi.get(`/quiz/${_id}`, {
-//       headers: {
-//         Authorization: `Bearer ${savedToken}`,
-//       },
-//     });
-//     return data as QuizBody;
-//   } catch (error: unknown) {
-//     return thunkApi.rejectWithValue(
-//       `${(error as Error)?.message ?? "Unknown error"}`
-//     );
-//   }
-// });
-
 export const addQuizesThunk = createAsyncThunk<
   IQuizCreate,
   { theme: string },
@@ -146,7 +125,7 @@ export const addQuizesThunk = createAsyncThunk<
 >("addedNewQuizes", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzU3Nzk1MSwiZXhwIjoxNzA3NTk5NTUxfQ._3TQ7rJDFubIZNo5W1SCOE7E57k8fD93_LbKqL8jonU"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     const { theme } = quiz;
 
@@ -176,7 +155,7 @@ export const deleteQuizesThunk = createAsyncThunk<
 >("deleteQuizById", async (_id, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     // const savedToken = thunkApi.getState().auth.token;
 
@@ -200,7 +179,7 @@ export const updateQuizesThunk = createAsyncThunk<
 >("updateQuiz", async (quiz, thunkApi) => {
   try {
     setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzQxMDUxOSwiZXhwIjoxNzA3NDEyMzE5fQ.fxd6DcA3gIucGvoWrrZseolZmiKcnuqdJZHnbS67IlM"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
     );
     // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;

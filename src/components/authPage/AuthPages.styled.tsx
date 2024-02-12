@@ -76,10 +76,3 @@ export const StyledText = styled.p`
   color: #f4f4f4;
   margin-bottom: 16px;
 `;
-
-export const StyledModal = styled.div`
-  position: relative;
-  background-color: black;
-  width: 500px;
-  z-index: 6000000000;
-`;
