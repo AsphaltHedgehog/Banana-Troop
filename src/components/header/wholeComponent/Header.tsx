@@ -2,6 +2,7 @@ import { FC } from "react";
 import { HeaderWrapper, StyledH2 } from "./Header.styled";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import { useNavigate } from "react-router";
+import Box from "../../box/Box";
 
 const Header: FC = () => {
   const navigate = useNavigate();
@@ -11,10 +12,12 @@ const Header: FC = () => {
   };
 
   return (
-    <HeaderWrapper>
-      <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
-      <BurgerMenu />
-    </HeaderWrapper>
+    <Box>
+      <HeaderWrapper>
+        <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
+        <BurgerMenu />
+      </HeaderWrapper>
+    </Box>
   );
 };
 

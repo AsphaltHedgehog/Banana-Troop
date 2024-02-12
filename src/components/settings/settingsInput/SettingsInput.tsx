@@ -18,10 +18,17 @@ import {
 
 type FieldName = "name" | "email" | "password";
 
+interface defaultValues {
+  name: string;
+  email: string;
+  password?: string;
+}
+
 interface SettingsInputProps {
   type: string;
   placeholder: string;
   name: FieldName;
+  defaultValues: defaultValues;
   errors: FieldErrors<Record<FieldName, FieldError>>;
   watch: UseFormWatch<Record<FieldName, string>>;
   register: UseFormRegister<Record<FieldName, string>>;
@@ -34,8 +41,10 @@ const SettingsInput: FC<SettingsInputProps> = ({
   errors,
   watch,
   register,
+  defaultValues,
 }) => {
   const fieldName = watch(name)?.trim();
+  const disabledInput = name === "email" || name === "password";
 
   return (
     <>
@@ -45,6 +54,8 @@ const SettingsInput: FC<SettingsInputProps> = ({
         {...register(name)}
         $error={errors[name]?.message}
         $inputValue={watch(name)}
+        disabled={disabledInput}
+        defaultValue={defaultValues[name]}
       />
       {name === "name" && (
         <>

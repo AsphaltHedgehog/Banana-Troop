@@ -23,7 +23,7 @@ import NewPassword from "./components/authPage/newPassword/NewPassword";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-// import Settings from "./components/settings/wholeComponent/Settings";
+import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
 
@@ -48,8 +48,8 @@ function App() {
           {/* <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="logout" element={<Logout />} />
+        <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
-          <Route path="logout" element={<Logout />} /> */}
           <Route path="restorePassword" element={<RestorePassword />} />
           <Route path="newPassword/:resetToken" element={<NewPassword />} />
           <Route path="forAdults" element={<ForAdults />} />
