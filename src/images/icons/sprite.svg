@@ -117,5 +117,8 @@
     <symbol id="icon-solid" viewBox="0 0 32 32">
       <path fill="#f4f4f4" style="fill:var(--color1, #f4f4f4)" d="M9.706 10.293a1.002 1.002 0 0 1 0 1.414L6.413 15H28a.997.997 0 0 1 1 1 1 1 0 0 1-1 1H6.413l3.293 3.293a1.002 1.002 0 0 1 .025 1.439.992.992 0 0 1-.725.293 1.001 1.001 0 0 1-.714-.318l-5-5a1.002 1.002 0 0 1 0-1.414l5-5a1.002 1.002 0 0 1 1.414 0z"/>
     </symbol>
+    <symbol id="icon-plus" viewBox="0 0 25 24">
+   <path d="M12.5 5V19"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M5.5 12H19.5"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></symbol>
 </defs>
 </svg>
