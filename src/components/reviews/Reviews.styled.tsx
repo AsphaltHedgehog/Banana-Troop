@@ -1,4 +1,13 @@
 import styled from "styled-components";
+import { breakpoints } from "../../styles";
+
+const { tablet, desktop } = breakpoints;
+
+export const StyledContainer = styled.div`
+  @media screen and (min-width: ${tablet}) and (max-width: ${desktop}) {
+    padding-bottom: 56px;
+  }
+`;
 export const StyledSection = styled.section`
   margin-top: 120px;
   margin-bottom: 120px;
@@ -24,12 +33,15 @@ export const StyledListItem = styled.li`
   width: 608px;
   height: 164px;
   padding: 24px;
+
   div {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
+    max-width: 355px;
+    max-height: 168px;
   }
   img {
     border-radius: 50%;
@@ -42,6 +54,17 @@ export const StyledListItem = styled.li`
     line-height: 125%;
     color: #f4f4f4;
     text-align: justify;
+    @media screen and (max-width: 375px) {
+      font-size: 12px;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    max-width: 704px;
+    max-height: 144px;
+  }
+  @media screen and (min-width: 1440px) {
+    max-width: 608px;
+    max-height: 164px;
   }
 `;
 export const StyledTitleName = styled.h3`
