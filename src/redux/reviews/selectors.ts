@@ -4,6 +4,7 @@ interface Review {
   _id: string;
   userName: string;
   avatarUrl: string;
+  rating?: string;
   review: string;
   createdAt: string;
   updatedAt: string;

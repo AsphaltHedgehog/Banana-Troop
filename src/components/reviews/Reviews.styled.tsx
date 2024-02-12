@@ -3,15 +3,19 @@ import { breakpoints } from "../../styles";
 
 const { tablet, desktop } = breakpoints;
 
-export const StyledContainer = styled.div`
-  @media screen and (min-width: ${tablet}) and (max-width: ${desktop}) {
-    padding-bottom: 56px;
+export const StyledSection = styled.div`
+  margin-top: 80px;
+  margin-bottom: 80px;
+  @media screen and (min-width: ${tablet}) {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+  @media screen and (min-width: ${desktop}) {
+    margin-top: 120px;
+    margin-bottom: 120px;
   }
 `;
-export const StyledSection = styled.section`
-  margin-top: 120px;
-  margin-bottom: 120px;
-`;
+
 export const StyledTitle = styled.h2`
   text-align: left;
   margin-bottom: 48px;
@@ -30,9 +34,9 @@ export const StyledList = styled.ul`
 export const StyledListItem = styled.li`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 20px;
-  width: 608px;
-  height: 164px;
-  padding: 24px;
+  padding: 20px;
+  max-width: 355px;
+  max-height: 200px;
 
   div {
     display: flex;
@@ -40,8 +44,6 @@ export const StyledListItem = styled.li`
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
-    max-width: 355px;
-    max-height: 168px;
   }
   img {
     border-radius: 50%;
@@ -50,7 +52,7 @@ export const StyledListItem = styled.li`
   }
   p {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 125%;
     color: #f4f4f4;
     text-align: justify;
@@ -58,13 +60,17 @@ export const StyledListItem = styled.li`
       font-size: 12px;
     }
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${tablet}) {
     max-width: 704px;
     max-height: 144px;
   }
-  @media screen and (min-width: 1440px) {
+  @media screen and (min-width: ${desktop}) {
     max-width: 608px;
     max-height: 164px;
+    padding: 24px;
+    p {
+      font-size: 16px;
+    }
   }
 `;
 export const StyledTitleName = styled.h3`
