@@ -58,7 +58,6 @@ const Reviews: React.FC = () => {
   useEffect(() => {
     dispatch(reviewsThunk({ page: 1, limit: 6 }));
   }, [dispatch]);
-  console.log(allReviews);
 
   return (
     <StyledSection>
