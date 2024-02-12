@@ -30,14 +30,10 @@ export const CreateQuizTitle = styled.h1`
     sans-serif;
   font-weight: 700;
   font-size: 32px;
-  line-height: 1.1875;
-  letter-spacing: -0.01em;
   color: #f4f4f4;
   text-align: left;
   @media screen and (min-width: 768px) {
     font-size: 44px;
-    line-height: 1.09091;
-    letter-spacing: -0.01em;
   }
 `;
 
@@ -45,4 +41,21 @@ export const CreateQuizTabletWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+`;
+
+export const ComponentsMainContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-direction: column-reverse;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+export const OptAndFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  @media screen and (min-width: 1440px) {
+    flex-direction: row;
+  }
 `;

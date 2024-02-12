@@ -133,22 +133,3 @@ export const newPasswordThunk = createAsyncThunk<
   }
 });
 
-export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
-  "user/updateFavorite",
-  async (body, thunkApi) => {
-    try {
-//       //delete later
-      setToken(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzM5MTVkNzYzYTFjYmNhN2Q2YjE5MCIsImlhdCI6MTcwNzU1Mzg0OSwiZXhwIjoxNzA3NTU1NjQ5fQ.ClNIWi0SnbHZfRLibLYt0MyUXpBozj75dLPPt7p2_aM"
-      );
-      const addFavorite = await quizApi.patch("/user/favorite", body);
-      return addFavorite.data;
-    } catch (error) {
-      if (error instanceof Error && typeof error.message === "string") {
-        return thunkApi.rejectWithValue(error.message);
-      } else {
-        return thunkApi.rejectWithValue("An unknown error occurred");
-      }
-    }
-  }
-);

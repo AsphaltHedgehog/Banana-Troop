@@ -2,18 +2,28 @@ import styled from "styled-components";
 
 export const QuestFormWrapper = styled.div`
   margin-bottom: 20px;
-`;
-
-export const QuestionFormWrapper = styled.div`
-  border-radius: 20px;
-  max-width: 335px;
-  height: 590px;
-  background: rgba(255, 255, 255, 0.02);
   @media screen and (min-width: 768px) {
-    max-width: 440px;
+    margin-bottom: 0px;
   }
   @media screen and (min-width: 1280px) {
-    max-width: 744px;
+    margin-right: 32px;
+  }
+`;
+
+export const QuestionFormWrapper = styled.div<{ background: string }>`
+  border-radius: 20px;
+  min-width: 286px;
+  height: 590px;
+  background: ${({ background }) =>
+    background ? background : "rgba(255, 255, 255, 0.02)"};
+  // background === "none" ? "rgba(255, 255, 255, 0.02)" : background};
+
+  @media screen and (min-width: 768px) {
+    height: 562px;
+  }
+  @media screen and (min-width: 1280px) {
+    width: 744px;
+    height: 521px;
   }
 `;
 
@@ -24,6 +34,14 @@ export const QuestionFormStyles = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    padding: 32px;
+  }
+  @media screen and (min-width: 1280px) {
+    align-items: flex-end;
+    max-width: 744px;
+    padding: 64px;
+  }
 `;
 
 export const QuestionImageWrapper = styled.div<{ imageurl: string }>`
@@ -38,6 +56,10 @@ export const QuestionImageWrapper = styled.div<{ imageurl: string }>`
   background-image: url(${(props) => props.imageurl});
   background-size: cover;
   margin-bottom: 8px;
+  @media screen and (min-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 export const QuestionImage = styled.img`
@@ -58,6 +80,13 @@ export const QuestionTextarea = styled.input`
   letter-spacing: -0.01em;
   color: #f4f4f4;
   margin-bottom: 16px;
+  @media screen and (min-width: 768px) {
+    min-width: 376px;
+  }
+  @media screen and (min-width: 1280px) {
+    min-width: 460px;
+    margin-top: 65px;
+  }
 `;
 
 export const QuestionFormInputLabel = styled.label`
@@ -79,12 +108,16 @@ export const SubmitQuizButtonWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 14px;
+  @media screen and (min-width: 1280px) {
+    justify-content: flex-start;
+    margin-left: 134px;
+  }
 `;
 export const SubmitQuizButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  max-width: 100%;
   height: 48px;
   border-radius: 30px;
   border: none;
@@ -113,9 +146,8 @@ export const SubmitQuizButton = styled.button`
   @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 1;
-    letter-spacing: -0.04em;
-    padding: 14px 28px;
-    width: 150px;
+    letter-spacing: -0.06em;
+    padding: 16px 32px;
   }
 `;
 
@@ -124,13 +156,24 @@ export const SubmitQBtnNumWrapper = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  @media screen and (min-width: 1280px) {
+    justify-content: flex-start;
+  }
 `;
 
 export const FixPositoinWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width: 768px) {
+    align-items: flex-start;
+  }
+  @media screen and (min-width: 1280px) {
+    flex-direction: row;
+  }
 `;
 export const SubmitQuizNumSpan = styled.span`
   color: #f4f4f4;
+  margin-left: 4px;
+  margin-top: 18px;
 `;

@@ -42,7 +42,7 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Adult filter */}
           {/* If not Auth, Redirect to QuizListPage with Adult filter */}
           <StyledNavLink
-            to={isLoggedIn ? "/discover?category=adult" : "/randomQuiz?adults"}
+            to={isLoggedIn ? "/discover?adults" : "/randomQuiz?adults"}
           >
             See all
           </StyledNavLink>
@@ -65,11 +65,7 @@ const Quizes = () => {
           {/* If Auth, Redirect to DiscoverPage with Children filter */}
           {/* If not Auth, Redirect to QuizListPage with Children filter */}
           <StyledNavLink
-            to={
-              isLoggedIn
-                ? "/discover?category=children"
-                : "/randomQuiz?children"
-            }
+            to={isLoggedIn ? "/discover?children" : "/randomQuiz?children"}
           >
             See all
           </StyledNavLink>

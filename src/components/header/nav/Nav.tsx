@@ -56,8 +56,8 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
       <NavWrapper onClick={handleClick}>
         <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
         <CategoriesWrapper>
-          <NavLink to="/forAdults">For adults</NavLink>
-          <NavLink to="/forChildren">For children</NavLink>
+          <NavLink to="/randomQuiz?adults">For adults</NavLink>
+          <NavLink to="/randomQuiz?children">For children</NavLink>
         </CategoriesWrapper>
         <AuthWrapper>
           {isLoggedIn ? (

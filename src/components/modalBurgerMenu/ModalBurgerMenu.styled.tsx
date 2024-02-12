@@ -19,7 +19,7 @@ export const StyledBackdrop = styled.div`
 `;
 
 export const StyledWrapper = styled.div<StyledWrapperProps>`
-  position: relative;
+  position: absolute;
   animation: ${({ $isOpenBurger }) =>
       $isOpenBurger ? slideInAnimation : slideOutAnimation}
     0.5s ease-in-out;

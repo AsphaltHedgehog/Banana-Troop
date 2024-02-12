@@ -267,7 +267,7 @@ const QuestionForm = () => {
   return (
     <>
       {submitted ? (
-        <QuestionFormWrapper>
+        <QuestionFormWrapper background={`${selectQuiz.background}`}>
           <QuestionFormStyles onSubmit={handleSubmit(onSubmit)}>
             <FixPositoinWrapper>
               <QuestFormWrapper>
@@ -286,18 +286,21 @@ const QuestionForm = () => {
                   selectedAnswerIndex={selectedAnswerIndex}
                 />
               </div>
-              <QuestionTextarea
-                autoComplete="off"
-                placeholder="Enter a question"
-                {...register("descr")}
-                defaultValue={selectQuestion[selectQuestionIndex].descr}
-              />
-              <AnswerList
-                answers={arrayMission()}
-                selectedAnswerIndex={selectedAnswerIndex}
-                handleAnswerChange={handleAnswerChange}
-                handleSelectAnswer={handleSelectAnswer}
-              />
+              <div>
+                {" "}
+                <QuestionTextarea
+                  autoComplete="off"
+                  placeholder="Enter a question"
+                  {...register("descr")}
+                  defaultValue={selectQuestion[selectQuestionIndex].descr}
+                />
+                <AnswerList
+                  answers={arrayMission()}
+                  selectedAnswerIndex={selectedAnswerIndex}
+                  handleAnswerChange={handleAnswerChange}
+                  handleSelectAnswer={handleSelectAnswer}
+                />
+              </div>
             </FixPositoinWrapper>
             <SubmitQBtnNumWrapper>
               <SubmitQuizNumSpan>
@@ -315,7 +318,9 @@ const QuestionForm = () => {
           </QuestionFormStyles>
         </QuestionFormWrapper>
       ) : (
-        <QuestionFormWrapper></QuestionFormWrapper>
+        <QuestionFormWrapper
+          background={`${selectQuiz.background}`}
+        ></QuestionFormWrapper>
       )}
     </>
   );

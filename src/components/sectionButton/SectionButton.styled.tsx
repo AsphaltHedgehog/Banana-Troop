@@ -19,10 +19,8 @@ export const StyledListItem = styled.li`
   width: 370px;
   height: 70px;
   background: rgba(255, 255, 255, 0.02);
-  a {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 125%;
-    color: #fff;
-  }
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 125%;
+  color: #fff;
 `;
