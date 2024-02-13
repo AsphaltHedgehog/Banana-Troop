@@ -23,9 +23,7 @@ interface ReviewsPost {
   updatedAt: string;
   rating: string;
 }
-// interface Reviews {
-//   reviews: Review[];
-// }
+
 interface IResponse {
   code: number;
   data: unknown[];
