@@ -59,7 +59,7 @@ export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
   }
 );
 export const reviewsPostThunk = createAsyncThunk<ReviewsPost>(
-  "reviews",
+  "reviewsPost",
   async (_: void, thunkApi) => {
     try {
       const { data }: AxiosResponse<ReviewsPost> = await quizApi.post(
