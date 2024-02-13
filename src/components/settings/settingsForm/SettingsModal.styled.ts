@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 
 export const SettingsPhotoWrapper = styled.div`
+  margin-bottom: 32px;
+
   svg {
     width: 30px;
     height: 30px;

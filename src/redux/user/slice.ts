@@ -49,6 +49,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editUserThunk.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.user = payload as User;
         state.isLoading = false;
         state.error = null;

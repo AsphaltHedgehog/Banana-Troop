@@ -1,10 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { quizApi } from "../auth/operations";
-
-const instance = axios.create({
-  baseURL: "https://pigs.onrender.com/api/user/",
-});
 
 interface UserInfo {
   name: string;
@@ -43,12 +39,13 @@ export const getUserThunk = createAsyncThunk<unknown, void>(
   }
 );
 
-export const editUserThunk = createAsyncThunk<UserBody, string>(
+export const editUserThunk = createAsyncThunk<UserBody, UserBody>(
   "editUserInfo",
   async (body, thunkApi) => {
     try {
-      const { data } = await instance.patch("update", body);
-
+      const { data } = await quizApi.patch("user/update", body);
+      console.log(body);
+      console.log(data);
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
