@@ -4,6 +4,7 @@ import {
   SettingsForm,
   SettingsFormButton,
   SettingsPhotoWrapper,
+  SettingsUserWrapper,
 } from "./SettingsModal.styled";
 
 // import { useForm } from "react-hook-form";
@@ -52,7 +53,7 @@ const SettingsModal: FC = () => {
   };
 
   return (
-    <>
+    <SettingsUserWrapper>
       <SettingsPhotoWrapper>
         <img src="" alt="User avatar" />
         <svg>
@@ -73,7 +74,7 @@ const SettingsModal: FC = () => {
         ))}
         <SettingsFormButton>Save</SettingsFormButton>
       </SettingsForm>
-    </>
+    </SettingsUserWrapper>
   );
 };
 

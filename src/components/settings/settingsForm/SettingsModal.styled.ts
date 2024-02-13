@@ -1,5 +1,12 @@
 import { styled } from "styled-components";
 
+export const SettingsUserWrapper = styled.div`
+  border: 1px solid #f4f4f44d;
+  background-color: #ffffff05;
+  border-radius: 30px;
+  padding: 40px 20px;
+`;
+
 export const SettingsPhotoWrapper = styled.div`
   margin-bottom: 32px;
 
