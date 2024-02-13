@@ -17,7 +17,7 @@ export const StyledSettingsInput = styled.input<StyledSettingsInputProps>`
   text-align: left;
   padding: 14px 49px 14px 18px;
   border-radius: 30px;
-  border: 1px solid ${({ $error }) => ($error ? "#e74a3b" : "#f4f4f44d")};
+  border: 1px solid #f4f4f44d;
 
   &:focus {
     border: 1px solid white;
@@ -33,13 +33,6 @@ export const StyledSettingsInput = styled.input<StyledSettingsInputProps>`
         border: 1px solid #e74a3b;
       `}
   }
-
-  ${({ $error, $inputValue }) =>
-    !$error &&
-    $inputValue?.trim() &&
-    css`
-      border: 1px solid #097b45;
-    `}
 
   &:focus:not(.focus-visible) {
     outline: none;

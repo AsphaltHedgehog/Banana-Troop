@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   StyledNameError,
   StyledNameValid,
@@ -36,6 +36,8 @@ const SettingsInput: FC<SettingsInputProps> = ({
 }) => {
   const disabledInput = name === "email" || name === "password";
 
+  const [focused, setFocused] = useState(false);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.trim();
     setStateName(inputValue);
@@ -51,6 +53,14 @@ const SettingsInput: FC<SettingsInputProps> = ({
     }
   };
 
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+  };
+
   return (
     <>
       <StyledSettingsInput
@@ -62,10 +72,12 @@ const SettingsInput: FC<SettingsInputProps> = ({
         onChange={handleChange}
         disabled={disabledInput}
         defaultValue={defaultValues[name]}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
       {name === "name" && (
         <>
-          {error && (
+          {error && focused && (
             <>
               <StyledNameError>{error}</StyledNameError>
               <SvgValidation>
@@ -73,7 +85,7 @@ const SettingsInput: FC<SettingsInputProps> = ({
               </SvgValidation>
             </>
           )}
-          {!error && value && (
+          {!error && value && focused && (
             <>
               <StyledNameValid>Valid name</StyledNameValid>
               <SvgValidation>
