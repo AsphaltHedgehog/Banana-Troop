@@ -64,7 +64,7 @@ export const NavLinkSettings = styled(NavLink)`
   gap: 5px;
 `;
 
-export const LogOutButton = styled.button`
+export const LogOutButton = styled(NavLink)`
   display: inline-flex;
   justify-content: center;
   align-items: center;

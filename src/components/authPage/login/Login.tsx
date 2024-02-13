@@ -12,6 +12,7 @@ import {
   StyledRegisterWrapp,
   StyledTitle,
 } from "../AuthPages.styled";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormData {
   email: string;
@@ -20,6 +21,7 @@ interface LoginFormData {
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -31,6 +33,7 @@ const Login: React.FC = () => {
   const submit: SubmitHandler<LoginFormData> = (data) => {
     dispatch(loginThunk(data)).unwrap();
     reset();
+    navigate("/");
   };
 
   return (
@@ -54,7 +57,7 @@ const Login: React.FC = () => {
       <RestoreBtnStyled href="/restorePassword">
         Restore password
       </RestoreBtnStyled>
-      <AuthLink to="/register">Register</AuthLink>
+      <AuthLink>Register</AuthLink>
     </StyledRegisterWrapp>
   );
 };

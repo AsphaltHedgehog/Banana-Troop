@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const StyledRegisterWrapp = styled.div`
@@ -73,7 +72,7 @@ export const StyledAuthInput = styled.input`
   }
 `;
 
-export const AuthLink = styled(NavLink)`
+export const AuthLink = styled.button`
   color: #f4f4f4 !important;
   text-decoration: underline;
   text-align: center;
