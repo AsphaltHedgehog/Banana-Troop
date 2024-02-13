@@ -60,7 +60,7 @@ export const editPhotoThunk = createAsyncThunk<UserBody, string>(
   "editUserPhoto",
   async (body, thunkApi) => {
     try {
-      const { data } = await instance.patch("avatar", body);
+      const { data } = await quizApi.patch("avatar", body);
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
