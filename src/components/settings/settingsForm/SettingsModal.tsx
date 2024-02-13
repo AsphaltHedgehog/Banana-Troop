@@ -1,17 +1,20 @@
-import { FC } from "react";
+import { FC, FormEvent, useState } from "react";
 import sprite from "../../../images/icons/sprite.svg";
 import {
   SettingsForm,
   SettingsFormButton,
   SettingsPhotoWrapper,
 } from "./SettingsModal.styled";
-// import { useAppDispatch } from "../../../redux/hooks";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaSettingsInput } from "../../../helpers/schemas";
+
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import { schemaSettingsInput } from "../../../helpers/schemas";
 import SettingsInput from "../settingsInput/SettingsInput";
 import { useSelector } from "react-redux";
 import { selectGetUser } from "../../../redux/user/selectors";
+import { editUserThunk } from "../../../redux/user/operations";
+import { useAppDispatch } from "../../../redux/hooks";
+import { toast } from "react-toastify";
 
 type FieldName = "name" | "email" | "password";
 interface InputItem {
@@ -28,27 +31,24 @@ const inputItems: InputItem[] = [
 ];
 
 const SettingsModal: FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { name, email } = useSelector(selectGetUser);
   // const { avatarURL } = useSelector(selectUser);
+  const [stateName, setStateName] = useState<string>(name);
+  const [error, setError] = useState<string>("");
 
   const defaultValues = {
     name,
     email,
   };
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-    watch,
-  } = useForm({
-    resolver: yupResolver(schemaSettingsInput),
-  });
-
-  const submit = () => {
-    reset();
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (error) {
+      toast.error("Change your name to clear the error");
+      return;
+    }
+    dispatch(editUserThunk({ name: stateName }));
   };
 
   return (
@@ -59,14 +59,15 @@ const SettingsModal: FC = () => {
           <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
         </svg>
       </SettingsPhotoWrapper>
-      <SettingsForm onSubmit={handleSubmit(submit)}>
+      <SettingsForm onSubmit={submit}>
         {inputItems?.map((input) => (
           <SettingsInput
             key={input.id}
             {...input}
-            watch={watch}
-            register={register}
-            errors={errors}
+            value={stateName}
+            setStateName={setStateName}
+            setError={setError}
+            error={error}
             defaultValues={defaultValues}
           />
         ))}
