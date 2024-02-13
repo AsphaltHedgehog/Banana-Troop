@@ -53,7 +53,7 @@ const quizMachenSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getQuizByIdThunk.fulfilled, (state, {payload}) => {
+      .addCase(getQuizByIdThunk.fulfilled, (state, { payload }) => {
         state.quiz = payload
         state.isLoading = false;
       })
