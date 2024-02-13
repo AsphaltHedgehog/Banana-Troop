@@ -18,8 +18,6 @@ import {
   StyledRestoreWrap,
 } from "./RestorePassword.styled";
 import { AxiosError } from "axios";
-import Modal from "../../modal/Modal";
-import { useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -47,7 +45,7 @@ const RestorePassword: React.FC = () => {
     resolver: yupResolver(schemaSendEmail),
   });
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [isEmailError, setIsEmailError] = useState(false);
@@ -76,42 +74,40 @@ const RestorePassword: React.FC = () => {
     }
   };
   return (
-    <Modal closeModal={() => navigate("/")}>
-      <React.Fragment>
-        <StyledRestoreWrap>
-          {isEmailSent ? (
-            <div>
-              <StyledRestoreTitle>Restore password</StyledRestoreTitle>
-              <StyledNotification>
-                <StyledEmail>{email}</StyledEmail> successfully delivered. Go to
-                the post office and follow the instructions in the letter
-                received from us.
-              </StyledNotification>
-              <StyledBack href="/">To main page</StyledBack>
-            </div>
-          ) : (
-            <React.Fragment>
-              <StyledTitle>Enter email for restore password</StyledTitle>
-              <StyledAuthForm onSubmit={handleSubmit(handleSubmitEmail)}>
-                <StyledAuthInput
-                  type="email"
-                  placeholder="Email"
-                  {...register("email", { required: true })}
-                  style={{ borderColor: isEmailError ? "red" : "initial" }}
-                />
-                {isEmailError && (
-                  <p style={{ color: "red" }}>Input value cannot be empty</p>
-                )}
-                <RegisterButton onClick={handleSubmit(handleSubmitEmail)}>
-                  Enter
-                </RegisterButton>
-              </StyledAuthForm>
-              <StyledBack href="/login">Back</StyledBack>
-            </React.Fragment>
-          )}
-        </StyledRestoreWrap>
-      </React.Fragment>
-    </Modal>
+    <React.Fragment>
+      <StyledRestoreWrap>
+        {isEmailSent ? (
+          <div>
+            <StyledRestoreTitle>Restore password</StyledRestoreTitle>
+            <StyledNotification>
+              <StyledEmail>{email}</StyledEmail> successfully delivered. Go to
+              the post office and follow the instructions in the letter received
+              from us.
+            </StyledNotification>
+            <StyledBack href="/">To main page</StyledBack>
+          </div>
+        ) : (
+          <React.Fragment>
+            <StyledTitle>Enter email for restore password</StyledTitle>
+            <StyledAuthForm onSubmit={handleSubmit(handleSubmitEmail)}>
+              <StyledAuthInput
+                type="email"
+                placeholder="Email"
+                {...register("email", { required: true })}
+                style={{ borderColor: isEmailError ? "red" : "initial" }}
+              />
+              {isEmailError && (
+                <p style={{ color: "red" }}>Input value cannot be empty</p>
+              )}
+              <RegisterButton onClick={handleSubmit(handleSubmitEmail)}>
+                Enter
+              </RegisterButton>
+            </StyledAuthForm>
+            <StyledBack href="/auth/login">Back</StyledBack>
+          </React.Fragment>
+        )}
+      </StyledRestoreWrap>
+    </React.Fragment>
   );
 };
 

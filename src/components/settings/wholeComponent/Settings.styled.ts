@@ -34,7 +34,5 @@ export const SettingsHeaderWrapper = styled.div`
 `;
 
 export const SettingMainWrapper = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 48px;
+  padding: 48px 20px 28px 20px;
 `;

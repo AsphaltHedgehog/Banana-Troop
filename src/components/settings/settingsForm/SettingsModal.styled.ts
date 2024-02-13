@@ -13,12 +13,14 @@ export const SettingsPhotoWrapper = styled.div`
 
   img {
     border-radius: 50%;
+    width: 100px;
+    height: 100px;
   }
 
   svg {
     position: absolute;
-    top: 10px;
-    right: 150px;
+    top: 85px;
+    right: 156px;
     width: 30px;
     height: 30px;
   }

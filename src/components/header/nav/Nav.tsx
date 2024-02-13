@@ -78,8 +78,8 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
             </>
           ) : (
             <>
-              <NavLinkRegister to="/register">Register</NavLinkRegister>
-              <NavLinkLogin to="/login"> Login</NavLinkLogin>
+              <NavLinkRegister to="/auth/register">Register</NavLinkRegister>
+              <NavLinkLogin to="/auth/login"> Login</NavLinkLogin>
             </>
           )}
         </AuthWrapper>
