@@ -48,9 +48,9 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
-          <Route path="settings" element={<Settings />} />
           <Route path="restorePassword" element={<RestorePassword />} />
           <Route path="newPassword/:resetToken" element={<NewPassword />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
