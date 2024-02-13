@@ -7,9 +7,6 @@ import {
   SettingsUserWrapper,
 } from "./SettingsModal.styled";
 
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import { schemaSettingsInput } from "../../../helpers/schemas";
 import SettingsInput from "../settingsInput/SettingsInput";
 import { useSelector } from "react-redux";
 import { selectGetUser } from "../../../redux/user/selectors";

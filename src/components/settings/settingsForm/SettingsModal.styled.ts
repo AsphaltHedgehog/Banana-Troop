@@ -30,7 +30,7 @@ export const SettingsForm = styled.form`
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0em;
-    left: 68px;
+    left: 44px;
   }
 `;
 

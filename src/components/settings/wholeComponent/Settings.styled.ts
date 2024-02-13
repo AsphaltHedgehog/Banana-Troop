@@ -5,6 +5,7 @@ export const SettingsHeaderWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
+  margin-bottom: 40px;
 
   a {
     display: flex;
@@ -29,7 +30,6 @@ export const SettingsHeaderWrapper = styled.div`
     font-weight: 700;
     line-height: 1.18;
     letter-spacing: -0.01em;
-    margin-bottom: 40px;
   }
 `;
 

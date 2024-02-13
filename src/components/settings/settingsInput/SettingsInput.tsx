@@ -3,7 +3,9 @@ import {
   StyledNameError,
   StyledNameValid,
   StyledSettingsInput,
+  SvgValidation,
 } from "./SettingsInput.styled";
+import sprite from "../../../images/icons/sprite.svg";
 
 type FieldName = "name" | "email" | "password";
 
@@ -63,8 +65,22 @@ const SettingsInput: FC<SettingsInputProps> = ({
       />
       {name === "name" && (
         <>
-          {error && <StyledNameError>{error}</StyledNameError>}
-          {!error && value && <StyledNameValid>Valid name</StyledNameValid>}
+          {error && (
+            <>
+              <StyledNameError>{error}</StyledNameError>
+              <SvgValidation>
+                <use xlinkHref={`${sprite}#icon-error`}></use>
+              </SvgValidation>
+            </>
+          )}
+          {!error && value && (
+            <>
+              <StyledNameValid>Valid name</StyledNameValid>
+              <SvgValidation>
+                <use xlinkHref={`${sprite}#icon-valid`}></use>
+              </SvgValidation>
+            </>
+          )}
         </>
       )}
       {/* {name === "email" && (
