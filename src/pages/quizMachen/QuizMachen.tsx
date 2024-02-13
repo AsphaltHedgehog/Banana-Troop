@@ -13,16 +13,19 @@ import { Quiz } from "../../redux/quizMachen/slice";
 const QuizMachen = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+
+  // auth selectors
+  const user = useSelector(selectGetUser);
   
   // states
   const [Name, SetName] = useState('');
   const [Index, SetIndex] = useState(-1)
+  const [AnswersArray, setAnswersArray] = useState([])
 
   // quiz selectors
   const quiz = useSelector(selectGetQuiz);
   const isLoading = useSelector(selectIsLoading);
   // const isError = useSelector(selectIsError);
-  console.log(quiz);
 
   // destructurization
   const {
@@ -32,27 +35,26 @@ const QuizMachen = () => {
     questions
   } = quiz
 
-  // auth selectors
-  const user = useSelector(selectGetUser);
 
   useEffect(() => {
     if (!id) {
-
-
       return
+    }
+    if (user) {
+      console.log('USER');
+      
+      SetName(user.name)
     }
 
     dispatch(getQuizByIdThunk(id));
-
-  }, [dispatch, id]);
+  }, [dispatch, id, user]);
 
   // functional functions
 
-  const submitHandler = (e?: FormEvent<HTMLFormElement>) => {
+  const HelloFormSubmitHandler = (e?: FormEvent<HTMLFormElement>) => {
     if (e) {
       e.preventDefault()
     }
-    
     SetIndex(Index + 1)
   };
   
@@ -65,24 +67,37 @@ const QuizMachen = () => {
       throw new Error;
     }
 
-    const answersArray = questions[Index].answers.map((el, index, array) => {
-      console.log("Ответы", index, el);
-      
+    const answersArray = questions[Index].answers.map((el, index) => {
+      console.log(
+        "Вопрос", Index, '<br/>',
+        "Ответы", index, '<br/>',
+        '-----------------',
+        el
+      );
+
+      return (
+        <button id={el._id}>
+          {el.descr}
+        </button >
+      )
     })
 
-    return (
-      <div>
+    console.log(answersArray);
+    
 
-      </div>
+    return (
+      <>
+        {answersArray}
+        ZRADA TOTALNIA
+      </>
     )
   };
 
 
-  const questionInterface = () => {
+  const renderQuestionInterface = () => {
     if (!questions || !questions[Index]) {
       throw new Error;
     }
-    console.log(quiz);
     
 
     return (
@@ -98,38 +113,41 @@ const QuizMachen = () => {
               {answersType()}
             </div>
           </>
-          : <>aaa</>
-
-          
+          : <>
+            <p>Time: {questions[Index].time}</p>
+            <p>{questions[Index].descr}</p>
+            <div>
+              {answersType()}
+            </div>
+          </>
         }
-        
       </div>
     )
   };
-
   // component return
 
   return (
     // add error toast
     <>
-      {Index >= 0 ? questionInterface():
-        user._id ? submitHandler :
-          <>
-            {isLoading ? 'Place for loader' :
+      {
+        isLoading ? 'Place for loader' :
+          Index >= 0 ? renderQuestionInterface() :
+            // user.name ? HelloFormSubmitHandler() :
+            <>
               <>
                 <h1>Log in to take the quiz</h1>
                 <p>{theme}</p>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={HelloFormSubmitHandler}>
                   <input type="text"
                     value={Name}
                     onChange={e => SetName(e.target.value)}
                     placeholder="Name"
+                    disabled={user}
                   ></input>
                   <button type="submit" disabled={!Name}>Start</button>
                 </form>
               </>
-            }
-          </>
+            </>
       }
     </>
   )
