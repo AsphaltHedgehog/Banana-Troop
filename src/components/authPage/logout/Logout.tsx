@@ -8,6 +8,7 @@ import {
   StyledText,
   StyledTitle,
 } from "../AuthPages.styled";
+import Modal from "../../modal/Modal";
 
 const Logout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,17 +18,19 @@ const Logout: React.FC = () => {
   const handleLogOut = () => {
     dispatch(logoutThunk()).unwrap();
     navigate("/");
-
-    // window.location.reload();
   };
 
   return (
-    <StyledLogoutWrapp>
-      <StyledTitle>Log out</StyledTitle>
-      <StyledText>Are you sure you want to log out of your account?</StyledText>
-      <RegisterButton onClick={handleLogOut}>Log out</RegisterButton>
-      <a onClick={closeModal}>Cancel</a>
-    </StyledLogoutWrapp>
+    <Modal closeModal={() => navigate("/")}>
+      <StyledLogoutWrapp>
+        <StyledTitle>Log out</StyledTitle>
+        <StyledText>
+          Are you sure you want to log out of your account?
+        </StyledText>
+        <RegisterButton onClick={handleLogOut}>Log out</RegisterButton>
+        <a onClick={closeModal}>Cancel</a>
+      </StyledLogoutWrapp>
+    </Modal>
   );
 };
 
