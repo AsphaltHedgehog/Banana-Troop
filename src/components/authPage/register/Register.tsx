@@ -13,7 +13,6 @@ import {
   StyledRegisterWrapp,
   StyledTitle,
 } from "../AuthPages.styled";
-import Modal from "../../modal/Modal";
 
 interface RegisterFormData {
   name: string;
@@ -41,35 +40,27 @@ const Register: React.FC = () => {
   };
 
   return (
-    <Modal closeModal={() => navigate("/")}>
-      <StyledRegisterWrapp>
-        <StyledTitle>Sign Up</StyledTitle>
-        <StyledAuthForm onSubmit={handleSubmit(submit)}>
-          <StyledAuthInput
-            type="text"
-            placeholder="Name"
-            {...register("name")}
-          />
-          {errors?.name && <div>{errors.name.message}</div>}
-          <StyledAuthInput
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-          />
-          {errors?.email && <div>{errors.email.message}</div>}
-          <StyledAuthInput
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          {errors?.password && <div>{errors.password.message}</div>}
-          <RegisterButton onClick={handleSubmit(submit)}>
-            Register
-          </RegisterButton>
-        </StyledAuthForm>
-        <AuthLink to="/login">Login</AuthLink>
-      </StyledRegisterWrapp>
-    </Modal>
+    <StyledRegisterWrapp>
+      <StyledTitle>Sign Up</StyledTitle>
+      <StyledAuthForm onSubmit={handleSubmit(submit)}>
+        <StyledAuthInput type="text" placeholder="Name" {...register("name")} />
+        {errors?.name && <div>{errors.name.message}</div>}
+        <StyledAuthInput
+          type="email"
+          placeholder="Email"
+          {...register("email")}
+        />
+        {errors?.email && <div>{errors.email.message}</div>}
+        <StyledAuthInput
+          type="password"
+          placeholder="Password"
+          {...register("password")}
+        />
+        {errors?.password && <div>{errors.password.message}</div>}
+        <RegisterButton onClick={handleSubmit(submit)}>Register</RegisterButton>
+      </StyledAuthForm>
+      <AuthLink to="/auth/login">Login</AuthLink>
+    </StyledRegisterWrapp>
   );
 };
 

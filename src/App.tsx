@@ -12,13 +12,9 @@ import NotFound from "./pages/notFound/NotFound";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
-import Login from "./components/authPage/login/Login";
-import Register from "./components/authPage/register/Register";
-import Logout from "./components/authPage/logout/Logout";
 import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
-import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
-import NewPassword from "./components/authPage/newPassword/NewPassword";
+import AuthPages from "./pages/AuthPages/AuthPages";
 
 // css
 import "./App.css";
@@ -45,11 +41,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="logout" element={<Logout />} />
-          <Route path="restorePassword" element={<RestorePassword />} />
-          <Route path="newPassword/:resetToken" element={<NewPassword />} />
           <Route path="settings" element={<Settings />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
@@ -58,6 +49,7 @@ function App() {
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="favorites" element={<FavoritePage />} />
         </Route>
+        <Route path="auth/*" element={<AuthPages />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
