@@ -56,7 +56,7 @@ const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
               <use href={svg + "#icon-close"}></use>
             </svg>
           </StyledCloseButton>
-          {children},
+          {children}
         </ContentWrapper>
       </StyledWrapper>,
       rootModal

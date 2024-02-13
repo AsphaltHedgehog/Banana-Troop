@@ -35,7 +35,11 @@ const AuthPages = () => {
           setModalContent(<NewPassword />);
           break;
         default:
-          setModalContent(null);
+          setModalContent(
+            <div>
+              <NewPassword />
+            </div>
+          );
           break;
       }
     }
