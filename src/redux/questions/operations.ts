@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Questions } from "./slice";
 import { AppDispatch, RootState } from "../store";
-import { quizApi, setToken } from "../auth/operations";
+import { quizApi } from "../auth/operations";
 
 interface AsyncThunkConfig {
   state: RootState;
@@ -59,9 +59,6 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.token;
-    setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
-    );
     const { _id, ...body } = question;
     const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
       // headers: {
@@ -134,9 +131,6 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
 >("fetchedQuestionsByQuiz", async (_id, thunkApi) => {
   try {
     // const savedToken = thunkApi.getState().auth.token;
-    setToken(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ4YWUyNTUxMTliOTRlOTQyMjM2OCIsImlhdCI6MTcwNzY2MTUwNiwiZXhwIjoxNzA3NjgzMTA2fQ.-22Jqt73QE_2ds7E2Jpv_R64qMLOrm_MXLdl9fejzk4"
-    );
     const { data } = await quizApi.get(`/quiz/question/${_id}`, {
       // headers: {
       //   Authorization: `Bearer ${savedToken}`,

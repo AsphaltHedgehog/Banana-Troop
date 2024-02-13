@@ -40,7 +40,7 @@ const Sidebar = () => {
       };
       dispatch(addedQuestionByQuizThunk(newQuestion))
         .unwrap()
-        .then(() => toast.error("Congratulation! You create Question!"))
+        .then(() => toast.success("Congratulation! You create Question!"))
         .catch(() => toast.error("Something went wrong"));
     }
   };
@@ -120,7 +120,7 @@ const Sidebar = () => {
 
       <CreateBtnListContainer ref={listContainerRef}>
         <CreateBtn onClick={handleToggleBtnClick}>
-          Create
+          <p>Create</p>
           <Svg
             sprite={sprite}
             id={`chevron-down`}

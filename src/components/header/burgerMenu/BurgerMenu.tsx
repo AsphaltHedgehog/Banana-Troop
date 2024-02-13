@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useModal } from "../../../hooks/useModal";
 import sprite from "../../../images/icons/sprite.svg";
 import { SvgBurgerMenu } from "../wholeComponent/Header.styled";
-import Modal from "../../modalBurgerMenu/ModalBurgerMenu";
 import Nav from "../nav/Nav";
+import ModalBurgerMenu from "../../modalBurgerMenu/ModalBurgerMenu";
 export interface BurgerMenuProps {
   endAnimation?: boolean;
   setEndAnimation: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,19 +29,19 @@ const BurgerMenu = () => {
   return (
     <>
       {isOpen ? (
-        <>
-          <Modal
-            closeModal={closeModal}
-            isOpenBurger={isOpenBurger}
-            setIsOpenBurger={setIsOpenBurger}
-          >
-            <SvgBurgerMenu onClick={handleCloseBurger}>
-              <use xlinkHref={`${sprite}#icon-x`}></use>
-            </SvgBurgerMenu>
-            <Nav handleCloseBurger={handleCloseBurger} />
-          </Modal>
-        </>
+        // <Box>
+        <ModalBurgerMenu
+          closeModal={closeModal}
+          isOpenBurger={isOpenBurger}
+          setIsOpenBurger={setIsOpenBurger}
+        >
+          <SvgBurgerMenu $iconX={true} onClick={handleCloseBurger}>
+            <use xlinkHref={`${sprite}#icon-x`}></use>
+          </SvgBurgerMenu>
+          <Nav handleCloseBurger={handleCloseBurger} />
+        </ModalBurgerMenu>
       ) : (
+        // </Box>
         <SvgBurgerMenu onClick={handleOpenBurger}>
           <use xlinkHref={`${sprite}#icon-open`}></use>
         </SvgBurgerMenu>

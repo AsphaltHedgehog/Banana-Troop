@@ -1,47 +1,122 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Slider from "react-slick";
+import "./customdots.css";
 import {
-  StyledButton,
-  StyledButtonWrapper,
-  StyledList,
   StyledListItem,
   StyledSection,
   StyledTitle,
   StyledTitleName,
 } from "./Reviews.styled";
-import logo from "../../images/65b42324f6e8dba3e778f9fb_sobachki-krasivye-kartinki-40.jpg";
+import { useSelector } from "react-redux";
+import { reviews } from "../../redux/reviews/selectors";
+import { reviewsThunk } from "../../redux/reviews/operations";
+import { useAppDispatch } from "../../redux/hooks";
+import { breakpointsNumbers } from "../../styles";
+import { useWidth } from "../../hooks/useWidth";
+import { StyledContainer } from "../basequizlist/BaseQuizList.styled";
+// interface Review {
+//   id: string;
+//   userName: string;
+//   avatarUrl: string;
+//   review: string;
+// }
+// interface ReviewsThunkParams {
+//   page: number;
+//   limit: number;
+// }
+
 const Reviews: React.FC = () => {
+  const width = useWidth();
+
+  const settingsMobile = {
+    dots: true,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+  };
+
+  const settingsTablet = {
+    dots: true,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+  };
+
+  const settingsDesktop = {
+    dots: true,
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 2,
+    draggable: false,
+  };
+
+  const allReviews = useSelector(reviews);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(reviewsThunk({ page: 1, limit: 6 }));
+  }, [dispatch]);
+
   return (
     <StyledSection>
       <StyledTitle>Reviews</StyledTitle>
-      <StyledList>
-        <StyledListItem>
-          <div>
-            <img src={logo} alt="logo" />
-            <StyledTitleName>Lorem</StyledTitleName>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam.
-          </p>
-        </StyledListItem>
-        <StyledListItem>
-          <div>
-            <img src={logo} alt="logo" />
-            <StyledTitleName>Lorem</StyledTitleName>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam.
-          </p>
-        </StyledListItem>
-      </StyledList>
-      <StyledButtonWrapper>
-        <StyledButton></StyledButton>
-        <StyledButton></StyledButton>
-        <StyledButton></StyledButton>
-      </StyledButtonWrapper>
+
+      <>
+        {width < breakpointsNumbers.tablet ? (
+          <Slider {...settingsMobile}>
+            {allReviews.review.map((review) => (
+              <StyledListItem key={review._id}>
+                <div>
+                  <img src={review.avatarUrl} alt={review.userName} />
+                  <StyledTitleName>{review.userName}</StyledTitleName>
+                </div>
+                <p>{review.review}</p>
+              </StyledListItem>
+            ))}
+          </Slider>
+        ) : (
+          <></>
+        )}
+
+        {width < breakpointsNumbers.desktop &&
+        width >= breakpointsNumbers.tablet ? (
+          <StyledContainer>
+            <Slider {...settingsTablet}>
+              {allReviews.review.map((review) => (
+                <StyledListItem key={review._id}>
+                  <div>
+                    <img src={review.avatarUrl} alt={review.userName} />
+                    <StyledTitleName>{review.userName}</StyledTitleName>
+                  </div>
+                  <p>{review.review}</p>
+                </StyledListItem>
+              ))}
+            </Slider>
+          </StyledContainer>
+        ) : (
+          <></>
+        )}
+
+        {width >= breakpointsNumbers.desktop ? (
+          <StyledContainer>
+            <Slider {...settingsDesktop}>
+              {allReviews.review.map((review) => (
+                <StyledListItem key={review._id}>
+                  <div>
+                    <img src={review.avatarUrl} alt={review.userName} />
+                    <StyledTitleName>{review.userName}</StyledTitleName>
+                  </div>
+                  <p>{review.review}</p>
+                </StyledListItem>
+              ))}
+            </Slider>
+          </StyledContainer>
+        ) : (
+          <></>
+        )}
+      </>
     </StyledSection>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   ArrowSvg,
@@ -22,6 +22,7 @@ const QuestionTime = ({
   handleTimeClick,
   selectedAnswerIndex,
 }: QuestionTimeProps) => {
+  const listContainerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedTime, setSelectedTime] = useState<string>("0:00");
 
@@ -37,9 +38,28 @@ const QuestionTime = ({
     setSelectedTime(`${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (
+      listContainerRef.current &&
+      !listContainerRef.current.contains(target) &&
+      !target.classList.contains("CreateBtn")
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <TimeWrapper>
+      <TimeWrapper ref={listContainerRef}>
         <SelectTimeWrapper>
           <TimeSpan>Time: </TimeSpan>
           <QuestionTimeList>

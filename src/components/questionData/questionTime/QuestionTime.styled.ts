@@ -10,6 +10,16 @@ export const SelectTimeWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    bottom: 4px;
+    left: 240px;
+  }
+  @media screen and (min-width: 1280px) {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+  }
 `;
 export const TimeSpan = styled.span`
   font-weight: 400;
@@ -26,16 +36,20 @@ export const QuestionTimeList = styled.div`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding: 8px 14px;
-  width: 83px;
+  width: 84px;
   height: 34px;
   color: #ffffff;
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.28571;
+  @media screen and (min-width: 768px) {
+    padding: 8px 18px;
+  }
 `;
 
 export const QuestionTimeElem = styled.li`
+  cursor: pointer;
   &:hover {
     background-color: #205bf1;
   }
@@ -57,6 +71,13 @@ export const RenderList = styled.ul`
   top: 100%;
   left: 69%;
   transform: translate(-50%);
+  @media screen and (min-width: 768px) {
+    left: 332px;
+  }
+  @media screen and (min-width: 1280px) {
+    top: 34px;
+    left: 92px;
+  }
 `;
 
 export const ArrowSvg = styled(Svg)`

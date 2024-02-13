@@ -12,7 +12,7 @@ interface ModalProps {
 
 const rootModal = document.querySelector("#modal");
 
-const Modal: React.FC<ModalProps> = ({
+const ModalBurgerMenu: React.FC<ModalProps> = ({
   children,
   closeModal,
   isOpenBurger,
@@ -61,4 +61,4 @@ const Modal: React.FC<ModalProps> = ({
   return null;
 };
 
-export default Modal;
+export default ModalBurgerMenu;

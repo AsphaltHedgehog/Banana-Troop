@@ -84,6 +84,7 @@ const QuizOptions = () => {
       <AudienceCategoriesContainer>
         <RadioContainer>
           <Titles>Audience</Titles>
+
           <label>
             <input
               type="radio"
@@ -107,7 +108,6 @@ const QuizOptions = () => {
           </label>
         </RadioContainer>
         <div ref={listContainerRef}>
-          {/* Your work here */}
           <Titles>Categories</Titles>
           <CategoryBtn onClick={handleChooseBtnClick}>
             <Category>{selectedCategory}</Category>
@@ -128,10 +128,15 @@ const QuizOptions = () => {
                   <OptionItem key={category._id}>
                     <OptionBtn
                       type="button"
+                      style={{
+                        color:
+                          selectedCategory === category.title
+                            ? "white"
+                            : "rgba(244, 244, 244, 0.5)",
+                      }}
                       onClick={() => {
                         onHandleClickCategory(category);
                       }}
-                      // I think we should also recive from backend is active boolean, if it is default or active category text color to be white  "active={category.isActive}
                     >
                       {category.title}
                     </OptionBtn>
@@ -182,8 +187,8 @@ const QuizOptions = () => {
             <input
               type="radio"
               name="color"
-              value="#000000"
-              checked={selectedColor === "#000000"}
+              value="rgba(255, 255, 255, 0.02)"
+              checked={selectedColor === "rgba(255, 255, 255, 0.02)"}
               onChange={handleColorClick}
               aria-label="Dark"
             />
