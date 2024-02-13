@@ -77,7 +77,7 @@ export const StyledPasswordValid = styled.p`
 const slideIn = keyframes`
   from {
     opacity: 0;
-    right: 26px;
+    right: 28px;
   }
   to {
     opacity: 1;

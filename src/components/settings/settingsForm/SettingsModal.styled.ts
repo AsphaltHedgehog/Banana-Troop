@@ -9,8 +9,16 @@ export const SettingsUserWrapper = styled.div`
 
 export const SettingsPhotoWrapper = styled.div`
   margin-bottom: 32px;
+  position: relative;
+
+  img {
+    border-radius: 50%;
+  }
 
   svg {
+    position: absolute;
+    top: 10px;
+    right: 150px;
     width: 30px;
     height: 30px;
   }

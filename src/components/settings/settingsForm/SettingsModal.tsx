@@ -31,7 +31,7 @@ const inputItems: InputItem[] = [
 const SettingsModal: FC = () => {
   const dispatch = useAppDispatch();
   const { name, email } = useSelector(selectGetUser);
-  // const { avatarURL } = useSelector(selectUser);
+  const { avatarURL } = useSelector(selectGetUser);
   const [stateName, setStateName] = useState<string>(name);
   const [error, setError] = useState<string>("");
 
@@ -46,13 +46,17 @@ const SettingsModal: FC = () => {
       toast.error("Change your name to clear the error");
       return;
     }
-    dispatch(editUserThunk({ name: stateName }));
+    dispatch(editUserThunk({ name: stateName }))
+      .unwrap()
+      .catch(() => {
+        toast.warning("Oops, something went wrong! Try again, please!");
+      });
   };
 
   return (
     <SettingsUserWrapper>
       <SettingsPhotoWrapper>
-        <img src="" alt="User avatar" />
+        <img src={avatarURL} alt="User avatar" />
         <svg>
           <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
         </svg>
