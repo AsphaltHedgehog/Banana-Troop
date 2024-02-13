@@ -13,7 +13,6 @@ import {
   StyledTitle,
 } from "../AuthPages.styled";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../modal/Modal";
 
 interface LoginFormData {
   email: string;
@@ -38,30 +37,28 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Modal closeModal={() => navigate("/")}>
-      <StyledRegisterWrapp>
-        <StyledTitle>Login</StyledTitle>
-        <StyledAuthForm onSubmit={handleSubmit(submit)}>
-          <StyledAuthInput
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-          />
-          {errors?.email && <div>{errors.email.message}</div>}
-          <StyledAuthInput
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          {errors?.password && <div>{errors.password.message}</div>}
-          <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
-        </StyledAuthForm>
-        <RestoreBtnStyled href="/restorePassword">
-          Restore password
-        </RestoreBtnStyled>
-        <AuthLink to="/register">Register</AuthLink>
-      </StyledRegisterWrapp>
-    </Modal>
+    <StyledRegisterWrapp>
+      <StyledTitle>Login</StyledTitle>
+      <StyledAuthForm onSubmit={handleSubmit(submit)}>
+        <StyledAuthInput
+          type="email"
+          placeholder="Email"
+          {...register("email")}
+        />
+        {errors?.email && <div>{errors.email.message}</div>}
+        <StyledAuthInput
+          type="password"
+          placeholder="Password"
+          {...register("password")}
+        />
+        {errors?.password && <div>{errors.password.message}</div>}
+        <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
+      </StyledAuthForm>
+      <RestoreBtnStyled href="/auth/restorePassword">
+        Restore password
+      </RestoreBtnStyled>
+      <AuthLink to="/auth/register">Register</AuthLink>
+    </StyledRegisterWrapp>
   );
 };
 
