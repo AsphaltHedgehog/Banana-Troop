@@ -29,7 +29,6 @@ const BurgerMenu = () => {
   return (
     <>
       {isOpen ? (
-        // <Box>
         <ModalBurgerMenu
           closeModal={closeModal}
           isOpenBurger={isOpenBurger}
@@ -41,7 +40,6 @@ const BurgerMenu = () => {
           <Nav handleCloseBurger={handleCloseBurger} />
         </ModalBurgerMenu>
       ) : (
-        // </Box>
         <SvgBurgerMenu onClick={handleOpenBurger}>
           <use xlinkHref={`${sprite}#icon-open`}></use>
         </SvgBurgerMenu>

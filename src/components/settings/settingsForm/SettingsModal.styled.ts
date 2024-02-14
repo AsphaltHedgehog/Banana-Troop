@@ -1,15 +1,24 @@
 import { styled } from "styled-components";
+import { breakpoints } from "../../../styles/breakpoints";
+
+const { tablet, desktop } = breakpoints;
 
 export const SettingsUserWrapper = styled.div`
   border: 1px solid #f4f4f44d;
   background-color: #ffffff05;
   border-radius: 30px;
   padding: 40px 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    max-width: 580px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
 `;
 
 export const SettingsPhotoWrapper = styled.div`
-  margin-bottom: 32px;
-  position: relative;
+  margin-bottom: 46px;
 
   img {
     border-radius: 50%;
@@ -17,22 +26,30 @@ export const SettingsPhotoWrapper = styled.div`
     height: 100px;
   }
 
+  label {
+    position: relative;
+  }
+
   svg {
     position: absolute;
-    top: 85px;
-    right: 156px;
+    top: 0;
+    right: 35px;
     width: 30px;
     height: 30px;
   }
 `;
 
 export const SettingsForm = styled.form`
+  width: 295px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 32px;
   position: relative;
+
+  @media screen and (min-width: ${tablet}) {
+    width: 280px;
+  }
 
   p {
     position: absolute;
@@ -40,7 +57,7 @@ export const SettingsForm = styled.form`
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0em;
-    left: 44px;
+    left: 19px;
   }
 `;
 
@@ -51,7 +68,6 @@ export const SettingsFormButton = styled.button`
   padding: 16px 0px 16px 0px;
   border-radius: 30px;
   background-color: #205bf1;
-  width: 295px;
   border: none;
   color: white;
 `;

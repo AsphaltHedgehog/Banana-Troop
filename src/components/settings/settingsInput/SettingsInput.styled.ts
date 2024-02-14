@@ -1,6 +1,10 @@
 import { FieldError } from "react-hook-form";
 import { styled, css, keyframes } from "styled-components";
 
+import { breakpoints } from "../../../styles/breakpoints";
+
+const { tablet, desktop } = breakpoints;
+
 interface StyledSettingsInputProps {
   $error?: string | FieldError;
   $inputValue?: string;
@@ -8,7 +12,6 @@ interface StyledSettingsInputProps {
 
 export const StyledSettingsInput = styled.input<StyledSettingsInputProps>`
   color: white;
-  width: 295px;
   background-color: transparent;
   font-size: 14px;
   font-weight: 400;
@@ -18,6 +21,7 @@ export const StyledSettingsInput = styled.input<StyledSettingsInputProps>`
   padding: 14px 49px 14px 18px;
   border-radius: 30px;
   border: 1px solid #f4f4f44d;
+  position: relative;
 
   &:focus {
     border: 1px solid white;
@@ -70,11 +74,11 @@ export const StyledPasswordValid = styled.p`
 const slideIn = keyframes`
   from {
     opacity: 0;
-    right: 28px;
+    right: 10px;
   }
   to {
     opacity: 1;
-    right: 40px;
+    right: 22px;
   }
 `;
 
