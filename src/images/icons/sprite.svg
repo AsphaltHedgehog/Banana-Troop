@@ -139,5 +139,9 @@
             <path d="M12.5 5V19" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             <path d="M5.5 12H19.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </symbol>
+        <symbol id="icon-close-modal" viewBox="0 0 32 32">
+            <path fill="none" stroke="#f4f4f4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.286"
+                d="M24 8 8 24M8 8l16 16" style="stroke:var(--color1, #f4f4f4)" />
+        </symbol>
     </defs>
 </svg>
