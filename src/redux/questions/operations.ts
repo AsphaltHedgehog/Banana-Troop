@@ -10,7 +10,7 @@ interface AsyncThunkConfig {
 }
 
 export const addedQuestionByQuizThunk = createAsyncThunk<
-  Questions,
+  Questions[],
   Questions,
   AsyncThunkConfig
 >("addedQuestionByQuiz", async (body, thunkApi) => {
@@ -23,7 +23,7 @@ export const addedQuestionByQuizThunk = createAsyncThunk<
       },
     });
     // thunkApi.dispatch(fetchQuestionsByQuizThunk());
-    return data.createdQuizQuestion; //return object
+    return data.data as Questions[]; //return object
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
