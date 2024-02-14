@@ -148,13 +148,14 @@ export const StyledChooseWhiteBtn = styled(Link)`
 `;
 
 export const RegisterStyled = styled.button`
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 30px;
   padding: 16px 13px;
   margin-top: 18px;
+  width: 295px;
 
   background: #205bf1;
 

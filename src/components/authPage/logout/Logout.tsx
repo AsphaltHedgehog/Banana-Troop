@@ -4,9 +4,10 @@ import { logoutThunk } from "../../../redux/auth/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { RegisterButton } from "../../../shared/buttons/RegisterButton";
 import {
+  StyledCanceLink,
+  StyledLogoutTitle,
   StyledLogoutWrapp,
   StyledText,
-  StyledTitle,
 } from "../AuthPages.styled";
 
 const Logout: React.FC = () => {
@@ -21,10 +22,10 @@ const Logout: React.FC = () => {
 
   return (
     <StyledLogoutWrapp>
-      <StyledTitle>Log out</StyledTitle>
+      <StyledLogoutTitle>Log out</StyledLogoutTitle>
       <StyledText>Are you sure you want to log out of your account?</StyledText>
       <RegisterButton onClick={handleLogOut}>Log out</RegisterButton>
-      <a onClick={closeModal}>Cancel</a>
+      <StyledCanceLink onClick={closeModal}>Cancel</StyledCanceLink>
     </StyledLogoutWrapp>
   );
 };

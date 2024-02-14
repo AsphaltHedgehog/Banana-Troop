@@ -28,7 +28,7 @@ interface FormValues {
 
 const NewPassword: React.FC = () => {
   const { resetToken = "" } = useParams<{ resetToken?: string }>();
-  console.log("resetToken", resetToken)
+  console.log("resetToken", resetToken);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
