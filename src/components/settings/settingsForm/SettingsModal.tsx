@@ -44,7 +44,7 @@ const SettingsModal: FC = () => {
   const { avatar } = useSelector(selectGetUser);
   const isLoadingUser = useSelector(selectUserIsLoading);
   const isLoadingAvatar = useSelector(selectAvatarIsLoading);
-  const [stateName, setStateName] = useState<string>(name);
+  const [stateName, setStateName] = useState<string | undefined>(name);
   const [error, setError] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 

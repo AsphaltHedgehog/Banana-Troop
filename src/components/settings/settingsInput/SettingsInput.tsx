@@ -10,7 +10,7 @@ import sprite from "../../../images/icons/sprite.svg";
 type FieldName = "name" | "email" | "password";
 
 interface defaultValues {
-  name: string;
+  name: string | undefined;
   email: string;
   password?: string;
 }
@@ -19,10 +19,10 @@ interface SettingsInputProps {
   type: string;
   name: FieldName;
   defaultValues: defaultValues;
-  value: string;
+  value: string | undefined;
   error: string;
   setError: React.Dispatch<React.SetStateAction<string>>;
-  setStateName: React.Dispatch<React.SetStateAction<string>>;
+  setStateName: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const SettingsInput: FC<SettingsInputProps> = ({
