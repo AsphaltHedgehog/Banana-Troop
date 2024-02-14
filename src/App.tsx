@@ -27,6 +27,7 @@ function App() {
   const dispatch = useAppDispatch();
   const userToken = useAppSelector(selectUserToken);
 
+
   useEffect(() => {
     setToken(userToken);
     dispatch(getUserThunk())
@@ -49,7 +50,8 @@ function App() {
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="favorites" element={<FavoritePage />} />
         </Route>
-        <Route path="auth/*" element={<AuthPages />} />
+        <Route path="auth/*" element={<AuthPages/>} />
+        <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

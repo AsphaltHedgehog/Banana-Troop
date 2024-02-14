@@ -35,7 +35,6 @@ export const StyledAuthInput = styled.input`
   width: 314px;
 
   && {
-    background-color: #0c0d0d;
     color: rgba(250, 250, 250, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.2);
     outline: none;
