@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { breakpoints } from "../../styles";
+
+const { tablet } = breakpoints;
 
 export const StyledRegisterWrapp = styled.div`
   margin: 40px 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin: 60px 80px;
+  }
 `;
 
 export const StyledTitle = styled.h3`
@@ -12,6 +19,11 @@ export const StyledTitle = styled.h3`
   line-height: 1.4;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 24px;
+    line-height: 1.33333;
+  }
 `;
 
 export const StyledAuthForm = styled.form`
@@ -21,7 +33,11 @@ export const StyledAuthForm = styled.form`
 
   margin-top: 32px;
   margin-bottom: 16px;
-  width: 314px;
+  width: 295px;
+
+  @media screen and (min-width: ${tablet}) {
+    width: 314px;
+  }
 `;
 
 export const StyledAuthInput = styled.input`
@@ -39,6 +55,12 @@ export const StyledAuthInput = styled.input`
   font-size: 14px;
   line-height: 1.14286;
   letter-spacing: -0.01em;
+
+  @media screen and (min-width: ${tablet}) {
+    width: 314px;
+    font-size: 16px;
+    line-height: 1;
+  }
 
   && {
     background-color: transparent;
@@ -66,6 +88,7 @@ export const StyledAuthInput = styled.input`
     &::placeholder {
       margin-left: 18px;
       white-space: nowrap;
+      color: rgba(244, 244, 244, 0.4);
     }
   }
 
@@ -88,6 +111,11 @@ export const AuthLink = styled(NavLink)`
   line-height: 1.14286;
   letter-spacing: -0.01em;
   font-family: inherit;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
 `;
 
 export const RestoreBtnStyled = styled.a`
@@ -99,13 +127,22 @@ export const RestoreBtnStyled = styled.a`
   color: rgba(244, 244, 244, 0.5) !important;
   margin-bottom: 16px;
   text-align: center;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
 `;
 
 export const StyledLogoutWrapp = styled.div`
   margin: 104px 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin: 100px 80px;
+  }
 `;
 
-export const StyledLogoutTitle = styled.div`
+export const StyledLogoutTitle = styled.h3`
   font-family: inherit;
   font-weight: 700;
   font-size: 20px;
@@ -114,6 +151,11 @@ export const StyledLogoutTitle = styled.div`
   color: #f4f4f4;
   text-align: center;
   margin-bottom: 18px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 24px;
+    line-height: 1.33333;
+  }
 `;
 
 export const StyledText = styled.p`
@@ -125,6 +167,11 @@ export const StyledText = styled.p`
   text-align: center;
   color: #f4f4f4;
   margin-bottom: 16px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1.25;
+  }
 `;
 
 export const StyledCanceLink = styled.a`
@@ -137,6 +184,11 @@ export const StyledCanceLink = styled.a`
   letter-spacing: -0.01em;
   font-family: inherit;
   margin-top: 16px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
 `;
 
 export const PasswordToggle = styled.button`

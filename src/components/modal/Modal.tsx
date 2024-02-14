@@ -52,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({ children, closeModal }) => {
             title="modal close button"
             onClick={closeModal}
           >
-            <svg width={18} height={18}>
+            <svg>
               <use xlinkHref={`${sprite}#icon-close-modal`}></use>
             </svg>
           </StyledCloseButton>

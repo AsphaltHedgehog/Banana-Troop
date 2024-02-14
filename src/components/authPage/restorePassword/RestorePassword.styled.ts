@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { breakpoints } from "../../../styles";
+
+const { tablet } = breakpoints;
 
 export const StyledBack = styled.a`
   color: #f4f4f4 !important;
@@ -9,10 +12,19 @@ export const StyledBack = styled.a`
   line-height: 1.14286;
   letter-spacing: -0.01em;
   font-family: inherit;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
 `;
 
 export const StyledRestoreWrap = styled.div`
   margin: 40px 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin: 80px 80px;
+  }
 `;
 
 export const StyledMainTitle = styled.h3`
@@ -22,6 +34,11 @@ export const StyledMainTitle = styled.h3`
   line-height: 1.4;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 18px;
+    line-height: 1.33333;
+  }
 `;
 
 export const StyledRestoreTitle = styled.h2`
