@@ -69,7 +69,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
                 Settings
               </NavLinkSettings>
 
-              <LogOutNav to="/logout">
+              <LogOutNav to="/auth/logout">
                 <svg onClick={handleCloseBurger}>
                   <use xlinkHref={`${sprite}#icon-log-out`}></use>
                 </svg>

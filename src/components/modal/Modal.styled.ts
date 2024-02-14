@@ -24,6 +24,7 @@ export const ContentWrapper = styled.div`
 
 export const StyledCloseButton = styled.button`
   border-radius: 30px;
+  border:none;
   padding: 5px;
   width: 40px;
   height: 40px;
@@ -33,4 +34,8 @@ export const StyledCloseButton = styled.button`
 
   top: 24px;
   right: 24px;
+  &:hover {
+    transform: scale(1.2);
+  }
+
 `;
