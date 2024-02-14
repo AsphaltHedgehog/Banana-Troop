@@ -17,7 +17,6 @@ import {
   WrapInPass,
 } from "../AuthPages.styled";
 
-import { useNavigate } from "react-router-dom";
 import sprite from "../../../images/icons/sprite.svg";
 
 interface LoginFormData {
@@ -38,15 +37,13 @@ const Login: React.FC = () => {
     formState: { errors },
     setValue,
   } = useForm<LoginFormData>({ resolver: yupResolver(schemaLogin) });
-  
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
+
   const isPasswordValid = () => {
-    return (
-      password.length >= 8 && password.length <= 64 && !errors.password
-    );
+    return password.length >= 8 && password.length <= 64 && !errors.password;
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +83,10 @@ const Login: React.FC = () => {
                 : "invalid"
             }`}
           />
-          <PasswordToggle onClick={() => togglePasswordVisibility()} type="button">
+          <PasswordToggle
+            onClick={() => togglePasswordVisibility()}
+            type="button"
+          >
             {showPassword ? (
               <svg>
                 <use
