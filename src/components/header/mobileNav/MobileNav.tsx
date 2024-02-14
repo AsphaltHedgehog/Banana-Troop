@@ -2,7 +2,7 @@
 import {
   AuthWrapper,
   CategoriesWrapper,
-  LogOutNav,
+  NavLinkLogOut,
   NavLinkLogin,
   NavLinkRegister,
   NavLinkSettings,
@@ -55,13 +55,12 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
                 </svg>
                 Settings
               </NavLinkSettings>
-
-              <LogOutNav to="/auth/logout">
+              <NavLinkLogOut to="/auth/logout">
                 <svg onClick={handleCloseBurger}>
                   <use xlinkHref={`${sprite}#icon-log-out`}></use>
                 </svg>
                 Log out
-              </LogOutNav>
+              </NavLinkLogOut>
             </>
           ) : (
             <>
