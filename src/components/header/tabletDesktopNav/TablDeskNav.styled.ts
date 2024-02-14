@@ -85,8 +85,9 @@ export const OpenedUserWidget = styled.div<OpenedUserWidgetProps>`
   max-width: 142px;
   padding: 24px 37px 24px 22px;
   border-radius: 20px;
+
   animation: ${({ $isOpened }) => ($isOpened ? slideIn : slideOut)} 0.5s
-    forwards;
+    ease-in-out;
 
   svg {
     width: 16px;
