@@ -29,6 +29,7 @@ export const getUserThunk = createAsyncThunk<unknown, void>(
   async (_, thunkApi) => {
     try {
       const { data }: AxiosResponse<IResponse> = await quizApi.get("user/info");
+      console.log(data.data.user);
       return data.data.user;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
@@ -63,8 +64,7 @@ export const editPhotoThunk = createAsyncThunk<UserBody, File>(
       const formData = new FormData();
       formData.append("userAvatar", file);
       const { data } = await quizApi.patch("user/update/avatarURL", formData);
-      // console.log(data);
-      return data;
+      return data.data.avatarURL;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         thunkApi.rejectWithValue(error.message);

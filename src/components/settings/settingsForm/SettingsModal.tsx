@@ -10,6 +10,7 @@ import {
 import SettingsInput from "../settingsInput/SettingsInput";
 import { useSelector } from "react-redux";
 import {
+  selectAvatarIsLoading,
   selectGetUser,
   selectUserIsLoading,
 } from "../../../redux/user/selectors";
@@ -34,13 +35,15 @@ const inputItems: InputItem[] = [
 
 const cloudinaryURL =
   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
+const gravatarBaseURL = "http://www.gravatar.com/avatar/";
 
 const SettingsModal: FC = () => {
   const dispatch = useAppDispatch();
   const { name, email } = useSelector(selectGetUser);
   const { gravatarURL } = useSelector(selectGetUser);
   const { avatar } = useSelector(selectGetUser);
-  const isLoading = useSelector(selectUserIsLoading);
+  const isLoadingUser = useSelector(selectUserIsLoading);
+  const isLoadingAvatar = useSelector(selectAvatarIsLoading);
   const [stateName, setStateName] = useState<string>(name);
   const [error, setError] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -90,13 +93,17 @@ const SettingsModal: FC = () => {
 
   return (
     <SettingsUserWrapper>
-      {isLoading ? (
+      {isLoadingAvatar ? (
         <Loader />
       ) : (
         <SettingsPhotoWrapper>
           <label htmlFor="fileInput">
             <img
-              src={avatar ? `${cloudinaryURL}${avatar}` : gravatarURL}
+              src={
+                avatar
+                  ? `${cloudinaryURL}${avatar}`
+                  : `${gravatarBaseURL}${gravatarURL}`
+              }
               alt="User avatar"
             />
           </label>
@@ -114,17 +121,21 @@ const SettingsModal: FC = () => {
         </SettingsPhotoWrapper>
       )}
       <SettingsForm onSubmit={submit}>
-        {inputItems?.map((input) => (
-          <SettingsInput
-            key={input.id}
-            {...input}
-            value={stateName}
-            setStateName={setStateName}
-            setError={setError}
-            error={error}
-            defaultValues={defaultValues}
-          />
-        ))}
+        {isLoadingUser ? (
+          <Loader />
+        ) : (
+          inputItems?.map((input) => (
+            <SettingsInput
+              key={input.id}
+              {...input}
+              value={stateName}
+              setStateName={setStateName}
+              setError={setError}
+              error={error}
+              defaultValues={defaultValues}
+            />
+          ))
+        )}
         <SettingsFormButton>Save</SettingsFormButton>
       </SettingsForm>
     </SettingsUserWrapper>

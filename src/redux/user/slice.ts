@@ -13,7 +13,8 @@ interface User {
 export interface UserState {
   user: User;
   error: string | null;
-  isLoading: boolean;
+  isLoadingUser: boolean;
+  isLoadingAvatar: boolean;
 }
 
 const initialState: UserState = {
@@ -26,7 +27,8 @@ const initialState: UserState = {
     favorite: [],
   },
   error: null,
-  isLoading: false,
+  isLoadingUser: false,
+  isLoadingAvatar: false,
 };
 
 const userSlice = createSlice({
@@ -47,28 +49,26 @@ const userSlice = createSlice({
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload as User;
-        state.isLoading = false;
+        state.isLoadingUser = false;
         state.error = null;
       })
       .addCase(editUserThunk.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.user = { ...state.user, ...(payload as User) };
-        state.isLoading = false;
+        state.isLoadingUser = false;
         state.error = null;
       })
       .addCase(editPhotoThunk.fulfilled, (state, { payload }) => {
-        state.user.avatar = payload.data.avatarURL as string;
-        state.isLoading = false;
+        state.user.avatar = payload as string;
+        state.isLoadingAvatar = false;
         state.error = null;
       })
+      .addCase(editPhotoThunk.pending, (state) => {
+        state.isLoadingAvatar = true;
+      })
       .addMatcher(
-        isAnyOf(
-          getUserThunk.pending,
-          editUserThunk.pending,
-          editPhotoThunk.pending
-        ),
+        isAnyOf(getUserThunk.pending, editUserThunk.pending),
         (state) => {
-          state.isLoading = true;
+          state.isLoadingUser = true;
         }
       )
       .addMatcher(
@@ -78,7 +78,8 @@ const userSlice = createSlice({
           editPhotoThunk.rejected
         ),
         (state, { payload }) => {
-          state.isLoading = false;
+          state.isLoadingUser = false;
+          state.isLoadingAvatar = false;
           state.error =
             typeof payload === "string"
               ? payload
