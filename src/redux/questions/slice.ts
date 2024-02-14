@@ -52,7 +52,7 @@ const questionsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addedQuestionByQuizThunk.fulfilled, (state, { payload }) => {
-        state.list.push(payload);
+        state.list = [...state.list, ...payload];
         state.isLoading = false;
       })
       .addCase(deleteQuestionByIdThunk.fulfilled, (state, { payload }) => {

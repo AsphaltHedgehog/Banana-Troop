@@ -1,18 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { quizApi } from "../auth/operations";
-
-const instance = axios.create({
-  baseURL: "https://pigs.onrender.com/api/user/",
-});
 
 interface UserInfo {
   name: string;
   email: string;
   _id: string;
+  avatarURL: string;
   favorite: string[];
-  passedQuizes: number;
-  averageSuccess: string;
+  passedQuizes?: number;
+  averageSuccess?: string;
 }
 
 interface UserBody {
@@ -28,7 +25,7 @@ interface IResponse {
   status: string;
 }
 
-export const getUserThunk = createAsyncThunk<unknown, void>(
+export const getUserThunk = createAsyncThunk<UserInfo, void>(
   "getUserInfo",
   async (_, thunkApi) => {
     try {
@@ -43,13 +40,12 @@ export const getUserThunk = createAsyncThunk<unknown, void>(
   }
 );
 
-export const editUserThunk = createAsyncThunk<UserBody, string>(
+export const editUserThunk = createAsyncThunk<UserBody, UserBody>(
   "editUserInfo",
   async (body, thunkApi) => {
     try {
-      const { data } = await instance.patch("update", body);
-
-      return data;
+      const { data } = await quizApi.patch("user/update", body);
+      return data.data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         thunkApi.rejectWithValue(error.message);
@@ -59,12 +55,14 @@ export const editUserThunk = createAsyncThunk<UserBody, string>(
   }
 );
 
-export const editPhotoThunk = createAsyncThunk<UserBody, string>(
+export const editPhotoThunk = createAsyncThunk<UserBody, File>(
   "editUserPhoto",
-  async (body, thunkApi) => {
+  async (file, thunkApi) => {
     try {
-      const { data } = await instance.patch("avatar", body);
-      return data;
+      const formData = new FormData();
+      formData.append("userAvatar", file);
+      const { data } = await quizApi.patch("user/update/avatarURL", formData);
+      return data.data.avatarURL;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         thunkApi.rejectWithValue(error.message);

@@ -5,6 +5,7 @@ export const SettingsHeaderWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 8px;
+  margin-bottom: 40px;
 
   a {
     display: flex;
@@ -29,12 +30,9 @@ export const SettingsHeaderWrapper = styled.div`
     font-weight: 700;
     line-height: 1.18;
     letter-spacing: -0.01em;
-    margin-bottom: 40px;
   }
 `;
 
 export const SettingMainWrapper = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 28px;
+  padding: 48px 20px 28px 20px;
 `;

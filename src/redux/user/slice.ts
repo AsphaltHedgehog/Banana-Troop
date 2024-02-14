@@ -3,16 +3,18 @@ import { editPhotoThunk, editUserThunk, getUserThunk } from "./operations";
 
 interface User {
   _id: string;
-  name: string;
+  name: string | undefined;
   email: string;
-  photo?: string;
+  gravatarURL?: string;
+  avatar: string;
   favorite: string[];
 }
 
 export interface UserState {
   user: User;
   error: string | null;
-  isLoading: boolean;
+  isLoadingUser: boolean;
+  isLoadingAvatar: boolean;
 }
 
 const initialState: UserState = {
@@ -20,11 +22,13 @@ const initialState: UserState = {
     _id: "",
     name: "",
     email: "",
-    photo: "",
+    gravatarURL: "",
+    avatar: "",
     favorite: [],
   },
   error: null,
-  isLoading: false,
+  isLoadingUser: false,
+  isLoadingAvatar: false,
 };
 
 const userSlice = createSlice({
@@ -44,28 +48,33 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
-        state.user = payload as User;
-        state.isLoading = false;
+        console.log();
+        console.log(payload);
+        state.user._id = payload._id;
+        state.user.name = payload.name;
+        state.user.gravatarURL = payload.avatarURL;
+        state.user.email = payload.email;
+        state.user.favorite = payload.favorite;
+        state.isLoadingUser = false;
         state.error = null;
       })
       .addCase(editUserThunk.fulfilled, (state, { payload }) => {
-        state.user = payload as User;
-        state.isLoading = false;
+        state.user.name = payload.name;
+        state.isLoadingUser = false;
         state.error = null;
       })
       .addCase(editPhotoThunk.fulfilled, (state, { payload }) => {
-        state.user.photo = payload as string;
-        state.isLoading = false;
+        state.user.avatar = payload as string;
+        state.isLoadingAvatar = false;
         state.error = null;
       })
+      .addCase(editPhotoThunk.pending, (state) => {
+        state.isLoadingAvatar = true;
+      })
       .addMatcher(
-        isAnyOf(
-          getUserThunk.pending,
-          editUserThunk.pending,
-          editPhotoThunk.pending
-        ),
+        isAnyOf(getUserThunk.pending, editUserThunk.pending),
         (state) => {
-          state.isLoading = true;
+          state.isLoadingUser = true;
         }
       )
       .addMatcher(
@@ -75,7 +84,8 @@ const userSlice = createSlice({
           editPhotoThunk.rejected
         ),
         (state, { payload }) => {
-          state.isLoading = false;
+          state.isLoadingUser = false;
+          state.isLoadingAvatar = false;
           state.error =
             typeof payload === "string"
               ? payload

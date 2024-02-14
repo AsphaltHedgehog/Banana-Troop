@@ -33,9 +33,8 @@ export const StyledAuthInput = styled.input`
   background-color: transparent;
   color: #fafafa;
   width: 314px;
-  
+
   && {
-    background-color: #0c0d0d;
     color: rgba(250, 250, 250, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.2);
     outline: none;
@@ -128,25 +127,26 @@ export const PasswordToggle = styled.button`
   border: none;
   cursor: pointer;
   font-size: 14px;
-  
+
   /* Задаємо розміри для SVG */
   svg {
     width: 18px;
     height: 18px;
   }
-`
+`;
 export const WrapPass = styled.div`
-   display: flex;
+  display: flex;
   flex-direction: column;
-  gap: 14px
-`
+  gap: 14px;
+`;
 export const WrapInPass = styled.div`
-position: relative;
-`
+  position: relative;
+`;
 
 export const StyledError = styled.p`
-font-weight: 400;
+  font-weight: 400;
   font-size: 10px;
   text-align: left;
   color: #e74a3b;
-  margin-left: 18px ;`
+  margin-left: 18px;
+`;
