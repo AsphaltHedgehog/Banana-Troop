@@ -85,7 +85,7 @@ const authSlice = createSlice({
           loginThunk.pending,
           logoutThunk.pending,
           resetPasswordThunk.pending,
-          newPasswordThunk.rejected
+          newPasswordThunk.pending
         ),
         (state) => {
           state.error = null;

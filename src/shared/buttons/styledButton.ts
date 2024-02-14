@@ -148,6 +148,10 @@ export const StyledChooseWhiteBtn = styled(Link)`
 `;
 
 export const RegisterStyled = styled.button`
+display: flex;
+align-items: center;
+justify-content: center;
+
   border-radius: 30px;
   padding: 16px 13px;
   margin-top: 18px;
@@ -161,6 +165,8 @@ export const RegisterStyled = styled.button`
 
   color: #fff;
 
+  border: transparent;
+
   &:visited {
     background: #144ad5;
   }
@@ -168,6 +174,7 @@ export const RegisterStyled = styled.button`
   &:hover,
   &:focus {
     background: #144ad5;
+    transition: background 0.3s ease-in-out;
   }
 
   transition-property: background;

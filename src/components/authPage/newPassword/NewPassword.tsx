@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { newPasswordThunk } from "../../../redux/auth/operations";
-import { schemaNewPassword } from "../../../helpers/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+
+import { schemaNewPassword } from "../../../helpers/schemas";
+import { newPasswordThunk } from "../../../redux/auth/operations";
+import { useAppDispatch } from "../../../redux/hooks";
+import { RegisterButton } from "../../../shared/buttons/RegisterButton";
+
 import {
   PasswordToggle,
   StyledAuthForm,
@@ -13,10 +18,7 @@ import {
   WrapInPass,
   StyledError,
 } from "../AuthPages.styled";
-import { useAppDispatch } from "../../../redux/hooks";
-import { RegisterButton } from "../../../shared/buttons/RegisterButton";
 import { StyledRestoreWrap } from "../restorePassword/RestorePassword.styled";
-import { toast } from "react-toastify";
 import sprite from "../../../images/icons/sprite.svg";
 
 interface FormValues {
@@ -26,6 +28,7 @@ interface FormValues {
 
 const NewPassword: React.FC = () => {
   const { resetToken = "" } = useParams<{ resetToken?: string }>();
+  console.log("resetToken", resetToken)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
