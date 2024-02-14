@@ -8,11 +8,17 @@ import { useNavigate } from "react-router-dom";
 
 import {
   AuthLink,
+  PasswordToggle,
   StyledAuthForm,
   StyledAuthInput,
   StyledRegisterWrapp,
   StyledTitle,
+  WrapInPass,
 } from "../AuthPages.styled";
+
+import { useState } from "react";
+import sprite from "../../../images/icons/sprite.svg";
+
 
 interface RegisterFormData {
   name: string;
@@ -23,15 +29,34 @@ interface RegisterFormData {
 const Register: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
 
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<RegisterFormData>({
     resolver: yupResolver(schemaRegister),
   });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  const isPasswordValid = () => {
+    return (
+      password.length >= 8 && password.length <= 64 && !errors.password
+    );
+  };
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const passwordValue = e.target.value;
+    setPassword(passwordValue);
+    setValue("password", passwordValue);
+  };
 
   const submit: SubmitHandler<RegisterFormData> = (data) => {
     dispatch(registerThunk(data)).unwrap();
@@ -51,11 +76,40 @@ const Register: React.FC = () => {
           {...register("email")}
         />
         {errors?.email && <div>{errors.email.message}</div>}
+
+        <WrapInPass>
         <StyledAuthInput
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="Password"
           {...register("password")}
+           onChange={handlePasswordChange}
+            className={`${
+              password.length === 0
+                ? "empty"
+                : isPasswordValid()
+                ? "valid"
+                : "invalid"
+            }`}
         />
+        <PasswordToggle onClick={() => togglePasswordVisibility()} type="button">
+            {showPassword ? (
+              <svg>
+                <use
+                  xlinkHref={`${sprite}#icon-eye`}
+                  width={18}
+                  height={18}
+                ></use>
+              </svg>
+            ) : (
+              <svg>
+                <use
+                  xlinkHref={`${sprite}#icon-eye-off`}
+                  width={18}
+                  height={18}
+                ></use>
+              </svg>
+            )}
+          </PasswordToggle></WrapInPass>
         {errors?.password && <div>{errors.password.message}</div>}
         <RegisterButton onClick={handleSubmit(submit)}>Register</RegisterButton>
       </StyledAuthForm>

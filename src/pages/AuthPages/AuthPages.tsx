@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Register from "../../components/authPage/register/Register";
 import Login from "../../components/authPage/login/Login";
 import Logout from "../../components/authPage/logout/Logout";
@@ -8,10 +8,12 @@ import NewPassword from "../../components/authPage/newPassword/NewPassword";
 import Home from "../home/Home";
 import Modal from "../../components/modal/Modal";
 
-const AuthPages = () => {
+const  AuthPages = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+ const params = useParams<{ resetToken: string }>();
+  const resetToken = params.resetToken;
 
   useEffect(() => {
     const path = location.pathname;
@@ -32,14 +34,18 @@ const AuthPages = () => {
           setModalContent(<RestorePassword />);
           break;
         case "newPassword":
-          setModalContent(<NewPassword />);
+          setModalContent(<NewPassword/>);
           break;
         default:
-          setModalContent(null);
+          setModalContent(
+            <div>
+              <NewPassword />
+            </div>
+          );
           break;
       }
     }
-  }, [location.pathname]);
+  }, [location.pathname, resetToken]);
 
   return (
     <div>

@@ -6,6 +6,8 @@ const { tablet, desktop } = breakpoints;
 export const StyledSection = styled.div`
   margin-top: 80px;
   margin-bottom: 80px;
+  max-width: 1240px;
+  margin: 0 auto;
   @media screen and (min-width: ${tablet}) {
     margin-top: 100px;
     margin-bottom: 100px;
@@ -29,12 +31,15 @@ export const StyledList = styled.ul`
   display: flex;
   gap: 24px;
   margin-bottom: 48px;
+  :not(:last-child) {
+    margin-right: 20px;
+  }
 `;
 
 export const StyledListItem = styled.li`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 20px;
-  padding: 20px;
+  /* padding: 20px; */
   max-width: 355px;
   max-height: 200px;
 
@@ -42,8 +47,8 @@ export const StyledListItem = styled.li`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 12px;
     margin-bottom: 12px;
+    gap: 12px;
   }
   img {
     border-radius: 50%;

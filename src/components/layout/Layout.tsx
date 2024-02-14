@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Slide, ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { LayoutWrapper } from "./Layout.styled";
+
 const Layout = () => {
   const [bgImg, setBgImg] = useState<boolean>(false);
 
