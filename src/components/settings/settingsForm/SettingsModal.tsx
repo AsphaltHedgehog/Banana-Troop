@@ -49,7 +49,7 @@ const SettingsModal: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const defaultValues = {
-    name,
+    name: stateName,
     email,
   };
 
@@ -128,6 +128,7 @@ const SettingsModal: FC = () => {
             <SettingsInput
               key={input.id}
               {...input}
+              name={input.name}
               value={stateName}
               setStateName={setStateName}
               setError={setError}

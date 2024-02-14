@@ -6,9 +6,10 @@ interface UserInfo {
   name: string;
   email: string;
   _id: string;
+  avatarURL: string;
   favorite: string[];
-  passedQuizes: number;
-  averageSuccess: string;
+  passedQuizes?: number;
+  averageSuccess?: string;
 }
 
 interface UserBody {
@@ -24,7 +25,7 @@ interface IResponse {
   status: string;
 }
 
-export const getUserThunk = createAsyncThunk<unknown, void>(
+export const getUserThunk = createAsyncThunk<UserInfo, void>(
   "getUserInfo",
   async (_, thunkApi) => {
     try {
@@ -45,8 +46,6 @@ export const editUserThunk = createAsyncThunk<UserBody, UserBody>(
   async (body, thunkApi) => {
     try {
       const { data } = await quizApi.patch("user/update", body);
-      console.log(body);
-      console.log(data);
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {

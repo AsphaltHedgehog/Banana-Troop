@@ -48,7 +48,13 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
-        state.user = payload as User;
+        console.log();
+        console.log(payload);
+        state.user._id = payload._id;
+        state.user.name = payload.name;
+        state.user.gravatarURL = payload.avatarURL;
+        state.user.email = payload.email;
+        state.user.favorite = payload.favorite;
         state.isLoadingUser = false;
         state.error = null;
       })
