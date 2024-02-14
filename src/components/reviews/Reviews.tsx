@@ -14,16 +14,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { breakpointsNumbers } from "../../styles";
 import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "../basequizlist/BaseQuizList.styled";
-// interface Review {
-//   id: string;
-//   userName: string;
-//   avatarUrl: string;
-//   review: string;
-// }
-// interface ReviewsThunkParams {
-//   page: number;
-//   limit: number;
-// }
+import Box from "../box/Box";
 
 const Reviews: React.FC = () => {
   const width = useWidth();
