@@ -6,7 +6,7 @@ interface SvgBurgerMenuProps {
 
 export const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding-top: 24px;
   position: relative;
@@ -18,6 +18,7 @@ export const StyledH2 = styled.h2`
   line-height: 1;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  margin-right: 62px;
 `;
 
 export const SvgBurgerMenu = styled.svg<SvgBurgerMenuProps>`

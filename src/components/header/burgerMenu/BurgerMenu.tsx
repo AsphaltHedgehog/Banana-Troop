@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useModal } from "../../../hooks/useModal";
 import sprite from "../../../images/icons/sprite.svg";
 import { SvgBurgerMenu } from "../wholeComponent/Header.styled";
-import Nav from "../nav/Nav";
+import Nav from "../mobileNav/MobileNav";
 import ModalBurgerMenu from "../../modalBurgerMenu/ModalBurgerMenu";
 export interface BurgerMenuProps {
   endAnimation?: boolean;
