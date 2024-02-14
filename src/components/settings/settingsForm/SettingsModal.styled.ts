@@ -1,9 +1,26 @@
 import { styled } from "styled-components";
 
+export const SettingsUserWrapper = styled.div`
+  border: 1px solid #f4f4f44d;
+  background-color: #ffffff05;
+  border-radius: 30px;
+  padding: 40px 20px;
+`;
+
 export const SettingsPhotoWrapper = styled.div`
   margin-bottom: 32px;
+  position: relative;
+
+  img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
 
   svg {
+    position: absolute;
+    top: 85px;
+    right: 156px;
     width: 30px;
     height: 30px;
   }
@@ -23,7 +40,7 @@ export const SettingsForm = styled.form`
     font-weight: 400;
     line-height: 1.2;
     letter-spacing: 0em;
-    left: 68px;
+    left: 44px;
   }
 `;
 

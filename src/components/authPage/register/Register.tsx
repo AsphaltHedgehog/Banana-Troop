@@ -15,8 +15,10 @@ import {
   StyledTitle,
   WrapInPass,
 } from "../AuthPages.styled";
+
 import { useState } from "react";
 import sprite from "../../../images/icons/sprite.svg";
+
 
 interface RegisterFormData {
   name: string;
@@ -74,6 +76,7 @@ const Register: React.FC = () => {
           {...register("email")}
         />
         {errors?.email && <div>{errors.email.message}</div>}
+
         <WrapInPass>
         <StyledAuthInput
           type={showPassword ? "text" : "password"}

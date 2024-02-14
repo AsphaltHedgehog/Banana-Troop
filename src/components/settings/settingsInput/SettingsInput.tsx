@@ -1,14 +1,16 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   StyledNameError,
   StyledNameValid,
   StyledSettingsInput,
+  SvgValidation,
 } from "./SettingsInput.styled";
+import sprite from "../../../images/icons/sprite.svg";
 
 type FieldName = "name" | "email" | "password";
 
 interface defaultValues {
-  name: string;
+  name: string | undefined;
   email: string;
   password?: string;
 }
@@ -17,10 +19,10 @@ interface SettingsInputProps {
   type: string;
   name: FieldName;
   defaultValues: defaultValues;
-  value: string;
+  value: string | undefined;
   error: string;
   setError: React.Dispatch<React.SetStateAction<string>>;
-  setStateName: React.Dispatch<React.SetStateAction<string>>;
+  setStateName: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const SettingsInput: FC<SettingsInputProps> = ({
@@ -33,6 +35,8 @@ const SettingsInput: FC<SettingsInputProps> = ({
   setError,
 }) => {
   const disabledInput = name === "email" || name === "password";
+
+  const [focused, setFocused] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.trim();
@@ -49,6 +53,14 @@ const SettingsInput: FC<SettingsInputProps> = ({
     }
   };
 
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+  };
+
   return (
     <>
       <StyledSettingsInput
@@ -60,11 +72,27 @@ const SettingsInput: FC<SettingsInputProps> = ({
         onChange={handleChange}
         disabled={disabledInput}
         defaultValue={defaultValues[name]}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
       {name === "name" && (
         <>
-          {error && <StyledNameError>{error}</StyledNameError>}
-          {!error && value && <StyledNameValid>Valid name</StyledNameValid>}
+          {error && focused && (
+            <>
+              <StyledNameError>{error}</StyledNameError>
+              <SvgValidation>
+                <use xlinkHref={`${sprite}#icon-error`}></use>
+              </SvgValidation>
+            </>
+          )}
+          {!error && value && focused && (
+            <>
+              <StyledNameValid>Valid name</StyledNameValid>
+              <SvgValidation>
+                <use xlinkHref={`${sprite}#icon-valid`}></use>
+              </SvgValidation>
+            </>
+          )}
         </>
       )}
       {/* {name === "email" && (
