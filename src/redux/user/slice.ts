@@ -5,7 +5,8 @@ interface User {
   _id: string;
   name: string;
   email: string;
-  avatarURL?: string;
+  gravatarURL?: string;
+  avatar: string;
   favorite: string[];
 }
 
@@ -20,7 +21,8 @@ const initialState: UserState = {
     _id: "",
     name: "",
     email: "",
-    avatarURL: "",
+    gravatarURL: "",
+    avatar: "",
     favorite: [],
   },
   error: null,
@@ -55,7 +57,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editPhotoThunk.fulfilled, (state, { payload }) => {
-        state.user.avatarURL = payload as string;
+        state.user.avatar = payload.data.avatarURL as string;
         state.isLoading = false;
         state.error = null;
       })

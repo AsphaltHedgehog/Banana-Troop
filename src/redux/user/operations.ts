@@ -56,11 +56,14 @@ export const editUserThunk = createAsyncThunk<UserBody, UserBody>(
   }
 );
 
-export const editPhotoThunk = createAsyncThunk<UserBody, string>(
+export const editPhotoThunk = createAsyncThunk<UserBody, File>(
   "editUserPhoto",
-  async (body, thunkApi) => {
+  async (file, thunkApi) => {
     try {
-      const { data } = await quizApi.patch("avatar", body);
+      const formData = new FormData();
+      formData.append("userAvatar", file);
+      const { data } = await quizApi.patch("user/update/avatarURL", formData);
+      // console.log(data);
       return data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {

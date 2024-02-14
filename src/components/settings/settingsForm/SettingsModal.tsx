@@ -1,4 +1,4 @@
-import { FC, FormEvent, useState } from "react";
+import { FC, FormEvent, useRef, useState } from "react";
 import sprite from "../../../images/icons/sprite.svg";
 import {
   SettingsForm,
@@ -9,10 +9,14 @@ import {
 
 import SettingsInput from "../settingsInput/SettingsInput";
 import { useSelector } from "react-redux";
-import { selectGetUser } from "../../../redux/user/selectors";
-import { editUserThunk } from "../../../redux/user/operations";
+import {
+  selectGetUser,
+  selectUserIsLoading,
+} from "../../../redux/user/selectors";
+import { editPhotoThunk, editUserThunk } from "../../../redux/user/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { toast } from "react-toastify";
+import Loader from "../../../shared/loader-spinner/Loader";
 
 type FieldName = "name" | "email" | "password";
 interface InputItem {
@@ -28,12 +32,18 @@ const inputItems: InputItem[] = [
   // { name: "password", placeholder: "Password", type: "text", id: 3 },
 ];
 
+const cloudinaryURL =
+  "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
+
 const SettingsModal: FC = () => {
   const dispatch = useAppDispatch();
   const { name, email } = useSelector(selectGetUser);
-  const { avatarURL } = useSelector(selectGetUser);
+  const { gravatarURL } = useSelector(selectGetUser);
+  const { avatar } = useSelector(selectGetUser);
+  const isLoading = useSelector(selectUserIsLoading);
   const [stateName, setStateName] = useState<string>(name);
   const [error, setError] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const defaultValues = {
     name,
@@ -48,19 +58,61 @@ const SettingsModal: FC = () => {
     }
     dispatch(editUserThunk({ name: stateName }))
       .unwrap()
+      .then(() => {
+        toast.success("Name updated successfully!");
+      })
       .catch(() => {
         toast.warning("Oops, something went wrong! Try again, please!");
       });
   };
 
+  const handleImageUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      dispatch(editPhotoThunk(file))
+        .unwrap()
+        .then(() => {
+          toast.success("Avatar updated successfully!");
+        })
+        .catch(() => {
+          toast.warning("Oops, something went wrong! Try again, please!");
+        });
+    }
+  };
+
   return (
     <SettingsUserWrapper>
-      <SettingsPhotoWrapper>
-        <img src={avatarURL} alt="User avatar" />
-        <svg>
-          <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
-        </svg>
-      </SettingsPhotoWrapper>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <SettingsPhotoWrapper>
+          <label htmlFor="fileInput">
+            <img
+              src={avatar ? `${cloudinaryURL}${avatar}` : gravatarURL}
+              alt="User avatar"
+            />
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            style={{ display: "none" }}
+            ref={fileInputRef}
+            onChange={handleFileInputChange}
+          />
+          <svg onClick={handleImageUploadClick}>
+            <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
+          </svg>
+        </SettingsPhotoWrapper>
+      )}
       <SettingsForm onSubmit={submit}>
         {inputItems?.map((input) => (
           <SettingsInput
