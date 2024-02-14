@@ -14,7 +14,6 @@ import { useAppDispatch } from "../../redux/hooks";
 import { breakpointsNumbers } from "../../styles";
 import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "../basequizlist/BaseQuizList.styled";
-import Box from "../box/Box";
 
 const Reviews: React.FC = () => {
   const width = useWidth();
