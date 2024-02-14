@@ -31,11 +31,12 @@ const AuthPages = () => {
         case "restorePassword":
           setModalContent(<RestorePassword />);
           break;
-        case "newPassword":
-          setModalContent(<NewPassword />);
-          break;
         default:
-          setModalContent(null);
+          setModalContent(
+            <div>
+              <NewPassword />
+            </div>
+          );
           break;
       }
     }
