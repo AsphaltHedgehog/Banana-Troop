@@ -30,7 +30,6 @@ export const getUserThunk = createAsyncThunk<UserInfo, void>(
   async (_, thunkApi) => {
     try {
       const { data }: AxiosResponse<IResponse> = await quizApi.get("user/info");
-      console.log(data.data.user);
       return data.data.user;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
@@ -46,7 +45,7 @@ export const editUserThunk = createAsyncThunk<UserBody, UserBody>(
   async (body, thunkApi) => {
     try {
       const { data } = await quizApi.patch("user/update", body);
-      return data;
+      return data.data;
     } catch (error) {
       if (error instanceof Error && typeof error.message === "string") {
         thunkApi.rejectWithValue(error.message);

@@ -3,7 +3,7 @@ import { editPhotoThunk, editUserThunk, getUserThunk } from "./operations";
 
 interface User {
   _id: string;
-  name: string;
+  name: string | undefined;
   email: string;
   gravatarURL?: string;
   avatar: string;
@@ -59,7 +59,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editUserThunk.fulfilled, (state, { payload }) => {
-        state.user = { ...state.user, ...(payload as User) };
+        state.user.name = payload.name;
         state.isLoadingUser = false;
         state.error = null;
       })

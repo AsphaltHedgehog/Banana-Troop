@@ -1,19 +1,12 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import sprite from "../../../images/icons/sprite.svg";
 import { SettingMainWrapper, SettingsHeaderWrapper } from "./Settings.styled";
 import SettingsModal from "../settingsForm/SettingsModal";
-import { useAppDispatch } from "../../../redux/hooks";
-import { getUserThunk } from "../../../redux/user/operations";
 
 const Settings: FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(getUserThunk());
-  }, [dispatch]);
 
   const handleGoBack = () => {
     navigate(-1);
