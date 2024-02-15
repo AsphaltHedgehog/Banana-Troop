@@ -8,7 +8,7 @@ import sprite from "../../images/icons/sprite.svg";
 
 const CreateQuizLink = () => {
   return (
-    <StyledLink to="/">
+    <StyledLink to="/createQuiz">
       <StyledContainer>
         <StyledSvg
           sprite={sprite}

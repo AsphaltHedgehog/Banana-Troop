@@ -14,16 +14,27 @@ import {
   ComponentsMainContainer,
   OptAndFormContainer,
 } from "./CreateQuizPage.styled";
+import { useLocation } from "react-router-dom";
+import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
 
 const CreateQuizPage = () => {
+  const location = useLocation();
+  const param = location.search?.substring(1);
   const selectUpdateOptions = useAppSelector(getUpdateOptions);
   const selectQuestion = useAppSelector(getQuestions);
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     if (selectUpdateOptions._id) {
       dispatch(fetchQuestionsByQuizThunk(selectUpdateOptions._id));
     }
   }, [dispatch, selectUpdateOptions._id]);
+
+  useEffect(() => {
+    if (param) {
+      dispatch(getQuizByIdThunk(param));
+    }
+  }, [dispatch, param]);
 
   return (
     <StyledCommonWrapper>
