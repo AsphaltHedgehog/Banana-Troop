@@ -18,6 +18,7 @@ import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import MyQuiz from "./pages/myQuiz/MyQuiz";
 import LastPassedQuizes from "./pages/LastPassedQuizes/LastPassedQuizes";
+import QuizMachen from "./pages/quizMachen/QuizMachen";
 
 // css
 import "./App.css";
@@ -41,7 +42,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          {/* <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="logout" element={<Logout />} />
+        <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
+          <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="discover" element={<DiscoverPage />} />

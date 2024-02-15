@@ -13,13 +13,13 @@ export type Answers = {
 };
 
 export type Questions = {
-  _id?: string;
+  _id: string;
   quiz?: string;
   time?: string;
   imageUrl?: string;
-  type?: "full-text" | "true-or-false";
+  type: "full-text" | "true-or-false";
   descr?: string;
-  answers?: Answers[];
+  answers: Answers[];
   validAnswer?: string;
 };
 
@@ -43,6 +43,25 @@ const questionsSlice = createSlice({
   reducers: {
     getSelectedIndex: (state, action: PayloadAction<number>) => {
       state.selectedIndex = action.payload;
+    },
+    updateQuestionData: (state, { payload }) => {
+      state.list[state.selectedIndex].descr = payload.descr;
+      state.list[state.selectedIndex].time = payload.time;
+      state.list[state.selectedIndex].answers = payload.answers.map(
+        (answer: object, index: number) => {
+          const selectedQuestion = state.list[state.selectedIndex];
+          return {
+            ...selectedQuestion.answers[index],
+            ...answer,
+          };
+        }
+      );
+      state.list[state.selectedIndex].validAnswer =
+        state.list[state.selectedIndex].answers[payload.validAnswer]._id;
+      state.list[state.selectedIndex].imageUrl = payload.imageUrl;
+    },
+    defaultStateQuestions: (state) => {
+      state.list = [];
     },
   },
   extraReducers: (builder) => {
@@ -85,7 +104,7 @@ const questionsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          fetchQuestionsByQuizThunk.pending,
+          fetchQuestionsByQuizThunk.rejected,
           deleteQuizQuestionImgByIdThunk.rejected,
           addedQuestionByQuizThunk.rejected,
           deleteQuestionByIdThunk.rejected,
@@ -99,5 +118,6 @@ const questionsSlice = createSlice({
   },
 });
 
-export const { getSelectedIndex } = questionsSlice.actions;
+export const { getSelectedIndex, defaultStateQuestions, updateQuestionData } =
+  questionsSlice.actions;
 export const questionsReducer = questionsSlice.reducer;
