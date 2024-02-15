@@ -21,6 +21,8 @@ import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
 import MyQuiz from "./pages/myQuiz/MyQuiz";
+import WriteReview from "./components/reviewsModal/WriteReview";
+import ThanYou from "./components/reviewsModal/ThanYou";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -46,6 +48,8 @@ function App() {
           <Route path="discover" element={<DiscoverPage />} />
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="myQuiz" element={<MyQuiz />} />
+          <Route path="writeReview" element={<WriteReview />} />
+          <Route path="thanYou" element={<ThanYou />} />
           <Route path="auth/*" element={<AuthPages />} />
           <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         </Route>
