@@ -7,6 +7,8 @@ const { tablet, desktop } = breakpoints;
 export const StyledSection = styled.section`
   margin: 0 auto;
   padding: 40px 20px;
+  width: 335px;
+  height: 503px;
 
   @media screen and (min-width: ${desktop}) {
     padding: 60px 80px;
