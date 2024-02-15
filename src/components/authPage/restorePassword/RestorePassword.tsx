@@ -4,15 +4,12 @@ import { resetPasswordThunk } from "../../../redux/auth/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaSendEmail } from "../../../helpers/schemas";
-import {
-  StyledAuthForm,
-  StyledAuthInput,
-  StyledTitle,
-} from "../AuthPages.styled";
+import { StyledAuthForm, StyledAuthInput } from "../AuthPages.styled";
 import { RegisterButton } from "../../../shared/buttons/RegisterButton";
 import {
   StyledBack,
   StyledEmail,
+  StyledMainTitle,
   StyledNotification,
   StyledRestoreTitle,
   StyledRestoreWrap,
@@ -88,7 +85,7 @@ const RestorePassword: React.FC = () => {
           </div>
         ) : (
           <React.Fragment>
-            <StyledTitle>Enter email for restore password</StyledTitle>
+            <StyledMainTitle>Enter email for restore password</StyledMainTitle>
             <StyledAuthForm onSubmit={handleSubmit(handleSubmitEmail)}>
               <StyledAuthInput
                 type="email"
