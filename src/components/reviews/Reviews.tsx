@@ -53,7 +53,7 @@ const Reviews: React.FC = () => {
   return (
     <StyledSection>
       <StyledTitle>Reviews</StyledTitle>
-      <WriteReviewButton />
+      
       <>
         {width < breakpointsNumbers.tablet ? (
           <Slider {...settingsMobile}>

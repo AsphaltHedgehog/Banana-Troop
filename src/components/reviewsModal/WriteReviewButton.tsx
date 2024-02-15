@@ -1,13 +1,9 @@
 import React from "react";
 import { StyledWriteRevieweBtn } from "./WriteReviewButton.styled";
-import { useNavigate } from "react-router-dom";
 
-const WriteReviewButton: React.FC = () => {
-  const navigate = useNavigate();
+const WriteReviewButton: React.FC = (setReviewes) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event) {
-      return navigate("/writeReview");
-    }
+    setReviewes(true);
   };
   return (
     <StyledWriteRevieweBtn type="button" onClick={handleClick}>
