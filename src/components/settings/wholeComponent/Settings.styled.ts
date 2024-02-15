@@ -1,4 +1,9 @@
 import { styled } from "styled-components";
+
+import { breakpoints } from "../../../styles/breakpoints";
+
+const { tablet } = breakpoints;
+
 export const SettingsHeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -6,6 +11,11 @@ export const SettingsHeaderWrapper = styled.div`
   align-items: flex-start;
   gap: 8px;
   margin-bottom: 40px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin-bottom: 96px;
+    gap: 16px;
+  }
 
   a {
     display: flex;
@@ -15,7 +25,6 @@ export const SettingsHeaderWrapper = styled.div`
     font-weight: 400;
     line-height: 1.28;
     letter-spacing: 0em;
-
     gap: 6px;
     color: white;
   }
@@ -35,4 +44,8 @@ export const SettingsHeaderWrapper = styled.div`
 
 export const SettingMainWrapper = styled.div`
   padding: 48px 20px 28px 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    padding: 56px 32px;
+  }
 `;

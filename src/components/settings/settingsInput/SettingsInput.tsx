@@ -47,7 +47,7 @@ const SettingsInput: FC<SettingsInputProps> = ({
     } else if (inputValue.length > 32) {
       setError("Name cannot be longer than 32 characters");
     } else if (!/^[\p{L}0-9-]+$/u.test(inputValue)) {
-      setError("Name can only contain letters, numbers, and dashes");
+      setError("Only letters, numbers, and dashes are allowed");
     } else {
       setError("");
     }

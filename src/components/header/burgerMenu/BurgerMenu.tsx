@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useModal } from "../../../hooks/useModal";
 import sprite from "../../../images/icons/sprite.svg";
 import { SvgBurgerMenu } from "../wholeComponent/Header.styled";
-import Nav from "../nav/Nav";
+import Nav from "../mobileNav/MobileNav";
 import ModalBurgerMenu from "../../modalBurgerMenu/ModalBurgerMenu";
 export interface BurgerMenuProps {
   endAnimation?: boolean;
@@ -29,7 +29,6 @@ const BurgerMenu = () => {
   return (
     <>
       {isOpen ? (
-        // <Box>
         <ModalBurgerMenu
           closeModal={closeModal}
           isOpenBurger={isOpenBurger}
@@ -41,7 +40,6 @@ const BurgerMenu = () => {
           <Nav handleCloseBurger={handleCloseBurger} />
         </ModalBurgerMenu>
       ) : (
-        // </Box>
         <SvgBurgerMenu onClick={handleOpenBurger}>
           <use xlinkHref={`${sprite}#icon-open`}></use>
         </SvgBurgerMenu>
