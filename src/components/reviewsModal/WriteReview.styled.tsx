@@ -19,8 +19,7 @@ export const StyledSection = styled.section`
 
 export const StyledWriteReviewWrapper = styled.div`
   margin-bottom: 32px;
-  width: 335px;
-  height: 503px;
+
   @media screen and (min-width: ${tablet}) {
   }
   @media screen and (min-width: ${desktop}) {
@@ -42,7 +41,7 @@ export const StyledWriteReviewButton = styled.button`
 
   border-radius: 30px;
   padding: 16px 13px;
-  margin-top: 18px;
+
   width: 100%;
 
   background: #205bf1;
@@ -71,12 +70,11 @@ export const StyledWriteReviewForm = styled.form`
   flex-direction: column;
   gap: 14px;
 
-  margin-top: 32px;
-  margin-bottom: 16px;
-  width: 295px;
+  margin-bottom: 32px;
+  height: 283px;
 
   @media screen and (min-width: ${tablet}) {
-    width: 314px;
+    height: 196px;
   }
 `;
 

@@ -6,7 +6,7 @@ const { desktop } = breakpoints;
 
 export const StyledThanYouSection = styled.section`
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 130px;
   text-align: center;
   width: 335px;
   height: 404px;
@@ -15,6 +15,7 @@ export const StyledThanYouSection = styled.section`
     padding: 60px 80px;
     width: 452px;
     height: 408px;
+    padding: 120px 100px;
   }
 `;
 export const StyledThanYouTitle = styled.h2`
