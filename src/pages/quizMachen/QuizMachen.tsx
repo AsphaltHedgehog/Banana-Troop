@@ -1,13 +1,23 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // redux
 import { useAppDispatch } from "../../redux/hooks";
 import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
 import { useSelector } from "react-redux";
-import { selectGetQuiz, selectIsError, selectIsLoading } from "../../redux/quizMachen/selectors";
+import {
+  selectGetQuiz,
+  // TODO: add toast
+  // selectIsError,
+  selectIsLoading
+} from "../../redux/quizMachen/selectors";
 import { selectGetUser } from "../../redux/user/selectors";
-// import { Quiz } from "../../redux/quizMachen/slice";
+import { Quiz } from "../../redux/quizMachen/slice";
+
+// components
+import RenderHelloForm from "../../components/quizMachen/render/HelloForm.tsx"
+import { selectIsLoggedIn } from "../../redux/auth/selectors.tsx";
+
 
 
 const QuizMachen = () => {
@@ -16,26 +26,26 @@ const QuizMachen = () => {
 
   // auth selectors
   const user = useSelector(selectGetUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   
   // states
-  const [Name, SetName] = useState(user ? user.name : '');
-  const [Index, SetIndex] = useState(-1);
-  const [AnswersArray, SetAnswersArray] = useState([]);
-  const [Timer, SetTimer] = useState('');
-  const [Answer, SetAnswer] = useState('');
-  const [ValidAnswer, SetValidAnswer] = useState('');
-  const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+  const [Name, SetName] = useState<string>(user.name ? user.name : '');
+  const [Index, SetIndex] = useState<number>(-1);
+  const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean }[]>([]);
+  const [TimersArray, SetTimersArray] = useState<{ time: string }[]>([]);
+  const [timerId, setTimerId] = useState<number | null>(null);
   
   // quiz selectors
-  const quiz = useSelector(selectGetQuiz);
-  const isLoading = useSelector(selectIsLoading);
-  const isError = useSelector(selectIsError);
+  const quiz: Quiz = useSelector(selectGetQuiz);
+  const isLoading: boolean = useSelector(selectIsLoading);
+
+  // TODO: Add Toast
+  // const isError = useSelector(selectIsError);
   
-  // destructurization
+
   const {
     background,
     theme,
-    // _id,
     questions
   } = quiz
   
@@ -44,30 +54,29 @@ const QuizMachen = () => {
     if (!id) {
       return
     }
-    if (user) {
-      SetName(user.name)
-    }
     dispatch(getQuizByIdThunk(id));
   }, [dispatch, id, user]);
   
   useEffect(() => {
     if (quiz && Index < 0) {
-      const array = questions?.map(() => {
+      // creating answers array
+      const answersArray = questions?.map(() => {
         return { answer: false }
       })
-      SetAnswersArray(array)
+      // creating timers array
+        const timersArray = questions?.map((el) => {
+          return { time: el.time}
+        })
+      SetAnswersArray(answersArray);
+      SetTimersArray(timersArray);
     }
   }, [Index, questions, quiz]);
 
-  
-  useEffect(() => {
-    if (Index >= 0 && Index < questions.length) {
-      startTimer(questions[Index].time, () => SetIndex(Index + 1))
-    }
-  }, [Index, questions]);
-
   useEffect(() => {
     return () => {
+      if (!timerId) {
+        return
+      }
       clearInterval(timerId);
     };
   }, [timerId])
@@ -91,42 +100,58 @@ const QuizMachen = () => {
 
     return count
   };
+  
 
-  const startTimer = (timeString: string, callback: () => void) => {
-    const [minutes, seconds] = timeString.split(":").map(Number);
-    let totalTime = minutes * 60 + seconds;
+  const startTimer = useCallback(() => {
+  
+  const [minutes, seconds] = TimersArray[Index].time.split(":").map(Number);
+  let totalTime = minutes * 60 + seconds;
 
-    const timerId = setInterval(() => {
-      totalTime--;
+  const timerId = setInterval(() => {
+    totalTime--;
 
-      const remainingMinutes = Math.floor(totalTime / 60);
-      const remainingSeconds = totalTime % 60;
+    const remainingMinutes = Math.floor(totalTime / 60);
+    const remainingSeconds = totalTime % 60;
 
-      const formattedMinutes = String(remainingMinutes).padStart(2, "0");
-      const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+    const formattedMinutes = String(remainingMinutes).padStart(2, "0");
+    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
 
-      SetTimer(`${formattedMinutes}:${formattedSeconds}`)
-      
-      if (totalTime <= 0) {
-        clearInterval(timerId);
-        callback();
-      }
-    }, 1000);
+    if (TimersArray[Index].time === "00:00") {
+      clearInterval(timerId);
+      setTimerId(null);
+      return;
+    }
+    
+    SetTimersArray(prevTimersArray => {
+      return prevTimersArray.map((el, index) => {
+        if (index === Index) {
+          return { time: `${formattedMinutes}:${formattedSeconds}` };
+        }
+        return el;
+      });
+    });
+    
+  }, 1000);
 
-    setTimerId(timerId)
-  };
+  setTimerId(timerId);
+}, [Index, TimersArray, setTimerId, SetTimersArray]);
+  
+
+  useEffect(() => {
+    if (Index >= 0 && Index < questions.length) {
+      startTimer();
+    }
+    
+  }, [Index, questions, startTimer]);
 
   const validateAnswer = (_id: string) => {
-    console.log(_id);
-    console.log(AnswersArray);
-    
     SetAnswersArray(prevAnswersArray => {
       return prevAnswersArray.map((el, index) => {
         if (index === Index) {
           if (_id === questions[Index].validAnswer) {
             return {answer: true}
           } else {
-            return el
+            return { answer: false }
           }
         } 
         return el
@@ -134,21 +159,14 @@ const QuizMachen = () => {
     })
   };
 
+  const parsTimer = (time: string) => {
+    const [hours, minutes] = time.split(':');
+    return parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60;
+  }
+
   // rendering functions
 
-  const renderHelloForm = () => <>
-    <h1>Log in to take the quiz</h1>
-    <p>{theme}</p>
-    <form onSubmit={helloFormSubmitHandler}>
-      <input type="text"
-        value={Name}
-        onChange={e => SetName(e.target.value)}
-        placeholder="Name"
-      // disabled
-      ></input>
-      <button type="submit" disabled={!Name}>Start</button>
-    </form>
-  </>;
+
 
 
   const answersType = () => {
@@ -156,9 +174,11 @@ const QuizMachen = () => {
       throw new Error;
     }
 
+    const timerExpired = parsTimer(TimersArray[Index].time) <= 0;
+
     const answersArray = questions[Index].answers.map((el) => {
       return (
-        <button id={el._id} key={el._id} onClick={() => validateAnswer(el._id)}>
+        <button id={el._id} key={el._id} onClick={() => validateAnswer(el._id)} disabled={timerExpired}>
           {el.descr}
         </button >
       )
@@ -185,12 +205,12 @@ const QuizMachen = () => {
             <>
               <img src={`https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${questions[Index].imageUrl}`}></img>
               <div>
-                <p>Time: {Timer}</p>
+                <p>Time: {TimersArray[Index].time}</p>
                 <p>{questions[Index].descr}</p>
               </div>
             </>
             : <>
-              <p>Time: {Timer}</p>
+              <p>Time: {TimersArray[Index].time}</p>
               <p>{questions[Index].descr}</p>
             </>
           }
@@ -200,14 +220,18 @@ const QuizMachen = () => {
           <div>
             <button type='button' onClick={() => {
               SetIndex(Index + 1)
-              clearInterval(timerId)
+              if (timerId) {
+                clearInterval(timerId)
+              }
             }}>
               {Index + 1 === questions.length ? "Finish" : "Next"}
             </button>
             {Index > 0 ? <button type='button' onClick={() => {
               validAnswers
               SetIndex(Index - 1)
-              clearInterval(timerId)
+              if (timerId) {
+                clearInterval(timerId)
+              }
             }}>Back</button> : <></>}
             <p>{`${Index + 1}/${questions.length}`}</p>
           </div>
@@ -239,7 +263,7 @@ const QuizMachen = () => {
     // add error toast
     <div style={{ backgroundColor: background ?? 'transparent' }}>
       {isLoading && 'Place for loader'}
-      {!isLoading && Index === -1 && renderHelloForm()}
+      {!isLoading && Index === -1 && <RenderHelloForm theme={theme} helloFormSubmitHandler={helloFormSubmitHandler} name={Name} isLoggedIn={isLoggedIn} setName={ SetName } />}
       {Index >= 0 && Index + 1 <= questions?.length && renderQuestionInterface()}
       {Index === questions?.length && renderResultInterface()}
     </div>

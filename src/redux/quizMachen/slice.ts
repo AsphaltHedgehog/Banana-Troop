@@ -8,31 +8,31 @@ import {
 } from "./operations";
 
 export type Answers = {
-  _id?: string;
-  descr?: string;
+  _id: string;
+  descr: string;
 };
 
 export type Questions = {
-  _id?: string;
-  quiz?: string;
-  time?: string;
-  descr?: string;
-  validAnswer?: string
-  imageUrl?: string;
-  type?: "true-or-false" | "full-text";
+  _id: string;
+  quiz: string;
+  time: string;
+  descr: string;
+  validAnswer: string
+  imageUrl: string;
+  type: "true-or-false" | "full-text";
   answers: Answers[];
 };
 
 export type Quiz = {
-  _id?: string;
-  theme?: string;
-  category?: string;
-  background?: string;
-  ageGroup?: "children" | "adults";
-  ratingQuantity?: number;
-  rating?: number;
-  finished?: number;
-  questions?: Questions[];
+  _id: string;
+  theme: string;
+  category: string;
+  background  : string;
+  ageGroup: "children" | "adults";
+  ratingQuantity: number;
+  rating: number;
+  finished: number;
+  questions: Questions[];  
 };
 
 type QuizState = {
@@ -42,7 +42,29 @@ type QuizState = {
 };
 
 const initialState: QuizState = {
-  quiz: {},
+  quiz: {
+    _id: '',
+    theme: '',
+    category: '',
+    background: '',
+    ageGroup: 'children',
+    ratingQuantity: 0,
+    rating: 0,
+    finished: 0,
+    questions: [{
+      _id: '',
+      quiz: '',
+      time: '',
+      descr: '',
+      validAnswer: '',
+      imageUrl: '',
+      type: "full-text",
+      answers: [{
+        _id: '',
+        descr: '',
+      }]
+    }]
+  },
   isLoading: false,
   error: null,
 };

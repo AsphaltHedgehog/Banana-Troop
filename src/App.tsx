@@ -14,8 +14,9 @@ import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
 import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
-import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
-import NewPassword from "./components/authPage/newPassword/NewPassword";
+// import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
+// import NewPassword from "./components/authPage/newPassword/NewPassword";
+import AuthPages from "./pages/AuthPages/AuthPages";
 
 // css
 import "./App.css";
@@ -23,6 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
+import QuizMachen from "./pages/quizMachen/QuizMachen";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ function App() {
           <Route path="logout" element={<Logout />} />
         <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
+          <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="forAdults" element={<ForAdults />} />
           <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
