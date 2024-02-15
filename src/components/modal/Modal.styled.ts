@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { breakpoints } from "../../styles";
+
+const { tablet } = breakpoints;
 
 export const StyledWrapper = styled.div`
   position: fixed;
@@ -15,27 +18,45 @@ export const StyledWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   position: relative;
-  background-color: rgba(23, 23, 25, 1);
-  border: 1px solid rgba(250, 250, 250, 0.1);
+  background-color: #1c1c1c;
+  border: 1px solid rgba(244, 244, 244, 0.3);
   overflow: hidden;
-  border-radius: 30px;
-  width: 500px;
+  border-radius: 20px;
+  width: 335px;
+
+  @media screen and (min-width: ${tablet}) {
+    width: 474px;
+  }
 `;
 
 export const StyledCloseButton = styled.button`
   border-radius: 30px;
-  border:none;
+  border: none;
   padding: 5px;
-  width: 40px;
-  height: 40px;
+  width: 18px;
+  height: 18px;
   background-color: transparent;
 
   position: absolute;
 
-  top: 24px;
-  right: 24px;
+  top: 14px;
+  right: 20px;
   &:hover {
     transform: scale(1.2);
   }
 
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @media screen and (min-width: ${tablet}) {
+    right: 28px;
+    width: 24px;
+    height: 24px;
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
 `;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import sprite from "../../images/icons/sprite.svg";
 import Svg from "../svg/Svg";
 import {
@@ -12,13 +12,21 @@ import {
   StyledRatingSvg,
   StyledUl,
   StyledFavoriteButton,
+  StyledDotsButton,
+  StyledDotsMenu,
+  StyledDotsMenuButton,
+  StyledEditLink,
 } from "./QuizListItem.styled";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { toast } from "react-toastify";
 import { deleteFavorite, addFavorite } from "../../redux/user/slice";
 import { updateFavoriteThunk } from "../../redux/user/operations";
-import { selectGetUserFavorite } from "../../redux/user/selectors";
+import {
+  selectGetUser,
+  selectGetUserFavorite,
+} from "../../redux/user/selectors";
+import { deleteQuizesThunk } from "../../redux/quiz/operations";
 
 export interface IQuizListItemProps {
   id: string;
@@ -26,6 +34,7 @@ export interface IQuizListItemProps {
   rating: number;
   ageGroup: string;
   finished: number | null;
+  owner: string;
 }
 
 const QuizListItem = ({
@@ -34,11 +43,15 @@ const QuizListItem = ({
   rating,
   ageGroup,
   finished,
+  owner,
 }: IQuizListItemProps) => {
   const dispatch = useAppDispatch();
   const [stars, setStars] = useState<JSX.Element[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dotsRef = useRef<HTMLDivElement>(null);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const userFavorites = useAppSelector(selectGetUserFavorite);
+  const user = useAppSelector(selectGetUser);
 
   useEffect(() => {
     // Формування масиву із рейтингу зірочок
@@ -72,6 +85,21 @@ const QuizListItem = ({
     setStars(starsArray);
   }, [rating]); // Викликаємо зміну масиву зірок, якщо змінюється рейтинг
 
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (!dotsRef.current?.contains(target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleFavoriteClick = () => {
     try {
       if (isLoggedIn) {
@@ -87,30 +115,75 @@ const QuizListItem = ({
     }
   };
 
+  const handleDotsClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleDeleteClick = async (id: string) => {
+    try {
+      await dispatch(deleteQuizesThunk(id));
+    } catch (error) {
+      toast.error(`Something went wrong!`);
+    }
+  };
+
   return (
-    <StyledContainer>
+    <StyledContainer className={isOpen ? `nohover` : ``}>
       <StyledContainer2>
         <StyledContainer3>
           <Svg sprite={sprite} id={`icon-users`} width={20} height={20} />
           <StyledNumbers>{finished}</StyledNumbers>
         </StyledContainer3>
-        <StyledFavoriteButton
-          onClick={() => {
-            handleFavoriteClick();
-          }}
-        >
-          {userFavorites.includes(id) ? (
-            <Svg
-              sprite={sprite}
-              id={`icon-heart`}
-              width={20}
-              height={20}
-              fill="#ffffff"
-            />
+        <div>
+          <StyledFavoriteButton
+            onClick={() => {
+              handleFavoriteClick();
+            }}
+          >
+            {userFavorites.includes(id) ? (
+              <Svg
+                sprite={sprite}
+                id={`icon-heart`}
+                width={20}
+                height={20}
+                fill="#ffffff"
+              />
+            ) : (
+              <Svg sprite={sprite} id={`icon-heart`} width={20} height={20} />
+            )}
+          </StyledFavoriteButton>
+          {user._id === owner ? (
+            <StyledDotsButton onClick={handleDotsClick}>
+              <Svg sprite={sprite} id={`icon-dots`} width={20} height={20} />
+            </StyledDotsButton>
           ) : (
-            <Svg sprite={sprite} id={`icon-heart`} width={20} height={20} />
+            <></>
           )}
-        </StyledFavoriteButton>
+          {isOpen ? (
+            <StyledDotsMenu ref={dotsRef}>
+              <StyledEditLink to={`/createQuiz?${id}`}>
+                <Svg
+                  sprite={sprite}
+                  id={`icon-quiz-edit`}
+                  width={16}
+                  height={16}
+                />
+                Edit
+              </StyledEditLink>
+              <StyledDotsMenuButton
+                type="button"
+                onClick={() => {
+                  handleDeleteClick(id);
+                }}
+              >
+                <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
+                Delete
+              </StyledDotsMenuButton>
+            </StyledDotsMenu>
+          ) : (
+            <></>
+          )}
+        </div>
       </StyledContainer2>
       <StyledCategory>{`${ageGroup.charAt(0).toUpperCase()}${ageGroup.slice(
         1

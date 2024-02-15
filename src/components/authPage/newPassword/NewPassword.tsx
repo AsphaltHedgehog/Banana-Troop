@@ -30,7 +30,7 @@ interface NewPasswordProps {
   resetToken?: string;
 }
 
-const NewPassword: React.FC<NewPasswordProps> =() => {
+const NewPassword: React.FC<NewPasswordProps> = () => {
   const params = useParams<{ resetToken: string }>();
   const resetToken = params.resetToken;
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ const NewPassword: React.FC<NewPasswordProps> =() => {
         await dispatch(
           newPasswordThunk({
             newPassword: data.newPassword,
-            resetToken: resetToken || '',
+            resetToken: resetToken || "",
           })
         );
         toast.success("Password changed successfully");

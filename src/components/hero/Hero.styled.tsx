@@ -60,7 +60,10 @@ export const StyledBgrImg = styled.section`
   } */
 `;
 
-export const StyledSection = styled.section``;
+export const StyledSection = styled.section`
+  max-width: 1240px;
+  margin: 0 auto;
+`;
 
 export const StyledUl = styled.ul`
   margin-top: 32px;

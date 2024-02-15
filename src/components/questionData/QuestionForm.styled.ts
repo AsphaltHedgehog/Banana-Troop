@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import Svg from "../../shared/svg/Svg";
 
-export const StyledSvg = styled(Svg)<{ background: string }>`
-  stroke: ${({ background }) =>
-    background ? background : "rgba(255, 255, 255, 0.02)"};
-  width: 40px;
-  height: 40px;
+export const StyledSvg = styled(Svg)`
+  stroke: #000000;
 `;
 
 export const QuestFormWrapper = styled.div`
@@ -23,8 +20,9 @@ export const QuestionFormWrapper = styled.div<{ background: string }>`
   min-width: 286px;
   height: 590px;
   background: ${({ background }) =>
-    background ? background : "rgba(255, 255, 255, 0.02)"};
-  // background === "none" ? "rgba(255, 255, 255, 0.02)" : background};
+    background && background !== "none"
+      ? background
+      : "rgba(255, 255, 255, 0.02)"};
 
   @media screen and (min-width: 768px) {
     height: 562px;
@@ -64,6 +62,22 @@ export const QuestionImageWrapper = styled.div<{ imageurl: string }>`
   background-image: url(${(props) => props.imageurl});
   background-size: cover;
   margin-bottom: 8px;
+  @media screen and (min-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
+`;
+
+export const QuestionImageWrapper2 = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: #f4f4f4;
+  border-radius: 50%;
+
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
   @media screen and (min-width: 768px) {
     width: 120px;
     height: 120px;

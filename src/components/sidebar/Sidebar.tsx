@@ -94,7 +94,7 @@ const Sidebar = () => {
         {questions?.map((question, index) => (
           <React.Fragment key={question._id}>
             <QuizItem
-              clicked={clickedItem === question._id}
+              clicked={(clickedItem === question._id).toString()}
               onClick={() => {
                 if (question._id) {
                   handleClick(question._id, index);
