@@ -7,6 +7,7 @@ interface SVGChevronDownProps {
 
 interface OpenedUserWidgetProps {
   $isOpened: boolean;
+  $linkClicked: boolean;
 }
 
 export const NavLinkHeaderWrapper = styled.div`
@@ -87,7 +88,7 @@ export const OpenedUserWidget = styled.div<OpenedUserWidgetProps>`
   position: absolute;
   left: 0;
   top: 48px;
-  display: flex;
+  display: ${({ $linkClicked }) => ($linkClicked ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
   justify-content: center;

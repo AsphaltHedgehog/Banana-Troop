@@ -29,25 +29,29 @@ const TablDeskNav = () => {
   const widgetRef = useRef<HTMLDivElement>(null);
 
   const [openUserWidget, setOpenUserWidget] = useState<boolean>(false);
+  const [linkClicked, setLinkClicked] = useState<boolean>(false);
 
   const handleOpenUserWidget = () => {
     setOpenUserWidget((prev) => !prev);
   };
 
   useEffect(() => {
-    if (openUserWidget === false) {
+    if (!openUserWidget) {
       const timer = setTimeout(() => {
         if (widgetRef.current) {
           widgetRef.current.style.opacity = "0";
         }
+        setLinkClicked(false);
       }, 480);
       return () => clearTimeout(timer);
-    } else {
+    }
+    if (openUserWidget) {
       if (widgetRef.current) {
         widgetRef.current.style.opacity = "1";
+        setLinkClicked(true);
       }
     }
-  }, [openUserWidget]);
+  }, [openUserWidget, linkClicked]);
 
   const handleHeaderLinkClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
@@ -87,6 +91,7 @@ const TablDeskNav = () => {
             <OpenedUserWidget
               ref={widgetRef}
               $isOpened={openUserWidget}
+              $linkClicked={linkClicked}
               onClick={handleWidgetLinkClick}
             >
               <NavLinkSettings to="/settings">
