@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyledSection,
   StyledTitle,
@@ -24,25 +24,25 @@ interface WriteReviewFormData {
 const WriteReview: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [rating, setRating] = useState("5");
-  const [review, setReview] = useState("");
+  // const [name, setName] = useState("");
+  // const [rating, setRating] = useState("5");
+  // const [review, setReview] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
+    // setValue,
     reset,
   } = useForm<WriteReviewFormData>({
     resolver: yupResolver(schemaWriteReview),
   });
 
-  const handleWriteReview = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const reviewValue = e.target.value;
-    setReview(reviewValue);
-    setValue("review", reviewValue);
-  };
+  // const handleWriteReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const reviewValue = e.target.value;
+  //   setReview(reviewValue);
+  //   setValue("review", reviewValue);
+  // };
 
   const submit: SubmitHandler<WriteReviewFormData> = (data) => {
     dispatch(reviewsPostThunk(data)).unwrap();
