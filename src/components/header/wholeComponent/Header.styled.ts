@@ -1,7 +1,7 @@
 import { styled, css } from "styled-components";
 import { breakpoints } from "../../../styles";
 
-const { tablet } = breakpoints;
+const { tablet, desktop } = breakpoints;
 
 interface SvgBurgerMenuProps {
   $iconX?: boolean;
@@ -14,7 +14,7 @@ export const HeaderWrapper = styled.div`
   position: relative;
 
   @media screen and (min-width: ${tablet}) {
-    justify-content: center;
+    justify-content: space-between;
   }
 `;
 
@@ -24,7 +24,9 @@ export const StyledH2 = styled.h2`
   line-height: 1;
   letter-spacing: -0.01em;
   color: #f4f4f4;
-  margin-right: 62px;
+  @media screen and (max-width: 1439px) {
+    margin-right: 62px;
+  }
 `;
 
 export const SvgBurgerMenu = styled.svg<SvgBurgerMenuProps>`
