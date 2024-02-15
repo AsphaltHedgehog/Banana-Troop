@@ -15,7 +15,7 @@ import FavoritePage from "./pages/FavoritePage";
 import ForAdults from "./components/forAdults/ForAdults";
 import ForChildren from "./components/forChildren/ForChildren";
 import AuthPages from "./pages/AuthPages/AuthPages";
-
+import MyQuizzesPage from './pages/MyQuizzesPage/MyQuizzesPage'
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,7 +53,11 @@ function App() {
         <Route path="auth/*" element={<AuthPages/>} />
         <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="my-quizzes" element={<MyQuizzesPage />} />
+        
+        
       </Routes>
+
     </div>
   );
 }
