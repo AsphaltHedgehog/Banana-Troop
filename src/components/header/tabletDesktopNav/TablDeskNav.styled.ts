@@ -1,6 +1,10 @@
 import { styled, keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
 
+interface SVGChevronDownProps {
+  $isOpened: boolean;
+}
+
 interface OpenedUserWidgetProps {
   $isOpened: boolean;
 }
@@ -21,8 +25,12 @@ export const NavLinkHeader = styled(NavLink)`
   text-align: left;
   color: #f4f4f499;
 
-  &:visited {
+  &.active {
     color: #f4f4f4;
+  }
+
+  &:visited {
+    color: #f4f4f499;
   }
 `;
 
@@ -43,16 +51,19 @@ export const UserWidgetWrapper = styled.div`
     width: 40px;
     border-radius: 50%;
   }
+`;
 
-  svg {
-    width: 28px;
-    height: 28px;
-  }
+export const SVGChevronDown = styled.svg<SVGChevronDownProps>`
+  width: 28px;
+  height: 28px;
+  transform: ${({ $isOpened }) =>
+    $isOpened ? "rotate(180deg)" : "rotate(0deg)"};
+  transition: transform 0.5s ease-in-out;
 `;
 
 const slideIn = keyframes`
   from {
-    transform: translateY(-20%);
+    transform: translateY(-15%);
     opacity: 0;
   }
   to {
@@ -67,7 +78,7 @@ const slideOut = keyframes`
     opacity: 1;
   }
   to {
-    transform: translateY(-20%);
+    transform: translateY(-15%);
     opacity: 0;
   }
 `;

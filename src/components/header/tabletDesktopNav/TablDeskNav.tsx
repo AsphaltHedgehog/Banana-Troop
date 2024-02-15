@@ -1,8 +1,10 @@
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   NavLinkHeader,
   NavLinkHeaderWrapper,
   OpenedUserWidget,
+  SVGChevronDown,
   UserWidgetWrapper,
 } from "./TablDeskNav.styled";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
@@ -14,7 +16,6 @@ import {
 } from "../mobileNav/MobileNav.styled";
 import { selectGetUser } from "../../../redux/user/selectors";
 import sprite from "../../../images/icons/sprite.svg";
-import { useEffect, useRef, useState } from "react";
 
 const cloudinaryURL =
   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
@@ -25,7 +26,7 @@ const TablDeskNav = () => {
   const { gravatarURL } = useSelector(selectGetUser);
   const { avatar } = useSelector(selectGetUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const widgetRef = useRef(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   const [openUserWidget, setOpenUserWidget] = useState<boolean>(false);
 
@@ -48,7 +49,14 @@ const TablDeskNav = () => {
     }
   }, [openUserWidget]);
 
-  const handleLinkClick = () => {
+  const handleHeaderLinkClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (target.tagName === "A") {
+      setOpenUserWidget(false);
+    }
+  };
+
+  const handleWidgetLinkClick = () => {
     setOpenUserWidget(false);
     handleOpenUserWidget();
   };
@@ -57,7 +65,7 @@ const TablDeskNav = () => {
     <>
       {isLoggedIn ? (
         <>
-          <NavLinkHeaderWrapper>
+          <NavLinkHeaderWrapper onClick={handleHeaderLinkClick}>
             <NavLinkHeader to="/">Home</NavLinkHeader>
             <NavLinkHeader to="/discover">Discover</NavLinkHeader>
             <NavLinkHeader to="/favorites">Favorite quiz</NavLinkHeader>
@@ -73,25 +81,27 @@ const TablDeskNav = () => {
               alt="User avatar"
             />
             <p>{name}</p>
-            <svg>
+            <SVGChevronDown $isOpened={openUserWidget}>
               <use xlinkHref={`${sprite}#chevron-down`}></use>
-            </svg>
-            {/* {openUserWidget && ( */}
-            <OpenedUserWidget ref={widgetRef} $isOpened={openUserWidget}>
-              <NavLinkSettings to="/settings" onClick={handleLinkClick}>
+            </SVGChevronDown>
+            <OpenedUserWidget
+              ref={widgetRef}
+              $isOpened={openUserWidget}
+              onClick={handleWidgetLinkClick}
+            >
+              <NavLinkSettings to="/settings">
                 <svg>
                   <use xlinkHref={`${sprite}#icon-settings`}></use>
                 </svg>
                 Settings
               </NavLinkSettings>
-              <NavLinkLogOut to="/auth/logout" onClick={handleLinkClick}>
+              <NavLinkLogOut to="/auth/logout">
                 <svg>
                   <use xlinkHref={`${sprite}#icon-log-out`}></use>
                 </svg>
                 Log out
               </NavLinkLogOut>
             </OpenedUserWidget>
-            {/* )} */}
           </UserWidgetWrapper>
         </>
       ) : (
