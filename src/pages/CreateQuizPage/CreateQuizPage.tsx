@@ -16,6 +16,8 @@ import {
 } from "./CreateQuizPage.styled";
 import { useLocation } from "react-router-dom";
 import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
+import { defaultState } from "../../redux/updateOptions/slice";
+import { defaultStateQuestions } from "../../redux/questions/slice";
 
 const CreateQuizPage = () => {
   const location = useLocation();
@@ -23,18 +25,23 @@ const CreateQuizPage = () => {
   const selectUpdateOptions = useAppSelector(getUpdateOptions);
   const selectQuestion = useAppSelector(getQuestions);
   const dispatch = useAppDispatch();
-  
-  useEffect(() => {
-    if (selectUpdateOptions._id) {
-      dispatch(fetchQuestionsByQuizThunk(selectUpdateOptions._id));
-    }
-  }, [dispatch, selectUpdateOptions._id]);
 
   useEffect(() => {
     if (param) {
       dispatch(getQuizByIdThunk(param));
     }
-  }, [dispatch, param]);
+
+    if (selectUpdateOptions._id) {
+      dispatch(fetchQuestionsByQuizThunk(selectUpdateOptions._id));
+    }
+  }, [dispatch, param, selectUpdateOptions._id]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(defaultState());
+      dispatch(defaultStateQuestions());
+    };
+  }, [dispatch]);
 
   return (
     <StyledCommonWrapper>
