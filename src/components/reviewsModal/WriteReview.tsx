@@ -18,7 +18,7 @@ import { schemaWriteReview } from "../../helpers/schemas";
 
 interface WriteReviewFormData {
   name: string;
-  rating: string;
+  rating: number;
   review: string;
 }
 
@@ -45,8 +45,8 @@ const WriteReview: React.FC = () => {
   //   setValue("review", reviewValue);
   // };
 
-  const submit: SubmitHandler<WriteReviewFormData> = (data) => {
-    dispatch(reviewsPostThunk(data)).unwrap();
+  const submit: SubmitHandler<WriteReviewFormData> = () => {
+    dispatch(reviewsPostThunk()).unwrap();
     reset();
     navigate("/thanYou");
   };
@@ -63,7 +63,7 @@ const WriteReview: React.FC = () => {
           />
           {errors?.name && <div>{errors.name.message}</div>}
           <StyledWriteReviewInput
-            type="text"
+            type="number"
             placeholder="Rate the quiz"
             {...register("rating")}
           />

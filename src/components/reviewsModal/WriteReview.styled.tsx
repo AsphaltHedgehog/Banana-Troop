@@ -80,7 +80,7 @@ export const StyledWriteReviewForm = styled.form`
 
 export const StyledWriteReviewInput = styled.input`
   position: relative;
-
+  font-family: inherit;
   padding-left: 18px;
 
   background-color: transparent;
@@ -155,6 +155,7 @@ export const StyledWriteReviewTextarea = styled.textarea`
   line-height: 1.14286;
   letter-spacing: -0.01em;
   overflow: hidden;
+  font-family: inherit;
   @media screen and (min-width: ${tablet}) {
     /* width: 321px;
 

@@ -12,7 +12,7 @@ export const schemaRegister = yup.object().shape({
 
 export const schemaWriteReview = yup.object().shape({
   name: yup.string().min(1).max(32).required(),
-  rating: yup.string().min(1).max(5).required(),
+  rating: yup.number().required(),
   review: yup.string().min(8).max(256).required(),
 });
 
