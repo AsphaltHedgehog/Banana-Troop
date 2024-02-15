@@ -5,6 +5,7 @@ import {
   StyledWriteReviewButton,
   StyledWriteReviewForm,
   StyledWriteReviewInput,
+  StyledWriteReviewTextarea,
   StyledWriteReviewWrapper,
 } from "./WriteReview.styled";
 
@@ -67,10 +68,9 @@ const WriteReview: React.FC = () => {
             {...register("rating")}
           />
           {errors?.rating && <div>{errors.rating.message}</div>}
-          <StyledWriteReviewInput
-            type="text"
-            placeholder="What is your opinion on the quiz"
+          <StyledWriteReviewTextarea
             {...register("review")}
+            placeholder="What is your opinion on the quiz"
           />
           {errors?.review && <div>{errors.review.message}</div>}
         </StyledWriteReviewForm>

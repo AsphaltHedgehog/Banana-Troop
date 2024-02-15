@@ -80,24 +80,86 @@ export const StyledWriteReviewForm = styled.form`
 
 export const StyledWriteReviewInput = styled.input`
   position: relative;
-  border: 1px solid rgba(244, 244, 244, 0.6);
-  border-radius: 30px;
+
   padding-left: 18px;
-  height: 44px;
+
   background-color: transparent;
   color: #fafafa;
-  width: 295px;
 
-  font-family: inherit;
+  border: 1px solid rgba(244, 244, 244, 0.6);
+  border-radius: 30px;
+
+  width: 321px;
+  height: 44px;
+
   font-weight: 400;
   font-size: 14px;
   line-height: 1.14286;
   letter-spacing: -0.01em;
 
   @media screen and (min-width: ${tablet}) {
-    width: 314px;
+    width: 321px;
+
     font-size: 16px;
     line-height: 1;
+  }
+
+  && {
+    color: rgba(250, 250, 250, 0.4);
+    border: 1px solid rgba(250, 250, 250, 0.2);
+    outline: none;
+
+    &:focus {
+      border-color: #097b45;
+      color: #fafafa;
+    }
+
+    &:hover {
+      border-color: #097b45;
+    }
+
+    &.valid {
+      border-color: #097b45;
+    }
+
+    &.invalid {
+      border-color: #e74a3b;
+    }
+
+    &::placeholder {
+      margin-left: 18px;
+      white-space: nowrap;
+      color: rgba(244, 244, 244, 0.4);
+    }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #fafafa !important;
+    caret-color: #fafafa !important;
+  }
+`;
+export const StyledWriteReviewTextarea = styled.textarea`
+  border: 1px solid rgba(244, 244, 244, 0.6);
+  border-radius: 15px;
+  padding: 14px 74px 74px 18px;
+  width: 321px;
+  height: 104px;
+  background-color: transparent;
+  color: #fafafa;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  @media screen and (min-width: ${tablet}) {
+    /* width: 321px;
+
+    font-size: 16px;
+    line-height: 1; */
   }
 
   && {
