@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import sprite from "../../images/icons/sprite.svg";
 import Svg from "../svg/Svg";
 import {
@@ -48,6 +48,7 @@ const QuizListItem = ({
   const dispatch = useAppDispatch();
   const [stars, setStars] = useState<JSX.Element[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dotsRef = useRef<HTMLDivElement>(null);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const userFavorites = useAppSelector(selectGetUserFavorite);
   const user = useAppSelector(selectGetUser);
@@ -84,8 +85,11 @@ const QuizListItem = ({
     setStars(starsArray);
   }, [rating]); // Викликаємо зміну масиву зірок, якщо змінюється рейтинг
 
-  const handleClickOutside = () => {
-    setIsOpen(false);
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (!dotsRef.current?.contains(target)) {
+      setIsOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -156,8 +160,8 @@ const QuizListItem = ({
             <></>
           )}
           {isOpen ? (
-            <StyledDotsMenu>
-              <StyledEditLink to={`createQuiz?${id}`}>
+            <StyledDotsMenu ref={dotsRef}>
+              <StyledEditLink to={`/createQuiz?${id}`}>
                 <Svg
                   sprite={sprite}
                   id={`icon-quiz-edit`}

@@ -107,7 +107,8 @@ export const StyledEditLink = styled(NavLink)`
   align-items: baseline;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:visited {
     color: #f4f4f4;
   }
 `;
