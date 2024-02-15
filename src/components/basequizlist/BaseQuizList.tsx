@@ -21,6 +21,7 @@ interface IBaseQuizList {
     ratingQuantity: number;
     rating: number;
     finished: number;
+    owner: string;
   }[];
 }
 
@@ -64,6 +65,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
               finished={quiz.finished}
+              owner={quiz.owner}
             />
           ))}
         </Slider>
@@ -83,6 +85,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
                 finished={quiz.finished}
+                owner={quiz.owner}
               />
             ))}
           </Slider>
@@ -102,6 +105,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
                 rating={quiz.rating}
                 ageGroup={quiz.ageGroup}
                 finished={quiz.finished}
+                owner={quiz.owner}
               />
             ))}
           </Slider>

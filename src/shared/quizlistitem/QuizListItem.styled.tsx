@@ -2,12 +2,14 @@ import styled from "styled-components";
 import { StyledStartBtn } from "../buttons/styledButton";
 import { breakpoints } from "../../styles";
 import Svg from "../svg/Svg";
+import { NavLink } from "react-router-dom";
 
 const { tablet, desktop } = breakpoints;
 
 export const StyledContainer = styled.li`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.02);
@@ -18,7 +20,8 @@ export const StyledContainer = styled.li`
 
   &:hover,
   &:focus {
-    background: #205bf1;
+    background: ${(props) =>
+      props.className === "nohover" ? "rgba(255, 255, 255, 0.02)" : "#205bf1"};
   }
 
   transition-property: background;
@@ -55,6 +58,78 @@ export const StyledFavoriteButton = styled.button`
   overflow: visible;
 
   background: transparent;
+`;
+
+export const StyledDotsButton = styled.button`
+  border: none;
+  margin: 0;
+  margin-left: 8px;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+`;
+
+export const StyledDotsMenu = styled.div`
+  position: absolute;
+  top: 52px;
+  left: 199px;
+  content: "";
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #205bf1;
+
+  @media screen and (min-width: ${tablet}) {
+    left: 204px;
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    left: 156px;
+  }
+`;
+
+export const StyledEditLink = styled(NavLink)`
+  color: #f4f4f4;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+
+  &:hover,
+  &:focus {
+    color: #f4f4f4;
+  }
+`;
+
+export const StyledDotsMenuButton = styled.button`
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+  color: #f4f4f4;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
 `;
 
 export const StyledNumbers = styled.p`
