@@ -8,11 +8,11 @@ import NewPassword from "../../components/authPage/newPassword/NewPassword";
 import Home from "../home/Home";
 import Modal from "../../components/modal/Modal";
 
-const  AuthPages = () => {
+const AuthPages = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [modalContent, setModalContent] = useState<React.ReactNode>(null);
- const params = useParams<{ resetToken: string }>();
+  const params = useParams<{ resetToken: string }>();
   const resetToken = params.resetToken;
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const  AuthPages = () => {
           setModalContent(<RestorePassword />);
           break;
         case "newPassword":
-          setModalContent(<NewPassword/>);
+          setModalContent(<NewPassword />);
           break;
         default:
           setModalContent(
