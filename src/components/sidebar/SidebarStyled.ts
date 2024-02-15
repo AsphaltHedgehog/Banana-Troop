@@ -1,6 +1,6 @@
 import styled from "styled-components";
 interface QuizItemProps {
-  clicked: boolean;
+  clicked: string;
 }
 export const QuestionsContainer = styled.div`
   display: flex;
@@ -50,7 +50,8 @@ export const QuizItem = styled.li<QuizItemProps>`
   width: 255px;
   border-radius: 15px;
   padding: 5px 10px;
-  background-color: ${({ clicked }) => (clicked ? "#205bf1" : "transparent")};
+  background-color: ${({ clicked }) =>
+    clicked === "true" ? "#205bf1" : "transparent"};
   @media screen and (min-width: 375px) {
     width: 295px;
   }

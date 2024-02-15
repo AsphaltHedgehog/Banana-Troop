@@ -243,6 +243,7 @@ const DiscoverPage = () => {
               rating={quiz.rating}
               ageGroup={quiz.ageGroup}
               finished={quiz.finished}
+              owner={quiz.owner}
             />
           ))
         ) : (

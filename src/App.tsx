@@ -12,10 +12,6 @@ import NotFound from "./pages/notFound/NotFound";
 import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
-import ForAdults from "./components/forAdults/ForAdults";
-import ForChildren from "./components/forChildren/ForChildren";
-// import RestorePassword from "./components/authPage/restorePassword/RestorePassword";
-// import NewPassword from "./components/authPage/newPassword/NewPassword";
 import AuthPages from "./pages/AuthPages/AuthPages";
 
 // css
@@ -25,11 +21,11 @@ import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
 import QuizMachen from "./pages/quizMachen/QuizMachen";
+import MyQuiz from "./pages/myQuiz/MyQuiz";
 
 function App() {
   const dispatch = useAppDispatch();
   const userToken = useAppSelector(selectUserToken);
-
 
   useEffect(() => {
     setToken(userToken);
@@ -51,15 +47,15 @@ function App() {
         <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
-          <Route path="forAdults" element={<ForAdults />} />
-          <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="discover" element={<DiscoverPage />} />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
+          <Route path="discover" element={<DiscoverPage />} />
           <Route path="favorites" element={<FavoritePage />} />
+          <Route path="myQuiz" element={<MyQuiz />} />
+          <Route path="auth/*" element={<AuthPages />} />
+          <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         </Route>
-        <Route path="auth/*" element={<AuthPages/>} />
-        <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

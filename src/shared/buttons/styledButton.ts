@@ -148,13 +148,14 @@ export const StyledChooseWhiteBtn = styled(Link)`
 `;
 
 export const RegisterStyled = styled.button`
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 30px;
   padding: 16px 13px;
   margin-top: 18px;
+  width: auto;
 
   background: #205bf1;
 
@@ -183,5 +184,46 @@ justify-content: center;
     padding: 16px 32px;
     font-size: 16px;
     line-height: 1;
+  }
+`;
+
+export const LogoutStyled = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 30px;
+  padding: 16px 13px;
+  margin-top: 18px;
+  width: 295px;
+
+  background: #205bf1;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+
+  color: #fff;
+
+  border: transparent;
+
+  &:visited {
+    background: #144ad5;
+  }
+
+  &:hover,
+  &:focus {
+    background: #144ad5;
+    transition: background 0.3s ease-in-out;
+  }
+
+  transition-property: background;
+
+  @media screen and (min-width: ${tablet}) {
+    padding: 16px 32px;
+    font-size: 16px;
+    line-height: 1;
+    width: 314px;
   }
 `;

@@ -69,12 +69,6 @@ const SettingsModal: FC = () => {
       });
   };
 
-  const handleImageUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
   const handleFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -106,6 +100,9 @@ const SettingsModal: FC = () => {
               }
               alt="User avatar"
             />
+            <svg>
+              <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
+            </svg>
           </label>
           <input
             type="file"
@@ -115,9 +112,6 @@ const SettingsModal: FC = () => {
             ref={fileInputRef}
             onChange={handleFileInputChange}
           />
-          <svg onClick={handleImageUploadClick}>
-            <use xlinkHref={`${sprite}#icon-plus-photo`}></use>
-          </svg>
         </SettingsPhotoWrapper>
       )}
       <SettingsForm onSubmit={submit}>
