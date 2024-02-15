@@ -1,9 +1,9 @@
 import { FieldError } from "react-hook-form";
 import { styled, css, keyframes } from "styled-components";
 
-import { breakpoints } from "../../../styles/breakpoints";
+// import { breakpoints } from "../../../styles/breakpoints";
 
-const { tablet, desktop } = breakpoints;
+// const { tablet, desktop } = breakpoints;
 
 interface StyledSettingsInputProps {
   $error?: string | FieldError;

@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 import { breakpoints } from "../../../styles/breakpoints";
 
-const { tablet, desktop } = breakpoints;
+const { tablet } = breakpoints;
 
 export const SettingsHeaderWrapper = styled.div`
   display: flex;

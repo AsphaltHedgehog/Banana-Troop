@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { breakpoints } from "../../../styles/breakpoints";
 
-const { tablet, desktop } = breakpoints;
+const { tablet } = breakpoints;
 
 export const SettingsUserWrapper = styled.div`
   border: 1px solid #f4f4f44d;
