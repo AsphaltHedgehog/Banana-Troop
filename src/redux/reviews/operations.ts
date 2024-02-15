@@ -56,6 +56,7 @@ export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
     }
   }
 );
+
 export const reviewsPostThunk = createAsyncThunk<ReviewsPost>(
   "reviewsPost",
   async (_: void, thunkApi) => {

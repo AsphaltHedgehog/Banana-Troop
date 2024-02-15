@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
+import QuizMachen from "./pages/quizMachen/QuizMachen";
 import MyQuiz from "./pages/myQuiz/MyQuiz";
 import WriteReview from "./components/reviewsModal/WriteReview";
 import ThanYou from "./components/reviewsModal/ThanYou";
@@ -42,7 +43,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          {/* <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="logout" element={<Logout />} />
+        <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
+          <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="discover" element={<DiscoverPage />} />
