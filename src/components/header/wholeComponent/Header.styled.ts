@@ -1,4 +1,7 @@
 import { styled, css } from "styled-components";
+import { breakpoints } from "../../../styles";
+
+const { tablet } = breakpoints;
 
 interface SvgBurgerMenuProps {
   $iconX?: boolean;
@@ -6,10 +9,13 @@ interface SvgBurgerMenuProps {
 
 export const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   padding-top: 24px;
   position: relative;
+
+  @media screen and (min-width: ${tablet}) {
+    justify-content: center;
+  }
 `;
 
 export const StyledH2 = styled.h2`
