@@ -26,9 +26,13 @@ interface FormValues {
   confirmPassword: string;
 }
 
-const NewPassword: React.FC = () => {
-  const { resetToken = "" } = useParams<{ resetToken?: string }>();
-  console.log("resetToken", resetToken);
+interface NewPasswordProps {
+  resetToken?: string;
+}
+
+const NewPassword: React.FC<NewPasswordProps> = () => {
+  const params = useParams<{ resetToken: string }>();
+  const resetToken = params.resetToken;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +72,7 @@ const NewPassword: React.FC = () => {
         await dispatch(
           newPasswordThunk({
             newPassword: data.newPassword,
-            resetToken: resetToken,
+            resetToken: resetToken || "",
           })
         );
         toast.success("Password changed successfully");

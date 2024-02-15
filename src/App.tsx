@@ -49,7 +49,10 @@ function App() {
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="auth/*" element={<AuthPages />} />
+          <Route path="auth/*" element={<AuthPages />} />
+          <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

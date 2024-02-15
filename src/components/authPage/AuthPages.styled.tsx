@@ -63,7 +63,6 @@ export const StyledAuthInput = styled.input`
   }
 
   && {
-    background-color: transparent;
     color: rgba(250, 250, 250, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.2);
     outline: none;
