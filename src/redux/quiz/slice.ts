@@ -9,6 +9,7 @@ import {
 } from "./operations";
 
 export type QuizBody = {
+  owner: string;
   _id: string;
   // id: string;
   theme: string;
@@ -48,7 +49,7 @@ export type QuizByCategories = {
 };
 
 export type QuizState = {
-  listAll: Quiz;
+  // listAll: Quiz;
   listCategory: QuizByCategories;
   listRaiting: QuizBody[];
   isLoading: boolean;
@@ -56,10 +57,10 @@ export type QuizState = {
 };
 
 const initialState: QuizState = {
-  listAll: {
-    result: [],
-    totalQuizes: 0,
-  },
+  // listAll: {
+  //   result: [],
+  //   totalQuizes: 0,
+  // },
   listCategory: {
     data: {
       result: [],
@@ -80,11 +81,12 @@ const initialState: QuizState = {
 const quizesSlice = createSlice({
   name: "quizes",
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuizesThunk.fulfilled, (state, { payload }) => {
-        state.listAll.result = payload.result;
+        state.listCategory.data.result = payload.result;
         state.isLoading = false;
       })
       .addCase(fetchQuizesByRatingThunk.fulfilled, (state, { payload }) => {
@@ -102,18 +104,18 @@ const quizesSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteQuizesThunk.fulfilled, (state, { payload }) => {
-        state.listAll.result = state.listAll.result.filter(
+        state.listCategory.data.result = state.listCategory.data.result.filter(
           (quiz) => quiz._id !== payload
         );
         state.isLoading = false;
       })
       .addCase(updateQuizesThunk.fulfilled, (state, { payload }) => {
-        const updatedQuizeIndex = state.listAll.result.findIndex(
+        const updatedQuizeIndex = state.listCategory.data.result.findIndex(
           (quiz) => quiz._id === payload._id
         );
         if (updatedQuizeIndex) {
-          state.listAll.result[updatedQuizeIndex] = {
-            ...state.listAll.result[updatedQuizeIndex],
+          state.listCategory.data.result[updatedQuizeIndex] = {
+            ...state.listCategory.data.result[updatedQuizeIndex],
             ...payload,
           };
         }
