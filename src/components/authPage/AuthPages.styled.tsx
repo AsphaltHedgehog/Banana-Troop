@@ -62,19 +62,19 @@ export const StyledAuthInput = styled.input`
     line-height: 1;
   }
 
-  && {
+  /* && {
     color: rgba(250, 250, 250, 0.4);
     border: 1px solid rgba(250, 250, 250, 0.2);
-    outline: none;
+    outline: none; */
 
     &:focus {
       border-color: #097b45;
       color: #fafafa;
     }
 
-    &:hover {
+    /* &:hover {
       border-color: #097b45;
-    }
+    } */
 
     &.valid {
       border-color: #097b45;
