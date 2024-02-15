@@ -12,11 +12,12 @@ import {
   selectIsLoading
 } from "../../redux/quizMachen/selectors";
 import { selectGetUser } from "../../redux/user/selectors";
+import { selectIsLoggedIn } from "../../redux/auth/selectors.tsx";
 import { Quiz } from "../../redux/quizMachen/slice";
 
 // components
 import RenderHelloForm from "../../components/quizMachen/render/HelloForm.tsx"
-import { selectIsLoggedIn } from "../../redux/auth/selectors.tsx";
+import AnswersType from "../../components/quizMachen/render/AnswersType.tsx";
 
 
 
@@ -166,33 +167,6 @@ const QuizMachen = () => {
 
   // rendering functions
 
-
-
-
-  const answersType = () => {
-    if (!questions || !questions[Index]) {
-      throw new Error;
-    }
-
-    const timerExpired = parsTimer(TimersArray[Index].time) <= 0;
-
-    const answersArray = questions[Index].answers.map((el) => {
-      return (
-        <button id={el._id} key={el._id} onClick={() => validateAnswer(el._id)} disabled={timerExpired}>
-          {el.descr}
-        </button >
-      )
-    })
-
-    return (
-      <>
-        {answersArray}
-        ZRADA TOTALNIA
-      </>
-    )
-  };
-
-
   const renderQuestionInterface = () => {
     if (!questions || !questions[Index]) {
       throw new Error;
@@ -215,7 +189,9 @@ const QuizMachen = () => {
             </>
           }
           <div>
-            {answersType()}
+            {/* //TODO: */}
+            {<AnswersType questions={questions} Index={Index} parsTimer={parsTimer}
+            TimersArray={TimersArray}  validateAnswer={validateAnswer} />}
           </div>
           <div>
             <button type='button' onClick={() => {
