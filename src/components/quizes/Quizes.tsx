@@ -9,12 +9,15 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect } from "react";
 import { fetchQuizesThunk } from "../../redux/quiz/operations";
-import { getQuizIsLoading, getQuizList } from "../../redux/quiz/selectors";
+import {
+  getQuizIsLoading,
+  getQuizListCategory,
+} from "../../redux/quiz/selectors";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import Loader from "../../shared/loader-spinner/Loader";
 
 const Quizes = () => {
-  const quizes = useAppSelector(getQuizList);
+  const quizes = useAppSelector(getQuizListCategory);
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const isLoading = useAppSelector(getQuizIsLoading);
   const dispatch = useAppDispatch();
