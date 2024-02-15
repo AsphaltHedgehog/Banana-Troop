@@ -43,6 +43,14 @@ const updateOptionsSlice = createSlice({
     addBackground: (state, action) => {
       state.background = action.payload;
     },
+    defaultState: (state) => {
+      state._id = "";
+      state.theme = "";
+      state.category = "";
+      state.categories = [];
+      state.ageGroup = "";
+      state.background = "";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,6 +73,6 @@ const updateOptionsSlice = createSlice({
   },
 });
 
-export const { addUpdateOptions, addCategory, addBackground } =
+export const { addUpdateOptions, addCategory, addBackground, defaultState } =
   updateOptionsSlice.actions;
 export const updateOptionsReducer = updateOptionsSlice.reducer;
