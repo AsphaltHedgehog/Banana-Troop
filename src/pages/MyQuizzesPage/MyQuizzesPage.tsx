@@ -17,6 +17,9 @@ import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
 import { getQuizIsLoading } from "../../redux/quiz/selectors";
 import Loader from "../../shared/loader-spinner/Loader";
+import { getUserThunk } from "../../redux/user/operations";
+import { setToken } from "../../redux/auth/operations";
+import { selectUserToken } from "../../redux/auth/selectors";
 
 const MyQuizzesPage = () => {
   const dispatch = useAppDispatch();
@@ -24,13 +27,19 @@ const MyQuizzesPage = () => {
   const isLoading = useAppSelector(getQuizIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
+  const userToken = useAppSelector(selectUserToken);
 
   const filteredQuizes = quizes.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
 
   useEffect(() => {
-    dispatch(getOwnQuizes());
+    setToken(userToken);
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(getOwnQuizes());
+      });
   }, [dispatch]);
 
   const handleLoadMore = () => {
