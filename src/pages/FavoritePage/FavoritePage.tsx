@@ -16,11 +16,14 @@ import { selectGetUserFavorite } from "../../redux/user/selectors";
 import { getQuizListCategory } from "../../redux/quiz/selectors";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
+import { getQuizIsLoading } from "../../redux/quiz/selectors";
+import Loader from "../../shared/loader-spinner/Loader";
 
 const FavoritePage = () => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(selectGetUserFavorite);
   const quizes = useAppSelector(getQuizListCategory);
+  const isLoading = useAppSelector(getQuizIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
 
@@ -71,6 +74,7 @@ const FavoritePage = () => {
           }
         })}
       </StyledUl>
+      {isLoading ? <Loader /> : <></>}
       {quizes.length > pageSize ? (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load More

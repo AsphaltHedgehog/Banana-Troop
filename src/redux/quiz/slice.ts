@@ -123,6 +123,7 @@ const quizesSlice = createSlice({
       })
       .addCase(getFavoriteQuizes.fulfilled, (state, { payload }) => {
         state.listCategory.data.result = payload;
+        state.isLoading = false;
       })
       .addMatcher(
         isAnyOf(
