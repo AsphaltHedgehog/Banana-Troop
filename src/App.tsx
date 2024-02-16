@@ -48,9 +48,12 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="discover" element={<DiscoverPage />} />
-          <Route path="my-quizzes" element={<MyQuizzesPage />} />
+        <Route path="my-quizzes" element={<MyQuizzesPage />} />
+
+          <Route path="randomQuiz" element={<RandomQuizPage />} />
+         
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="myQuiz" element={<MyQuiz />} />
           <Route path="auth/*" element={<AuthPages />} />
