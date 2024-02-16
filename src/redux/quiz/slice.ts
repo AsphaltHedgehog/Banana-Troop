@@ -7,6 +7,7 @@ import {
   fetchQuizesThunk,
   getFavoriteQuizes,
   updateQuizesThunk,
+  getOwnQuizes,
 } from "./operations";
 
 export type QuizBody = {
@@ -125,6 +126,10 @@ const quizesSlice = createSlice({
         state.listCategory.data.result = payload;
         state.isLoading = false;
       })
+      .addCase(getOwnQuizes.fulfilled, (state, { payload }) => {
+        state.listCategory.data.result = payload;
+        state.isLoading = false;
+      })
       .addMatcher(
         isAnyOf(
           fetchQuizesThunk.pending,
@@ -132,7 +137,8 @@ const quizesSlice = createSlice({
           deleteQuizesThunk.pending,
           updateQuizesThunk.pending,
           fetchCategoriesThunk.pending,
-          getFavoriteQuizes.pending
+          getFavoriteQuizes.pending,
+          getOwnQuizes.pending
         ),
         (state) => {
           state.isLoading = true;
@@ -145,7 +151,8 @@ const quizesSlice = createSlice({
           deleteQuizesThunk.rejected,
           updateQuizesThunk.rejected,
           fetchCategoriesThunk.rejected,
-          getFavoriteQuizes.rejected
+          getFavoriteQuizes.rejected,
+          getOwnQuizes.rejected
         ),
         (state, action) => {
           state.isLoading = false;
