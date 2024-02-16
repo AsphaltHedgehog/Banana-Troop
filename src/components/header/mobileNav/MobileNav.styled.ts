@@ -64,7 +64,7 @@ export const NavLinkSettings = styled(NavLink)`
   gap: 5px;
 `;
 
-export const LogOutNav = styled(NavLink)`
+export const NavLinkLogOut = styled(NavLink)`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -74,6 +74,6 @@ export const LogOutNav = styled(NavLink)`
   gap: 5px;
   border: none;
   color: white;
-  padding: 0.6em 1.2em;
+  /* padding: 0.6em 1.2em; */
   background-color: transparent;
 `;

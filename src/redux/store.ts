@@ -17,6 +17,7 @@ import { questionsReducer } from "./questions/slice";
 import { reviewsReducer } from "./reviews/slice";
 import { updateOptionsReducer } from "./updateOptions/slice";
 import { userReducer } from "./user/slice";
+import { quizMachenReducer } from "./quizMachen/slice";
 
 const authPersistConfig = {
   key: "auth",
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
 
   quizes: quizesReducer,
   questions: questionsReducer,
+  quizMachen: quizMachenReducer,
 });
 
 export const store = configureStore({

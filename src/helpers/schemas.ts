@@ -1,8 +1,12 @@
 import * as yup from "yup";
 
 export const schemaRegister = yup.object().shape({
-  name: yup.string().min(1).max(32).required(),
-  email: yup.string().email("Email is not valid").required(),
+  name: yup
+    .string()
+    .min(1, "Name must contain more than 1 character")
+    .max(32, "Name must contain less than 32")
+    .required(),
+  email: yup.string().email("Email is not valid").required("Name is required"),
   password: yup
     .string()
     .min(8, "Enter a valid Password")
@@ -10,8 +14,14 @@ export const schemaRegister = yup.object().shape({
     .required(),
 });
 
+export const schemaWriteReview = yup.object().shape({
+  name: yup.string().min(1).max(32).required(),
+  rating: yup.number().required(),
+  review: yup.string().min(8).max(256).required(),
+});
+
 export const schemaLogin = yup.object().shape({
-  email: yup.string().email("Email is not valid").required(),
+  email: yup.string().email("Email is not valid").required("Email is required"),
   password: yup
     .string()
     .min(8, "Enter a valid Password")

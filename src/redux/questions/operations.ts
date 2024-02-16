@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Questions } from "./slice";
 import { AppDispatch, RootState } from "../store";
 import { quizApi } from "../auth/operations";
+import { Answers } from "./slice";
 
 interface AsyncThunkConfig {
   state: RootState;
@@ -9,9 +10,20 @@ interface AsyncThunkConfig {
   rejectValue: string;
 }
 
+interface INewQuestion {
+  _id: string;
+  quiz?: string;
+  time?: string;
+  imageUrl?: string;
+  type: "full-text" | "true-or-false";
+  descr?: string;
+  answers?: Answers[];
+  validAnswer?: string;
+}
+
 export const addedQuestionByQuizThunk = createAsyncThunk<
   Questions[],
-  Questions,
+  INewQuestion,
   AsyncThunkConfig
 >("addedQuestionByQuiz", async (body, thunkApi) => {
   try {
