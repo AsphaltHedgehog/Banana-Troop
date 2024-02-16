@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { useLocation } from "react-router-dom";
+import {  useAppSelector } from "../../redux/hooks";
+// import { useLocation } from "react-router-dom";
 
-import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+// import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";
 
 import {
@@ -21,13 +21,13 @@ import { StyledH2 } from "../../components/quizes/Quizes.styled";
 import Svg from "../../shared/svg";
 
 const MyQuizzesPage = () => {
-  const location = useLocation();
-  const param = location.search?.substring(1);
-  const dispatch = useAppDispatch();
+  // const location = useLocation();
+  // const param = location.search?.substring(1);
+  // const dispatch = useAppDispatch();
 
-  const title = useAppSelector(
-    (state) => state.quizes.listCategory.data.category
-  );
+  // const title = useAppSelector(
+  //   (state) => state.quizes.listCategory.data.category
+  // );
   const quizes = useAppSelector(
     (state) => state.quizes.listCategory.data.result
   );
