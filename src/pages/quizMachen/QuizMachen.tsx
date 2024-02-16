@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // redux
@@ -15,11 +15,16 @@ import { selectGetUser } from "../../redux/user/selectors";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.tsx";
 import { Quiz } from "../../redux/quizMachen/slice";
 
-// components
+// render components 
 import RenderHelloForm from "../../components/quizMachen/render/HelloForm.tsx";
-import AnswersType from "../../components/quizMachen/render/AnswersType.tsx";
-import WriteReviewButton from "../../components/reviewsModal/WriteReviewButton.tsx";
+import RenderResultInterface from "../../components/quizMachen/render/ResultInterface.tsx";
 import WriteReview from "../../components/reviewsModal/WriteReview.tsx";
+import ThanYou from "../../components/reviewsModal/ThanYou.tsx";
+import RenderQuestionInterface from "../../components/quizMachen/render/QuestionInterface.tsx";
+
+// functional components
+import validAnswers from "../../components/quizMachen/functional/validAnswers.tsx";
+import parsTimer from "../../components/quizMachen/functional/parsTimer.tsx";
 
 const QuizMachen = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +40,12 @@ const QuizMachen = () => {
   const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean }[]>([]);
   const [TimersArray, SetTimersArray] = useState<{ time: string }[]>([]);
   const [timerId, setTimerId] = useState<number | null>(null);
-  const [reviewes, setReviewes] = useState<boolean>(false);
+
+  // reviews
+  const [reviews, setReviews] = useState<boolean>(false);
+  const [isReviewSend, setIsReviewSend] = useState<boolean>(false)
+
+
   // quiz selectors
   const quiz: Quiz = useSelector(selectGetQuiz);
   const isLoading: boolean = useSelector(selectIsLoading);
@@ -75,26 +85,6 @@ const QuizMachen = () => {
       clearInterval(timerId);
     };
   }, [timerId]);
-
-  // functional functions
-
-  const helloFormSubmitHandler = (e?: FormEvent<HTMLFormElement>) => {
-    if (e) {
-      e.preventDefault();
-    }
-    SetIndex(Index + 1);
-  };
-
-  const validAnswers = () => {
-    let count = 0;
-    for (const i of AnswersArray) {
-      if (i.answer === true) {
-        count += 1;
-      }
-    }
-
-    return count;
-  };
 
   const startTimer = useCallback(() => {
     const [minutes, seconds] = TimersArray[Index].time.split(":").map(Number);
@@ -149,130 +139,38 @@ const QuizMachen = () => {
     });
   };
 
-  const parsTimer = (time: string) => {
-    const [hours, minutes] = time.split(":");
-    return parseInt(hours, 10) * 3600 + parseInt(minutes, 10) * 60;
-  };
-
-  // rendering functions
-
-  const renderQuestionInterface = () => {
-    if (!questions || !questions[Index]) {
-      throw new Error();
-    }
-
-    return (
-      <div>
-        <>
-          {questions[Index].imageUrl ? (
-            <>
-              <img
-                src={`https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${questions[Index].imageUrl}`}
-              ></img>
-              <div>
-                <p>Time: {TimersArray[Index].time}</p>
-                <p>{questions[Index].descr}</p>
-              </div>
-            </>
-          ) : (
-            <>
-              <p>Time: {TimersArray[Index].time}</p>
-              <p>{questions[Index].descr}</p>
-            </>
-          )}
-          <div>
-            {/* //TODO: */}
-            {
-              <AnswersType
-                questions={questions}
-                Index={Index}
-                parsTimer={parsTimer}
-                TimersArray={TimersArray}
-                validateAnswer={validateAnswer}
-              />
-            }
-          </div>
-          <div>
-            <button
-              type="button"
-              onClick={() => {
-                SetIndex(Index + 1);
-                if (timerId) {
-                  clearInterval(timerId);
-                }
-              }}
-            >
-              {Index + 1 === questions.length ? "Finish" : "Next"}
-            </button>
-            {Index > 0 ? (
-              <button
-                type="button"
-                onClick={() => {
-                  validAnswers;
-                  SetIndex(Index - 1);
-                  if (timerId) {
-                    clearInterval(timerId);
-                  }
-                }}
-              >
-                Back
-              </button>
-            ) : (
-              <></>
-            )}
-            <p>{`${Index + 1}/${questions.length}`}</p>
-          </div>
-        </>
-      </div>
-    );
-  };
-
-  const renderResultInterface = () => {
-    return (
-      <div>
-        <p>The results</p>
-        <div>
-          <p>Correct answers</p>
-          <p>{`${validAnswers()}/${questions?.length}`}</p>
-        </div>
-        <div>
-          <p>Rate the quiz</p>
-          <>STARS</>
-        </div>
-        <button type="button" onClick={() => "Отправь юзера ****!"}>
-          Write a review
-        </button>
-        <WriteReviewButton setReviewes={setReviewes} />
-      </div>
-    );
-  };
-
-  // main component return
   return (
     // add error toast
     <div style={{ backgroundColor: background ?? "transparent" }}>
       {isLoading && "Place for loader"}
-      {!isLoading && Index === -1 && (
-        <RenderHelloForm
-          theme={theme}
-          helloFormSubmitHandler={helloFormSubmitHandler}
-          name={Name}
-          isLoggedIn={isLoggedIn}
-          setName={SetName}
-        />
-      )}
-      {Index >= 0 &&
-        Index + 1 <= questions?.length &&
-        renderQuestionInterface()}
-      {Index === questions?.length && renderResultInterface()}
-      {reviewes && <WriteReview />}
+      {!isLoading && Index === -1 && !reviews && <RenderHelloForm
+        theme={theme}
+        name={Name}
+        isLoggedIn={isLoggedIn}
+        setName={SetName}
+        index={Index}
+        setIndex={SetIndex}
+      />}
+      {Index >= 0 && Index + 1 <= questions?.length && !reviews && < RenderQuestionInterface
+        questions={questions}
+        index={Index}
+        timersArray={TimersArray}
+        parsTimer={parsTimer}
+        validateAnswer={validateAnswer}
+        setIndex={SetIndex}
+        timerId={timerId}
+        validAnswers={validAnswers}
+      />}
+      {Index === questions?.length && !reviews && <RenderResultInterface
+        questions={questions}
+        AnswersArray={AnswersArray}
+        validAnswers={validAnswers}
+        setReviews={setReviews}
+      />}
+      {reviews && !isReviewSend && <WriteReview setIsReviewSend={setIsReviewSend} />}
+      {reviews && isReviewSend && <ThanYou />}
     </div>
   );
 };
 
 export default QuizMachen;
-
-{
-  /* <Route path="writeReview" element={<WriteReview />} />
-          <Route path="thanYou" element={<ThanYou />} /> */
-}

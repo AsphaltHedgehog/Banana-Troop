@@ -48,8 +48,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
-        console.log();
-        console.log(payload);
         state.user._id = payload._id;
         state.user.name = payload.name;
         state.user.gravatarURL = payload.avatarURL;

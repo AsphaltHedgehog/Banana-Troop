@@ -9,7 +9,6 @@ import {
   StyledWriteReviewWrapper,
 } from "./WriteReview.styled";
 
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { reviewsPostThunk } from "../../redux/reviews/operations";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,9 +21,12 @@ interface WriteReviewFormData {
   review: string;
 }
 
-const WriteReview: React.FC = () => {
+interface WriteReviewFormProps {
+  setIsReviewSend: (value: boolean) => void;
+}
+
+const WriteReview: React.FC<WriteReviewFormProps> = ({setIsReviewSend}) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   // const [name, setName] = useState("");
   // const [rating, setRating] = useState("5");
   // const [review, setReview] = useState("");
@@ -48,7 +50,7 @@ const WriteReview: React.FC = () => {
   const submit: SubmitHandler<WriteReviewFormData> = () => {
     dispatch(reviewsPostThunk()).unwrap();
     reset();
-    navigate("/thanYou");
+    setIsReviewSend(true)
   };
 
   return (
