@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import sprite from "../../images/icons/sprite.svg";
 import {
+  StyledRatingSvg,
   StyledSection,
+  StyledStarWrapper,
   StyledTitle,
+  StyledUl,
   StyledWriteReviewButton,
   StyledWriteReviewForm,
   StyledWriteReviewInput,
@@ -27,12 +31,12 @@ interface WriteReviewFormProps {
 
 const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   const dispatch = useAppDispatch();
-
+  const [stars, setStars] = useState<JSX.Element[]>([]);
+  const [rating, setRating] = useState<number>(0);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // setValue,
     reset,
   } = useForm<WriteReviewFormData>({
     resolver: yupResolver(schemaWriteReview),
@@ -44,6 +48,28 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
     setIsReviewSend(true);
   };
 
+  useEffect(() => {
+    // Формирование массива с рейтингом звезд
+    const starsArray: JSX.Element[] = [];
+    for (let i = 0; i < 5; i++) {
+      starsArray.push(
+        <StyledRatingSvg
+          key={i}
+          sprite={sprite}
+          id={`icon-rating`}
+          width={16}
+          height={16}
+          fillOpacity={i < rating ? 1 : 0.08} // Устанавливаем fillOpacity в зависимости от рейтинга
+          onClick={() => handleStarClick(i)} // Добавляем обработчик клика на звезду
+        />
+      );
+    }
+    setStars(starsArray);
+  }, [rating]);
+
+  const handleStarClick = (index: number) => {
+    setRating(index + 1); // Устанавливаем рейтинг на основе индекса звезды
+  };
   return (
     <StyledSection>
       <StyledWriteReviewWrapper>
@@ -55,11 +81,20 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
             {...register("name")}
           />
           {errors?.name && <div>{errors.name.message}</div>}
-          <StyledWriteReviewInput
+          <StyledStarWrapper>
+            <p>Rate the quiz</p>
+            <StyledUl>
+              {stars.map((_star, index) => (
+                <li key={index}>{_star}</li>
+              ))}
+            </StyledUl>
+          </StyledStarWrapper>
+
+          {/* <StyledWriteReviewInput
             type="number"
             placeholder="Rate the quiz"
             {...register("rating")}
-          />
+          /> */}
           {errors?.rating && <div>{errors.rating.message}</div>}
           <StyledWriteReviewTextarea
             {...register("review")}

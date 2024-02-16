@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Svg from "../../shared/svg/";
 import { breakpoints } from "../../styles";
 
 const { tablet, desktop } = breakpoints;
@@ -201,5 +201,33 @@ export const StyledWriteReviewTextarea = styled.textarea`
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #fafafa !important;
     caret-color: #fafafa !important;
+  }
+`;
+
+export const StyledUl = styled.ul`
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  line-height: 0;
+`;
+
+export const StyledRatingSvg = styled(Svg)`
+  fill: #f4f4f4;
+  /* fill-opacity: 0.08; */
+  stroke-width: 0;
+`;
+export const StyledStarWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+  align-content: center;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  p {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -0.01em;
+    color: rgba(244, 244, 244, 0.6);
   }
 `;
