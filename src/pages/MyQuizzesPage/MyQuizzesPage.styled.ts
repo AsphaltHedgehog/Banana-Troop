@@ -1,165 +1,131 @@
 import styled from "styled-components";
 import { breakpoints } from "../../styles";
+import Box from "../../components/box/Box";
+import Svg from "../../shared/svg/Svg";
 
-const { tablet } = breakpoints;
-export const StyledMyQuizHeader = styled.div`
+const { mobile, tablet, desktop } = breakpoints;
+
+export const StyledBox = styled(Box)`
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  @media screen and (min-width: ${tablet}) {
+    padding-top: 88px;
+    padding-bottom: 100px;
+  }
+
+  @media screen and (min-width: ${desktop}) {
+    padding-top: 100px;
+  }
+`;
+
+export const StyledContainer = styled.div`
   display: flex;
-  
   flex-direction: column;
-  justify-content: space-between;
+
   align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 40px;
 
   @media screen and (min-width: ${tablet}) {
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
+  }
+`;
+
+export const StyledH2 = styled.h2`
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1875;
+  letter-spacing: -0.01em;
+
+  margin-bottom: 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 44px;
+    line-height: 1.09091;
+
+    margin-bottom: 0px;
+  }
+`;
+
+export const StyledContainer2 = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+`;
+
+export const StyledSvg = styled(Svg)`
+  position: absolute;
+  top: 17px;
+  left: 18px;
+`;
+
+export const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 20px;
+
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    flex-wrap: wrap;
+
     gap: 48px 24px;
   }
 `;
 
-export const StyledUlCards = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 40px;
-  /* justify-content: center; */
+export const StyledButton = styled.button`
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+
+  background: transparent;
+
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  text-decoration: underline;
+  color: #f4f4f4;
+
+  margin-top: 40px;
+
   @media screen and (min-width: ${tablet}) {
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 48px;
-    gap: 48px 24px;
+    font-size: 16px;
+    line-height: 1;
+
+    margin-top: 48px;
   }
 `;
 
 export const StyledInputSearch = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.3);
-  display: flex;  
   border-radius: 30px;
-  padding: 15px 155px 15px 38px;
+  padding: 15px 128px 15px 38px;
   font-size: 14px;
   line-height: 1.28571;
   letter-spacing: -0.01em;
   color: #f4f4f4;
-  width: 335px;
-  height: 48px;
   background: #171717;
+
+  @media screen and (max-width: ${mobile}) {
+    width: 100vw;
+    padding: 15px 0px 15px 38px;
+  }
+
   @media screen and (min-width: ${tablet}) {
-    border: 1px solid rgba(244, 244, 244, 0.3);
+    border: 1px solid rgsba(244, 244, 244, 0.3);
     border-radius: 30px;
-    padding: 15px 155px 15px 38px;
-    width: 240px;
-    height: 48px;
+    padding: 15px 33px 15px 38px;
   }
-`;
-
-
-export const StyledLoadMore = styled.button`
-  color: #fff;
-  text-decoration: underline;
-  border: none;
-  background: none;
-
-  margin-bottom: 80px;
-  &:hover {
-    color: #205bf1; /* Колір для ховеру */
-  }
-  @media screen and (min-width: ${tablet}) {
-    font-size: 16px;
-    line-height: 1;
-    margin-top: 48px;
-    margin-bottom: 100px;
-  }
-`;
-
-
-
-export const StyledBtnStars = styled.button`
-  border: none;
-  background: none;
-  padding: 0;
-  &:hover {
-    opacity: 0.5;
-  }
-`;
-
-export const StyledBtnFilter = styled.button`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  border: 1px solid rgba(244, 244, 244, 0.3);
-  border-radius: 30px;
-  background: #171717;
-  color: #f4f4f4;
-  padding: 14px 18px;
-  font-size: 14px;
-  line-height: 1.28571;
-  letter-spacing: -0.01em;
-  &:hover {
-    background: #205bf1;
-  }
-`;
-
-export const StyledBtnTitle = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  border-radius: 20px;
-  background: #000;
-
-  padding: 10px 20px;
-  border: 1px solid rgba(244, 244, 244, 0.3);
-  border-radius: 30px;
-  background: #171717;
-  padding: 14px 32px 14px 18px;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28571;
-  letter-spacing: -0.01em;
-  color: #f4f4f4;
-  &:hover {
-    background: #205bf1;
-  }
-
-  @media screen and (min-width: ${tablet}) {
-    border: 1px solid rgba(244, 244, 244, 0.3);
-    border-radius: 30px;
-    background: #171717;
-    padding: 15px 32px 15px 18px;
-    color: #fff;
-  }
-`;
-
-
-
-
-
-export const StyledLabel = styled.label`
-  display: flex;
-  align-items: center;
-  padding: 5px;
-`;
-
-export const StyledInput = styled.input`
-  margin-right: 10px;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #fff;
-  border-radius: 4px;
-  background-color: transparent;
-  cursor: pointer;
-  &:checked {
-    background-color: #fff; /* Білий фон для вибраних чекбоксів */
-  }
-`;
-
-export const StyledEmptyText = styled.p`
-  display: flex;
-  font-size: 16px;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  color: rgba(244, 244, 244, 0.6);
 `;

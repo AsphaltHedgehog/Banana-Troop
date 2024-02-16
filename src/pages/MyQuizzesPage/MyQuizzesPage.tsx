@@ -1,131 +1,95 @@
-import { useState } from "react";
-
-import {  useAppSelector } from "../../redux/hooks";
-// import { useLocation } from "react-router-dom";
-
-// import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+import { ChangeEvent, useEffect, useState } from "react";
 import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";
-
 import {
-  StyledMyQuizHeader,
- 
+  StyledContainer,
+  StyledContainer2,
+  StyledH2,
+  StyledUl,
+  StyledButton,
   StyledInputSearch,
-
-  StyledLoadMore,
-  StyledUlCards,
+  StyledBox,
+  StyledSvg,
 } from "./MyQuizzesPage.styled";
-
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getOwnQuizes } from "../../redux/quiz/operations";
+import { getQuizListCategory } from "../../redux/quiz/selectors";
+import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
-import Box from "../../components/box/Box";
-import { StyledH2 } from "../../components/quizes/Quizes.styled";
-import Svg from "../../shared/svg";
+import { getQuizIsLoading } from "../../redux/quiz/selectors";
+import Loader from "../../shared/loader-spinner/Loader";
+import { getUserThunk } from "../../redux/user/operations";
+import { setToken } from "../../redux/auth/operations";
+import { selectUserToken } from "../../redux/auth/selectors";
 
 const MyQuizzesPage = () => {
-  // const location = useLocation();
-  // const param = location.search?.substring(1);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  const quizes = useAppSelector(getQuizListCategory);
+  const isLoading = useAppSelector(getQuizIsLoading);
+  const [pageSize, setPageSize] = useState<number>(8);
+  const [search, setSearch] = useState<string>("");
+  const userToken = useAppSelector(selectUserToken);
 
-  // const title = useAppSelector(
-  //   (state) => state.quizes.listCategory.data.category
-  // );
-  const quizes = useAppSelector(
-    (state) => state.quizes.listCategory.data.result
-  );
-  const total = useAppSelector((state) => state.quizes.listCategory.data.total);
-
- 
-  const [pageParam, setPageParam] = useState<number>(1);
-  const [sizeParam, setSizeParam] = useState<number>(8);
- 
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedAgeGroupCat, setSelectedAgeGroupCat] = useState<string>("");
-  
-
-  
-
-  const [query, setQuery] = useState({
-
-    page: pageParam,
-    pageSize: sizeParam,
-   
-    inputText: searchTerm,
-    title: selectedAgeGroupCat,
+  const filteredQuizes = quizes.filter((quiz) => {
+    return quiz.theme.toLowerCase().includes(search);
   });
 
-  ;
-
-   
-
-  const handleFilter = () => {
-    const newQuery = {
-      ...query,
-    
-      page: pageParam,
-     
-
-      inputText: searchTerm,
-      title: selectedAgeGroupCat,
-    };
-    setQuery(newQuery);
-    setPageParam(1);
-    setSizeParam(8);
-    setSelectedAgeGroupCat("");
-   
-  };
-
- 
-
-
- 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchTerm.trim() !== "") {
-      handleFilter();
-    }
-  };
+  useEffect(() => {
+    setToken(userToken);
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(getOwnQuizes());
+      });
+  }, [dispatch, userToken]);
 
   const handleLoadMore = () => {
-    setSizeParam((prev) => prev + 8);
+    setPageSize((prev) => prev + 8);
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   return (
-    <Box>
-      <StyledMyQuizHeader>
-        <StyledH2>My quiz</StyledH2>
+    <StyledBox>
+      <StyledContainer>
+        <StyledH2>My quize</StyledH2>
         <CreateQuizLink />
-      </StyledMyQuizHeader>
-     
-        <label>
-          <div style={{ position: "relative" }}>
-            <Svg
-              sprite={sprite}
-              id={"icon-search"}
-              width={14}
-              height={14}
-              style={{
-                position: "absolute",
-                left: 18,
-                top: "50%",
-                transform: "translateY(-50%)",
-              }}
-            />
-            <StyledInputSearch
-              type="text"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-          </div>
-        </label>
-      <StyledUlCards>
-       
-      </StyledUlCards>
-      <div>
-        {quizes.length < total[0]?.count && quizes.length > 7 && (
-          <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
-        )}
-      </div>
-    </Box>
+      </StyledContainer>
+      <StyledContainer2>
+        <StyledSvg sprite={sprite} id={"icon-search"} width={14} height={14} />
+        <StyledInputSearch
+          value={search}
+          onChange={handleSearchChange}
+          placeholder="Search"
+        />
+      </StyledContainer2>
+      <StyledUl>
+        {filteredQuizes?.map((quiz, index) => {
+          if (index < pageSize) {
+            return (
+              <QuizListItem
+                key={quiz._id}
+                id={quiz._id}
+                theme={quiz.theme}
+                rating={quiz.rating}
+                ageGroup={quiz.ageGroup}
+                finished={quiz.finished}
+                owner={quiz.owner}
+              />
+            );
+          }
+        })}
+      </StyledUl>
+      {isLoading ? <Loader /> : <></>}
+      {quizes.length > pageSize ? (
+        <StyledButton type="button" onClick={handleLoadMore}>
+          Load More
+        </StyledButton>
+      ) : (
+        <></>
+      )}
+    </StyledBox>
   );
 };
 

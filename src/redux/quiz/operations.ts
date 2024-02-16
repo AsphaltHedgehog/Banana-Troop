@@ -194,3 +194,17 @@ export const getFavoriteQuizes = createAsyncThunk<
     );
   }
 });
+
+export const getOwnQuizes = createAsyncThunk<QuizBody[], void>(
+  "getOwnQuizes",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await quizApi.get(`/quiz/myQuizes`);
+      return data.data.result;
+    } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
+    }
+  }
+);
