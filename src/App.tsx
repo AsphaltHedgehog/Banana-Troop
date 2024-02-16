@@ -46,6 +46,7 @@ function App() {
           <Route path="forChildren" element={<ForChildren />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
           <Route path="discover" element={<DiscoverPage />} />
+        <Route path="my-quizzes" element={<MyQuizzesPage />} />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="auth/*" element={<AuthPages />} />
@@ -54,7 +55,6 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-        <Route path="my-quizzes" element={<MyQuizzesPage />} />
         
         
       </Routes>

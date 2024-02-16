@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchCategoriesThunk } from "../../redux/quiz/operations";
+
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useLocation } from "react-router-dom";
 
@@ -7,9 +7,10 @@ import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";
 
 import {
-  StyledDiscoverHeader,
-  StyledEmptyText,
+  StyledMyQuizHeader,
+ 
   StyledInputSearch,
+
   StyledLoadMore,
   StyledUlCards,
 } from "./MyQuizzesPage.styled";
@@ -32,54 +33,35 @@ const MyQuizzesPage = () => {
   );
   const total = useAppSelector((state) => state.quizes.listCategory.data.total);
 
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>(
-    param ? param : "adults"
-  );
+ 
   const [pageParam, setPageParam] = useState<number>(1);
   const [sizeParam, setSizeParam] = useState<number>(8);
-  const [selectedRating, setSelectedRating] = useState<number>(5);
+ 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedAgeGroupCat, setSelectedAgeGroupCat] = useState<string>("");
-  const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
-  const userId = useAppSelector((state) => state.auth.user.id); // Предполагаем, что есть стейт auth с данными пользователя
-  const userQuizzes = useAppSelector((state) => state.quizes.userQuizzes); 
-  const [searchTerm, setSearchTerm] = useState('');
-  const history = useHistory();
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleCreateQuiz = () => {
-    history.push('/create-quiz'); // Перенаправление на страницу создания викторины
-  };
+  
 
   
 
   const [query, setQuery] = useState({
-    ageGroup: selectedAgeGroup,
+
     page: pageParam,
     pageSize: sizeParam,
-    rating: selectedRating,
+   
     inputText: searchTerm,
     title: selectedAgeGroupCat,
   });
 
-  useEffect(() => {
-    const newQuery = {
-      ...query,
-      pageSize: sizeParam,
-    };
+  ;
 
-    dispatch(fetchCategoriesThunk(newQuery));
-  }, [dispatch, query, sizeParam]);
+   
 
   const handleFilter = () => {
     const newQuery = {
       ...query,
-      ageGroup: selectedAgeGroup,
+    
       page: pageParam,
-      rating: selectedRating,
+     
 
       inputText: searchTerm,
       title: selectedAgeGroupCat,
@@ -88,7 +70,7 @@ const MyQuizzesPage = () => {
     setPageParam(1);
     setSizeParam(8);
     setSelectedAgeGroupCat("");
-    setIsCategoryListOpen(false);
+   
   };
 
  
@@ -107,10 +89,10 @@ const MyQuizzesPage = () => {
 
   return (
     <Box>
-      <StyledDiscoverHeader>
+      <StyledMyQuizHeader>
         <StyledH2>My quiz</StyledH2>
         <CreateQuizLink />
-      </StyledDiscoverHeader>
+      </StyledMyQuizHeader>
      
         <label>
           <div style={{ position: "relative" }}>
@@ -136,20 +118,7 @@ const MyQuizzesPage = () => {
           </div>
         </label>
       <StyledUlCards>
-        {quizes.length > 0 ? (
-          quizes.map((quiz) => (
-            <QuizListItem
-              key={quiz._id}
-              id={quiz._id}
-              theme={quiz.theme}
-              rating={quiz.rating}
-              ageGroup={quiz.ageGroup}
-              finished={quiz.finished}
-            />
-          ))
-        ) : (
-          <StyledEmptyText>No quizzes found</StyledEmptyText>
-        )}
+       
       </StyledUlCards>
       <div>
         {quizes.length < total[0]?.count && quizes.length > 7 && (

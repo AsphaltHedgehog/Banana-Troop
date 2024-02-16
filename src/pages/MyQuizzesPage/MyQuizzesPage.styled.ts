@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { breakpoints } from "../../styles";
 
 const { tablet } = breakpoints;
-export const StyledDiscoverHeader = styled.div`
+export const StyledMyQuizHeader = styled.div`
   display: flex;
+  
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
@@ -30,20 +31,10 @@ export const StyledUlCards = styled.ul`
     gap: 48px 24px;
   }
 `;
-export const StyledFilterWrap = styled.div`
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-  @media screen and (min-width: ${tablet}) {
-    flex-direction: row;
-    align-items: center;
-    gap: 48px 12px;
-    margin-bottom: 24px;
-  }
-`;
+
 export const StyledInputSearch = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.3);
+  display: flex;  
   border-radius: 30px;
   padding: 15px 155px 15px 38px;
   font-size: 14px;
@@ -143,9 +134,7 @@ export const StyledBtnTitle = styled.button`
 
 
 
-interface StyledTitleWrapProps {
-  $isOpen: boolean;
-}
+
 
 export const StyledLabel = styled.label`
   display: flex;
