@@ -15,7 +15,6 @@ import { breakpointsNumbers } from "../../styles";
 import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "../basequizlist/BaseQuizList.styled";
 
-
 const Reviews: React.FC = () => {
   const width = useWidth();
 
@@ -53,7 +52,7 @@ const Reviews: React.FC = () => {
   return (
     <StyledSection>
       <StyledTitle>Reviews</StyledTitle>
-      
+
       <>
         {width < breakpointsNumbers.tablet ? (
           <Slider {...settingsMobile}>

@@ -25,11 +25,8 @@ interface WriteReviewFormProps {
   setIsReviewSend: (value: boolean) => void;
 }
 
-const WriteReview: React.FC<WriteReviewFormProps> = ({setIsReviewSend}) => {
+const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   const dispatch = useAppDispatch();
-  // const [name, setName] = useState("");
-  // const [rating, setRating] = useState("5");
-  // const [review, setReview] = useState("");
 
   const {
     register,
@@ -41,16 +38,10 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({setIsReviewSend}) => {
     resolver: yupResolver(schemaWriteReview),
   });
 
-  // const handleWriteReview = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const reviewValue = e.target.value;
-  //   setReview(reviewValue);
-  //   setValue("review", reviewValue);
-  // };
-
   const submit: SubmitHandler<WriteReviewFormData> = () => {
     dispatch(reviewsPostThunk()).unwrap();
     reset();
-    setIsReviewSend(true)
+    setIsReviewSend(true);
   };
 
   return (

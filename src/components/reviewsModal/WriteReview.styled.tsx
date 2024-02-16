@@ -19,7 +19,9 @@ export const StyledSection = styled.section`
 
 export const StyledWriteReviewWrapper = styled.div`
   margin-bottom: 32px;
-
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
   @media screen and (min-width: ${tablet}) {
   }
   @media screen and (min-width: ${desktop}) {
@@ -89,8 +91,8 @@ export const StyledWriteReviewInput = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
 
-  width: 321px;
-  height: 44px;
+  max-width: 321px;
+  max-height: 44px;
 
   font-weight: 400;
   font-size: 14px;
@@ -98,7 +100,7 @@ export const StyledWriteReviewInput = styled.input`
   letter-spacing: -0.01em;
 
   @media screen and (min-width: ${tablet}) {
-    width: 321px;
+    max-width: 321px;
 
     font-size: 16px;
     line-height: 1;
@@ -146,8 +148,8 @@ export const StyledWriteReviewTextarea = styled.textarea`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 15px;
   padding: 14px 74px 74px 18px;
-  width: 321px;
-  height: 104px;
+  max-width: 321px;
+  max-height: 104px;
   background-color: transparent;
   color: #fafafa;
   font-weight: 400;
