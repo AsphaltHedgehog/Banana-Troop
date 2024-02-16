@@ -40,7 +40,7 @@ const MyQuizzesPage = () => {
       .then(() => {
         dispatch(getOwnQuizes());
       });
-  }, [dispatch]);
+  }, [dispatch, userToken]);
 
   const handleLoadMore = () => {
     setPageSize((prev) => prev + 8);
