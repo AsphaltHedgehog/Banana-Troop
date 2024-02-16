@@ -27,6 +27,7 @@ const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
   const [sizeParam, setSizeParam] = useState<number>(8);
 
   const total = useAppSelector((state) => state.quizes.listCategory.data.total);
+  const total = useAppSelector(getQuizCategoryTotal);
   
   const handleLoadMore = () => {
     setSizeParam((prev) => prev + 8);

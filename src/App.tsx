@@ -16,7 +16,7 @@ import FavoritePage from "./pages/FavoritePage";
 import AuthPages from "./pages/AuthPages/AuthPages";
 import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
-import MyQuiz from "./pages/myQuiz/MyQuiz";
+// import MyQuiz from "./pages/myQuiz/MyQuiz";
 import LastPassedQuizes from "./pages/LastPassedQuizes/LastPassedQuizes";
 import QuizMachen from "./pages/quizMachen/QuizMachen";
 import MyQuizzesPage from "./pages/MyQuizzesPage/MyQuizzesPage";
@@ -54,12 +54,9 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-
           <Route path="discover" element={<DiscoverPage />} />
           <Route path="myQuiz" element={<MyQuizzesPage />} />
-
           <Route path="randomQuiz" element={<RandomQuizPage />} />
-
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="lastPassedQuizzes" element={<LastPassedQuizes quizes={[]}/>} />
           <Route path="auth/*" element={<AuthPages />} />
