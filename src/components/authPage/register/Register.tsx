@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaRegister } from "../../../helpers/schemas";
 import { useAppDispatch } from "../../../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   AuthLink,
@@ -19,7 +20,6 @@ import {
 import { useState } from "react";
 import sprite from "../../../images/icons/sprite.svg";
 
-
 interface RegisterFormData {
   name: string;
   email: string;
@@ -29,7 +29,7 @@ interface RegisterFormData {
 const Register: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
 
   const {
@@ -45,23 +45,27 @@ const Register: React.FC = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  
+
   const isPasswordValid = () => {
-    return (
-      password.length >= 8 && password.length <= 64 && !errors.password
-    );
+    return password.length >= 8 && password.length <= 64 && !errors.password;
   };
 
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const passwordValue = e.target.value;
     setPassword(passwordValue);
     setValue("password", passwordValue);
   };
 
-  const submit: SubmitHandler<RegisterFormData> = (data) => {
-    dispatch(registerThunk(data)).unwrap();
-    reset();
-    navigate("/");
+  const submit: SubmitHandler<RegisterFormData> = async (data) => {
+    try {
+      await dispatch(registerThunk(data)).unwrap();
+      reset();
+      navigate("/");
+      toast.success("Registration successful!");
+    } catch (error) {
+      navigate("/");
+      toast.error("Registration failed. Are you using this email already?");
+    }
   };
 
   return (
@@ -78,11 +82,11 @@ const Register: React.FC = () => {
         {errors?.email && <div>{errors.email.message}</div>}
 
         <WrapInPass>
-        <StyledAuthInput
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          {...register("password")}
-           onChange={handlePasswordChange}
+          <StyledAuthInput
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            {...register("password")}
+            onChange={handlePasswordChange}
             className={`${
               password.length === 0
                 ? "empty"
@@ -90,8 +94,11 @@ const Register: React.FC = () => {
                 ? "valid"
                 : "invalid"
             }`}
-        />
-        <PasswordToggle onClick={() => togglePasswordVisibility()} type="button">
+          />
+          <PasswordToggle
+            onClick={() => togglePasswordVisibility()}
+            type="button"
+          >
             {showPassword ? (
               <svg>
                 <use
@@ -109,7 +116,8 @@ const Register: React.FC = () => {
                 ></use>
               </svg>
             )}
-          </PasswordToggle></WrapInPass>
+          </PasswordToggle>
+        </WrapInPass>
         {errors?.password && <div>{errors.password.message}</div>}
         <RegisterButton onClick={handleSubmit(submit)}>Register</RegisterButton>
       </StyledAuthForm>
