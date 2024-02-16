@@ -31,7 +31,7 @@ export type Category = {
 export type Total = [
   {
     _id: string;
-    count: number;
+    total: number;
   }
 ];
 
@@ -66,7 +66,7 @@ const initialState: QuizState = {
     data: {
       result: [],
       category: [],
-      total: [{ _id: "", count: 0 }],
+      total: [{ _id: "", total: 0 }],
     },
 
     currentPage: 0,
