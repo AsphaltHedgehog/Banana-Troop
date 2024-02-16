@@ -5,6 +5,7 @@ import {
   fetchCategoriesThunk,
   fetchQuizesByRatingThunk,
   fetchQuizesThunk,
+  getFavoriteQuizes,
   updateQuizesThunk,
 } from "./operations";
 
@@ -30,7 +31,7 @@ export type Category = {
 export type Total = [
   {
     _id: string;
-    count: number;
+    total: number;
   }
 ];
 
@@ -65,7 +66,7 @@ const initialState: QuizState = {
     data: {
       result: [],
       category: [],
-      total: [{ _id: "", count: 0 }],
+      total: [{ _id: "", total: 0 }],
     },
 
     currentPage: 0,
@@ -81,8 +82,7 @@ const initialState: QuizState = {
 const quizesSlice = createSlice({
   name: "quizes",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchQuizesThunk.fulfilled, (state, { payload }) => {
@@ -121,13 +121,18 @@ const quizesSlice = createSlice({
         }
         state.isLoading = false;
       })
+      .addCase(getFavoriteQuizes.fulfilled, (state, { payload }) => {
+        state.listCategory.data.result = payload;
+        state.isLoading = false;
+      })
       .addMatcher(
         isAnyOf(
           fetchQuizesThunk.pending,
           addQuizesThunk.pending,
           deleteQuizesThunk.pending,
           updateQuizesThunk.pending,
-          fetchCategoriesThunk.pending
+          fetchCategoriesThunk.pending,
+          getFavoriteQuizes.pending
         ),
         (state) => {
           state.isLoading = true;
@@ -138,7 +143,9 @@ const quizesSlice = createSlice({
           fetchQuizesThunk.rejected,
           addQuizesThunk.rejected,
           deleteQuizesThunk.rejected,
-          updateQuizesThunk.rejected
+          updateQuizesThunk.rejected,
+          fetchCategoriesThunk.rejected,
+          getFavoriteQuizes.rejected
         ),
         (state, action) => {
           state.isLoading = false;
