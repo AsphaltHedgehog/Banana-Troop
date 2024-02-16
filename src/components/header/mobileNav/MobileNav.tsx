@@ -2,18 +2,17 @@
 import {
   AuthWrapper,
   CategoriesWrapper,
-  LogOutNav,
+  NavLinkLogOut,
   NavLinkLogin,
   NavLinkRegister,
   NavLinkSettings,
   NavWrapper,
-} from "./Nav.styled";
+} from "./MobileNav.styled";
 import { StyledH2 } from "../wholeComponent/Header.styled";
 import { NavLink, NavigateFunction, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-// import { logoutThunk } from "../../../redux/auth/operations";
-// import { toast } from "react-toastify";
+
 import sprite from "../../../images/icons/sprite.svg";
 // import { useAppDispatch } from "../../../redux/hooks";
 
@@ -39,18 +38,6 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
     }
   };
 
-  // const handleLogOut = () => {
-  //   dispatch(logoutThunk())
-  //     .unwrap()
-  //     .then(() => {
-  //       handleCloseBurger();
-  //       navigate("/login");
-  //     })
-  //     .catch(() => {
-  //       toast.warning("Oops, something went wrong! Try again, please!");
-  //     });
-  // };
-
   return (
     <>
       <NavWrapper onClick={handleClick}>
@@ -68,13 +55,12 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
                 </svg>
                 Settings
               </NavLinkSettings>
-
-              <LogOutNav to="/auth/logout">
+              <NavLinkLogOut to="/auth/logout">
                 <svg onClick={handleCloseBurger}>
                   <use xlinkHref={`${sprite}#icon-log-out`}></use>
                 </svg>
                 Log out
-              </LogOutNav>
+              </NavLinkLogOut>
             </>
           ) : (
             <>

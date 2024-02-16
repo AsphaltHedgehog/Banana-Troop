@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaLogin } from "../../../helpers/schemas";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "react-toastify";
+
 import {
   AuthLink,
   PasswordToggle,
@@ -52,10 +54,16 @@ const Login: React.FC = () => {
     setValue("password", passwordValue);
   };
 
-  const submit: SubmitHandler<LoginFormData> = (data) => {
-    dispatch(loginThunk(data)).unwrap();
-    reset();
-    navigate("/");
+  const submit: SubmitHandler<LoginFormData> = async (data) => {
+    try {
+      await dispatch(loginThunk(data)).unwrap();
+      reset();
+      navigate("/");
+      toast.success("Login successful!");
+    } catch (error) {
+      navigate("/");
+      toast.error("Login failed.");
+    }
   };
 
   return (

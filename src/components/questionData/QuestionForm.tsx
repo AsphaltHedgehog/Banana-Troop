@@ -10,6 +10,7 @@ import {
   QuestionFormWrapper,
   QuestionImage,
   QuestionImageWrapper,
+  QuestionImageWrapper2,
   QuestionTextarea,
   StyledSvg,
   SubmitQBtnNumWrapper,
@@ -19,7 +20,6 @@ import {
 } from "./QuestionForm.styled";
 import {
   deleteQuizQuestionImgByIdThunk,
-  updateQuestionByQuizThunk,
   updateQuizQuestionImgByIdThunk,
 } from "../../redux/questions/operations";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -36,6 +36,8 @@ import { toast } from "react-toastify";
 import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
 import QuestionTime from "./questionTime/QuestionTime";
 import AnswerList from "./аnswerList/AnswerList";
+import { updateQuestionData } from "../../redux/questions/slice";
+import { updateQuestionByQuizThunk } from "../../redux/questions/operations";
 
 type FormValues = {
   _id?: string;
@@ -101,12 +103,13 @@ const QuestionForm = () => {
         validAnswer: String(selectedAnswerIndex),
       };
 
-      dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
+      dispatch(updateQuestionData(createNewQuizQuestion));
+
+      dispatch(updateQuestionByQuizThunk(selectQuestion[selectQuestionIndex]))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             toast.success("Congrats! You added question");
             setSelectedAnswerIndex(-1);
-            reset();
           }
         })
         .catch((error) => {
@@ -131,14 +134,14 @@ const QuestionForm = () => {
     } else {
       return (
         <>
-          <QuestionImageWrapper
-            imageurl={`http://res.cloudinary.com/dddrrdx7a/image/upload/v1707564027/${imageUrl}`}
-          >
+          <QuestionImageWrapper2>
             <QuestionFormInputLabel htmlFor="upload">
               <StyledSvg
                 sprite={sprite}
                 id={`icon-plus`}
-                background={`${selectQuiz.background}`}
+                width={50}
+                height={50}
+                stroke="#000000"
               />
             </QuestionFormInputLabel>
             <QuestionFormInputForUpdate
@@ -148,7 +151,7 @@ const QuestionForm = () => {
               accept="image/*"
               onChange={hangleChengeImageQuestion}
             />
-          </QuestionImageWrapper>
+          </QuestionImageWrapper2>
         </>
       );
     }
