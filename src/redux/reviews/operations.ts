@@ -23,9 +23,7 @@ interface ReviewsPost {
   updatedAt: string;
   rating: string;
 }
-// interface Reviews {
-//   reviews: Review[];
-// }
+
 interface IResponse {
   code: number;
   data: unknown[];
@@ -53,7 +51,7 @@ export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
       if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);
       } else {
-        return thunkApi.rejectWithValue("Произошла неизвестная ошибка");
+        return thunkApi.rejectWithValue("Error");
       }
     }
   }
@@ -71,7 +69,7 @@ export const reviewsPostThunk = createAsyncThunk<ReviewsPost>(
       if (error instanceof Error && typeof error.message === "string") {
         return thunkApi.rejectWithValue(error.message);
       } else {
-        return thunkApi.rejectWithValue("Произошла неизвестная ошибка");
+        return thunkApi.rejectWithValue("Error");
       }
     }
   }
