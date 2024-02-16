@@ -19,6 +19,7 @@ import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import MyQuiz from "./pages/myQuiz/MyQuiz";
 import LastPassedQuizes from "./pages/LastPassedQuizes/LastPassedQuizes";
 import QuizMachen from "./pages/quizMachen/QuizMachen";
+import MyQuizzesPage from "./pages/MyQuizzesPage/MyQuizzesPage";
 
 // css
 import "./App.css";
@@ -29,12 +30,16 @@ function App() {
   const userToken = useAppSelector(selectUserToken);
 
   useEffect(() => {
-    setToken(userToken);
-    dispatch(getUserThunk())
-      .unwrap()
-      .then(() => {
-        dispatch(setLoggedIn(true));
-      });
+    try {
+      setToken(userToken);
+      dispatch(getUserThunk())
+        .unwrap()
+        .then(() => {
+          dispatch(setLoggedIn(true));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, [dispatch, userToken]);
 
   return (
@@ -49,10 +54,13 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="discover" element={<DiscoverPage />} />
+          <Route path="myQuiz" element={<MyQuizzesPage />} />
+
+          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="favorites" element={<FavoritePage />} />
-          <Route path="myQuiz" element={<MyQuiz />} />
           <Route path="lastPassedQuizzes" element={<LastPassedQuizes quizes={[]}/>} />
           <Route path="auth/*" element={<AuthPages />} />
           <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />

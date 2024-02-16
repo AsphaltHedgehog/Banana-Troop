@@ -3,6 +3,8 @@ import { useModal } from "../../../hooks/useModal";
 import { logoutThunk } from "../../../redux/auth/operations";
 import { useAppDispatch } from "../../../redux/hooks";
 import { LogoutButton } from "../../../shared/buttons/RegisterButton";
+import { toast } from "react-toastify";
+
 import {
   StyledCanceLink,
   StyledLogoutTitle,
@@ -15,9 +17,15 @@ const Logout: React.FC = () => {
   const { closeModal } = useModal();
   const navigate = useNavigate();
 
-  const handleLogOut = () => {
-    dispatch(logoutThunk()).unwrap();
-    navigate("/");
+  const handleLogOut = async () => {
+    try {
+      await dispatch(logoutThunk()).unwrap();
+      navigate("/");
+      toast.success("Logout successful!");
+    } catch (error) {
+      navigate("/");
+      toast.error("Something went wrong.");
+    }
   };
 
   return (
