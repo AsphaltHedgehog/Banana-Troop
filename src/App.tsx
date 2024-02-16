@@ -28,12 +28,16 @@ function App() {
   const userToken = useAppSelector(selectUserToken);
 
   useEffect(() => {
-    setToken(userToken);
-    dispatch(getUserThunk())
-      .unwrap()
-      .then(() => {
-        dispatch(setLoggedIn(true));
-      });
+    try {
+      setToken(userToken);
+      dispatch(getUserThunk())
+        .unwrap()
+        .then(() => {
+          dispatch(setLoggedIn(true));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, [dispatch, userToken]);
 
   return (
