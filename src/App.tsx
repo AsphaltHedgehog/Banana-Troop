@@ -13,7 +13,7 @@ import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
 import AuthPages from "./pages/AuthPages/AuthPages";
-
+import MyQuizzesPage from './pages/MyQuizzesPage/MyQuizzesPage'
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,8 +52,12 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="discover" element={<DiscoverPage />} />
+        <Route path="my-quizzes" element={<MyQuizzesPage />} />
+
+          <Route path="randomQuiz" element={<RandomQuizPage />} />
+         
           <Route path="favorites" element={<FavoritePage />} />
           <Route path="myQuiz" element={<MyQuiz />} />
           <Route path="auth/*" element={<AuthPages />} />
@@ -61,7 +65,10 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
+        
+        
       </Routes>
+
     </div>
   );
 }
