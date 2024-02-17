@@ -4,42 +4,87 @@ import AnswersType from "./AnswersType";
 
 import { Questions } from "../../../redux/quizMachen/slice";
 
+import {
+  AnswersLowPanelBtnsWrap,
+  AnswersLowPanelWrap,
+  AnswersTopPanelBtnsWrap,
+  AnswersTypeWrap,
+  NumberPage,
+  StyledBackBtn,
+  StyledButtonNext,
+  StyledImageTest,
+  StyledQuestionParag,
+  StyledQuestionParagMain,
+  StyledTimeParag,
+  StyledTimeParagSpan,
+  StyledTimeTest,
+  StyledWrapAll,
+  StyledWrapTest,
+} from "./QuestionInterface.styled";
+
 interface QuestionInterface {
   questions: Questions[];
   index: number;
-  timersArray: {time: string}[];
+  timersArray: { time: string }[];
   parsTimer: (time: string) => number;
   validateAnswer: (_id: string) => void;
   setIndex: (index: number) => void;
   timerId: number | null;
-  validAnswers: (AnswersArray: {answer: boolean}[]) => number;
+  validAnswers: (AnswersArray: { answer: boolean }[]) => number;
 }
 
-const RenderQuestionInterface: React.FC<QuestionInterface> = ({questions, index, timersArray, parsTimer, validateAnswer, setIndex, timerId, validAnswers}) => {
-    if (!questions || !questions[index]) {
-      throw new Error();
-    }
+const RenderQuestionInterface: React.FC<QuestionInterface> = ({
+  questions,
+  index,
+  timersArray,
+  parsTimer,
+  validateAnswer,
+  setIndex,
+  timerId,
+  validAnswers,
+}) => {
+  if (!questions || !questions[index]) {
+    throw new Error();
+  }
 
-    return (
-      <div>
-        <>
+  return (
+    <StyledWrapAll>
+      <StyledWrapTest>
+        <AnswersTopPanelBtnsWrap>
           {questions[index].imageUrl ? (
             <>
-              <img
+              <StyledImageTest
                 src={`https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${questions[index].imageUrl}`}
-              ></img>
-              <div>
-                <p>Time: {timersArray[index].time}</p>
-                <p>{questions[index].descr}</p>
-              </div>
+              ></StyledImageTest>
+              <StyledTimeTest>
+                <StyledTimeParag>
+                  Time:{" "}
+                  <StyledTimeParagSpan>
+                    {timersArray[index].time}
+                  </StyledTimeParagSpan>
+                </StyledTimeParag>
+                <StyledQuestionParag>
+                  {questions[index].descr}
+                </StyledQuestionParag>
+              </StyledTimeTest>
             </>
           ) : (
             <>
-              <p>Time: {timersArray[index].time}</p>
-              <p>{questions[index].descr}</p>
+              <StyledQuestionParagMain>
+                {questions[index].descr}
+              </StyledQuestionParagMain>
+              <StyledTimeTest>
+                <StyledTimeParag>
+                  Time:{" "}
+                  <StyledTimeParagSpan>
+                    {" "}
+                    {timersArray[index].time}
+                  </StyledTimeParagSpan>
+                </StyledTimeParag>
+              </StyledTimeTest>
             </>
           )}
-          <div>
+          <AnswersTypeWrap>
             {/* //TODO: */}
             {
               <AnswersType
@@ -50,9 +95,11 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({questions, index,
                 validateAnswer={validateAnswer}
               />
             }
-          </div>
-          <div>
-            <button
+          </AnswersTypeWrap>
+        </AnswersTopPanelBtnsWrap>
+        <AnswersLowPanelWrap>
+          <AnswersLowPanelBtnsWrap>
+            <StyledButtonNext
               type="button"
               onClick={() => {
                 setIndex(index + 1);
@@ -62,9 +109,9 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({questions, index,
               }}
             >
               {index + 1 === questions.length ? "Finish" : "Next"}
-            </button>
+            </StyledButtonNext>
             {index > 0 ? (
-              <button
+              <StyledBackBtn
                 type="button"
                 onClick={() => {
                   validAnswers;
@@ -75,15 +122,16 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({questions, index,
                 }}
               >
                 Back
-              </button>
+              </StyledBackBtn>
             ) : (
               <></>
             )}
-            <p>{`${index + 1}/${questions.length}`}</p>
-          </div>
-        </>
-      </div>
-    );
+          </AnswersLowPanelBtnsWrap>
+          <NumberPage>{`${index + 1}/${questions.length}`}</NumberPage>
+        </AnswersLowPanelWrap>
+      </StyledWrapTest>
+    </StyledWrapAll>
+  );
 };
-  
+
 export default RenderQuestionInterface;
