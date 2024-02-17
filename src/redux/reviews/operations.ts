@@ -5,6 +5,12 @@ interface ReviewsThunkParams {
   page: number;
   limit: number;
 }
+type WriteReviewFormData = {
+  name: string;
+  rating: number;
+  review: string;
+};
+
 interface Review {
   _id: string;
   userName: string;
@@ -57,20 +63,23 @@ export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
   }
 );
 
-export const reviewsPostThunk = createAsyncThunk<ReviewsPost>(
-  "reviewsPost",
-  async (id: void, thunkApi) => {
-    try {
-      const { data }: AxiosResponse<ReviewsPost> = await quizApi.post(
-        `/reviews/:${id}/addReview`
-      );
-      return data;
-    } catch (error) {
-      if (error instanceof Error && typeof error.message === "string") {
-        return thunkApi.rejectWithValue(error.message);
-      } else {
-        return thunkApi.rejectWithValue("Error");
-      }
+export const reviewsPostThunk = createAsyncThunk<
+  ReviewsPost,
+  { data: WriteReviewFormData; rating: number }
+>("reviewsPost", async ({ data, rating }, thunkApi) => {
+  try {
+    const state = thunkApi.getState() as RootState; // Приводим к типу RootState
+    const { data: responseData }: AxiosResponse<ReviewsPost> =
+      await quizApi.post("/reviews/addReview", {
+        ...data,
+        rating: state.yourRatingSlice.rating,
+      });
+    return responseData;
+  } catch (error) {
+    if (error instanceof Error && typeof error.message === "string") {
+      return thunkApi.rejectWithValue(error.message);
+    } else {
+      return thunkApi.rejectWithValue("Error");
     }
   }
-);
+});

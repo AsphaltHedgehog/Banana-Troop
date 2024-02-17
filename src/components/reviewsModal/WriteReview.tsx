@@ -21,7 +21,7 @@ import { schemaWriteReview } from "../../helpers/schemas";
 
 interface WriteReviewFormData {
   name: string;
-  rating: number;
+  // rating: number;
   review: string;
 }
 
@@ -42,14 +42,14 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
     resolver: yupResolver(schemaWriteReview),
   });
 
-  const submit: SubmitHandler<WriteReviewFormData> = () => {
-    dispatch(reviewsPostThunk()).unwrap();
+  const submit: SubmitHandler<WriteReviewFormData> = (data) => {
+    // Вместо { data, rating } используем data, но добавляем в данные рейтинг
+    dispatch(reviewsPostThunk({ ...data, rating })).unwrap();
     reset();
     setIsReviewSend(true);
   };
 
   useEffect(() => {
-    // Формирование массива с рейтингом звезд
     const starsArray: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
       starsArray.push(
@@ -59,8 +59,8 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
           id={`icon-rating`}
           width={16}
           height={16}
-          fillOpacity={i < rating ? 1 : 0.08} // Устанавливаем fillOpacity в зависимости от рейтинга
-          onClick={() => handleStarClick(i)} // Добавляем обработчик клика на звезду
+          fillOpacity={i < rating ? 1 : 0.08}
+          onClick={() => handleStarClick(i)}
         />
       );
     }
@@ -68,8 +68,10 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   }, [rating]);
 
   const handleStarClick = (index: number) => {
-    setRating(index + 1); // Устанавливаем рейтинг на основе индекса звезды
+    setRating(index + 1);
+    console.log(rating);
   };
+
   return (
     <StyledSection>
       <StyledWriteReviewWrapper>
@@ -95,7 +97,7 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
             placeholder="Rate the quiz"
             {...register("rating")}
           /> */}
-          {errors?.rating && <div>{errors.rating.message}</div>}
+          {/* {errors?.rating && <div>{errors.rating.message}</div>} */}
           <StyledWriteReviewTextarea
             {...register("review")}
             placeholder="What is your opinion on the quiz"
