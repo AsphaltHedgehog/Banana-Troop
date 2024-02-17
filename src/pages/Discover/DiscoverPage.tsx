@@ -33,6 +33,7 @@ import sprite from "../../images/icons/sprite.svg";
 import Box from "../../components/box/Box";
 import { StyledH2 } from "../../components/quizes/Quizes.styled";
 import Svg from "../../shared/svg";
+import { getQuizCategoryTotal } from "../../redux/quiz/selectors";
 
 const DiscoverPage = () => {
   const location = useLocation();
@@ -45,7 +46,7 @@ const DiscoverPage = () => {
   const quizes = useAppSelector(
     (state) => state.quizes.listCategory.data.result
   );
-  const total = useAppSelector((state) => state.quizes.listCategory.data.total);
+  const total = useAppSelector(getQuizCategoryTotal);
 
   const [selectedAgeGroup, setSelectedAgeGroup] = useState<string>(
     param ? param : "adults"
@@ -251,7 +252,7 @@ const DiscoverPage = () => {
         )}
       </StyledUlCards>
       <div>
-        {quizes.length < total[0]?.count && quizes.length > 7 && (
+        {quizes.length < total && quizes.length > 7 && (
           <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
         )}
       </div>

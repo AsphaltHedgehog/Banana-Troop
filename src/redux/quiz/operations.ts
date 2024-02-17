@@ -180,3 +180,31 @@ export const updateQuizesThunk = createAsyncThunk<
     );
   }
 });
+
+export const getFavoriteQuizes = createAsyncThunk<
+  QuizBody[],
+  { favorites: string[] }
+>("getFavoriteQuizes", async (favorites, thunkApi) => {
+  try {
+    const { data } = await quizApi.post(`/quiz/favorites`, favorites);
+    return data.data.result;
+  } catch (error: unknown) {
+    return thunkApi.rejectWithValue(
+      `${(error as Error)?.message ?? "Unknown error"}`
+    );
+  }
+});
+
+export const getOwnQuizes = createAsyncThunk<QuizBody[], void>(
+  "getOwnQuizes",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await quizApi.get(`/quiz/myQuizes`);
+      return data.data.result;
+    } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
+    }
+  }
+);
