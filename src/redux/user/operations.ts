@@ -44,6 +44,7 @@ interface RetakePassedQuizRequest {
   quizId: string;
   quantityQuestions: number;
   correctAnswers: number;
+  totalQuestions: number;
 }
 
 interface RetakePassedQuizResponse {

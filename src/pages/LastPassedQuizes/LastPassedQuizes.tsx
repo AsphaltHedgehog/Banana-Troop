@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '../../components/box/Box'
 import CreateQuizLink from '../../shared/createquiz/CreateQuizLink'
 import { StyledEmptyText, StyledLoadMore, StyledUlCards } from '../Discover/DiscoverPage.styled'
-import QuizListItem from '../../shared/quizlistitem/QuizListItem'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { patchPassedQuiz, retakePassedQuiz } from '../../redux/user/operations'
+import LastQiuzListItem from './LastQiuzListItem'
 
 interface Quiz {
   _id: string;
@@ -22,32 +22,33 @@ interface Props {
 
 const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
   const dispatch = useAppDispatch();
-
   const totalListCategory = useAppSelector((state) => state.quizes.listCategory.data.total);
+  const [startIndex, setStartIndex] = useState<number>(0);
 
   const handlePatchPassedQuiz = (quizId: string, correctAnswers: number, totalQuestions: number) => {
     dispatch(patchPassedQuiz({ quizId, correctAnswers, totalQuestions, quantityQuestions: 0, rating: 0 }))
   };
 
   const handleRetakePassedQuiz = (quizId: string, correctAnswers: number, totalQuestions: number) => {
-    dispatch(retakePassedQuiz({ quizId, correctAnswers, totalQuestions, quantityQuestions: 0, rating: 0 }))
+    dispatch(retakePassedQuiz({ quizId, correctAnswers, totalQuestions, quantityQuestions: 0 }))
   };
 
-  const handleLoadMore = () => { 
-    // Логіка загрузки більше тут
+  const handleLoadMore = () => {
+    const newStartIndex = startIndex + 8;
+    setStartIndex(newStartIndex);
   };
 
   return (
     <Box>
       <div>
         <h2>Last passed quizzes</h2>
-        <CreateQuizLink/>
+        <CreateQuizLink />
       </div>
       <div>
         <StyledUlCards>
           {quizes.length > 0 ? (
             quizes.map((quiz) => (
-              <QuizListItem 
+              <LastQiuzListItem
                 key={quiz._id}
                 id={quiz._id}
                 theme={quiz.theme}
@@ -58,7 +59,6 @@ const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
                 totalQuestions={quiz.totalQuestions}
                 onPatchPassedQuiz={handlePatchPassedQuiz}
                 onRetakePassedQuiz={handleRetakePassedQuiz}
-                ageGroup={""} 
               />
             ))
           ) : (
