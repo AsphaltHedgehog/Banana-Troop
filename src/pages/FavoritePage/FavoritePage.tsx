@@ -12,7 +12,6 @@ import {
 } from "./FavoritePage.styled";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getFavoriteQuizes } from "../../redux/quiz/operations";
-import { selectGetUserFavorite } from "../../redux/user/selectors";
 import { getQuizListCategory } from "../../redux/quiz/selectors";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
