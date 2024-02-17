@@ -25,14 +25,17 @@ const RandomQuizPage = () => {
   const dispatch = useAppDispatch();
   const total = useAppSelector(getQuizCategoryTotal);
   const isLoading = useAppSelector(getQuizIsLoading);
-
   const quizes = useAppSelector(
     (state) => state.quizes.listCategory.data.result
   );
   const [pageSize, setPageSize] = useState(7);
 
   useEffect(() => {
-    const query = { ageGroup: param, page: 1, pageSize: pageSize };
+    const query = {
+      ageGroup: param ? param : "children",
+      page: 1,
+      pageSize: pageSize,
+    };
     dispatch(fetchCategoriesThunk(query));
   }, [dispatch, pageSize, param]);
 
@@ -66,7 +69,7 @@ const RandomQuizPage = () => {
           ))}
         </StyledUl>
         {isLoading ? <Loader /> : <></>}
-        {quizes?.length < total[0]?.count && !isLoading ? (
+        {quizes?.length < total && !isLoading ? (
           <StyledButton type="button" onClick={handleLoadMore}>
             Load More
           </StyledButton>

@@ -13,26 +13,30 @@ import DiscoverPage from "./pages/Discover/DiscoverPage";
 import RandomQuizPage from "./pages/RandomQuizPage";
 import FavoritePage from "./pages/FavoritePage";
 import AuthPages from "./pages/AuthPages/AuthPages";
-
+import MyQuizzesPage from "./pages/MyQuizzesPage/MyQuizzesPage";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "./components/settings/wholeComponent/Settings";
 import QreateQuizProtectedPage from "./routes/QreateQuizProtectedPage";
 import { setLoggedIn } from "./redux/auth/authSlice";
-import MyQuiz from "./pages/myQuiz/MyQuiz";
+import QuizMachen from "./pages/quizMachen/QuizMachen";
 
 function App() {
   const dispatch = useAppDispatch();
   const userToken = useAppSelector(selectUserToken);
 
   useEffect(() => {
-    setToken(userToken);
-    dispatch(getUserThunk())
-      .unwrap()
-      .then(() => {
-        dispatch(setLoggedIn(true));
-      });
+    try {
+      setToken(userToken);
+      dispatch(getUserThunk())
+        .unwrap()
+        .then(() => {
+          dispatch(setLoggedIn(true));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }, [dispatch, userToken]);
 
   return (
@@ -40,12 +44,20 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          {/* <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="logout" element={<Logout />} />
+        <Route path="logout" element={<Logout />} /> */}
           <Route path="settings" element={<Settings />} />
+          <Route path="quizMachen/:id" element={<QuizMachen />} />
           <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="discover" element={<DiscoverPage />} />
+          <Route path="myQuiz" element={<MyQuizzesPage />} />
+
+          <Route path="randomQuiz" element={<RandomQuizPage />} />
+
           <Route path="favorites" element={<FavoritePage />} />
-          <Route path="myQuiz" element={<MyQuiz />} />
           <Route path="auth/*" element={<AuthPages />} />
           <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
         </Route>

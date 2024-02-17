@@ -9,35 +9,38 @@ import {
   StyledInputSearch,
   StyledBox,
   StyledSvg,
-} from "./FavoritePage.styled";
+} from "./MyQuizzesPage.styled";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getFavoriteQuizes } from "../../redux/quiz/operations";
+import { getOwnQuizes } from "../../redux/quiz/operations";
 import { getQuizListCategory } from "../../redux/quiz/selectors";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
 import { getQuizIsLoading } from "../../redux/quiz/selectors";
 import Loader from "../../shared/loader-spinner/Loader";
-import { selectGetUserFavorite } from "../../redux/user/selectors";
+import { getUserThunk } from "../../redux/user/operations";
+import { setToken } from "../../redux/auth/operations";
+import { selectUserToken } from "../../redux/auth/selectors";
 
-const FavoritePage = () => {
+const MyQuizzesPage = () => {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(selectGetUserFavorite);
   const quizes = useAppSelector(getQuizListCategory);
   const isLoading = useAppSelector(getQuizIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
+  const userToken = useAppSelector(selectUserToken);
 
   const filteredQuizes = quizes.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
-  
+
   useEffect(() => {
-    const query = {
-      favorites,
-      pageSize
-    }
-    dispatch(getFavoriteQuizes(query));
-  }, [dispatch, favorites, pageSize]);
+    setToken(userToken);
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(getOwnQuizes());
+      });
+  }, [dispatch, userToken]);
 
   const handleLoadMore = () => {
     setPageSize((prev) => prev + 8);
@@ -50,7 +53,7 @@ const FavoritePage = () => {
   return (
     <StyledBox>
       <StyledContainer>
-        <StyledH2>Favorite quize</StyledH2>
+        <StyledH2>My quize</StyledH2>
         <CreateQuizLink />
       </StyledContainer>
       <StyledContainer2>
@@ -90,4 +93,4 @@ const FavoritePage = () => {
   );
 };
 
-export default FavoritePage;
+export default MyQuizzesPage;
