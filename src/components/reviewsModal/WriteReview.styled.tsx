@@ -9,7 +9,9 @@ export const StyledSection = styled.section`
   padding: 40px 20px;
   width: 335px;
   height: 503px;
-
+  border: 1px solid rgba(244, 244, 244, 0.3);
+  border-radius: 20px;
+  background: #1c1c1c;
   @media screen and (min-width: ${desktop}) {
     padding: 60px 80px;
     width: 481px;
@@ -70,7 +72,6 @@ export const StyledWriteReviewButton = styled.button`
 export const StyledWriteReviewForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 14px;
 
   margin-bottom: 32px;
   height: 283px;
@@ -83,7 +84,7 @@ export const StyledWriteReviewForm = styled.form`
 export const StyledWriteReviewInput = styled.input`
   position: relative;
   font-family: inherit;
-  padding-left: 18px;
+  padding: 14px 18px;
 
   background-color: transparent;
   color: #fafafa;
