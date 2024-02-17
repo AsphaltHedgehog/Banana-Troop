@@ -9,11 +9,12 @@ export const StyledDiscoverHeader = styled.div`
   align-items: flex-start;
   gap: 20px;
   margin-bottom: 40px;
-
+  margin-top: 80px;
   @media screen and (min-width: ${tablet}) {
     flex-direction: row;
     align-items: center;
     gap: 48px 24px;
+    margin-top: 96px;
   }
 `;
 

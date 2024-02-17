@@ -25,17 +25,17 @@ const authPersistConfig = {
   whitelist: ["token", "favorites"],
 };
 
-const userPersistConfig = {
-  key: "user",
-  storage,
-  whitelist: ["user"],
-};
+// const userPersistConfig = {
+//   key: "user",
+//   storage,
+//   whitelist: ["user"],
+// };
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
 
   reviews: reviewsReducer,
-  user: persistReducer(userPersistConfig, userReducer),
+  user: userReducer,
   updateOptions: updateOptionsReducer,
 
   quizes: quizesReducer,

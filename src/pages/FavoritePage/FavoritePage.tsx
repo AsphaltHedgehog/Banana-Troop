@@ -12,12 +12,12 @@ import {
 } from "./FavoritePage.styled";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getFavoriteQuizes } from "../../redux/quiz/operations";
-import { selectGetUserFavorite } from "../../redux/user/selectors";
 import { getQuizListCategory } from "../../redux/quiz/selectors";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import sprite from "../../images/icons/sprite.svg";
 import { getQuizIsLoading } from "../../redux/quiz/selectors";
 import Loader from "../../shared/loader-spinner/Loader";
+import { selectGetUserFavorite } from "../../redux/user/selectors";
 
 const FavoritePage = () => {
   const dispatch = useAppDispatch();
@@ -30,10 +30,14 @@ const FavoritePage = () => {
   const filteredQuizes = quizes.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
-
+  
   useEffect(() => {
-    dispatch(getFavoriteQuizes({ favorites }));
-  }, [dispatch, favorites]);
+    const query = {
+      favorites,
+      pageSize
+    }
+    dispatch(getFavoriteQuizes(query));
+  }, [dispatch, favorites, pageSize]);
 
   const handleLoadMore = () => {
     setPageSize((prev) => prev + 8);

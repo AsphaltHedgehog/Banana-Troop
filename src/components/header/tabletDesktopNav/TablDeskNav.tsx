@@ -1,53 +1,57 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  CategoriesWrapperTablDesk,
   NavLinkHeader,
+  NavLinkHeaderLogin,
+  NavLinkHeaderRegister,
   NavLinkHeaderWrapper,
+  NavLinksAuthWrapper,
   OpenedUserWidget,
   SVGChevronDown,
   UserWidgetWrapper,
 } from "./TablDeskNav.styled";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
-import {
-  NavLinkLogOut,
-  NavLinkLogin,
-  NavLinkRegister,
-  NavLinkSettings,
-} from "../mobileNav/MobileNav.styled";
+import { NavLinkLogOut, NavLinkSettings } from "../mobileNav/MobileNav.styled";
 import { selectGetUser } from "../../../redux/user/selectors";
 import sprite from "../../../images/icons/sprite.svg";
+import { useLocation } from "react-router-dom";
 
 const cloudinaryURL =
   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
-const gravatarBaseURL = "http://www.gravatar.com/avatar/";
 
 const TablDeskNav = () => {
   const { name } = useSelector(selectGetUser);
-  const { gravatarURL } = useSelector(selectGetUser);
+  // const { gravatarURL } = useSelector(selectGetUser);
   const { avatar } = useSelector(selectGetUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const widgetRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   const [openUserWidget, setOpenUserWidget] = useState<boolean>(false);
+  const [linkClicked, setLinkClicked] = useState<boolean>(false);
 
   const handleOpenUserWidget = () => {
     setOpenUserWidget((prev) => !prev);
   };
 
   useEffect(() => {
-    if (openUserWidget === false) {
+    if (!openUserWidget) {
       const timer = setTimeout(() => {
         if (widgetRef.current) {
           widgetRef.current.style.opacity = "0";
         }
+        setLinkClicked(false);
       }, 480);
       return () => clearTimeout(timer);
-    } else {
+    }
+    if (openUserWidget) {
       if (widgetRef.current) {
         widgetRef.current.style.opacity = "1";
+        setLinkClicked(true);
       }
     }
-  }, [openUserWidget]);
+  }, [openUserWidget, linkClicked]);
 
   const handleHeaderLinkClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
@@ -74,9 +78,9 @@ const TablDeskNav = () => {
           <UserWidgetWrapper onClick={handleOpenUserWidget}>
             <img
               src={
-                avatar
-                  ? `${cloudinaryURL}${avatar}`
-                  : `${gravatarBaseURL}${gravatarURL}`
+                avatar.includes("http://www.gravatar.com/avatar/")
+                  ? avatar
+                  : `${cloudinaryURL}${avatar}`
               }
               alt="User avatar"
             />
@@ -87,6 +91,7 @@ const TablDeskNav = () => {
             <OpenedUserWidget
               ref={widgetRef}
               $isOpened={openUserWidget}
+              $linkClicked={linkClicked}
               onClick={handleWidgetLinkClick}
             >
               <NavLinkSettings to="/settings">
@@ -106,8 +111,20 @@ const TablDeskNav = () => {
         </>
       ) : (
         <>
-          <NavLinkRegister to="/auth/register">Register</NavLinkRegister>
-          <NavLinkLogin to="/auth/login"> Login</NavLinkLogin>
+          {!location.pathname.includes("quizMachen") && (
+            <CategoriesWrapperTablDesk>
+              <NavLinkHeader to="/randomQuiz?adults">For adults</NavLinkHeader>
+              <NavLinkHeader to="/randomQuiz?children">
+                For children
+              </NavLinkHeader>
+            </CategoriesWrapperTablDesk>
+          )}
+          <NavLinksAuthWrapper>
+            <NavLinkHeaderRegister to="/auth/register">
+              Register
+            </NavLinkHeaderRegister>
+            <NavLinkHeaderLogin to="/auth/login"> Login</NavLinkHeaderLogin>
+          </NavLinksAuthWrapper>
         </>
       )}
     </>

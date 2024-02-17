@@ -17,7 +17,7 @@ const Stats = () => {
         <StyledDescr>People passed the quiz</StyledDescr>
       </StyledContainer>
       <StyledWrapper>
-        <StyledCopyright>© QuizMaster 2023 All rights reserved</StyledCopyright>
+        <StyledCopyright>© QuizMaster 2024 All rights reserved</StyledCopyright>
         <StyledUl>
           <li>
             <StyledLink to="/privacy-policy">Privacy Policy</StyledLink>
