@@ -34,12 +34,11 @@ export const StyledWrapTest = styled.div`
   border: 1px solid rgba(244, 244, 244, 0.3);
   border-radius: 20px;
   width: 335px;
-
   /* height: 448px; */
   background: #1c1c1c;
   justify-content: space-between;
   @media screen and (min-width: ${tablet}) {
-    width: 582px;
+    width: 585px;
   }
 `;
 

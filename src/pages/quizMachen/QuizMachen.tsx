@@ -29,10 +29,14 @@ import Box from "../../components/box/Box.tsx";
 import {
   StyledWrapQuizMachen,
   WrapBtn,
+  WrapImg,
+  WrapImgDiv,
 } from "../../components/quizMachen/render/QuizMachen.styled.tsx";
 import { StyledBtnBack } from "../../components/quizMachen/render/QuestionInterface.styled.tsx";
 import Svg from "../../shared/svg/Svg.tsx";
 import sprite from "../../images/icons/sprite.svg";
+import ImageBAck from "../../images/block-component/splash.png";
+
 const QuizMachen = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
@@ -167,10 +171,6 @@ const QuizMachen = () => {
             </StyledBtnBack>
           </WrapBtn>
         )}
-
-        {/* <Div>
-          <img src={ImageBAck} alt="rere" width={470} height={445} />
-        </Div> */}
         {isLoading && "Place for loader"}
         {!isLoading && Index === -1 && !reviews && (
           <RenderHelloForm
@@ -206,6 +206,9 @@ const QuizMachen = () => {
           <WriteReview setIsReviewSend={setIsReviewSend} />
         )}
         {reviews && isReviewSend && <ThanYou />}
+        <WrapImgDiv>
+          <WrapImg src={ImageBAck} alt="rere" />
+        </WrapImgDiv>
       </StyledWrapQuizMachen>
     </Box>
   );

@@ -35,12 +35,10 @@ const inputItems: InputItem[] = [
 
 const cloudinaryURL =
   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
-const gravatarBaseURL = "http://www.gravatar.com/avatar/";
 
 const SettingsModal: FC = () => {
   const dispatch = useAppDispatch();
   const { name, email } = useSelector(selectGetUser);
-  const { gravatarURL } = useSelector(selectGetUser);
   const { avatar } = useSelector(selectGetUser);
   const isLoadingUser = useSelector(selectUserIsLoading);
   const isLoadingAvatar = useSelector(selectAvatarIsLoading);
@@ -94,9 +92,9 @@ const SettingsModal: FC = () => {
           <label htmlFor="fileInput">
             <img
               src={
-                avatar
-                  ? `${cloudinaryURL}${avatar}`
-                  : `${gravatarBaseURL}${gravatarURL}`
+                avatar.includes("http://www.gravatar.com/avatar/")
+                  ? avatar
+                  : `${cloudinaryURL}${avatar}`
               }
               alt="User avatar"
             />

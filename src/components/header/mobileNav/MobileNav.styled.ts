@@ -74,6 +74,5 @@ export const NavLinkLogOut = styled(NavLink)`
   gap: 5px;
   border: none;
   color: white;
-  /* padding: 0.6em 1.2em; */
   background-color: transparent;
 `;
