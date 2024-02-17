@@ -112,8 +112,3 @@ const Reviews: React.FC = () => {
   );
 };
 export default Reviews;
-
-{
-  /* <Route path="writeReview" element={<WriteReview />} />
-          <Route path="thanYou" element={<ThanYou />} /> */
-}

@@ -44,7 +44,7 @@ const QuizMachen = () => {
   // states
   const [Name, SetName] = useState<string>(user.name ? user.name : "");
   const [Index, SetIndex] = useState<number>(-1);
-  const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean }[]>([]);
+  const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean | null }[]>([]);
   const [TimersArray, SetTimersArray] = useState<{ time: string }[]>([]);
   const [timerId, setTimerId] = useState<number | null>(null);
 
@@ -72,7 +72,7 @@ const QuizMachen = () => {
     if (quiz && Index < 0) {
       // creating answers array
       const answersArray = questions?.map(() => {
-        return { answer: false };
+        return { answer: null };
       });
       // creating timers array
       const timersArray = questions?.map((el) => {

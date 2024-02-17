@@ -9,8 +9,8 @@ import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.style
 import sprite from "../../../images/icons/sprite.svg";
 interface RenderResultInterfaceProps {
   questions: Questions[];
-  AnswersArray: { answer: boolean }[];
-  validAnswers: (AnswersArray: { answer: boolean }[]) => number;
+  AnswersArray: { answer: boolean | null }[];
+  validAnswers: (AnswersArray: { answer: boolean | null }[]) => number;
   setReviews: Dispatch<SetStateAction<boolean>>;
 }
 
