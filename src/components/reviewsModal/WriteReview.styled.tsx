@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import Svg from "../../shared/svg/";
 import { breakpoints } from "../../styles";
 
 const { tablet, desktop } = breakpoints;
@@ -9,7 +9,9 @@ export const StyledSection = styled.section`
   padding: 40px 20px;
   width: 335px;
   height: 503px;
-
+  border: 1px solid rgba(244, 244, 244, 0.3);
+  border-radius: 20px;
+  background: #1c1c1c;
   @media screen and (min-width: ${desktop}) {
     padding: 60px 80px;
     width: 481px;
@@ -19,7 +21,9 @@ export const StyledSection = styled.section`
 
 export const StyledWriteReviewWrapper = styled.div`
   margin-bottom: 32px;
-
+  @media screen and (max-width: 425px) {
+    width: 100%;
+  }
   @media screen and (min-width: ${tablet}) {
   }
   @media screen and (min-width: ${desktop}) {
@@ -68,7 +72,6 @@ export const StyledWriteReviewButton = styled.button`
 export const StyledWriteReviewForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 14px;
 
   margin-bottom: 32px;
   height: 283px;
@@ -81,7 +84,7 @@ export const StyledWriteReviewForm = styled.form`
 export const StyledWriteReviewInput = styled.input`
   position: relative;
   font-family: inherit;
-  padding-left: 18px;
+  padding: 14px 18px;
 
   background-color: transparent;
   color: #fafafa;
@@ -89,8 +92,8 @@ export const StyledWriteReviewInput = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
 
-  width: 321px;
-  height: 44px;
+  max-width: 321px;
+  max-height: 44px;
 
   font-weight: 400;
   font-size: 14px;
@@ -98,7 +101,7 @@ export const StyledWriteReviewInput = styled.input`
   letter-spacing: -0.01em;
 
   @media screen and (min-width: ${tablet}) {
-    width: 321px;
+    max-width: 321px;
 
     font-size: 16px;
     line-height: 1;
@@ -146,8 +149,8 @@ export const StyledWriteReviewTextarea = styled.textarea`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 15px;
   padding: 14px 74px 74px 18px;
-  width: 321px;
-  height: 104px;
+  max-width: 321px;
+  max-height: 104px;
   background-color: transparent;
   color: #fafafa;
   font-weight: 400;
@@ -199,5 +202,33 @@ export const StyledWriteReviewTextarea = styled.textarea`
     transition: background-color 5000s ease-in-out 0s;
     -webkit-text-fill-color: #fafafa !important;
     caret-color: #fafafa !important;
+  }
+`;
+
+export const StyledUl = styled.ul`
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  line-height: 0;
+`;
+
+export const StyledRatingSvg = styled(Svg)`
+  fill: #f4f4f4;
+  /* fill-opacity: 0.08; */
+  stroke-width: 0;
+`;
+export const StyledStarWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+  align-content: center;
+  margin-bottom: 8px;
+  margin-top: 16px;
+  p {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -0.01em;
+    color: rgba(244, 244, 244, 0.6);
   }
 `;
