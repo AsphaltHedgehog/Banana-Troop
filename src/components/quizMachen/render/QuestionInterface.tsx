@@ -31,6 +31,7 @@ interface QuestionInterface {
   setIndex: (index: number) => void;
   timerId: number | null;
   validAnswers: (AnswersArray: { answer: boolean }[]) => number;
+  answersArray: { answer: boolean | null }[];
 }
 
 const RenderQuestionInterface: React.FC<QuestionInterface> = ({
@@ -42,6 +43,7 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({
   setIndex,
   timerId,
   validAnswers,
+  answersArray,
 }) => {
   if (!questions || !questions[index]) {
     throw new Error();
@@ -93,6 +95,7 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({
                 parsTimer={parsTimer}
                 TimersArray={timersArray}
                 validateAnswer={validateAnswer}
+                answersArrayProps={answersArray}
               />
             }
           </AnswersTypeWrap>
