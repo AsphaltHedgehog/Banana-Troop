@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { quizApi } from "../auth/operations";
+import { IPassedQuizzes } from "./slice";
 
 interface UserInfo {
   name: string;
@@ -8,7 +9,7 @@ interface UserInfo {
   _id: string;
   avatarURL: string;
   favorite: string[];
-  passedQuizes?: number;
+  passedQuizes?: IPassedQuizzes[];
   averageSuccess?: string;
 }
 
@@ -37,7 +38,7 @@ interface PatchPassedQuizResponse {
   totalAnswers: number;
   totalQuestions: number;
   average: number;
-  passedQuizzes: string[];
+  passedQuizzes: IPassedQuizzes[];
 }
 
 interface RetakePassedQuizRequest {
@@ -51,7 +52,7 @@ interface RetakePassedQuizResponse {
   totalAnswers: number;
   totalQuestions: number;
   average: number;
-  passedQuizzes: string[];
+  passedQuizzes: IPassedQuizzes[];
 }
 
 export const getUserThunk = createAsyncThunk<UserInfo, void>(
@@ -122,7 +123,8 @@ export const patchPassedQuiz = createAsyncThunk<
   PatchPassedQuizRequest
 >("user/patchPassedQuiz", async (body, thunkApi) => {
   try {
-    const response: AxiosResponse<PatchPassedQuizResponse> = await quizApi.patch("/user/passed-quiz", body);
+    const response: AxiosResponse<PatchPassedQuizResponse> =
+      await quizApi.patch("/user/passed-quiz", body);
     return response.data;
   } catch (error) {
     if (error instanceof Error && typeof error.message === "string") {
@@ -137,7 +139,8 @@ export const retakePassedQuiz = createAsyncThunk<
   RetakePassedQuizRequest
 >("user/retakePassedQuiz", async (body, thunkApi) => {
   try {
-    const response: AxiosResponse<RetakePassedQuizResponse> = await quizApi.patch("/user/retake-passed-quiz", body);
+    const response: AxiosResponse<RetakePassedQuizResponse> =
+      await quizApi.patch("/user/retake-passed-quiz", body);
     return response.data;
   } catch (error) {
     if (error instanceof Error && typeof error.message === "string") {

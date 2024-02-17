@@ -16,6 +16,8 @@ import {
   StyledDotsMenu,
   StyledDotsMenuButton,
   StyledEditLink,
+  StyledCorrectAnswers,
+  StyledSpan,
 } from "./QuizListItem.styled";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
@@ -52,6 +54,7 @@ const QuizListItem = ({
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const userFavorites = useAppSelector(selectGetUserFavorite);
   const user = useAppSelector(selectGetUser);
+  const passedQuiz = user.passedQuizzes?.find((quiz) => quiz.quizId === id);
 
   useEffect(() => {
     // Формування масиву із рейтингу зірочок
@@ -196,7 +199,19 @@ const QuizListItem = ({
           <li key={index}>{_star}</li>
         ))}
       </StyledUl>
-      <StyledButton to="/">Start</StyledButton>
+      {passedQuiz ? (
+        <StyledCorrectAnswers>
+          Correct answers:
+          <StyledSpan>
+            0{passedQuiz?.correctAnswers}/0{passedQuiz?.quantityQuestions}
+          </StyledSpan>
+        </StyledCorrectAnswers>
+      ) : (
+        <></>
+      )}
+      <StyledButton to={`/quizMachen/${id}`}>
+        {passedQuiz ? "Pass Again" : "Start"}
+      </StyledButton>
     </StyledContainer>
   );
 };

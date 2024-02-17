@@ -1,5 +1,18 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { editPhotoThunk, editUserThunk, getUserThunk, patchPassedQuiz, retakePassedQuiz } from "./operations";
+import {
+  editPhotoThunk,
+  editUserThunk,
+  getUserThunk,
+  patchPassedQuiz,
+  retakePassedQuiz,
+} from "./operations";
+
+export interface IPassedQuizzes {
+  quizId: string;
+  quantityQuestions: number;
+  correctAnswers: number;
+  rating: number;
+}
 
 interface User {
   _id: string;
@@ -9,9 +22,9 @@ interface User {
   avatar: string;
   favorites: string[];
   totalAnswers?: number;
-  totalQuestions?: number; 
-  average?: number; 
-  passedQuizzes?: string[];
+  totalQuestions?: number;
+  average?: number;
+  passedQuizzes?: IPassedQuizzes[];
 }
 
 export interface UserState {
@@ -28,10 +41,10 @@ const initialState: UserState = {
     email: "",
     avatar: "",
     favorites: [],
-    totalAnswers: 0, 
-    totalQuestions: 0, 
-    average: 0, 
-    passedQuizzes: [], 
+    totalAnswers: 0,
+    totalQuestions: 0,
+    average: 0,
+    passedQuizzes: [],
   },
   error: null,
   isLoadingUser: false,
