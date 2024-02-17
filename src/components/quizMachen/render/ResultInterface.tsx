@@ -7,6 +7,13 @@ import {
 } from "../../../pages/Discover/DiscoverPage.styled";
 import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../../images/icons/sprite.svg";
+import {
+  ResultTitle,
+  StyledNumber,
+  StyledRating,
+  StyledResultContainer,
+  StyledText,
+} from "./ResultInterface.styled";
 interface RenderResultInterfaceProps {
   questions: Questions[];
   AnswersArray: { answer: boolean }[];
@@ -21,15 +28,17 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
   setReviews,
 }) => {
   return (
-    <div>
-      <p>The results</p>
+    <StyledResultContainer>
+      <ResultTitle>The results</ResultTitle>
       <div>
-        <p>Correct answers</p>
+        <StyledText>Correct answers</StyledText>
         {/* //TODO: */}
-        <p>{`${validAnswers(AnswersArray)}/${questions.length}`}</p>
+        <StyledNumber>{`${validAnswers(AnswersArray)}/${
+          questions.length
+        }`}</StyledNumber>
       </div>
       <div>
-        <p>Rate the quiz</p>
+        <StyledRating>Rate the quiz</StyledRating>
         <StyledRaitingWrapStar>
           {[1, 2, 3, 4, 5].map((index) => (
             <StyledBtnStars
@@ -48,7 +57,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
         </StyledRaitingWrapStar>
       </div>
       <WriteReviewButton setReviews={() => setReviews(true)} />
-    </div>
+    </StyledResultContainer>
   );
 };
 

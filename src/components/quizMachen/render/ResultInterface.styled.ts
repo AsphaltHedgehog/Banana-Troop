@@ -25,5 +25,56 @@ export const ResultTitle = styled.p`
   letter-spacing: -0.01em;
   text-align: center;
   color: #f4f4f4;
-  margin-bottom: 34px;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 24px;
+    line-height: 0.875;
+  }
+`;
+
+export const StyledText = styled.p`
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  color: rgba(244, 244, 244, 0.6);
+  margin-bottom: 12px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
+
+export const StyledNumber = styled.p`
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-align: center;
+  color: #f4f4f4;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 24px;
+    line-height: 1.33333;
+  }
+`;
+
+export const StyledRating = styled.p`
+  font-family: "Gilroy", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  color: rgba(244, 244, 244, 0.6);
+  margin-bottom: 12px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
 `;
