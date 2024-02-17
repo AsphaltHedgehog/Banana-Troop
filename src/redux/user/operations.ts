@@ -25,6 +25,34 @@ interface IResponse {
   status: string;
 }
 
+interface PatchPassedQuizRequest {
+  quizId: string;
+  quantityQuestions: number;
+  correctAnswers: number;
+  rating: number;
+  totalQuestions: number;
+}
+
+interface PatchPassedQuizResponse {
+  totalAnswers: number;
+  totalQuestions: number;
+  average: number;
+  passedQuizzes: string[];
+}
+
+interface RetakePassedQuizRequest {
+  quizId: string;
+  quantityQuestions: number;
+  correctAnswers: number;
+}
+
+interface RetakePassedQuizResponse {
+  totalAnswers: number;
+  totalQuestions: number;
+  average: number;
+  passedQuizzes: string[];
+}
+
 export const getUserThunk = createAsyncThunk<UserInfo, void>(
   "getUserInfo",
   async (_, thunkApi) => {
@@ -87,3 +115,33 @@ export const updateFavoriteThunk = createAsyncThunk<void, { favorite: string }>(
     }
   }
 );
+
+export const patchPassedQuiz = createAsyncThunk<
+  PatchPassedQuizResponse,
+  PatchPassedQuizRequest
+>("user/patchPassedQuiz", async (body, thunkApi) => {
+  try {
+    const response: AxiosResponse<PatchPassedQuizResponse> = await quizApi.patch("/user/passed-quiz", body);
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error && typeof error.message === "string") {
+      return thunkApi.rejectWithValue(error.message);
+    }
+    return thunkApi.rejectWithValue("An unknown error occurred");
+  }
+});
+
+export const retakePassedQuiz = createAsyncThunk<
+  RetakePassedQuizResponse,
+  RetakePassedQuizRequest
+>("user/retakePassedQuiz", async (body, thunkApi) => {
+  try {
+    const response: AxiosResponse<RetakePassedQuizResponse> = await quizApi.patch("/user/retake-passed-quiz", body);
+    return response.data;
+  } catch (error) {
+    if (error instanceof Error && typeof error.message === "string") {
+      return thunkApi.rejectWithValue(error.message);
+    }
+    return thunkApi.rejectWithValue("An unknown error occurred");
+  }
+});
