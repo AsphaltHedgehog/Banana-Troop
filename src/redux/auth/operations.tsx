@@ -29,8 +29,7 @@ export interface NewPassword {
 }
 
 export const quizApi = axios.create({
-  // baseURL: "https://pigs.onrender.com/api",
-  baseURL: 'http://localhost:1488/api'
+  baseURL: "https://pigs.onrender.com/api",
 });
 
 export const setToken = (token: string): void => {
