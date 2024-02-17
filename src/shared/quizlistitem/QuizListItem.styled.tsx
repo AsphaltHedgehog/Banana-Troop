@@ -26,6 +26,7 @@ export const StyledContainer = styled.li`
 
   transition-property: background;
   width: 335px;
+  max-height: 364px;
 
   @media screen and (max-width: ${mobile}) {
     max-width: 335px;
@@ -183,8 +184,6 @@ export const StyledUl = styled.ul`
   justify-content: center;
   gap: 4px;
   line-height: 0;
-
-  margin-bottom: 32px;
 `;
 
 export const StyledRatingSvg = styled(Svg)`
@@ -200,8 +199,36 @@ export const StyledButton = styled(StyledStartBtn)`
   padding: 12px 24px;
 
   margin-inline: auto;
-
+  margin-top: 32px;
   @media screen and (min-width: ${tablet}) {
     width: 89px;
+  }
+`;
+
+export const StyledCorrectAnswers = styled.p`
+  font-size: 14px;
+  line-height: 1.14286;
+  color: rgba(244, 244, 244, 0.6);
+  text-align: center;
+
+  margin-top: 16px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1;
+  }
+`;
+
+export const StyledSpan = styled.span`
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28571;
+
+  color: #f4f4f4;
+  margin-left: 8px;
+
+  @media screen and (min-width: ${tablet}) {
+    font-size: 16px;
+    line-height: 1.25;
   }
 `;
