@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { editPhotoThunk, editUserThunk, getUserThunk } from "./operations";
+import { editPhotoThunk, editUserThunk, getUserThunk, patchPassedQuiz, retakePassedQuiz } from "./operations";
 
 interface User {
   _id: string;
@@ -8,6 +8,10 @@ interface User {
   gravatarURL?: string;
   avatar: string;
   favorites: string[];
+  totalAnswers?: number;
+  totalQuestions?: number; 
+  average?: number; 
+  passedQuizzes?: string[];
 }
 
 export interface UserState {
@@ -22,9 +26,12 @@ const initialState: UserState = {
     _id: "",
     name: "",
     email: "",
-    gravatarURL: "",
     avatar: "",
     favorites: [],
+    totalAnswers: 0, 
+    totalQuestions: 0, 
+    average: 0, 
+    passedQuizzes: [], 
   },
   error: null,
   isLoadingUser: false,
@@ -50,7 +57,7 @@ const userSlice = createSlice({
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
         state.user._id = payload._id;
         state.user.name = payload.name;
-        state.user.gravatarURL = payload.avatarURL;
+        state.user.avatar = payload.avatarURL;
         state.user.email = payload.email;
         state.user.favorites = payload.favorite;
         state.isLoadingUser = false;
@@ -62,12 +69,25 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editPhotoThunk.fulfilled, (state, { payload }) => {
-        state.user.avatar = payload as string;
+        state.user.avatar =
+          `https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${payload}` as string;
         state.isLoadingAvatar = false;
         state.error = null;
       })
       .addCase(editPhotoThunk.pending, (state) => {
         state.isLoadingAvatar = true;
+      })
+      .addCase(patchPassedQuiz.fulfilled, (state, { payload }) => {
+        state.user.totalAnswers = payload.totalAnswers;
+        state.user.totalQuestions = payload.totalQuestions;
+        state.user.average = payload.average;
+        state.user.passedQuizzes = payload.passedQuizzes;
+      })
+      .addCase(retakePassedQuiz.fulfilled, (state, { payload }) => {
+        state.user.totalAnswers = payload.totalAnswers;
+        state.user.totalQuestions = payload.totalQuestions;
+        state.user.average = payload.average;
+        state.user.passedQuizzes = payload.passedQuizzes;
       })
       .addMatcher(
         isAnyOf(getUserThunk.pending, editUserThunk.pending),
@@ -79,7 +99,9 @@ const userSlice = createSlice({
         isAnyOf(
           getUserThunk.rejected,
           editUserThunk.rejected,
-          editPhotoThunk.rejected
+          editPhotoThunk.rejected,
+          patchPassedQuiz.rejected,
+          retakePassedQuiz.rejected
         ),
         (state, { payload }) => {
           state.isLoadingUser = false;

@@ -15,7 +15,7 @@ import { selectGetUser } from "../../redux/user/selectors";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.tsx";
 import { Quiz } from "../../redux/quizMachen/slice";
 
-// render components 
+// render components
 import RenderHelloForm from "../../components/quizMachen/render/HelloForm.tsx";
 import RenderResultInterface from "../../components/quizMachen/render/ResultInterface.tsx";
 import WriteReview from "../../components/reviewsModal/WriteReview.tsx";
@@ -25,6 +25,17 @@ import RenderQuestionInterface from "../../components/quizMachen/render/Question
 // functional components
 import validAnswers from "../../components/quizMachen/functional/validAnswers.tsx";
 import parsTimer from "../../components/quizMachen/functional/parsTimer.tsx";
+import Box from "../../components/box/Box.tsx";
+import {
+  StyledWrapQuizMachen,
+  WrapBtn,
+  WrapImg,
+  WrapImgDiv,
+} from "../../components/quizMachen/render/QuizMachen.styled.tsx";
+import { StyledBtnBack } from "../../components/quizMachen/render/QuestionInterface.styled.tsx";
+import Svg from "../../shared/svg/Svg.tsx";
+import sprite from "../../images/icons/sprite.svg";
+import ImageBAck from "../../images/block-component/splash.png";
 
 const QuizMachen = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,8 +54,7 @@ const QuizMachen = () => {
 
   // reviews
   const [reviews, setReviews] = useState<boolean>(false);
-  const [isReviewSend, setIsReviewSend] = useState<boolean>(false)
-
+  const [isReviewSend, setIsReviewSend] = useState<boolean>(false);
 
   // quiz selectors
   const quiz: Quiz = useSelector(selectGetQuiz);
@@ -141,35 +151,66 @@ const QuizMachen = () => {
 
   return (
     // add error toast
-    <div style={{ backgroundColor: background ?? "transparent" }}>
-      {isLoading && "Place for loader"}
-      {!isLoading && Index === -1 && !reviews && <RenderHelloForm
-        theme={theme}
-        name={Name}
-        isLoggedIn={isLoggedIn}
-        setName={SetName}
-        index={Index}
-        setIndex={SetIndex}
-      />}
-      {Index >= 0 && Index + 1 <= questions?.length && !reviews && < RenderQuestionInterface
-        questions={questions}
-        index={Index}
-        timersArray={TimersArray}
-        parsTimer={parsTimer}
-        validateAnswer={validateAnswer}
-        setIndex={SetIndex}
-        timerId={timerId}
-        validAnswers={validAnswers}
-      />}
-      {Index === questions?.length && !reviews && <RenderResultInterface
-        questions={questions}
-        AnswersArray={AnswersArray}
-        validAnswers={validAnswers}
-        setReviews={setReviews}
-      />}
-      {reviews && !isReviewSend && <WriteReview setIsReviewSend={setIsReviewSend} />}
-      {reviews && isReviewSend && <ThanYou />}
-    </div>
+    <Box>
+      <StyledWrapQuizMachen
+        style={{ backgroundColor: background ?? "transparent" }}
+      >
+        {Index !== -1 && (
+          <WrapBtn>
+            <StyledBtnBack>
+              <Svg
+                sprite={sprite}
+                id={"icon-arrow"}
+                width={24}
+                height={24}
+                style={{
+                  fill: "#f4f4f4",
+                }}
+              />
+              Back
+            </StyledBtnBack>
+          </WrapBtn>
+        )}
+        {isLoading && "Place for loader"}
+        {!isLoading && Index === -1 && !reviews && (
+          <RenderHelloForm
+            theme={theme}
+            name={Name}
+            isLoggedIn={isLoggedIn}
+            setName={SetName}
+            index={Index}
+            setIndex={SetIndex}
+          />
+        )}
+        {Index >= 0 && Index + 1 <= questions?.length && !reviews && (
+          <RenderQuestionInterface
+            questions={questions}
+            index={Index}
+            timersArray={TimersArray}
+            parsTimer={parsTimer}
+            validateAnswer={validateAnswer}
+            setIndex={SetIndex}
+            timerId={timerId}
+            validAnswers={validAnswers}
+          />
+        )}
+        {Index === questions?.length && !reviews && (
+          <RenderResultInterface
+            questions={questions}
+            AnswersArray={AnswersArray}
+            validAnswers={validAnswers}
+            setReviews={setReviews}
+          />
+        )}
+        {reviews && !isReviewSend && (
+          <WriteReview setIsReviewSend={setIsReviewSend} />
+        )}
+        {reviews && isReviewSend && <ThanYou />}
+        <WrapImgDiv>
+          <WrapImg src={ImageBAck} alt="rere" />
+        </WrapImgDiv>
+      </StyledWrapQuizMachen>
+    </Box>
   );
 };
 

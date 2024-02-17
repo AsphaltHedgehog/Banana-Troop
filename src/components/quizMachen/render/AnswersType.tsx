@@ -1,6 +1,6 @@
 import React from "react";
 import { Questions } from "../../../redux/quizMachen/slice";
-import { AnswerButton } from "./AnswersType.styled";
+import { StyledBtnAnswer } from "./QuestionInterface.styled";
 
 type RenderAnswersBtn = {
   questions: Questions[];
@@ -25,23 +25,18 @@ const AnswersType: React.FC<RenderAnswersBtn> = ({
 
   const answersArray = questions[Index].answers.map((el) => {
     return (
-      <AnswerButton
+      <StyledBtnAnswer
         id={el._id}
         key={el._id}
         onClick={() => validateAnswer(el._id)}
         disabled={timerExpired}
       >
         {el.descr}
-      </AnswerButton>
+      </StyledBtnAnswer>
     );
   });
 
-  return (
-    <>
-      {answersArray}
-      ZRADA TOTALNIA
-    </>
-  );
+  return <>{answersArray}</>;
 };
 
 export default AnswersType;
