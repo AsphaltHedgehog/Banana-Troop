@@ -10,6 +10,19 @@ interface OpenedUserWidgetProps {
   $linkClicked: boolean;
 }
 
+export const CategoriesWrapperTablDesk = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
+
+export const NavLinksAuthWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
 export const NavLinkHeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -23,15 +36,24 @@ export const NavLinkHeader = styled(NavLink)`
   line-height: 20px;
   letter-spacing: -0.01em;
   text-align: left;
-  color: #f4f4f499;
 
   &.active {
     color: #f4f4f4;
   }
+  color: #f4f4f499;
+`;
 
-  &:visited {
-    color: #f4f4f499;
-  }
+export const NavLinkHeaderRegister = styled(NavLink)`
+  color: white;
+  border-radius: 30px;
+  padding: 16px 32px;
+  border: solid 1px white;
+`;
+
+export const NavLinkHeaderLogin = styled(NavLink)`
+  color: white;
+  font-weight: 700;
+  text-decoration: underline;
 `;
 
 export const UserWidgetWrapper = styled.div`

@@ -22,7 +22,6 @@ const initialState: UserState = {
     _id: "",
     name: "",
     email: "",
-    gravatarURL: "",
     avatar: "",
     favorites: [],
   },
@@ -50,7 +49,7 @@ const userSlice = createSlice({
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
         state.user._id = payload._id;
         state.user.name = payload.name;
-        state.user.gravatarURL = payload.avatarURL;
+        state.user.avatar = payload.avatarURL;
         state.user.email = payload.email;
         state.user.favorites = payload.favorite;
         state.isLoadingUser = false;
@@ -62,7 +61,8 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(editPhotoThunk.fulfilled, (state, { payload }) => {
-        state.user.avatar = payload as string;
+        state.user.avatar =
+          `https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${payload}` as string;
         state.isLoadingAvatar = false;
         state.error = null;
       })
