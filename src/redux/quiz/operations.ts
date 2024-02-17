@@ -183,10 +183,17 @@ export const updateQuizesThunk = createAsyncThunk<
 
 export const getFavoriteQuizes = createAsyncThunk<
   QuizBody[],
-  { favorites: string[] }
->("getFavoriteQuizes", async (favorites, thunkApi) => {
+  // { favorites: string[] }
+number
+  >("getFavoriteQuizes", async (pageSize, thunkApi) => {
+    
   try {
-    const { data } = await quizApi.post(`/quiz/favorites`, favorites);
+    const { data } = await quizApi.get(`/quiz/favorites`, {
+      params: {
+      pageSize: pageSize
+      }
+    });
+    console.log(data)
     return data.data.result;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(

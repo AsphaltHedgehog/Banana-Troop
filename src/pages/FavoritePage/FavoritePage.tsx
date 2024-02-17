@@ -21,7 +21,7 @@ import Loader from "../../shared/loader-spinner/Loader";
 
 const FavoritePage = () => {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(selectGetUserFavorite);
+  // const favorites = useAppSelector(selectGetUserFavorite);
   const quizes = useAppSelector(getQuizListCategory);
   const isLoading = useAppSelector(getQuizIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
@@ -32,8 +32,8 @@ const FavoritePage = () => {
   });
 
   useEffect(() => {
-    dispatch(getFavoriteQuizes({ favorites }));
-  }, [dispatch, favorites]);
+    dispatch(getFavoriteQuizes(pageSize));
+  }, [dispatch, pageSize]);
 
   const handleLoadMore = () => {
     setPageSize((prev) => prev + 8);
