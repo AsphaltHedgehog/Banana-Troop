@@ -9,6 +9,7 @@ import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.style
 import sprite from "../../../images/icons/sprite.svg";
 import {
   ResultTitle,
+  StyledBox,
   StyledNumber,
   StyledRating,
   StyledResultContainer,
@@ -37,7 +38,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
           questions.length
         }`}</StyledNumber>
       </div>
-      <div>
+      <StyledBox>
         <StyledRating>Rate the quiz</StyledRating>
         <StyledRaitingWrapStar>
           {[1, 2, 3, 4, 5].map((index) => (
@@ -55,7 +56,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
             </StyledBtnStars>
           ))}
         </StyledRaitingWrapStar>
-      </div>
+      </StyledBox>
       <WriteReviewButton setReviews={() => setReviews(true)} />
     </StyledResultContainer>
   );

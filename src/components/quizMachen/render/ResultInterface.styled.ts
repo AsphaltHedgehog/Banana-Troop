@@ -4,16 +4,13 @@ import { breakpoints } from "../../../styles";
 const { tablet } = breakpoints;
 
 export const StyledResultContainer = styled.div`
-  width: 336px;
-  height: 424px;
   background-color: #205bf1;
   border-radius: 20px;
   margin: auto;
   padding: 80px 90px;
 
   @media screen and (min-width: ${tablet}) {
-    width: 580px;
-    height: 448px;
+    padding: 60px 204px;
   }
 `;
 
@@ -76,5 +73,16 @@ export const StyledRating = styled.p`
   @media screen and (min-width: ${tablet}) {
     font-size: 16px;
     line-height: 1;
+  }
+`;
+
+export const StyledBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: ${tablet}) {
+    margin-bottom: 75px;
   }
 `;
