@@ -15,9 +15,6 @@ export const NavLinkHeaderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  @media screen and (max-width: 1439px) {
-    margin-right: 46px;
-  }
 `;
 
 export const NavLinkHeader = styled(NavLink)`
