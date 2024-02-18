@@ -4,6 +4,7 @@ import {
   CategoriesWrapper,
   NavLinkLogOut,
   NavLinkLogin,
+  NavLinkMobileWrapper,
   NavLinkRegister,
   NavLinkSettings,
   NavWrapper,
@@ -14,7 +15,7 @@ import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/auth/selectors";
 
 import sprite from "../../../images/icons/sprite.svg";
-// import { useAppDispatch } from "../../../redux/hooks";
+import { NavLinkHeader } from "../tabletDesktopNav/TablDeskNav.styled";
 
 interface NavProps {
   handleCloseBurger: () => void;
@@ -22,7 +23,6 @@ interface NavProps {
 
 const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
   const navigate: NavigateFunction = useNavigate();
-  // const dispatch = useAppDispatch();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -42,10 +42,21 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
     <>
       <NavWrapper onClick={handleClick}>
         <StyledH2 onClick={handleGoHome}>QuizMaster</StyledH2>
-        <CategoriesWrapper>
-          <NavLink to="/randomQuiz?adults">For adults</NavLink>
-          <NavLink to="/randomQuiz?children">For children</NavLink>
-        </CategoriesWrapper>
+
+        {!isLoggedIn ? (
+          <CategoriesWrapper>
+            <NavLink to="/randomQuiz?adults">For adults</NavLink>
+            <NavLink to="/randomQuiz?children">For children</NavLink>{" "}
+          </CategoriesWrapper>
+        ) : (
+          <NavLinkMobileWrapper>
+            <NavLinkHeader to="/">Home</NavLinkHeader>
+            <NavLinkHeader to="/discover">Discover</NavLinkHeader>
+            <NavLinkHeader to="/favorites">Favorite quiz</NavLinkHeader>
+            <NavLinkHeader to="/myQuiz">My quiz</NavLinkHeader>
+          </NavLinkMobileWrapper>
+        )}
+
         <AuthWrapper>
           {isLoggedIn ? (
             <>

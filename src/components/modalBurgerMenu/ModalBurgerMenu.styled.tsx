@@ -23,17 +23,17 @@ export const StyledWrapper = styled.div<StyledWrapperProps>`
   z-index: 1000;
   animation: ${({ $isOpenBurger }) =>
       $isOpenBurger ? slideInAnimation : slideOutAnimation}
-    0.5s ease-in-out;
+    0.5s ease;
 `;
 
-//TODO: set animation for different screens (now only for mobile)
 const slideInAnimation = keyframes`
   from {
-    transform: translate3d(425px, -506px, 0px);
+    transform: translate3d(767px, -506px, 0px);
   }
   to {
     transform: translate3d(0);
   }
+
 
 `;
 
@@ -42,6 +42,6 @@ const slideOutAnimation = keyframes`
     transform: translate3d(0);
   }
   to {
-    transform: translate3d(-425px, 506px, 0px);
+    transform: translate3d(-767px, 506px, 0px);
   }
 `;

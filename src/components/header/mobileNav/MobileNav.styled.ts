@@ -30,6 +30,19 @@ export const CategoriesWrapper = styled.div`
   }
 `;
 
+export const NavLinkMobileWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 1.28;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    font-weight: 400;
+  }
+`;
+
 export const AuthWrapper = styled.div`
   display: flex;
   gap: 16px;
