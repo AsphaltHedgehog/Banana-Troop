@@ -8,6 +8,7 @@ import {
 import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../../images/icons/sprite.svg";
 import {
+  ResultCloseBtn,
   ResultTitle,
   StyledBox,
   StyledNumber,
@@ -30,6 +31,11 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 }) => {
   return (
     <StyledResultContainer>
+      <ResultCloseBtn type="button">
+        <svg>
+          <use xlinkHref={`${sprite}#icon-close-modal`}></use>
+        </svg>
+      </ResultCloseBtn>
       <ResultTitle>The results</ResultTitle>
       <div>
         <StyledText>Correct answers</StyledText>

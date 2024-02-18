@@ -30,7 +30,6 @@ export const ContentWrapper = styled.div`
 `;
 
 export const StyledCloseButton = styled.button`
-  border-radius: 30px;
   border: none;
   padding: 5px;
   width: 18px;

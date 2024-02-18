@@ -4,9 +4,10 @@ import { breakpoints } from "../../../styles";
 const { tablet } = breakpoints;
 
 export const StyledResultContainer = styled.div`
+  position: relative;
+
   background-color: #205bf1;
   border-radius: 20px;
-  margin: auto;
   padding: 80px 90px;
 
   @media screen and (min-width: ${tablet}) {
@@ -84,5 +85,34 @@ export const StyledBox = styled.div`
 
   @media screen and (min-width: ${tablet}) {
     margin-bottom: 75px;
+  }
+`;
+
+export const ResultCloseBtn = styled.button`
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+
+  top: 18px;
+  right: 20px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media screen and (min-width: ${tablet}) {
+    width: 28px;
+    height: 28px;
+
+    top: 24px;
+    right: 26px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
   }
 `;
