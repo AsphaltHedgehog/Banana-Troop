@@ -10,7 +10,9 @@ export const StyledThanYouSection = styled.section`
   text-align: center;
   width: 335px;
   height: 404px;
-
+  border: 1px solid rgba(244, 244, 244, 0.3);
+  border-radius: 20px;
+  background: #1c1c1c;
   @media screen and (min-width: ${desktop}) {
     padding: 60px 80px;
     width: 452px;

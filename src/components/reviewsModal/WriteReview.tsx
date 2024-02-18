@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import sprite from "../../images/icons/sprite.svg";
 import {
+  StyledRatingSvg,
   StyledSection,
+  StyledStarWrapper,
   StyledTitle,
+  StyledUl,
   StyledWriteReviewButton,
   StyledWriteReviewForm,
   StyledWriteReviewInput,
@@ -17,7 +21,7 @@ import { schemaWriteReview } from "../../helpers/schemas";
 
 interface WriteReviewFormData {
   name: string;
-  rating: number;
+  // rating: number;
   review: string;
 }
 
@@ -25,33 +29,48 @@ interface WriteReviewFormProps {
   setIsReviewSend: (value: boolean) => void;
 }
 
-const WriteReview: React.FC<WriteReviewFormProps> = ({setIsReviewSend}) => {
+const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   const dispatch = useAppDispatch();
-  // const [name, setName] = useState("");
-  // const [rating, setRating] = useState("5");
-  // const [review, setReview] = useState("");
-
+  const [stars, setStars] = useState<JSX.Element[]>([]);
+  const [rating, setRating] = useState<number>(0);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    // setValue,
     reset,
   } = useForm<WriteReviewFormData>({
     resolver: yupResolver(schemaWriteReview),
   });
 
-  // const handleWriteReview = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const reviewValue = e.target.value;
-  //   setReview(reviewValue);
-  //   setValue("review", reviewValue);
-  // };
-
   const submit: SubmitHandler<WriteReviewFormData> = () => {
     dispatch(reviewsPostThunk()).unwrap();
     reset();
-    setIsReviewSend(true)
+    setIsReviewSend(true);
   };
+  const handleStarClick = useCallback(
+    (index: number) => {
+      setRating(index + 1);
+      console.log(rating);
+    },
+    [setRating, rating]
+  );
+  useEffect(() => {
+    const starsArray: JSX.Element[] = [];
+    for (let i = 0; i < 5; i++) {
+      starsArray.push(
+        <StyledRatingSvg
+          key={i}
+          sprite={sprite}
+          id={`icon-rating`}
+          width={16}
+          height={16}
+          fillOpacity={i < rating ? 1 : 0.08}
+          onClick={() => handleStarClick(i)}
+        />
+      );
+    }
+    setStars(starsArray);
+  }, [rating, handleStarClick]);
 
   return (
     <StyledSection>
@@ -64,12 +83,15 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({setIsReviewSend}) => {
             {...register("name")}
           />
           {errors?.name && <div>{errors.name.message}</div>}
-          <StyledWriteReviewInput
-            type="number"
-            placeholder="Rate the quiz"
-            {...register("rating")}
-          />
-          {errors?.rating && <div>{errors.rating.message}</div>}
+          <StyledStarWrapper>
+            <p>Rate the quiz</p>
+            <StyledUl>
+              {stars.map((_star, index) => (
+                <li key={index}>{_star}</li>
+              ))}
+            </StyledUl>
+          </StyledStarWrapper>
+
           <StyledWriteReviewTextarea
             {...register("review")}
             placeholder="What is your opinion on the quiz"
