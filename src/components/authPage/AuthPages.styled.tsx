@@ -64,7 +64,7 @@ export const StyledAuthInput = styled.input`
   }
 
   && {
-    color: rgba(250, 250, 250, 0.4);
+    color: #fafafa;
     border: 1px solid rgba(250, 250, 250, 0.2);
     outline: none;
 
@@ -223,4 +223,14 @@ export const StyledError = styled.p`
   text-align: left;
   color: #e74a3b;
   margin-left: 18px;
+`;
+
+export const ValidationError = styled.div`
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.14286;
+  letter-spacing: -0.01em;
+  color: #e74a3b;
+  text-align: center;
 `;
