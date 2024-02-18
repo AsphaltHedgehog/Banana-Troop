@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ChooseButton } from "../../shared/buttons/chooseQuizBtnWhite";
-// import { CreateButton } from "../../shared/buttons/createQuizBtn";
+import { CreateButton } from "../../shared/buttons/createQuizBtn";
 
 import {
   StyledSection,
@@ -11,8 +11,11 @@ import {
   StyledUl,
   StyledWrapper,
 } from "./Hero.styled";
+import { useAppSelector } from "../../redux/hooks";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 
 const Hero: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   return (
     <StyledSection>
       <StyledWrapper>
@@ -24,9 +27,15 @@ const Hero: React.FC = () => {
         </StyledText2>
         <StyledUl>
           <li>
-            <ChooseButton link="/">Choose a test</ChooseButton>
+            <ChooseButton
+              link={isLoggedIn ? "/discover" : "/randomQuiz?children"}
+            >
+              Choose a test
+            </ChooseButton>
           </li>
-          <li>{/* <CreateButton link="/">Create a quest</CreateButton> */}</li>
+          <li>
+            <CreateButton>Create a quest</CreateButton>
+          </li>
         </StyledUl>
       </StyledWrapper>
       <StyledTitle>
