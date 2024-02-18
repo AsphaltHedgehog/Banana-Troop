@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // redux
 import { useAppDispatch } from "../../redux/hooks";
@@ -40,15 +40,17 @@ import ImageBAck from "../../images/block-component/splash.png";
 const QuizMachen = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   // auth selectors
   const user = useSelector(selectGetUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   // states
-  const [Name, SetName] = useState<string>(user.name ? user.name : "");
+  const [Name, SetName] = useState<string>("");
+  
   const [Index, SetIndex] = useState<number>(-1);
-  const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean }[]>([]);
+  const [AnswersArray, SetAnswersArray] = useState<{ answer: boolean | null }[]>([]);
   const [TimersArray, SetTimersArray] = useState<{ time: string }[]>([]);
   const [timerId, setTimerId] = useState<number | null>(null);
 
@@ -66,6 +68,13 @@ const QuizMachen = () => {
   const { background, theme, questions } = quiz;
 
   useEffect(() => {
+    if (!user || !user.name) {
+      return;
+    }
+    SetName(user.name)
+  }, [user])
+
+  useEffect(() => {
     if (!id) {
       return;
     }
@@ -76,7 +85,7 @@ const QuizMachen = () => {
     if (quiz && Index < 0) {
       // creating answers array
       const answersArray = questions?.map(() => {
-        return { answer: false };
+        return { answer: null };
       });
       // creating timers array
       const timersArray = questions?.map((el) => {
@@ -108,6 +117,19 @@ const QuizMachen = () => {
 
       const formattedMinutes = String(remainingMinutes).padStart(2, "0");
       const formattedSeconds = String(remainingSeconds).padStart(2, "0");
+      
+      switch (AnswersArray[Index].answer) {
+        case false:
+          clearInterval(timerId);
+          setTimerId(null);
+          return;
+        case true: 
+          clearInterval(timerId);
+          setTimerId(null);
+          return;
+        case null:
+          break;
+      }
 
       if (TimersArray[Index].time === "00:00") {
         clearInterval(timerId);
@@ -126,7 +148,7 @@ const QuizMachen = () => {
     }, 1000);
 
     setTimerId(timerId);
-  }, [Index, TimersArray, setTimerId, SetTimersArray]);
+  }, [TimersArray, Index, AnswersArray]);
 
   useEffect(() => {
     if (Index >= 0 && Index < questions.length) {
@@ -157,7 +179,7 @@ const QuizMachen = () => {
       >
         {Index !== -1 && (
           <WrapBtn>
-            <StyledBtnBack>
+            <StyledBtnBack onClick={() => navigate(-1)}>
               <Svg
                 sprite={sprite}
                 id={"icon-arrow"}
@@ -192,6 +214,7 @@ const QuizMachen = () => {
             setIndex={SetIndex}
             timerId={timerId}
             validAnswers={validAnswers}
+            answersArray={AnswersArray}
           />
         )}
         {Index === questions?.length && !reviews && (
