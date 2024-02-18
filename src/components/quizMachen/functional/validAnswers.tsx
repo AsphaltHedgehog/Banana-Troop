@@ -1,4 +1,4 @@
-const validAnswers = (AnswersArray: { answer: boolean }[]) => {
+const validAnswers = (AnswersArray: { answer: boolean | null }[]) => {
     let count = 0;
     for (const i of AnswersArray) {
       if (i.answer === true) {
