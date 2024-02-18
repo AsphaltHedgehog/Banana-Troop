@@ -7,6 +7,7 @@ export const StyledWriteRevieweBtn = styled.button`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding: 16px 13px;
+  width: 156px;
 
   font-weight: 700;
   font-size: 14px;
@@ -25,8 +26,9 @@ export const StyledWriteRevieweBtn = styled.button`
   transition-property: color, border-color;
 
   @media screen and (min-width: ${tablet}) {
-    padding: 16px 32px;
+    padding: 16px 30px;
     font-size: 16px;
     line-height: 1;
+    width: 169px;
   }
 `;

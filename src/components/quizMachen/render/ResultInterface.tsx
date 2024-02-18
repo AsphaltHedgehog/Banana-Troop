@@ -7,9 +7,21 @@ import {
 } from "../../../pages/Discover/DiscoverPage.styled";
 import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../../images/icons/sprite.svg";
+
+import {
+  ResultCloseBtn,
+  ResultTitle,
+  StyledBox,
+  StyledNumber,
+  StyledRating,
+  StyledResultContainer,
+  StyledText,
+} from "./ResultInterface.styled";
+
 import { useAppDispatch } from "../../../redux/hooks";
 import { IPassData, setPassedQuizThunk } from "../../../redux/quizMachen/operations";
 import { useParams } from "react-router-dom";
+
 interface RenderResultInterfaceProps {
   questions: Questions[];
   AnswersArray: { answer: boolean | null }[];
@@ -48,14 +60,21 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 
 
   return (
-    <div>
-      <p>The results</p>
+    <StyledResultContainer>
+      <ResultCloseBtn type="button">
+        <svg>
+          <use xlinkHref={`${sprite}#icon-close-modal`}></use>
+        </svg>
+      </ResultCloseBtn>
+      <ResultTitle>The results</ResultTitle>
       <div>
-        <p>Correct answers</p>
-        <p>{`${validAnswers(AnswersArray)}/${questions.length}`}</p>
+        <StyledText>Correct answers</StyledText>
+        <StyledNumber>{`${validAnswers(AnswersArray)}/${
+          questions.length
+        }`}</StyledNumber>
       </div>
-      <div>
-        <p>Rate the quiz</p>
+      <StyledBox>
+        <StyledRating>Rate the quiz</StyledRating>
         <StyledRaitingWrapStar>
           {[1, 2, 3, 4, 5].map((index) => (
             <StyledBtnStars
@@ -73,9 +92,9 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
             </StyledBtnStars>
           ))}
         </StyledRaitingWrapStar>
-      </div>
+      </StyledBox>
       <WriteReviewButton setReviews={() => setReviews(true)} />
-    </div>
+    </StyledResultContainer>
   );
 };
 
