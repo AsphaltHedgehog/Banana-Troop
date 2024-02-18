@@ -14,6 +14,7 @@ import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import { setToken } from "../../redux/auth/operations";
 import { selectUserToken } from "../../redux/auth/selectors";
 import { getQuizListCategory } from "../../redux/quiz/selectors";
+import { StyledLastHeader, StyledTitle } from "./LastPassedQuizes.styled";
 
 const LastPassedQuizzes: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -36,10 +37,10 @@ const LastPassedQuizzes: React.FC = () => {
 
   return (
     <Box>
-      <div>
-        <h2>Last passed quizzes</h2>
+      <StyledLastHeader>
+        <StyledTitle>Last passed quizzes</StyledTitle>
         <CreateQuizLink />
-      </div>
+      </StyledLastHeader>
       <div>
         <StyledUlCards>
           {passedQuizzes !== undefined && passedQuizzes.length > 0 ? (
