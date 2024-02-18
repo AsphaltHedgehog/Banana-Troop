@@ -135,6 +135,12 @@ export const StyledBtnAnswer = styled.button`
   &:hover {
     border: 1px solid rgba(255, 255, 255, 0.911);
     background: #3a3a3a;
+    &.correct {
+      background: #097b45;
+    }
+    &.incorrect {
+      background: #e74a3b;
+    }
   }
   @media screen and (min-width: ${tablet}) {
     width: 222px;
