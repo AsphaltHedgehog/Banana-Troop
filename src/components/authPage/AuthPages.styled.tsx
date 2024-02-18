@@ -45,6 +45,7 @@ export const StyledAuthInput = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding-left: 18px;
+  padding-right: 15px;
   height: 44px;
   background-color: transparent;
   color: #fafafa;
@@ -73,7 +74,7 @@ export const StyledAuthInput = styled.input`
     }
 
     &:hover {
-      border-color: #097b45;
+      border-color: #fafafa;
     }
 
     &.valid {
@@ -193,7 +194,7 @@ export const StyledCanceLink = styled.a`
 
 export const PasswordToggle = styled.button`
   position: absolute;
-  top: 50%;
+  top: 55%;
   right: 13px;
   transform: translateY(-50%);
   background: none;
