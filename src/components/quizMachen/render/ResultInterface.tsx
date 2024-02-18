@@ -8,7 +8,7 @@ import {
 import { StyledRatingSvg } from "../../../shared/quizlistitem/QuizListItem.styled";
 import sprite from "../../../images/icons/sprite.svg";
 import { useAppDispatch } from "../../../redux/hooks";
-import { setPassedQuizThunk } from "../../../redux/quizMachen/operations";
+import { IPassData, setPassedQuizThunk } from "../../../redux/quizMachen/operations";
 import { useParams } from "react-router-dom";
 interface RenderResultInterfaceProps {
   questions: Questions[];
@@ -35,7 +35,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
       return;
     }
     
-    const data = {
+    const data: IPassData = {
     quizId: id,
     quantityQuestions: questions.length,
     correctAnswers: validAnswers(AnswersArray),
@@ -43,7 +43,6 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
     };
     
     
-    // TODO: Типизация!!!!
     dispatch(setPassedQuizThunk(data));
   };
 
@@ -53,7 +52,6 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
       <p>The results</p>
       <div>
         <p>Correct answers</p>
-        {/* //TODO: */}
         <p>{`${validAnswers(AnswersArray)}/${questions.length}`}</p>
       </div>
       <div>

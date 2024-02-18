@@ -15,6 +15,13 @@ interface IApiResponse {
   status: string;
 }
 
+export interface IPassData {
+  quizId: string;
+  quantityQuestions: number;
+  correctAnswers: number;
+  rating: number;
+}
+
 export const getQuizByIdThunk = createAsyncThunk<Quiz, AsyncThunkConfig>("getQuizById", async (id, thunkApi) => {
   try {
     const { data }:IApiResponse = await quizApi.get(`/quiz/:${id}`);
@@ -27,10 +34,9 @@ export const getQuizByIdThunk = createAsyncThunk<Quiz, AsyncThunkConfig>("getQui
 });
 
 
-export const setPassedQuizThunk = createAsyncThunk<Quiz, AsyncThunkConfig>("setPassedQuiz", async ( passData, thunkApi) => {
+export const setPassedQuizThunk = createAsyncThunk<void, IPassData>("setPassedQuiz", async ( passData, thunkApi ) => {
   try {
-    const { data }: IApiResponse = await quizApi.patch(`/user/passed-quiz`, passData);
-    return data; 
+    await quizApi.patch(`/user/passed-quiz`, passData);
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
