@@ -58,7 +58,7 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
     [setRating]
   );
   useEffect(() => {
-    console.log(rating);
+    // console.log(rating);
 
     const starsArray: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
