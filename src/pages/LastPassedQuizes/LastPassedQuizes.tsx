@@ -1,20 +1,25 @@
 // LastPassedQuizzes.tsx
-import React, { useEffect, useState } from 'react';
-import Box from '../../components/box/Box';
-import CreateQuizLink from '../../shared/createquiz/CreateQuizLink';
-import { StyledEmptyText, StyledLoadMore, StyledUlCards } from '../Discover/DiscoverPage.styled';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getPassedQuizzesThunk, getUserThunk } from '../../redux/user/operations';
-import QuizListItem from '../../shared/quizlistitem/QuizListItem';
-import { setToken } from '../../redux/auth/operations';
-import { selectUserToken } from '../../redux/auth/selectors';
-import { getQuizListCategory } from '../../redux/quiz/selectors';
+import React, { useEffect, useState } from "react";
+import Box from "../../components/box/Box";
+import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";
+import {
+  StyledEmptyText,
+  StyledLoadMore,
+  StyledUlCards,
+} from "../Discover/DiscoverPage.styled";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getUserThunk } from "../../redux/user/operations";
+import { getPassedQuizzesThunk } from "../../redux/quiz/operations";
+import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+import { setToken } from "../../redux/auth/operations";
+import { selectUserToken } from "../../redux/auth/selectors";
+import { getQuizListCategory } from "../../redux/quiz/selectors";
 
 const LastPassedQuizzes: React.FC = () => {
   const dispatch = useAppDispatch();
   const [pageSize, setPageSize] = useState<number>(8);
   const userToken = useAppSelector(selectUserToken);
-const passedQuizzes = useAppSelector(getQuizListCategory)
+  const passedQuizzes = useAppSelector(getQuizListCategory);
 
   useEffect(() => {
     setToken(userToken);
@@ -38,7 +43,7 @@ const passedQuizzes = useAppSelector(getQuizListCategory)
       <div>
         <StyledUlCards>
           {passedQuizzes !== undefined && passedQuizzes.length > 0 ? (
-            passedQuizzes.map((quiz) => ( 
+            passedQuizzes.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
                 id={quiz._id}
