@@ -2,6 +2,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import {
   editPhotoThunk,
   editUserThunk,
+  getPassedQuizzesThunk,
   getUserThunk,
   patchPassedQuiz,
   retakePassedQuiz,
@@ -102,6 +103,9 @@ const userSlice = createSlice({
         state.user.average = payload.average;
         state.user.passedQuizzes = payload.passedQuizzes;
       })
+      .addCase(getPassedQuizzesThunk.fulfilled, (state, { payload }) => {
+        state.user.passedQuizzes = payload.passedQuizzes;
+      })
       .addMatcher(
         isAnyOf(getUserThunk.pending, editUserThunk.pending),
         (state) => {
@@ -114,7 +118,8 @@ const userSlice = createSlice({
           editUserThunk.rejected,
           editPhotoThunk.rejected,
           patchPassedQuiz.rejected,
-          retakePassedQuiz.rejected
+          retakePassedQuiz.rejected,
+          getPassedQuizzesThunk.rejected
         ),
         (state, { payload }) => {
           state.isLoadingUser = false;
