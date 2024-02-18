@@ -214,9 +214,9 @@ export const StyledUl = styled.ul`
 
 export const StyledRatingSvg = styled(Svg)`
   fill: #f4f4f4;
-  /* fill-opacity: 0.08; */
   stroke-width: 0;
 `;
+
 export const StyledStarWrapper = styled.div`
   display: flex;
   gap: 12px;

@@ -40,6 +40,7 @@ const UpdateQuizForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+
     if (data.theme && selectOptions) {
       const { _id, ageGroup, background, category } = selectOptions;
 
@@ -55,9 +56,12 @@ const UpdateQuizForm = () => {
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
             reset();
-            handleGoBack();
+            toast.success("Congrats! You updated quiz!");
           }
-          toast.success("Congrats! You updated quiz!");
+
+          if (response.meta.requestStatus === "rejected") {
+            toast.error("Error updating quiz, try again later");
+          }
         })
         .catch((error) => {
           toast.error("Error updating quiz:", error);

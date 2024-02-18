@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchCategoriesThunk, getQuizByIdThunk } from "./operations";
+import { fetchAllCategoriesThunk, fetchCategoriesThunk, getQuizByIdThunk } from "./operations";
 import { addQuizesThunk } from "../quiz/operations";
 
 export type categoriesType = {
@@ -21,9 +21,9 @@ const initialState: PayloadType = {
   _id: "",
   theme: "",
   category: "",
-  categories: [],
   ageGroup: "",
   background: "",
+  categories: [],
 };
 
 const updateOptionsSlice = createSlice({
@@ -69,7 +69,12 @@ const updateOptionsSlice = createSlice({
         state.categories = payload.categories;
         state.background = payload.background;
         state.ageGroup = payload.ageGroup;
-      });
+      })
+      .addCase(fetchAllCategoriesThunk.fulfilled, (state, { payload }) => { 
+        console.log(payload);
+        
+        state.categories = payload;
+    })
   },
 });
 

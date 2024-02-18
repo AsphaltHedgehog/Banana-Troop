@@ -56,3 +56,10 @@ export const getQuizByIdThunk = createAsyncThunk<
     );
   }
 });
+
+
+
+export const fetchAllCategoriesThunk = createAsyncThunk("fetchAllCategories", async (ageGroup) => {
+    const { data } = await quizApi.get("/quiz/category/all", {ageGroup});
+    return data
+});

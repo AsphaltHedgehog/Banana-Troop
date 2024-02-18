@@ -43,6 +43,7 @@ const QuizOptions = () => {
     setOptionListOpen(!OptionListOpen);
     setIsChevronRotated(!isChevronRotated);
   };
+
   const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
     if (
@@ -54,6 +55,8 @@ const QuizOptions = () => {
       setIsChevronRotated(false);
     }
   };
+
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -61,11 +64,21 @@ const QuizOptions = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchCategoriesThunk({
+      
+    }));
+  }, [dispatch]);
+
+
   const handleAudienceChange = async (
     event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    await dispatch(fetchCategoriesThunk({ ageGroup: event.target.value }));
-    setSelectedAudience(event.target.value);
+    ) => {
+    await setSelectedAudience(event.target.value);
+
+    await dispatch(fetchCategoriesThunk({ ageGroup: selectedAudience }));
+
     setSelectedCategory("Choose");
   };
 
