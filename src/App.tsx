@@ -61,7 +61,7 @@ function App() {
           <Route path="home" element={<UserHomePage />} />
           <Route
             path="lastPassedQuizzes"
-            element={<LastPassedQuizes quizes={[]} />}
+            element={<LastPassedQuizes />}
           />
           <Route path="auth/*" element={<AuthPages />} />
           <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
