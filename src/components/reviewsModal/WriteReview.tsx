@@ -49,7 +49,7 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   };
   const handleStarClick = useCallback(
     (index: number) => {
-      setRating((prevRating) => {
+      setRating(() => {
         const newRating = index + 1;
 
         return newRating;
