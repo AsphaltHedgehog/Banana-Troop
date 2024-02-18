@@ -10,6 +10,13 @@ interface OpenedUserWidgetProps {
   $linkClicked: boolean;
 }
 
+interface NavLinkHeaderProps {
+  $colored?: string;
+}
+interface NavLinkCategoryHeaderProps {
+  active?: string;
+}
+
 export const CategoriesWrapperTablDesk = styled.div`
   display: flex;
   justify-content: center;
@@ -30,17 +37,36 @@ export const NavLinkHeaderWrapper = styled.div`
   gap: 20px;
 `;
 
-export const NavLinkHeader = styled(NavLink)`
+export const NavLinkHeader = styled(NavLink)<NavLinkHeaderProps>`
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: -0.01em;
   text-align: left;
+  color: #f4f4f499;
 
   &.active {
     color: #f4f4f4;
   }
-  color: #f4f4f499;
+
+  &:visited {
+    color: #f4f4f499;
+  }
+`;
+
+export const NavLinkCategoryHeader = styled(
+  NavLink
+)<NavLinkCategoryHeaderProps>`
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  color: ${({ active }) => (active === "true" ? "#ffffff" : "#f4f4f499")};
+
+  &:visited {
+    color: #f4f4f499;
+  }
 `;
 
 export const NavLinkHeaderRegister = styled(NavLink)`

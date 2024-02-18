@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   CategoriesWrapperTablDesk,
+  NavLinkCategoryHeader,
   NavLinkHeader,
   NavLinkHeaderLogin,
   NavLinkHeaderRegister,
@@ -22,7 +23,6 @@ const cloudinaryURL =
 
 const TablDeskNav = () => {
   const { name } = useSelector(selectGetUser);
-  // const { gravatarURL } = useSelector(selectGetUser);
   const { avatar } = useSelector(selectGetUser);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const widgetRef = useRef<HTMLDivElement>(null);
@@ -30,6 +30,11 @@ const TablDeskNav = () => {
 
   const [openUserWidget, setOpenUserWidget] = useState<boolean>(false);
   const [linkClicked, setLinkClicked] = useState<boolean>(false);
+  const [activeLink, setActiveLink] = useState<string>("children");
+
+  const handleNavLinkClick = (linkName: string) => {
+    setActiveLink(linkName);
+  };
 
   const handleOpenUserWidget = () => {
     setOpenUserWidget((prev) => !prev);
@@ -70,7 +75,7 @@ const TablDeskNav = () => {
       {isLoggedIn ? (
         <>
           <NavLinkHeaderWrapper onClick={handleHeaderLinkClick}>
-            <NavLinkHeader to="/">Home</NavLinkHeader>
+            <NavLinkHeader to="">Home</NavLinkHeader>
             <NavLinkHeader to="/discover">Discover</NavLinkHeader>
             <NavLinkHeader to="/favorites">Favorite quiz</NavLinkHeader>
             <NavLinkHeader to="/myQuiz">My quiz</NavLinkHeader>
@@ -113,10 +118,29 @@ const TablDeskNav = () => {
         <>
           {!location.pathname.includes("quizMachen") && (
             <CategoriesWrapperTablDesk>
-              <NavLinkHeader to="/randomQuiz?adults">For adults</NavLinkHeader>
-              <NavLinkHeader to="/randomQuiz?children">
+              <NavLinkCategoryHeader
+                to="/randomQuiz?adults"
+                active={
+                  activeLink === "adults" && location.pathname === "/randomQuiz"
+                    ? "true"
+                    : undefined
+                }
+                onClick={() => handleNavLinkClick("adults")}
+              >
+                For adults
+              </NavLinkCategoryHeader>
+              <NavLinkCategoryHeader
+                to="/randomQuiz?children"
+                active={
+                  activeLink === "children" &&
+                  location.pathname === "/randomQuiz"
+                    ? "true"
+                    : undefined
+                }
+                onClick={() => handleNavLinkClick("children")}
+              >
                 For children
-              </NavLinkHeader>
+              </NavLinkCategoryHeader>
             </CategoriesWrapperTablDesk>
           )}
           <NavLinksAuthWrapper>

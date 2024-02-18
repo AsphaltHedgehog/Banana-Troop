@@ -6,7 +6,7 @@ export const schemaRegister = yup.object().shape({
     .min(1, "Name must contain more than 1 character")
     .max(32, "Name must contain less than 32")
     .required(),
-  email: yup.string().email("Email is not valid").required("Name is required"),
+  email: yup.string().email("Email is not valid").required("Email is required"),
   password: yup
     .string()
     .min(8, "Enter a valid Password")

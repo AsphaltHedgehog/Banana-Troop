@@ -16,6 +16,7 @@ import {
   StyledAuthInput,
   StyledRegisterWrapp,
   StyledTitle,
+  ValidationError,
   WrapInPass,
 } from "../AuthPages.styled";
 
@@ -75,7 +76,9 @@ const Login: React.FC = () => {
           placeholder="Email"
           {...register("email")}
         />
-        {errors?.email && <div>{errors.email.message}</div>}
+        {errors?.email && (
+          <ValidationError>{errors.email.message}</ValidationError>
+        )}
 
         <WrapInPass>
           <StyledAuthInput
@@ -114,7 +117,9 @@ const Login: React.FC = () => {
             )}
           </PasswordToggle>
         </WrapInPass>
-        {errors?.password && <div>{errors.password.message}</div>}
+        {errors?.password && (
+          <ValidationError>{errors.password.message}</ValidationError>
+        )}
         <RegisterButton onClick={handleSubmit(submit)}>Enter</RegisterButton>
       </StyledAuthForm>
       <RestoreBtnStyled href="/auth/restorePassword">

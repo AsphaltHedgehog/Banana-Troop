@@ -193,16 +193,10 @@ export const StyledRatingSvg = styled(Svg)`
 `;
 
 export const StyledButton = styled(StyledStartBtn)`
-  width: 84px;
-  height: 40px;
-
   padding: 12px 24px;
 
   margin-inline: auto;
   margin-top: 32px;
-  @media screen and (min-width: ${tablet}) {
-    width: 89px;
-  }
 `;
 
 export const StyledCorrectAnswers = styled.p`
