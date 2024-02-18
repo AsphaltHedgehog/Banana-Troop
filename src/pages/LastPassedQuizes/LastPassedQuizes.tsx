@@ -1,41 +1,32 @@
-import React, { useState } from 'react'
-import Box from '../../components/box/Box'
-import CreateQuizLink from '../../shared/createquiz/CreateQuizLink'
-import { StyledEmptyText, StyledLoadMore, StyledUlCards } from '../Discover/DiscoverPage.styled'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { patchPassedQuiz, retakePassedQuiz } from '../../redux/user/operations'
-import LastQiuzListItem from './LastQiuzListItem'
+// LastPassedQuizzes.tsx
+import React, { useEffect, useState } from 'react';
+import Box from '../../components/box/Box';
+import CreateQuizLink from '../../shared/createquiz/CreateQuizLink';
+import { StyledEmptyText, StyledLoadMore, StyledUlCards } from '../Discover/DiscoverPage.styled';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getPassedQuizzesThunk, getUserThunk } from '../../redux/user/operations';
+import QuizListItem from '../../shared/quizlistitem/QuizListItem';
+import { setToken } from '../../redux/auth/operations';
+import { selectUserToken } from '../../redux/auth/selectors';
+import { getQuizListCategory } from '../../redux/quiz/selectors';
 
-interface Quiz {
-  _id: string;
-  theme: string;
-  rating: number;
-  finished: number;
-  owner: string;
-  correctAnswers: number; 
-  totalQuestions: number; 
-}
-
-interface Props {
-  quizes: Quiz[];
-}
-
-const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
+const LastPassedQuizzes: React.FC = () => {
   const dispatch = useAppDispatch();
-  const totalListCategory = useAppSelector((state) => state.quizes.listCategory.data.total);
-  const [startIndex, setStartIndex] = useState<number>(0);
+  const [pageSize, setPageSize] = useState<number>(8);
+  const userToken = useAppSelector(selectUserToken);
+const passedQuizzes = useAppSelector(getQuizListCategory)
 
-  const handlePatchPassedQuiz = (quizId: string, correctAnswers: number, totalQuestions: number) => {
-    dispatch(patchPassedQuiz({ quizId, correctAnswers, totalQuestions, quantityQuestions: 0, rating: 0 }))
-  };
-
-  const handleRetakePassedQuiz = (quizId: string, correctAnswers: number, totalQuestions: number) => {
-    dispatch(retakePassedQuiz({ quizId, correctAnswers, totalQuestions, quantityQuestions: 0 }))
-  };
+  useEffect(() => {
+    setToken(userToken);
+    dispatch(getUserThunk())
+      .unwrap()
+      .then(() => {
+        dispatch(getPassedQuizzesThunk());
+      });
+  }, [dispatch, userToken]);
 
   const handleLoadMore = () => {
-    const newStartIndex = startIndex + 8;
-    setStartIndex(newStartIndex);
+    setPageSize((prev) => prev + 8);
   };
 
   return (
@@ -46,19 +37,16 @@ const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
       </div>
       <div>
         <StyledUlCards>
-          {quizes.length > 0 ? (
-            quizes.map((quiz) => (
-              <LastQiuzListItem
+          {passedQuizzes !== undefined && passedQuizzes.length > 0 ? (
+            passedQuizzes.map((quiz) => ( 
+              <QuizListItem
                 key={quiz._id}
                 id={quiz._id}
                 theme={quiz.theme}
                 rating={quiz.rating}
                 finished={quiz.finished}
                 owner={quiz.owner}
-                correctAnswers={quiz.correctAnswers}
-                totalQuestions={quiz.totalQuestions}
-                onPatchPassedQuiz={handlePatchPassedQuiz}
-                onRetakePassedQuiz={handleRetakePassedQuiz}
+                ageGroup={quiz.ageGroup}
               />
             ))
           ) : (
@@ -67,12 +55,16 @@ const LastPassedQuizzes: React.FC<Props> = ({ quizes }) => {
         </StyledUlCards>
       </div>
       <div>
-        {quizes.length < totalListCategory[0]?.total && quizes.length && (
-          <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
+        {passedQuizzes !== undefined && passedQuizzes.length > pageSize ? (
+          <StyledLoadMore type="button" onClick={handleLoadMore}>
+            Load More
+          </StyledLoadMore>
+        ) : (
+          <></>
         )}
       </div>
     </Box>
-  )
-}
+  );
+};
 
-export default LastPassedQuizzes
+export default LastPassedQuizzes;
