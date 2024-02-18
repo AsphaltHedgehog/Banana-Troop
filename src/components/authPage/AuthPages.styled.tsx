@@ -183,6 +183,7 @@ export const StyledCanceLink = styled.a`
   letter-spacing: -0.01em;
   font-family: inherit;
   margin-top: 16px;
+  cursor: pointer;
 
   @media screen and (min-width: ${tablet}) {
     font-size: 16px;
