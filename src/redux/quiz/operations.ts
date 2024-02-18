@@ -184,16 +184,15 @@ export const updateQuizesThunk = createAsyncThunk<
 export const getFavoriteQuizes = createAsyncThunk<
   QuizBody[],
   // { favorites: string[] }
-object
-  >("getFavoriteQuizes", async (query, thunkApi) => {
-   
+  object
+>("getFavoriteQuizes", async (query, thunkApi) => {
   try {
     const { data } = await quizApi.get(`/quiz/favorites`, {
       params: {
-      query
-      }
+        query,
+      },
     });
-    console.log(data)
+    console.log(data);
     return data.data.result;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -212,6 +211,21 @@ export const getOwnQuizes = createAsyncThunk<QuizBody[], void>(
       return thunkApi.rejectWithValue(
         `${(error as Error)?.message ?? "Unknown error"}`
       );
+    }
+  }
+);
+
+export const getPassedQuizzesThunk = createAsyncThunk<QuizBody[], void>(
+  "getPassedQuizes",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await quizApi.get("/user/get-passed");
+      return data.data;
+    } catch (error) {
+      if (error instanceof Error && typeof error.message === "string") {
+        return thunkApi.rejectWithValue(error.message);
+      }
+      return thunkApi.rejectWithValue("An unknown error occurred");
     }
   }
 );

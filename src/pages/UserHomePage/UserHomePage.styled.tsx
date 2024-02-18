@@ -221,3 +221,22 @@ export const StyledNavLink = styled(NavLink)`
     line-height: 1;
   }
 `;
+
+export const StyledLastUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 20px;
+
+  margin-top: 40px;
+
+  @media screen and (min-width: ${tablet}) {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 48px 24px;
+
+    margin-top: 24px;
+  }
+`;

@@ -203,7 +203,7 @@ const QuizListItem = ({
         <StyledCorrectAnswers>
           Correct answers:
           <StyledSpan>
-            0{passedQuiz?.correctAnswers}/0{passedQuiz?.quantityQuestions}
+            {passedQuiz?.correctAnswers}/{passedQuiz?.quantityQuestions}
           </StyledSpan>
         </StyledCorrectAnswers>
       ) : (
