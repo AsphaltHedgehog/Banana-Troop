@@ -132,21 +132,31 @@ export const StyledBtnAnswer = styled.button`
   letter-spacing: -0.01em;
   color: #f4f4f4;
   padding-left: 38px;
-  &:hover {
+
+  cursor: default;
+
+  &:hover:not(:disabled) {
+    cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.911);
     background: #3a3a3a;
-    &.correct {
-      background: #097b45;
-    }
-    &.incorrect {
-      background: #e74a3b;
-    }
   }
+
+  &.correct {
+      background: #097b45;
+      border: none;
+    };
+
+  &.incorrect {
+      background: #e74a3b;
+      border: none;
+    };
+
   @media screen and (min-width: ${tablet}) {
     width: 222px;
     height: 44px;
-  }
+  };
 `;
+
 export const AnswersTypeWrap = styled.div`
   display: flex;
   flex-direction: column;

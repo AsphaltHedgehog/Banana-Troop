@@ -22,6 +22,9 @@ import { useAppDispatch } from "../../../redux/hooks";
 import { IPassData, setPassedQuizThunk } from "../../../redux/quizMachen/operations";
 import { useParams } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
+
 interface RenderResultInterfaceProps {
   questions: Questions[];
   AnswersArray: { answer: boolean | null }[];
@@ -38,7 +41,8 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const [ rating, setRating ] = useState<number>(0)
+  const [rating, setRating] = useState<number>(0)
+  const navigate = useNavigate()
 
   const handleRatingSelect = (rating: number) => {
     setRating(rating);
@@ -61,7 +65,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 
   return (
     <StyledResultContainer>
-      <ResultCloseBtn type="button">
+      <ResultCloseBtn type="button" onClick={() => navigate('/')}>
         <svg>
           <use xlinkHref={`${sprite}#icon-close-modal`}></use>
         </svg>
