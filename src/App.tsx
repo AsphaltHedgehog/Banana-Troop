@@ -26,6 +26,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { PublicRoute } from "./hoc/PublicRoute";
 import { PrivatRoute } from "./hoc/PrivateRoute";
+import { toast } from "react-toastify";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -40,7 +41,7 @@ function App() {
           dispatch(setLoggedIn(true));
         });
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong!");
     }
   }, [dispatch, userToken]);
 

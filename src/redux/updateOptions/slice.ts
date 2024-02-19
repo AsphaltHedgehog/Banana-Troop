@@ -39,15 +39,12 @@ const updateOptionsSlice = createSlice({
     },
     addCategory: (state, action) => {
       state.category = action.payload;
-      console.log(action.payload);
     },
     addBackground: (state, action) => {
-      console.log(action.payload);
       state.background = action.payload;
     },
     addAge: (state, action) => {
       state.ageGroup = action.payload;
-      console.log(action.payload);
     },
     defaultState: (state) => {
       state._id = "";

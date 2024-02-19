@@ -15,6 +15,7 @@ import {
   StyledRestoreWrap,
 } from "./RestorePassword.styled";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 interface FormData {
   email: string;
@@ -66,7 +67,7 @@ const RestorePassword: React.FC = () => {
       ) {
         setIsEmailSent(false);
       } else {
-        console.error("Error occurred:", error);
+        toast.error(`Error occurred: ${error}`);
       }
     }
   };

@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
 import {
   FixPositoinWrapper,
   QuestFormWrapper,
@@ -31,7 +30,6 @@ import {
   getQuestions,
   getQuestionsIndex,
 } from "../../redux/questions/selectors";
-// import { schemaQuestion } from "../../helpers/schemas";
 import { toast } from "react-toastify";
 import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
 import QuestionTime from "./questionTime/QuestionTime";
@@ -97,7 +95,7 @@ const QuestionForm = () => {
       answers: selectQuestion[selectQuestionIndex].answers,
       validAnswer: selectQuestion[selectQuestionIndex].validAnswer,
     },
-    // resolver: yupResolver(schemaQuestion),
+   
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
@@ -216,7 +214,6 @@ const QuestionForm = () => {
     }
   };
 
-  //===================================================================================
 
   const handleAnswerChange = (
     index: number,
@@ -229,12 +226,6 @@ const QuestionForm = () => {
   const handleSelectAnswer = (index: number) => {
     setSelectedAnswerIndex(index);
   };
-
-  // useEffect(() => {
-  //   if (selectedAnswerIndex !== -1) {
-  //     setValue("validAnswer", `${selectedAnswerIndex}`);
-  //   }
-  // }, [selectedAnswerIndex, setValue]);
 
   const handleTimeClick = (minutes: number, seconds: number) => {
     setValue("time", `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);

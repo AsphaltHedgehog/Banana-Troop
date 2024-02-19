@@ -3,7 +3,6 @@ import { useAppSelector } from "../../redux/hooks";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// Вказати шлях до сторінки створення квізів
 
 interface ICreateButton {
   children: string;

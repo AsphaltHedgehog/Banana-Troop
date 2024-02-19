@@ -34,8 +34,7 @@ export const addedQuestionByQuizThunk = createAsyncThunk<
         Authorization: `Bearer ${savedToken}`,
       },
     });
-    // thunkApi.dispatch(fetchQuestionsByQuizThunk());
-    return data.data as Questions[]; //return object
+    return data.data as Questions[];
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`

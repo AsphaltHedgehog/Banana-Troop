@@ -45,8 +45,6 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
   const [rating, setRating] = useState<number>(0)
   const navigate = useNavigate()
   const user = useAppSelector(selectGetUser)
-
-  console.log(user);
   
   const handleRatingSelect = (rating: number) => {
     setRating(rating);

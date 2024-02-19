@@ -10,7 +10,6 @@ export const fetchCategoriesThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchCategories", async (query, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.token;
     const { ageGroup, page, pageSize, rating, finished, title, inputText } =
       query;
 
@@ -60,7 +59,6 @@ interface Category {
   title: string;
 }
 
-// TODO: type this 
 export const fetchAllCategoriesThunk = createAsyncThunk<
   Category[],
   FetchAllCategoriesThunkArg

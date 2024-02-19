@@ -1,4 +1,4 @@
-// LastPassedQuizzes.tsx
+
 import React, { useEffect, useState } from "react";
 import Box from "../../components/box/Box";
 import CreateQuizLink from "../../shared/createquiz/CreateQuizLink";

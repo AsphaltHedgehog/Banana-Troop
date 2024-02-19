@@ -10,7 +10,6 @@ import {
   TimeWrapper,
 } from "./QuestionTime.styled";
 
-// import Svg from "../../../shared/svg/Svg";
 import sprite from "../../../images/icons/sprite.svg";
 
 type QuestionTimeProps = {

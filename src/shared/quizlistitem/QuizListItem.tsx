@@ -57,11 +57,9 @@ const QuizListItem = ({
   const passedQuiz = user.passedQuizzes?.find((quiz) => quiz.quizId === id);
 
   useEffect(() => {
-    // Формування масиву із рейтингу зірочок
     const starsArray: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
       if (i < Math.ceil(rating)) {
-        // Якщо зірка повинна бути заповненою
         starsArray.push(
           <StyledRatingSvg
             key={i}
@@ -72,7 +70,7 @@ const QuizListItem = ({
           />
         );
       } else {
-        // Якщо зірка повинна бути порожньою
+
         starsArray.push(
           <StyledRatingSvg
             key={i}
@@ -86,7 +84,7 @@ const QuizListItem = ({
       }
     }
     setStars(starsArray);
-  }, [rating]); // Викликаємо зміну масиву зірок, якщо змінюється рейтинг
+  }, [rating]); 
 
   const handleClickOutside = (event: MouseEvent) => {
     const target = event.target as HTMLElement;

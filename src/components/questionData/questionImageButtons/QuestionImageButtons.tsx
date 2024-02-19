@@ -1,4 +1,3 @@
-// import React from 'react'
 
 import sprite from "../../../images/icons/sprite.svg";
 import {

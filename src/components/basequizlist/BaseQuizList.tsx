@@ -7,9 +7,6 @@ import "./customdots.css";
 import { breakpointsNumbers } from "../../styles";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 
-// interface IQuizListItem extends IQuizListItemProps {
-//   id: string;
-// }
 
 interface IBaseQuizList {
   array: {

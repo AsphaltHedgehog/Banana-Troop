@@ -7,8 +7,7 @@ import {
   CreateQuizInput,
   StyledCreateQuizForm,
 } from "./CreateQuizForm.styled";
-// import { fetchQuestionsByQuizThunk } from "../../redux/questions/operations";
-// import { getUpdateOptions } from "../../redux/updateOptions/selectors";
+import { toast } from "react-toastify";
 
 type FormValues = {
   theme: string;
@@ -30,7 +29,7 @@ const CreateQuizForm = () => {
       await dispatch(addQuizesThunk(requestData)).unwrap();
       reset();
     } catch (error) {
-      console.error("Error creating quiz:", error);
+      toast.error(`Error creating quiz: ${error}`);
     }
   };
   return (
