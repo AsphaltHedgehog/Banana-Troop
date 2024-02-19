@@ -54,9 +54,15 @@ interface FetchAllCategoriesThunkArg {
   selectedAudience: string;
 }
 
+interface Category {
+  _id: string;
+  ageGroup: string;
+  title: string;
+}
+
 // TODO: type this 
 export const fetchAllCategoriesThunk = createAsyncThunk<
-  void,
+  Category[],
   FetchAllCategoriesThunkArg
 >("fetchAllCategories"
   , async (selectedAudience) => {
