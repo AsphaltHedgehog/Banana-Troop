@@ -88,7 +88,7 @@ export const QuestionImage = styled.img`
   display: none;
 `;
 
-export const QuestionTextarea = styled.input`
+export const QuestionTextarea = styled.textarea`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
   padding: 14px 18px;
@@ -102,6 +102,10 @@ export const QuestionTextarea = styled.input`
   letter-spacing: -0.01em;
   color: #f4f4f4;
   margin-bottom: 16px;
+
+
+  overflow: hidden;
+  resize: none;
   @media screen and (min-width: 768px) {
     min-width: 376px;
   }

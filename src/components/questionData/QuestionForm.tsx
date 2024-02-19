@@ -39,6 +39,7 @@ import AnswerList from "./аnswerList/AnswerList";
 import { updateQuestionData } from "../../redux/questions/slice";
 import { updateQuestionByQuizThunk } from "../../redux/questions/operations";
 
+
 type FormValues = {
   _id?: string;
   quiz?: string;
@@ -67,7 +68,18 @@ const QuestionForm = () => {
     if (selectQuestion.length === 0) {
       setSubmitted(false);
     }
-  }, [selectQuestion]);
+
+
+    if (selectQuestionIndex !== -1 && selectQuestion.length > 0) {
+      
+      const index = selectQuestion[selectQuestionIndex].answers.findIndex(item => item._id === selectQuestion[selectQuestionIndex].validAnswer);
+      
+      setSelectedAnswerIndex(index)
+    }
+
+
+
+  }, [selectQuestion, selectQuestionIndex]);
 
   const {
     register,
@@ -92,6 +104,16 @@ const QuestionForm = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { time, imageUrl, type, descr, answers } = data;
     if (data) {
+      const answersArray = selectQuestion[selectQuestionIndex].answers.map((el, index) => {
+        if (!answers || answers.length <= 0) {
+          return el;
+        }
+        return {
+          _id: el._id,
+          descr: answers[index].descr
+        }
+      });
+
       const createNewQuizQuestion = {
         _id: selectQuestion[selectQuestionIndex]._id,
         quiz: selectQuiz._id,
@@ -99,17 +121,14 @@ const QuestionForm = () => {
         imageUrl: `${imageUrl}`,
         type,
         descr,
-        answers,
-        validAnswer: String(selectedAnswerIndex),
+        answers: answersArray,
+        validAnswer: answersArray[selectedAnswerIndex]._id
       };
 
-      dispatch(updateQuestionData(createNewQuizQuestion));
-
-      dispatch(updateQuestionByQuizThunk(selectQuestion[selectQuestionIndex]))
+      dispatch(updateQuestionByQuizThunk(createNewQuizQuestion))
         .then((response) => {
           if (response.meta.requestStatus === "fulfilled") {
-            toast.success("Congrats! You added question");
-            setSelectedAnswerIndex(-1);
+            toast.success("Congrats! You updated question");
           }
         })
         .catch((error) => {
@@ -212,11 +231,11 @@ const QuestionForm = () => {
     setSelectedAnswerIndex(index);
   };
 
-  useEffect(() => {
-    if (selectedAnswerIndex !== -1) {
-      setValue("validAnswer", `${selectedAnswerIndex}`);
-    }
-  }, [selectedAnswerIndex, setValue]);
+  // useEffect(() => {
+  //   if (selectedAnswerIndex !== -1) {
+  //     setValue("validAnswer", `${selectedAnswerIndex}`);
+  //   }
+  // }, [selectedAnswerIndex, setValue]);
 
   const handleTimeClick = (minutes: number, seconds: number) => {
     setValue("time", `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`);
@@ -234,7 +253,6 @@ const QuestionForm = () => {
         toast.success("Image has been removed successfully!");
       })
       .catch((error) => toast.error(error.massage));
-    setSelectedAnswerIndex(-1);
     reset();
   };
 
@@ -260,9 +278,10 @@ const QuestionForm = () => {
     return arrFullText;
   };
 
+  
   return (
     <>
-      {submitted ? (
+      { submitted ? (
         <QuestionFormWrapper background={`${selectQuiz.background}`}>
           <QuestionFormStyles onSubmit={handleSubmit(onSubmit)}>
             <FixPositoinWrapper>
@@ -285,11 +304,11 @@ const QuestionForm = () => {
               <div>
                 {" "}
                 <QuestionTextarea
+                  defaultValue={selectQuestion[selectQuestionIndex].descr}
                   autoComplete="off"
                   placeholder="Enter a question"
                   {...register("descr")}
-                  defaultValue={selectQuestion[selectQuestionIndex].descr}
-                />
+                /> 
                 <AnswerList
                   answers={arrayMission()}
                   selectedAnswerIndex={selectedAnswerIndex}
@@ -303,7 +322,7 @@ const QuestionForm = () => {
                 {selectQuestionIndex + 1}/{selectQuestion.length}
               </SubmitQuizNumSpan>
               <SubmitQuizButtonWrapper>
-                <SubmitQuizButton type="submit" disabled={!isValid}>
+                <SubmitQuizButton type="submit" disabled={!isValid && selectedAnswerIndex === -1}>
                   Save
                 </SubmitQuizButton>
                 <SubmitQuizButton type="button" onClick={onCancel}>

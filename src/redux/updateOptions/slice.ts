@@ -71,8 +71,6 @@ const updateOptionsSlice = createSlice({
         state.ageGroup = payload.ageGroup;
       })
       .addCase(fetchAllCategoriesThunk.fulfilled, (state, { payload }) => { 
-        console.log(payload);
-        
         state.categories = payload;
     })
   },

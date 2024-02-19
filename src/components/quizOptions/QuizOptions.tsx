@@ -18,7 +18,7 @@ import sprite from "../../images/icons/sprite.svg";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
 import { addCategory, addBackground } from "../../redux/updateOptions/slice";
-import { fetchCategoriesThunk } from "../../redux/updateOptions/operations";
+import { fetchAllCategoriesThunk, fetchCategoriesThunk } from "../../redux/updateOptions/operations";
 
 interface ICategory {
   _id: string;
@@ -65,20 +65,16 @@ const QuizOptions = () => {
     };
   }, []);
 
+  // TODO: type this
   useEffect(() => {
-    dispatch(fetchCategoriesThunk({
-      
-    }));
-  }, [dispatch]);
+    dispatch(fetchAllCategoriesThunk({selectedAudience}));
+  }, [dispatch, selectedAudience]);
 
 
   const handleAudienceChange = async (
     event: React.ChangeEvent<HTMLInputElement>
     ) => {
     await setSelectedAudience(event.target.value);
-
-    await dispatch(fetchCategoriesThunk({ ageGroup: selectedAudience }));
-
     setSelectedCategory("Choose");
   };
 

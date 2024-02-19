@@ -58,8 +58,10 @@ export const getQuizByIdThunk = createAsyncThunk<
 });
 
 
+// TODO: type this 
+export const fetchAllCategoriesThunk = createAsyncThunk("fetchAllCategories", async (query) => {
+  const { data } = await quizApi.get(`/quiz/category/all?ageGroup=${query.selectedAudience}`);
 
-export const fetchAllCategoriesThunk = createAsyncThunk("fetchAllCategories", async (ageGroup) => {
-    const { data } = await quizApi.get("/quiz/category/all", {ageGroup});
-    return data
+  
+  return data
 });

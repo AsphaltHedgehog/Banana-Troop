@@ -45,6 +45,7 @@ const questionsSlice = createSlice({
       state.selectedIndex = action.payload;
     },
     updateQuestionData: (state, { payload }) => {
+      
       state.list[state.selectedIndex].descr = payload.descr;
       state.list[state.selectedIndex].time = payload.time;
       state.list[state.selectedIndex].answers = payload.answers.map(
@@ -120,4 +121,5 @@ const questionsSlice = createSlice({
 
 export const { getSelectedIndex, defaultStateQuestions, updateQuestionData } =
   questionsSlice.actions;
+
 export const questionsReducer = questionsSlice.reducer;
