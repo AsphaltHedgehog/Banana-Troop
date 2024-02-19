@@ -9,10 +9,8 @@ interface Props {
 
 export const PublicRoute: React.FC<Props> = ({ children }) => {
   const isLoggedIn: boolean = useSelector(selectIsLoggedIn);
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return children;
   }
-  return <Navigate to="/" />;
+  return <Navigate to="/home" />;
 };
-
-//треба написати правильний шлях навігації

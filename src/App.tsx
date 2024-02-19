@@ -24,6 +24,8 @@ import UserHomePage from "./pages/UserHomePage";
 // css
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
+import { PublicRoute } from "./hoc/PublicRoute";
+import { PrivatRoute } from "./hoc/PrivateRoute";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -47,24 +49,88 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          {/* <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="logout" element={<Logout />} />
-        <Route path="logout" element={<Logout />} /> */}
-          <Route path="settings" element={<Settings />} />
+          <Route
+            path="settings"
+            element={
+              <PrivatRoute>
+                <Settings />
+              </PrivatRoute>
+            }
+          />
           <Route path="quizMachen/:id" element={<QuizMachen />} />
-          <Route path="createQuiz" element={<QreateQuizProtectedPage />} />
-          <Route path="discover" element={<DiscoverPage />} />
-          <Route path="myQuiz" element={<MyQuizzesPage />} />
+          <Route
+            path="createQuiz"
+            element={
+              <PrivatRoute>
+                <QreateQuizProtectedPage />
+              </PrivatRoute>
+            }
+          />
+          <Route
+            path="discover"
+            element={
+              <PrivatRoute>
+                <DiscoverPage />
+              </PrivatRoute>
+            }
+          />
+          <Route
+            path="myQuiz"
+            element={
+              <PrivatRoute>
+                <MyQuizzesPage />
+              </PrivatRoute>
+            }
+          />
           <Route path="randomQuiz" element={<RandomQuizPage />} />
-          <Route path="favorites" element={<FavoritePage />} />
-          <Route path="home" element={<UserHomePage />} />
+          <Route
+            path="favorites"
+            element={
+              <PrivatRoute>
+                <FavoritePage />
+              </PrivatRoute>
+            }
+          />
+          <Route
+            path="home"
+            element={
+              <PrivatRoute>
+                <UserHomePage />
+              </PrivatRoute>
+            }
+          />
           <Route
             path="lastPassedQuizzes"
-            element={<LastPassedQuizes />}
+            element={
+              <PrivatRoute>
+                <LastPassedQuizes />
+              </PrivatRoute>
+            }
           />
-          <Route path="auth/*" element={<AuthPages />} />
-          <Route path="/auth/newPassword/:resetToken" element={<AuthPages />} />
+          <Route
+            path="auth/*"
+            element={
+              <PublicRoute>
+                <AuthPages />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/auth/newPassword/:resetToken"
+            element={
+              <PublicRoute>
+                <AuthPages />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/auth/logout"
+            element={
+              <PrivatRoute>
+                <AuthPages />
+              </PrivatRoute>
+            }
+          />
         </Route>
 
         <Route path="*" element={<NotFound />} />

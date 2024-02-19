@@ -75,7 +75,7 @@ const TablDeskNav = () => {
       {isLoggedIn ? (
         <>
           <NavLinkHeaderWrapper onClick={handleHeaderLinkClick}>
-            <NavLinkHeader to="">Home</NavLinkHeader>
+            <NavLinkHeader to="/home">Home</NavLinkHeader>
             <NavLinkHeader to="/discover">Discover</NavLinkHeader>
             <NavLinkHeader to="/favorites">Favorite quiz</NavLinkHeader>
             <NavLinkHeader to="/myQuiz">My quiz</NavLinkHeader>
