@@ -43,18 +43,23 @@ const WriteReview: React.FC<WriteReviewFormProps> = ({ setIsReviewSend }) => {
   });
 
   const submit: SubmitHandler<WriteReviewFormData> = () => {
-    dispatch(reviewsPostThunk()).unwrap();
+    dispatch(reviewsPostThunk("someId")).unwrap();
     reset();
     setIsReviewSend(true);
   };
   const handleStarClick = useCallback(
     (index: number) => {
-      setRating(index + 1);
-      console.log(rating);
+      setRating(() => {
+        const newRating = index + 1;
+
+        return newRating;
+      });
     },
-    [setRating, rating]
+    [setRating]
   );
   useEffect(() => {
+    // console.log(rating);
+
     const starsArray: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
       starsArray.push(
