@@ -50,7 +50,7 @@ const Nav: React.FC<NavProps> = ({ handleCloseBurger }) => {
           </CategoriesWrapper>
         ) : (
           <NavLinkMobileWrapper>
-            <NavLinkHeader to="/">Home</NavLinkHeader>
+            <NavLinkHeader to="/home">Home</NavLinkHeader>
             <NavLinkHeader to="/discover">Discover</NavLinkHeader>
             <NavLinkHeader to="/favorites">Favorite quiz</NavLinkHeader>
             <NavLinkHeader to="/myQuiz">My quiz</NavLinkHeader>

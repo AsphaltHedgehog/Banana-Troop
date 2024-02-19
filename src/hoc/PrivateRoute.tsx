@@ -14,5 +14,3 @@ export const PrivatRoute: React.FC<Props> = ({ children }) => {
   }
   return <Navigate to="/" />;
 };
-
-//треба написати правильний шлях навігації
