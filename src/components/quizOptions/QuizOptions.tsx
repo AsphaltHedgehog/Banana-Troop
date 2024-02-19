@@ -80,7 +80,7 @@ const QuizOptions = () => {
     };
   }, []);
 
-  // TODO: type this
+
   useEffect(() => {
     dispatch(fetchAllCategoriesThunk({selectedAudience}));
   }, [dispatch, selectedAudience]);

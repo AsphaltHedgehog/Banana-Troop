@@ -50,10 +50,16 @@ export const getQuizByIdThunk = createAsyncThunk<
 });
 
 
-// TODO: type this 
-export const fetchAllCategoriesThunk = createAsyncThunk("fetchAllCategories", async (query) => {
-  const { data } = await quizApi.get(`/quiz/category/all?ageGroup=${query.selectedAudience}`);
+interface FetchAllCategoriesThunkArg {
+  selectedAudience: string;
+}
 
-  
+// TODO: type this 
+export const fetchAllCategoriesThunk = createAsyncThunk<
+  void,
+  FetchAllCategoriesThunkArg
+>("fetchAllCategories"
+  , async (selectedAudience) => {
+  const { data } = await quizApi.get(`/quiz/category/all?ageGroup=${selectedAudience.selectedAudience}`);
   return data
 });
