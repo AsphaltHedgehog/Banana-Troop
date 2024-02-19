@@ -32,8 +32,8 @@ import {
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
 import Loader from "../../shared/loader-spinner/Loader";
 
-const cloudinaryURL =
-  "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
+// const cloudinaryURL =
+//   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
 
 const UserHomePage = () => {
   const dispatch = useAppDispatch();
@@ -66,9 +66,9 @@ const UserHomePage = () => {
           <StyledUserWrapper>
             <StyledUserAvatar
               src={
-                avatar.includes("http://www.gravatar.com/avatar/")
-                  ? avatar
-                  : `${cloudinaryURL}${avatar}`
+                avatar.includes("gravatar.com/avatar/")
+                  ? `https:${avatar}`
+                  : avatar
               }
               alt="User Avatar"
             />

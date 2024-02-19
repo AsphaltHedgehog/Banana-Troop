@@ -18,8 +18,8 @@ import { selectGetUser } from "../../../redux/user/selectors";
 import sprite from "../../../images/icons/sprite.svg";
 import { useLocation } from "react-router-dom";
 
-const cloudinaryURL =
-  "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
+// const cloudinaryURL =
+//   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
 
 const TablDeskNav = () => {
   const { name } = useSelector(selectGetUser);
@@ -83,9 +83,9 @@ const TablDeskNav = () => {
           <UserWidgetWrapper onClick={handleOpenUserWidget}>
             <img
               src={
-                avatar.includes("http://www.gravatar.com/avatar/")
-                  ? avatar
-                  : `${cloudinaryURL}${avatar}`
+                avatar.includes("gravatar.com/avatar/")
+                  ? `https:${avatar}`
+                  : avatar
               }
               alt="User avatar"
             />
