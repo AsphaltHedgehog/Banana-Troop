@@ -33,8 +33,8 @@ const inputItems: InputItem[] = [
   // { name: "password", placeholder: "Password", type: "text", id: 3 },
 ];
 
-const cloudinaryURL =
-  "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
+// const cloudinaryURL =
+//   "https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/";
 
 const SettingsModal: FC = () => {
   const dispatch = useAppDispatch();
@@ -92,9 +92,9 @@ const SettingsModal: FC = () => {
           <label htmlFor="fileInput">
             <img
               src={
-                avatar.includes("http://www.gravatar.com/avatar/")
-                  ? avatar
-                  : `${cloudinaryURL}${avatar}`
+                avatar.includes("gravatar.com/avatar/")
+                  ? `https:${avatar}`
+                  : avatar
               }
               alt="User avatar"
             />

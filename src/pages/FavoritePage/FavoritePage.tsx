@@ -27,15 +27,15 @@ const FavoritePage = () => {
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
 
-  const filteredQuizes = quizes.filter((quiz) => {
+  const filteredQuizes = quizes?.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
-  
+
   useEffect(() => {
     const query = {
       favorites,
-      pageSize
-    }
+      pageSize,
+    };
     dispatch(getFavoriteQuizes(query));
   }, [dispatch, favorites, pageSize]);
 
@@ -79,7 +79,7 @@ const FavoritePage = () => {
         })}
       </StyledUl>
       {isLoading ? <Loader /> : <></>}
-      {quizes.length > pageSize ? (
+      {quizes?.length > pageSize ? (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load More
         </StyledButton>

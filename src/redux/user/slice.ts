@@ -70,7 +70,11 @@ const userSlice = createSlice({
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
         state.user._id = payload._id;
         state.user.name = payload.name;
-        state.user.avatar = payload.avatarURL;
+        if (payload.avatarURL.includes("gravatar.com/avatar/")) {
+          state.user.avatar = payload.avatarURL;
+        } else {
+          state.user.avatar = `https://res.cloudinary.com/dddrrdx7a/image/upload/v1707757640/${payload.avatarURL}`;
+        }
         state.user.email = payload.email;
         state.user.favorites = payload.favorite;
         state.user.passedQuizzes = payload.passedQuizzes;
@@ -119,7 +123,7 @@ const userSlice = createSlice({
           editUserThunk.rejected,
           editPhotoThunk.rejected,
           patchPassedQuiz.rejected,
-          retakePassedQuiz.rejected,
+          retakePassedQuiz.rejected
         ),
         (state, { payload }) => {
           state.isLoadingUser = false;
