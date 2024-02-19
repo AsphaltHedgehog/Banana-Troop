@@ -21,7 +21,6 @@ const CreateQuizCard = () => {
   };
 
   return (
-    // Add toastify if user is not authenticated
     <li>
       <StyledButton type="button" onClick={handleClick}>
         <StyledContainer>

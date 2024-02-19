@@ -1,8 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { StyledWriteRevieweBtn } from "./WriteReviewButton.styled";
 
-// import WriteReviewButton from "../../components/reviewsModal/WriteReviewButton.tsx";
-
 interface WriteReviewButtonProps {
   setReviews: Dispatch<SetStateAction<boolean>>;
 }

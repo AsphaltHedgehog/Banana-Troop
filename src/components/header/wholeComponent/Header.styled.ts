@@ -1,7 +1,4 @@
 import { styled, css } from "styled-components";
-// import { breakpoints } from "../../../styles";
-
-// const { tablet, desktop } = breakpoints;
 
 interface SvgBurgerMenuProps {
   $iconX?: boolean;

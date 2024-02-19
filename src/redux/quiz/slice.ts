@@ -14,7 +14,6 @@ import {
 export type QuizBody = {
   owner: string;
   _id: string;
-  // id: string;
   theme: string;
   category: string;
   background: string;
@@ -52,7 +51,6 @@ export type QuizByCategories = {
 };
 
 export type QuizState = {
-  // listAll: Quiz;
   listCategory: QuizByCategories;
   listRaiting: QuizBody[];
   isLoading: boolean;
@@ -60,10 +58,6 @@ export type QuizState = {
 };
 
 const initialState: QuizState = {
-  // listAll: {
-  //   result: [],
-  //   totalQuizes: 0,
-  // },
   listCategory: {
     data: {
       result: [],

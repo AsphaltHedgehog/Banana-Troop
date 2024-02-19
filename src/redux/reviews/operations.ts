@@ -1,4 +1,4 @@
-import { createAsyncThunk, AsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosResponse } from "axios";
 
 interface ReviewsThunkParams {
@@ -57,8 +57,9 @@ export const reviewsThunk = createAsyncThunk<Review[], ReviewsThunkParams>(
   }
 );
 
-export const reviewsPostThunk: AsyncThunk<ReviewsPost, string, {}> =
-  createAsyncThunk("reviewsPost", async (id: string, thunkApi) => {
+export const reviewsPostThunk = createAsyncThunk<ReviewsPost, string>(
+  "reviewsPost",
+  async (id: string, thunkApi) => {
     try {
       const { data }: AxiosResponse<ReviewsPost> = await quizApi.post(
         `/reviews/${id}/addReview`
@@ -71,4 +72,5 @@ export const reviewsPostThunk: AsyncThunk<ReviewsPost, string, {}> =
         return thunkApi.rejectWithValue("Error");
       }
     }
-  });
+  }
+);

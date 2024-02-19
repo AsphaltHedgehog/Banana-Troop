@@ -21,7 +21,6 @@ import { schemaWriteReview } from "../../helpers/schemas";
 
 interface WriteReviewFormData {
   name: string;
-  // rating: number;
   review: string;
 }
 

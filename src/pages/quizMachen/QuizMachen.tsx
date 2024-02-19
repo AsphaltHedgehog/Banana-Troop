@@ -7,8 +7,6 @@ import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
 import { useSelector } from "react-redux";
 import {
   selectGetQuiz,
-  // TODO: add toast
-  // selectIsError,
   selectIsLoading,
 } from "../../redux/quizMachen/selectors";
 import { selectGetUser } from "../../redux/user/selectors";

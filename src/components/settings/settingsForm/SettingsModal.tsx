@@ -29,8 +29,6 @@ interface InputItem {
 
 const inputItems: InputItem[] = [
   { name: "name", placeholder: "Name", type: "text", id: 1 },
-  // { name: "email", placeholder: "Email", type: "text", id: 2 },
-  // { name: "password", placeholder: "Password", type: "text", id: 3 },
 ];
 
 const cloudinaryURL =

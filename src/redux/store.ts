@@ -11,7 +11,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/authSlice";
-// import { userReducer } from "./user/slice";
 import { quizesReducer } from "./quiz/slice";
 import { questionsReducer } from "./questions/slice";
 import { reviewsReducer } from "./reviews/slice";
@@ -24,12 +23,6 @@ const authPersistConfig = {
   storage,
   whitelist: ["token", "favorites"],
 };
-
-// const userPersistConfig = {
-//   key: "user",
-//   storage,
-//   whitelist: ["user"],
-// };
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
