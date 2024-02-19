@@ -18,24 +18,26 @@ import sprite from "../../images/icons/sprite.svg";
 import { getQuizIsLoading } from "../../redux/quiz/selectors";
 import Loader from "../../shared/loader-spinner/Loader";
 import { selectGetUserFavorite } from "../../redux/user/selectors";
+import { selectUserIsLoading } from "../../redux/user/selectors";
 
 const FavoritePage = () => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(selectGetUserFavorite);
   const quizes = useAppSelector(getQuizListCategory);
   const isLoading = useAppSelector(getQuizIsLoading);
+  const isUserLoading = useAppSelector(selectUserIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
 
-  const filteredQuizes = quizes.filter((quiz) => {
+  const filteredQuizes = quizes?.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
-  
+
   useEffect(() => {
     const query = {
       favorites,
-      pageSize
-    }
+      pageSize,
+    };
     dispatch(getFavoriteQuizes(query));
   }, [dispatch, favorites, pageSize]);
 
@@ -62,24 +64,28 @@ const FavoritePage = () => {
         />
       </StyledContainer2>
       <StyledUl>
-        {filteredQuizes?.map((quiz, index) => {
-          if (index < pageSize) {
-            return (
-              <QuizListItem
-                key={quiz._id}
-                id={quiz._id}
-                theme={quiz.theme}
-                rating={quiz.rating}
-                ageGroup={quiz.ageGroup}
-                finished={quiz.finished}
-                owner={quiz.owner}
-              />
-            );
-          }
-        })}
+        {isUserLoading ? (
+          <></>
+        ) : (
+          filteredQuizes?.map((quiz, index) => {
+            if (index < pageSize) {
+              return (
+                <QuizListItem
+                  key={quiz._id}
+                  id={quiz._id}
+                  theme={quiz.theme}
+                  rating={quiz.rating}
+                  ageGroup={quiz.ageGroup}
+                  finished={quiz.finished}
+                  owner={quiz.owner}
+                />
+              );
+            }
+          })
+        )}
       </StyledUl>
-      {isLoading ? <Loader /> : <></>}
-      {quizes.length > pageSize ? (
+      {isLoading || isUserLoading ? <Loader /> : <></>}
+      {isLoading && quizes?.length > pageSize ? (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load More
         </StyledButton>
