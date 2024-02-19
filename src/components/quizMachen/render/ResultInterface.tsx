@@ -18,9 +18,13 @@ import {
   StyledText,
 } from "./ResultInterface.styled";
 
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { IPassData, setPassedQuizThunk } from "../../../redux/quizMachen/operations";
 import { useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
+import { selectGetUser } from "../../../redux/user/selectors";
+
 
 interface RenderResultInterfaceProps {
   questions: Questions[];
@@ -38,8 +42,12 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
-  const [ rating, setRating ] = useState<number>(0)
+  const [rating, setRating] = useState<number>(0)
+  const navigate = useNavigate()
+  const user = useAppSelector(selectGetUser)
 
+  console.log(user);
+  
   const handleRatingSelect = (rating: number) => {
     setRating(rating);
 
@@ -61,7 +69,7 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
 
   return (
     <StyledResultContainer>
-      <ResultCloseBtn type="button">
+      <ResultCloseBtn type="button" onClick={() => navigate('/')}>
         <svg>
           <use xlinkHref={`${sprite}#icon-close-modal`}></use>
         </svg>
@@ -74,8 +82,9 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
         }`}</StyledNumber>
       </div>
       <StyledBox>
-        <StyledRating>Rate the quiz</StyledRating>
-        <StyledRaitingWrapStar>
+        
+        {user._id !== '' ? <><StyledRating>Rate the quiz</StyledRating>
+          <StyledRaitingWrapStar>
           {[1, 2, 3, 4, 5].map((index) => (
             <StyledBtnStars
               key={index}
@@ -91,7 +100,8 @@ const RenderResultInterface: React.FC<RenderResultInterfaceProps> = ({
               />
             </StyledBtnStars>
           ))}
-        </StyledRaitingWrapStar>
+        </StyledRaitingWrapStar> </> : <></>}
+        
       </StyledBox>
       <WriteReviewButton setReviews={() => setReviews(true)} />
     </StyledResultContainer>

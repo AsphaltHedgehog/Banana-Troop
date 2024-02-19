@@ -59,7 +59,7 @@ export const StyledFormHello = styled.form`
 export const StyledInputHello = styled.input`
   border: 1px solid rgba(244, 244, 244, 0.6);
   border-radius: 30px;
-  padding: 14px 238px 14px 18px;
+  padding: 14px 18px 14px 18px;
   width: 295px;
   height: 44px;
   background: #1c1c1c;
@@ -78,7 +78,6 @@ export const StyledInputHello = styled.input`
 export const StyledButtonHello = styled.button`
   border: none;
   border-radius: 30px;
-  padding: 16px 142px;
   width: 295px;
   height: 48px;
   background: #205bf1;

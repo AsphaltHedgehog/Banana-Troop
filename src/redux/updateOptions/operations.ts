@@ -15,9 +15,6 @@ export const fetchCategoriesThunk = createAsyncThunk<
       query;
 
     const { data } = await quizApi.get("/quiz/category", {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
       params: {
         category: ageGroup,
         page,
@@ -42,12 +39,7 @@ export const getQuizByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("getQuizById", async (_id: string, thunkApi) => {
   try {
-    const savedToken = thunkApi.getState().auth.token;
-
     const { data } = await quizApi.get(`/quiz/${_id}`, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
     });
     return data as QuizBody;
   } catch (error: unknown) {
@@ -55,4 +47,25 @@ export const getQuizByIdThunk = createAsyncThunk<
       `${(error as Error)?.message ?? "Unknown error"}`
     );
   }
+});
+
+
+interface FetchAllCategoriesThunkArg {
+  selectedAudience: string;
+}
+
+interface Category {
+  _id: string;
+  ageGroup: string;
+  title: string;
+}
+
+// TODO: type this 
+export const fetchAllCategoriesThunk = createAsyncThunk<
+  Category[],
+  FetchAllCategoriesThunkArg
+>("fetchAllCategories"
+  , async (selectedAudience) => {
+  const { data } = await quizApi.get(`/quiz/category/all?ageGroup=${selectedAudience.selectedAudience}`);
+  return data
 });

@@ -168,6 +168,8 @@ export const updateQuizesThunk = createAsyncThunk<
   try {
     // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = quiz;
+    console.log(body);
+    
     const { data } = await quizApi.patch(`/quiz/${_id}`, body, {
       // headers: {
       //   Authorization: `Bearer ${savedToken}`,

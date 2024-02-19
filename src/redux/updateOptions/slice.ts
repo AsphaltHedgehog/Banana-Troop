@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchCategoriesThunk, getQuizByIdThunk } from "./operations";
+import { fetchAllCategoriesThunk, fetchCategoriesThunk, getQuizByIdThunk } from "./operations";
 import { addQuizesThunk } from "../quiz/operations";
 
 export type categoriesType = {
@@ -21,9 +21,9 @@ const initialState: PayloadType = {
   _id: "",
   theme: "",
   category: "",
-  categories: [],
   ageGroup: "",
   background: "",
+  categories: [],
 };
 
 const updateOptionsSlice = createSlice({
@@ -39,9 +39,15 @@ const updateOptionsSlice = createSlice({
     },
     addCategory: (state, action) => {
       state.category = action.payload;
+      console.log(action.payload);
     },
     addBackground: (state, action) => {
+      console.log(action.payload);
       state.background = action.payload;
+    },
+    addAge: (state, action) => {
+      state.ageGroup = action.payload;
+      console.log(action.payload);
     },
     defaultState: (state) => {
       state._id = "";
@@ -62,6 +68,7 @@ const updateOptionsSlice = createSlice({
         state.theme = payload.theme;
         state.background = payload.background;
         state.ageGroup = payload.ageGroup;
+        state.category = payload.category;
       })
       .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
         state._id = payload._id;
@@ -69,10 +76,13 @@ const updateOptionsSlice = createSlice({
         state.categories = payload.categories;
         state.background = payload.background;
         state.ageGroup = payload.ageGroup;
-      });
+      })
+      .addCase(fetchAllCategoriesThunk.fulfilled, (state, { payload }) => { 
+        state.categories = payload;
+    })
   },
 });
 
-export const { addUpdateOptions, addCategory, addBackground, defaultState } =
+export const { addUpdateOptions, addCategory, addBackground, addAge, defaultState } =
   updateOptionsSlice.actions;
 export const updateOptionsReducer = updateOptionsSlice.reducer;

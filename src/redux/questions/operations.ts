@@ -47,15 +47,9 @@ export const deleteQuestionByIdThunk = createAsyncThunk<
   string,
   string,
   AsyncThunkConfig
->("deletedQuestionById", async (_id, thunkApi) => {
+>("deletedQuestionById", async (id, thunkApi) => {
   try {
-    const savedToken = thunkApi.getState().auth.token;
-    const { data } = await quizApi.delete(`/quiz/question${_id}`, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
-    });
-    // thunkApi.dispatch(fetchQuestionsByQuizThunk());
+    const { data } = await quizApi.delete(`/quiz/question/${id}`);
     return data;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -70,12 +64,8 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
   AsyncThunkConfig
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.token;
     const { _id, ...body } = question;
     const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
     });
 
     return data;
@@ -142,11 +132,7 @@ export const fetchQuestionsByQuizThunk = createAsyncThunk<
   AsyncThunkConfig
 >("fetchedQuestionsByQuiz", async (_id, thunkApi) => {
   try {
-    // const savedToken = thunkApi.getState().auth.token;
     const { data } = await quizApi.get(`/quiz/question/${_id}`, {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
     });
 
     return data.data as Questions[];
