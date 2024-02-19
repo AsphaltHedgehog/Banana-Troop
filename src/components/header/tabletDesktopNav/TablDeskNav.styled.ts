@@ -93,6 +93,7 @@ export const UserWidgetWrapper = styled.div`
   letter-spacing: 0em;
   text-align: left;
   position: relative;
+  cursor: pointer;
 
   img {
     height: 40px;
@@ -133,7 +134,6 @@ const slideOut = keyframes`
 
 export const OpenedUserWidget = styled.div<OpenedUserWidgetProps>`
   position: absolute;
-  left: 0;
   top: 48px;
   display: ${({ $linkClicked }) => ($linkClicked ? "flex" : "none")};
   flex-direction: column;

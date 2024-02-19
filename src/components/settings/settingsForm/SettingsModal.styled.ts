@@ -24,10 +24,12 @@ export const SettingsPhotoWrapper = styled.div`
     border-radius: 50%;
     width: 100px;
     height: 100px;
+    cursor: pointer;
   }
 
   label {
     position: relative;
+    cursor: pointer;
   }
 
   svg {
@@ -70,4 +72,10 @@ export const SettingsFormButton = styled.button`
   background-color: #205bf1;
   border: none;
   color: white;
+
+  @media screen and (min-width: ${tablet}) {
+    &:hover {
+      background-color: #144ad5;
+    }
+  }
 `;
