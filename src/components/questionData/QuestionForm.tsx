@@ -36,19 +36,18 @@ import { toast } from "react-toastify";
 import QuestionImageButtons from "./questionImageButtons/QuestionImageButtons";
 import QuestionTime from "./questionTime/QuestionTime";
 import AnswerList from "./аnswerList/AnswerList";
-import { updateQuestionData } from "../../redux/questions/slice";
 import { updateQuestionByQuizThunk } from "../../redux/questions/operations";
 
 
 type FormValues = {
-  _id?: string;
-  quiz?: string;
-  time?: string;
-  imageUrl?: string;
-  type?: "full-text" | "true-or-false";
-  descr?: string;
-  answers?: Answers[];
-  validAnswer?: string;
+  _id: string;
+  quiz: string;
+  time: string;
+  imageUrl: string;
+  type: "full-text" | "true-or-false";
+  descr: string;
+  answers: Answers[];
+  validAnswer: string;
 };
 
 const QuestionForm = () => {
@@ -89,14 +88,14 @@ const QuestionForm = () => {
     formState: { isValid },
   } = useForm<FormValues>({
     defaultValues: {
-      _id: selectQuestion[selectQuestionIndex]?._id || "",
-      quiz: selectQuestion[selectQuestionIndex]?.quiz || "",
-      time: selectQuestion[selectQuestionIndex]?.time || "",
-      imageUrl: selectQuestion[selectQuestionIndex]?.imageUrl || "",
-      type: selectQuestion[selectQuestionIndex]?.type || "full-text",
-      descr: selectQuestion[selectQuestionIndex]?.descr || "",
-      answers: selectQuestion[selectQuestionIndex]?.answers || [],
-      validAnswer: selectQuestion[selectQuestionIndex]?.validAnswer || "",
+      _id: selectQuestion[selectQuestionIndex]._id,
+      quiz: selectQuestion[selectQuestionIndex].quiz,
+      time: selectQuestion[selectQuestionIndex].time,
+      imageUrl: selectQuestion[selectQuestionIndex].imageUrl,
+      type: selectQuestion[selectQuestionIndex].type ,
+      descr: selectQuestion[selectQuestionIndex].descr,
+      answers: selectQuestion[selectQuestionIndex].answers,
+      validAnswer: selectQuestion[selectQuestionIndex].validAnswer,
     },
     // resolver: yupResolver(schemaQuestion),
   });
@@ -299,12 +298,12 @@ const QuestionForm = () => {
                 <QuestionTime
                   handleTimeClick={handleTimeClick}
                   selectedAnswerIndex={selectedAnswerIndex}
+                  selectedDefaultTime={selectQuestion[selectQuestionIndex].time || ''}
                 />
               </div>
               <div>
                 {" "}
                 <QuestionTextarea
-                  defaultValue={selectQuestion[selectQuestionIndex].descr}
                   autoComplete="off"
                   placeholder="Enter a question"
                   {...register("descr")}
@@ -322,7 +321,9 @@ const QuestionForm = () => {
                 {selectQuestionIndex + 1}/{selectQuestion.length}
               </SubmitQuizNumSpan>
               <SubmitQuizButtonWrapper>
-                <SubmitQuizButton type="submit" disabled={!isValid && selectedAnswerIndex === -1}>
+                <SubmitQuizButton type="submit"
+                  style={(!isValid && selectedAnswerIndex === -1) ? { background: "red" } : undefined}
+                  disabled={!isValid && selectedAnswerIndex === -1}>
                   Save
                 </SubmitQuizButton>
                 <SubmitQuizButton type="button" onClick={onCancel}>

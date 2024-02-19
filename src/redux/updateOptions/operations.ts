@@ -15,9 +15,6 @@ export const fetchCategoriesThunk = createAsyncThunk<
       query;
 
     const { data } = await quizApi.get("/quiz/category", {
-      // headers: {
-      //   Authorization: `Bearer ${savedToken}`,
-      // },
       params: {
         category: ageGroup,
         page,
@@ -42,12 +39,7 @@ export const getQuizByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("getQuizById", async (_id: string, thunkApi) => {
   try {
-    const savedToken = thunkApi.getState().auth.token;
-
     const { data } = await quizApi.get(`/quiz/${_id}`, {
-      headers: {
-        Authorization: `Bearer ${savedToken}`,
-      },
     });
     return data as QuizBody;
   } catch (error: unknown) {

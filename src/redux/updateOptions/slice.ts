@@ -39,9 +39,15 @@ const updateOptionsSlice = createSlice({
     },
     addCategory: (state, action) => {
       state.category = action.payload;
+      console.log(action.payload);
     },
     addBackground: (state, action) => {
+      console.log(action.payload);
       state.background = action.payload;
+    },
+    addAge: (state, action) => {
+      state.ageGroup = action.payload;
+      console.log(action.payload);
     },
     defaultState: (state) => {
       state._id = "";
@@ -62,6 +68,7 @@ const updateOptionsSlice = createSlice({
         state.theme = payload.theme;
         state.background = payload.background;
         state.ageGroup = payload.ageGroup;
+        state.category = payload.category;
       })
       .addCase(addQuizesThunk.fulfilled, (state, { payload }) => {
         state._id = payload._id;
@@ -76,6 +83,6 @@ const updateOptionsSlice = createSlice({
   },
 });
 
-export const { addUpdateOptions, addCategory, addBackground, defaultState } =
+export const { addUpdateOptions, addCategory, addBackground, addAge, defaultState } =
   updateOptionsSlice.actions;
 export const updateOptionsReducer = updateOptionsSlice.reducer;

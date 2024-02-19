@@ -17,8 +17,8 @@ import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getUpdateOptions } from "../../redux/updateOptions/selectors";
-import { addCategory, addBackground } from "../../redux/updateOptions/slice";
-import { fetchAllCategoriesThunk, fetchCategoriesThunk } from "../../redux/updateOptions/operations";
+import { addCategory, addBackground, addAge } from "../../redux/updateOptions/slice";
+import { fetchAllCategoriesThunk } from "../../redux/updateOptions/operations";
 
 interface ICategory {
   _id: string;
@@ -33,9 +33,12 @@ const QuizOptions = () => {
   const [isChevronRotated, setIsChevronRotated] = useState<boolean>(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
 
-  const [selectedAudience, setSelectedAudience] = useState<string>("adults");
+  const defaults = useAppSelector(getUpdateOptions)
 
-  const [selectedColor, setSelectedColor] = useState<string>("none");
+
+  const [selectedAudience, setSelectedAudience] = useState<string>(defaults.ageGroup || "adults");
+
+  const [selectedColor, setSelectedColor] = useState<string>(defaults.background || "none");
 
   const [selectedCategory, setSelectedCategory] = useState<string>("Choose");
 
@@ -56,6 +59,18 @@ const QuizOptions = () => {
     }
   };
 
+  useEffect(() => {
+    
+    if (defaults.categories) {
+
+      const selectedCategoryObj = defaults.categories.find(el => el._id === defaults.category);
+      
+    if (selectedCategoryObj) {
+      setSelectedCategory(selectedCategoryObj.title);
+    }
+  }
+  }, [defaults.categories, defaults.category])
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -73,7 +88,8 @@ const QuizOptions = () => {
 
   const handleAudienceChange = async (
     event: React.ChangeEvent<HTMLInputElement>
-    ) => {
+  ) => {
+    dispatch(addAge(event.target.value));
     await setSelectedAudience(event.target.value);
     setSelectedCategory("Choose");
   };

@@ -40,7 +40,8 @@ const UpdateQuizForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-
+    console.log(data);
+    
     if (data.theme && selectOptions) {
       const { _id, ageGroup, background, category } = selectOptions;
 

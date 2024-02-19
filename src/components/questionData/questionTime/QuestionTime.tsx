@@ -16,19 +16,21 @@ import sprite from "../../../images/icons/sprite.svg";
 type QuestionTimeProps = {
   handleTimeClick: (minutes: number, seconds: number) => void;
   selectedAnswerIndex: number;
+  selectedDefaultTime:string
 };
 
 const QuestionTime = ({
   handleTimeClick,
   selectedAnswerIndex,
+  selectedDefaultTime
 }: QuestionTimeProps) => {
   const listContainerRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedTime, setSelectedTime] = useState<string>("0:00");
+  const [selectedTime, setSelectedTime] = useState<string>(selectedDefaultTime);
 
   useEffect(() => {
     if (selectedAnswerIndex === -1) {
-      setSelectedTime("0:00");
+      setSelectedTime("0:30");
     }
   }, [selectedAnswerIndex]);
 

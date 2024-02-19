@@ -18,6 +18,7 @@ import { useLocation } from "react-router-dom";
 import { getQuizByIdThunk } from "../../redux/updateOptions/operations";
 import { defaultState } from "../../redux/updateOptions/slice";
 import { defaultStateQuestions } from "../../redux/questions/slice";
+import DefaultQuestionForm from "../../components/questionData/DefaultQuestionForm";
 
 const CreateQuizPage = () => {
   const location = useLocation();
@@ -55,9 +56,14 @@ const CreateQuizPage = () => {
             ) : (
               <CreateQuizForm />
             )}
-            <QuestionData />
+            {selectQuestion[0] ? 
+              <QuestionData />:
+              <DefaultQuestionForm  />
+            } 
           </div>
-          <QuizOptions />
+          {selectQuestion.length > 0 &&
+            <QuizOptions />
+          }
         </OptAndFormContainer>
       </ComponentsMainContainer>
     </StyledCommonWrapper>
