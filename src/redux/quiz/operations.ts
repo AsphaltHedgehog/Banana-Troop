@@ -128,15 +128,9 @@ export const addQuizesThunk = createAsyncThunk<
 
     const { data } = await quizApi.post(
       "/quiz",
-      { theme },
-      {
-        // headers: {
-        //   Authorization: `Bearer ${savedToken}`,
-        // },
-      }
+      { theme }
     );
-    // thunkApi.dispatch(fetchQuizesThunk());
-    //   console.log(data);
+
     return data.data as IQuizCreate;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
@@ -194,7 +188,6 @@ export const getFavoriteQuizes = createAsyncThunk<
         query,
       },
     });
-    console.log(data);
     return data.data.result;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(

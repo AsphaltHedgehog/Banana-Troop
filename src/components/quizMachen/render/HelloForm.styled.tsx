@@ -71,7 +71,7 @@ export const StyledInputHello = styled.input`
   @media screen and (min-width: ${tablet}) {
     width: 321px;
     height: 44px;
-    padding: 14px 259px 14px 18px;
+    padding: 14px 18px 14px 18px;
   }
 `;
 
@@ -96,7 +96,3 @@ export const StyledButtonHello = styled.button`
     line-height: 1;
   }
 `;
-
-// export const StyledFormHello = styled.form``;
-
-// export const StyledFormHello = styled.form``;

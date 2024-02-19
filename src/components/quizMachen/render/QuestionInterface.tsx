@@ -32,6 +32,7 @@ interface QuestionInterface {
   timerId: number | null;
   validAnswers: (AnswersArray: { answer: boolean }[]) => number;
   answersArray: { answer: boolean | null }[];
+  backgroundColor: string;
 }
 
 const RenderQuestionInterface: React.FC<QuestionInterface> = ({
@@ -44,6 +45,7 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({
   timerId,
   validAnswers,
   answersArray,
+  backgroundColor
 }) => {
   if (!questions || !questions[index]) {
     throw new Error();
@@ -51,7 +53,7 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({
 
   return (
     <StyledWrapAll>
-      <StyledWrapTest>
+      <StyledWrapTest style={{ backgroundColor: backgroundColor ?? "#1c1c1c" }}>
         <AnswersTopPanelBtnsWrap>
           {questions[index].imageUrl ? (
             <>
@@ -87,7 +89,6 @@ const RenderQuestionInterface: React.FC<QuestionInterface> = ({
             </>
           )}
           <AnswersTypeWrap>
-            {/* //TODO: */}
             {
               <AnswersType
                 questions={questions}

@@ -21,7 +21,7 @@ export const StyledBtnBack = styled.button`
   background: none;
   padding: 0;
   &:hover {
-    color: #205bf1; /* Колір для ховеру */
+    color: #205bf1;
   }
   @media screen and (min-width: ${tablet}) {
     font-size: 16px;
@@ -34,7 +34,7 @@ export const StyledWrapTest = styled.div`
   border: 1px solid rgba(244, 244, 244, 0.3);
   border-radius: 20px;
   width: 335px;
-  /* height: 448px; */
+
   background: #1c1c1c;
   justify-content: space-between;
   @media screen and (min-width: ${tablet}) {
@@ -45,9 +45,7 @@ export const StyledWrapTest = styled.div`
 export const StyledImageTest = styled.img`
   border: 1px solid rgba(244, 244, 244, 0.08);
   border-radius: 15px;
-  /* width: 200px; */
-  /* width: 460px; */
-  /* height: 166px; */
+
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 40px;
@@ -171,7 +169,6 @@ export const AnswersTypeWrap = styled.div`
 export const StyledButtonNext = styled.button`
   border: none;
   border-radius: 30px;
-  padding: 16px 62px;
   width: 154px;
   height: 48px;
   background: #205bf1;
@@ -197,7 +194,7 @@ export const StyledBackBtn = styled.button`
   background: none;
 
   &:hover {
-    color: #205bf1; /* Колір для ховеру */
+    color: #205bf1;
   }
   @media screen and (min-width: ${tablet}) {
     font-weight: 400;

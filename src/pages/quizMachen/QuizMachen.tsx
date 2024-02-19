@@ -174,9 +174,7 @@ const QuizMachen = () => {
   return (
     // add error toast
     <Box>
-      <StyledWrapQuizMachen
-        style={{ backgroundColor: background ?? "transparent" }}
-      >
+      <StyledWrapQuizMachen>
         {Index !== -1 && (
           <WrapBtn>
             <StyledBtnBack onClick={() => navigate(-1)}>
@@ -215,6 +213,7 @@ const QuizMachen = () => {
             timerId={timerId}
             validAnswers={validAnswers}
             answersArray={AnswersArray}
+            backgroundColor={background}
           />
         )}
         {Index === questions?.length && !reviews && (
