@@ -20,16 +20,18 @@ import Loader from "../../shared/loader-spinner/Loader";
 import { getUserThunk } from "../../redux/user/operations";
 import { setToken } from "../../redux/auth/operations";
 import { selectUserToken } from "../../redux/auth/selectors";
+import { selectUserIsLoading } from "../../redux/user/selectors";
 
 const MyQuizzesPage = () => {
   const dispatch = useAppDispatch();
   const quizes = useAppSelector(getQuizListCategory);
   const isLoading = useAppSelector(getQuizIsLoading);
+  const isUserLoading = useAppSelector(selectUserIsLoading);
   const [pageSize, setPageSize] = useState<number>(8);
   const [search, setSearch] = useState<string>("");
   const userToken = useAppSelector(selectUserToken);
 
-  const filteredQuizes = quizes.filter((quiz) => {
+  const filteredQuizes = quizes?.filter((quiz) => {
     return quiz.theme.toLowerCase().includes(search);
   });
 
@@ -65,24 +67,28 @@ const MyQuizzesPage = () => {
         />
       </StyledContainer2>
       <StyledUl>
-        {filteredQuizes?.map((quiz, index) => {
-          if (index < pageSize) {
-            return (
-              <QuizListItem
-                key={quiz._id}
-                id={quiz._id}
-                theme={quiz.theme}
-                rating={quiz.rating}
-                ageGroup={quiz.ageGroup}
-                finished={quiz.finished}
-                owner={quiz.owner}
-              />
-            );
-          }
-        })}
+        {isUserLoading ? (
+          <></>
+        ) : (
+          filteredQuizes?.map((quiz, index) => {
+            if (index < pageSize) {
+              return (
+                <QuizListItem
+                  key={quiz._id}
+                  id={quiz._id}
+                  theme={quiz.theme}
+                  rating={quiz.rating}
+                  ageGroup={quiz.ageGroup}
+                  finished={quiz.finished}
+                  owner={quiz.owner}
+                />
+              );
+            }
+          })
+        )}
       </StyledUl>
-      {isLoading ? <Loader /> : <></>}
-      {quizes.length > pageSize ? (
+      {isLoading || isUserLoading ? <Loader /> : <></>}
+      {isLoading && quizes?.length > pageSize ? (
         <StyledButton type="button" onClick={handleLoadMore}>
           Load More
         </StyledButton>

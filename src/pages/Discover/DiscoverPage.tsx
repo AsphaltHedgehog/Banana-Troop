@@ -209,7 +209,7 @@ const DiscoverPage = () => {
       </StyledFilterWrap>
       <StyledRaitingResultWrap>
         <StyledText>
-          Result: <StyledTextSpan>{quizes.length} </StyledTextSpan>(For:{" "}
+          Result: <StyledTextSpan>{quizes?.length} </StyledTextSpan>(For:{" "}
           {selectedAgeGroup}, theme:
           {selectedAgeGroupCat})
         </StyledText>
@@ -235,8 +235,8 @@ const DiscoverPage = () => {
       </StyledRaitingResultWrap>
 
       <StyledUlCards>
-        {quizes.length > 0 ? (
-          quizes.map((quiz) => (
+        {quizes?.length > 0 ? (
+          quizes?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
               id={quiz._id}
@@ -252,7 +252,7 @@ const DiscoverPage = () => {
         )}
       </StyledUlCards>
       <div>
-        {quizes.length < total && quizes.length > 7 && (
+        {quizes?.length < total && quizes?.length > 7 && (
           <StyledLoadMore onClick={handleLoadMore}>Load More</StyledLoadMore>
         )}
       </div>

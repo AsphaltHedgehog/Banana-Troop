@@ -138,13 +138,21 @@ const quizesSlice = createSlice({
       .addMatcher(
         isAnyOf(
           fetchQuizesThunk.pending,
-          addQuizesThunk.pending,
-          deleteQuizesThunk.pending,
-          updateQuizesThunk.pending,
           fetchCategoriesThunk.pending,
           getFavoriteQuizes.pending,
           getOwnQuizes.pending,
           getPassedQuizzesThunk.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+          state.listCategory.data.result = [];
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          addQuizesThunk.pending,
+          deleteQuizesThunk.pending,
+          updateQuizesThunk.pending
         ),
         (state) => {
           state.isLoading = true;
