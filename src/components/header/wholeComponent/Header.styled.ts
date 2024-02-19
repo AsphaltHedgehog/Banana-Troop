@@ -21,6 +21,7 @@ export const StyledH2 = styled.h2`
   line-height: 1;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  cursor: pointer;
 `;
 
 export const SvgBurgerMenu = styled.svg<SvgBurgerMenuProps>`

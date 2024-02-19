@@ -27,9 +27,12 @@ const Quizes = () => {
     dispatch(fetchQuizesThunk(query));
   }, [dispatch]);
 
-  const childrenQuizes = quizes.filter((quiz) => quiz.ageGroup === "children");
-  const adultQuizes = quizes.filter((quiz) => quiz.ageGroup === "adults");
-  const normalizedLength = Math.min(childrenQuizes.length, adultQuizes.length);
+  const childrenQuizes = quizes?.filter((quiz) => quiz.ageGroup === "children");
+  const adultQuizes = quizes?.filter((quiz) => quiz.ageGroup === "adults");
+  const normalizedLength = Math.min(
+    childrenQuizes?.length,
+    adultQuizes?.length
+  );
 
   return (
     <StyledSection>
@@ -53,7 +56,7 @@ const Quizes = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <BaseQuizList array={adultQuizes.slice(0, normalizedLength)} />
+          <BaseQuizList array={adultQuizes?.slice(0, normalizedLength)} />
         )}
       </div>
       <div>
@@ -76,7 +79,7 @@ const Quizes = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <BaseQuizList array={childrenQuizes.slice(0, normalizedLength)} />
+          <BaseQuizList array={childrenQuizes?.slice(0, normalizedLength)} />
         )}
       </div>
     </StyledSection>

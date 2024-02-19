@@ -57,7 +57,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
     <>
       {width < breakpointsNumbers.tablet ? (
         <Slider {...settingsMobile}>
-          {array.map((quiz) => (
+          {array?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
               id={quiz._id}
@@ -77,7 +77,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
       width >= breakpointsNumbers.tablet ? (
         <StyledContainer>
           <Slider {...settingsTablet}>
-            {array.map((quiz) => (
+            {array?.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
                 id={quiz._id}
@@ -97,7 +97,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
       {width >= breakpointsNumbers.desktop ? (
         <StyledContainer>
           <Slider {...settingsDesktop}>
-            {array.map((quiz) => (
+            {array?.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
                 id={quiz._id}
