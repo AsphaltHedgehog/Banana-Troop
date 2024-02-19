@@ -15,9 +15,9 @@ const Layout = () => {
   useEffect(() => {
     switch (currentPath) {
       case "/":
-      case "/login":
-      case "/register":
-      case "/restorePassword":
+      case "/auth/login":
+      case "/auth/register":
+      case "/auth/restorePassword":
         setBgImg(true);
         return;
       default:
