@@ -31,6 +31,7 @@ export const StyledH2 = styled.h2`
   font-size: 32px;
   line-height: 1.1875;
   letter-spacing: -0.01em;
+  color: #f4f4f4;
 
   @media screen and (min-width: ${tablet}) {
     font-size: 44px;
@@ -59,6 +60,7 @@ export const StyledP = styled.p`
   font-size: 14px;
   line-height: 1.28571;
   letter-spacing: -0.01em;
+  color: #f4f4f4;
 
   margin-bottom: 20px;
 

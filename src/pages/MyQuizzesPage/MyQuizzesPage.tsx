@@ -55,7 +55,7 @@ const MyQuizzesPage = () => {
   return (
     <StyledBox>
       <StyledContainer>
-        <StyledH2>My quiz</StyledH2>
+        <StyledH2>My quizzes</StyledH2>
         <CreateQuizLink />
       </StyledContainer>
       <StyledContainer2>
