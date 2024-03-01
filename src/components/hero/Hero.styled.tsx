@@ -1,69 +1,21 @@
 import styled from "styled-components";
 import { breakpoints } from "../../styles";
 
-import splash_mobi1x from "../../images/hero/splash_mobi1x.png";
-import splash_mobi2x from "../../images/hero/splash_mobi2x.png";
-import splash_mobi1x_wbp from "../../images/hero/splash_mobi1x.webp";
-import splash_mobi2x_wbp from "../../images/hero/splash_mobi2x.webp";
-
-import splash_tablet1x from "../../images/hero/splash_tablet1x.png";
-import splash_tablet2x from "../../images/hero/splash_tablet2x.png";
-import splash_tablet1x_wbp from "../../images/hero/splash_mobi1x.webp";
-import splash_tablet2x_wbp from "../../images/hero/splash_mobi2x.webp";
-
-import splash_desktop1x from "../../images/hero/splash_desktop1x.png";
-import splash_desktop2x from "../../images/hero/splash_desktop2x.png";
-import splash_desktop1x_wbp from "../../images/hero/splash_desktop1x.webp";
-import splash_desktop2x_wbp from "../../images/hero/splash_desktop2x.webp";
-
 const { tablet, desktop } = breakpoints;
 
-export const StyledBgrImg = styled.section`
-  /* background-image: image-set(
-    url(${splash_mobi1x_wbp}) type("image/webp") 1x,
-    url(${splash_mobi2x_wbp}) type("image/webp") 2x,
-    url(${splash_mobi1x}) type("image/png") 1x,
-    url(${splash_mobi2x}) type("image/png") 2x
-  ); */
-  background-repeat: no-repeat;
-  /* background-position: bottom -2px right 2px; */
-  /* background-image: radial-gradient(circle, #ff0000, #0000ff); */
-
-  /* transform: rotate(-2deg); */
-  /* background-size: 643px 670px; */
-  /* background-position: top -30px left 30px; */
-  margin: 0 auto;
-
-  max-width: 643px;
-
-  /* @media screen and (min-width: 768px) {
-    background-image: image-set(
-      url(${splash_tablet1x_wbp}) type("image/webp") 1x,
-      url(${splash_tablet2x_wbp}) type("image/webp") 2x,
-      url(${splash_tablet1x}) type("image/png") 1x,
-      url(${splash_tablet2x}) type("image/png") 2x
-    );
-    background-size: 926px 965px;
-    max-width: 926px;
-  } */
-
-  /* @media screen and (min-width: 1440px) {
-    background-image: image-set(
-      url(${splash_desktop1x_wbp}) type("image/webp") 1x,
-      url(${splash_desktop2x_wbp}) type("image/webp") 2x,
-      url(${splash_desktop1x}) type("image/png") 1x,
-      url(${splash_desktop2x}) type("image/png") 2x
-    );
-    background-position: top -112px left 400px;
-    background-size: 1070px 1115px;
-    max-width: 1070px;
-  } */
-`;
-
 export const StyledSection = styled.section`
-  max-width: 1240px;
+  /* max-width: 1240px; */
   margin: 0 auto;
   margin-bottom: 80px;
+  max-width: 643px;
+
+  @media screen and (min-width: ${tablet}) {
+    max-width: 704px;
+  } 
+
+  @media screen and (min-width: ${desktop}) {
+    max-width: 1070px;
+  }
 `;
 
 export const StyledUl = styled.ul`
@@ -76,9 +28,8 @@ export const StyledUl = styled.ul`
 
 export const StyledWrapper = styled.div`
   text-align: left;
-  padding-top: 214px;
+  margin-top: 214px;
   max-width: 397px;
-  z-index: 2;
 `;
 
 export const StyledTitle = styled.h1`
