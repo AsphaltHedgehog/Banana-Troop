@@ -39,6 +39,11 @@ export const StyledListItem = styled.li`
   font-size: 14px;
   line-height: 125%;
   color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media screen and (min-width: ${tablet}) {
     padding: 25px 10px;
     min-width: 218px;
