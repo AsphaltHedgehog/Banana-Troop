@@ -64,6 +64,7 @@ export const StyledNumber = styled.p`
   font-size: 44px;
   line-height: 1.09091;
   letter-spacing: -0.01em;
+  color: #f4f4f4;
 
   margin-bottom: 10px;
 
@@ -82,6 +83,7 @@ export const StyledDescr = styled.p`
   font-size: 14px;
   line-height: 1.28571;
   letter-spacing: -0.01em;
+  color: #f4f4f4;
 
   @media screen and (min-width: ${tablet}) {
     font-size: 16px;
@@ -108,6 +110,7 @@ export const StyledCopyright = styled.p`
   font-weight: 700;
   font-size: 14px;
   line-height: 1.42857;
+  color: #f4f4f4;
 
   margin-bottom: 10px;
 `;
