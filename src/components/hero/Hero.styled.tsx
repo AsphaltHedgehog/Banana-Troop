@@ -63,6 +63,7 @@ export const StyledBgrImg = styled.section`
 export const StyledSection = styled.section`
   max-width: 1240px;
   margin: 0 auto;
+  margin-bottom: 80px;
 `;
 
 export const StyledUl = styled.ul`
@@ -81,14 +82,14 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledTitle = styled.h1`
-  padding-top: 120px;
-  padding-bottom: 253px;
+  margin-top: 120px;
   text-align: left;
   font-weight: 700px;
   font-size: 44px;
   line-height: 109%;
   letter-spacing: -0.01em;
   color: #f4f4f4;
+  
   @media screen and (min-width: ${tablet}) {
     font-size: 90px;
     line-height: 107%;
