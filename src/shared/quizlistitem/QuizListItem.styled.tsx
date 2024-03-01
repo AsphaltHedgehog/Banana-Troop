@@ -170,6 +170,7 @@ export const StyledName = styled.p`
   font-size: 20px;
   line-height: 1.4;
   text-align: center;
+  color: #f4f4f4;
 
   margin-bottom: 16px;
 
