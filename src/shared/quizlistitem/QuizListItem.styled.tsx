@@ -4,7 +4,7 @@ import { breakpoints } from "../../styles";
 import Svg from "../svg/Svg";
 import { NavLink } from "react-router-dom";
 
-const { mobile, tablet, desktop } = breakpoints;
+const { tablet, desktop } = breakpoints;
 
 export const StyledContainer = styled.li`
   display: flex;
@@ -28,8 +28,8 @@ export const StyledContainer = styled.li`
   width: 335px;
   max-height: 364px;
 
-  @media screen and (max-width: ${mobile}) {
-    max-width: 335px;
+  @media screen and (max-width: ${tablet}) {
+    margin: 0 auto;
   }
 
   @media screen and (min-width: ${tablet}) {
