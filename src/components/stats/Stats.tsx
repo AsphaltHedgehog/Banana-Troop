@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   StyledContainer,
   StyledCopyright,
@@ -8,12 +9,15 @@ import {
   StyledUl,
   StyledWrapper,
 } from "./Stats.styled";
+import { getTotalPassedQuizzes } from "../../redux/quiz/selectors";
 
 const Stats = () => {
+  const total = useSelector(getTotalPassedQuizzes);
+
   return (
     <StyledSection>
       <StyledContainer>
-        <StyledNumber>129865</StyledNumber>
+        <StyledNumber>{total}</StyledNumber>
         <StyledDescr>People passed the quiz</StyledDescr>
       </StyledContainer>
       <StyledWrapper>

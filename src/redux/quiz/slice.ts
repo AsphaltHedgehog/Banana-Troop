@@ -9,6 +9,7 @@ import {
   updateQuizesThunk,
   getOwnQuizes,
   getPassedQuizzesThunk,
+  getTotalQuizzesThunk,
 } from "./operations";
 
 export type QuizBody = {
@@ -55,6 +56,7 @@ export type QuizState = {
   listRaiting: QuizBody[];
   isLoading: boolean;
   error: string | null;
+  totalPassedQuizzes: number;
 };
 
 const initialState: QuizState = {
@@ -73,6 +75,7 @@ const initialState: QuizState = {
   listRaiting: [],
   isLoading: false,
   error: null,
+  totalPassedQuizzes: 0,
 };
 
 const quizesSlice = createSlice({
@@ -127,6 +130,10 @@ const quizesSlice = createSlice({
       })
       .addCase(getPassedQuizzesThunk.fulfilled, (state, { payload }) => {
         state.listCategory.data.result = payload;
+        state.isLoading = false;
+      })
+      .addCase(getTotalQuizzesThunk.fulfilled, (state, { payload }) => {
+        state.totalPassedQuizzes = payload;
         state.isLoading = false;
       })
       .addMatcher(

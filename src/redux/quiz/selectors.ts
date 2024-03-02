@@ -6,3 +6,5 @@ export const getQuizListCategory = (state: RootState) =>
 export const getQuizCategoryTotal = (state: RootState) =>
   state.quizes.listCategory.data.total[0].total;
 export const getQuizIsLoading = (state: RootState) => state.quizes.isLoading;
+export const getTotalPassedQuizzes = (state: RootState) =>
+  state.quizes.totalPassedQuizzes;

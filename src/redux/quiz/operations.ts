@@ -192,11 +192,25 @@ export const getPassedQuizzesThunk = createAsyncThunk<QuizBody[], void>(
     try {
       const { data } = await quizApi.get("/user/get-passed");
       return data.data;
-    } catch (error) {
-      if (error instanceof Error && typeof error.message === "string") {
-        return thunkApi.rejectWithValue(error.message);
-      }
-      return thunkApi.rejectWithValue("An unknown error occurred");
+    } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
     }
   }
 );
+
+export const getTotalQuizzesThunk = createAsyncThunk<
+  number,
+  void,
+  AsyncThunkConfig
+>("getTotalQuizzes", async (_, thunkApi) => {
+  try {
+    const { data } = await quizApi.get("/quiz/getTotal");
+    return data as number;
+  } catch (error: unknown) {
+      return thunkApi.rejectWithValue(
+        `${(error as Error)?.message ?? "Unknown error"}`
+      );
+    }
+});
