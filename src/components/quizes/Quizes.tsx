@@ -45,8 +45,6 @@ const Quizes = () => {
             your expertise lies. Explore a diverse range of topics and test the
             depths of your knowledge.
           </StyledP>
-          {/* If Auth, Redirect to DiscoverPage with Adult filter */}
-          {/* If not Auth, Redirect to QuizListPage with Adult filter */}
           <StyledNavLink
             to={isLoggedIn ? "/discover?adults" : "/randomQuiz?adults"}
           >
@@ -68,11 +66,7 @@ const Quizes = () => {
             for young curious minds! A safe space for children to learn, play,
             and grow their knowledge.
           </StyledP>
-          {/* If Auth, Redirect to DiscoverPage with Children filter */}
-          {/* If not Auth, Redirect to QuizListPage with Children filter */}
-          <StyledNavLink
-            to={isLoggedIn ? "/discover?children" : "/randomQuiz?children"}
-          >
+          <StyledNavLink to={isLoggedIn ? "/discover?children" : "/randomQuiz?children"}>
             See all
           </StyledNavLink>
         </StyledContainer>
