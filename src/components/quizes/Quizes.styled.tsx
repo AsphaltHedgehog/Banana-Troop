@@ -71,7 +71,6 @@ export const StyledP = styled.p`
     max-width: 584px;
 
     margin-bottom: 0;
-    /* margin-right: 70px; */
   }
 
   @media screen and (min-width: ${desktop}) {
