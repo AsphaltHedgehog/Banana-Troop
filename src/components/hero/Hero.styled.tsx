@@ -4,7 +4,6 @@ import { breakpoints } from "../../styles";
 const { tablet, desktop } = breakpoints;
 
 export const StyledSection = styled.section`
-  /* max-width: 1240px; */
   margin: 0 auto;
   margin-bottom: 80px;
   max-width: 643px;
