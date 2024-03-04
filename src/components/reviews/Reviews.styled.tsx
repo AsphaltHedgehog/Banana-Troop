@@ -3,11 +3,11 @@ import { breakpoints } from "../../styles";
 
 const { tablet, desktop } = breakpoints;
 
-export const StyledSection = styled.div`
-  margin-top: 80px;
-  margin-bottom: 80px;
+export const StyledSection = styled.section`
   max-width: 1240px;
   margin: 0 auto;
+  margin-top: 80px;
+  margin-bottom: 80px;
   @media screen and (min-width: ${tablet}) {
     margin-top: 100px;
     margin-bottom: 100px;
@@ -65,14 +65,18 @@ export const StyledListItem = styled.li`
       font-size: 12px;
     }
   }
+  @media screen and (max-width: ${tablet} ) {
+    padding: 20px;
+  }
+
   @media screen and (min-width: ${tablet}) {
+    padding: 24px;
     max-width: 704px;
     max-height: 144px;
   }
   @media screen and (min-width: ${desktop}) {
     max-width: 608px;
     max-height: 164px;
-    padding: 24px;
     p {
       font-size: 16px;
     }

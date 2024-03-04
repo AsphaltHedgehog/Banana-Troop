@@ -42,7 +42,9 @@ const Layout = () => {
       />
       <Header />
 
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
 
       {/* speedtest */}
       <SpeedInsights />

@@ -2,27 +2,60 @@ import styled from "styled-components";
 interface QuizItemProps {
   clicked: string;
 }
-export const QuestionsContainer = styled.div`
+
+interface CreateBtnListContainerProps {
+  isOpened: boolean;
+}
+
+interface QuestionsContainerProps {
+  isOpened: boolean;
+}
+
+export const QuestionContainerWrapper = styled.div`
+  @media screen and (min-width: 768px) {
+    width: 240px;
+    height: 585px;
+  }
+  @media screen and (min-width: 1440px) {
+    width: 343px;
+    height: 589px;
+  }
+`;
+
+export const QuestionsContainer = styled.div<QuestionsContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 40px 20px 40px 20px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 20px;
+
+  position: relative;
   @media screen and (min-width: 375px) {
     width: 335px;
   }
+
   @media screen and (min-width: 768px) {
     width: 240px;
-    height: 630px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    justify-content: flex-start;
+    height: 585px;
   }
+
   @media screen and (min-width: 1440px) {
     width: 343px;
     height: 589px;
-    padding: 30px;
+    padding: 32px 15px 80px 15px;
+  }
+
+  @media screen and (max-width: 767.98px) {
+    padding: ${({ isOpened }) => isOpened ?  '40px 20px 175px 20px' : '40px 20px 100px 20px' }
+  }
+  
+  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    padding: ${({ isOpened }) => isOpened ? '32px 32px 155px 32px ': '32px 32px 90px 32px'}
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding: ${({ isOpened }) => isOpened ? '32px 15px 155px 15px ': '32px 15px 90px 15px'}
   }
 `;
 
@@ -41,22 +74,57 @@ export const QuestionList = styled.ol`
   align-items: flex-start;
   list-style-type: none;
   padding: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: flex-start;
+
+  scrollbar-width: thin;
+  scrollbar-color: #FFFFFF05 transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #FFFFFF05;
+    border-radius: 4px; 
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  &::-webkit-scrollbar-button {
+  display: none;
+}
 `;
 
 export const QuizItem = styled.li<QuizItemProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 255px;
   border-radius: 15px;
-  padding: 5px 10px;
+  padding: 12px 16px;
+  margin: 2px 0;
+
   background-color: ${({ clicked }) =>
-    clicked === "true" ? "#205bf1" : "transparent"};
-  @media screen and (min-width: 375px) {
+  clicked === "true" ? "#205bf1" : "transparent"};
+    
+  @media screen and (min-width: 375px) and (max-width: 767.98px){
     width: 295px;
   }
+
+  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    width: 176px;
+  }
+
   @media screen and (min-width: 1440px) {
-    width: 272px;
+    width: 313px;
   }
 `;
 
@@ -65,22 +133,33 @@ export const Divider = styled.li`
   width: 100%;
   height: 1px;
   background-color: rgba(244, 244, 244, 0.2);
+  padding: 1px;
 `;
 
 export const TrashBtn = styled.button`
   background-color: transparent;
-  border-radius: 15px;
-  padding: 8px 8px;
   cursor: pointer;
+  border: none;
+
+  padding: 0;
 `;
 
-export const CreateBtnListContainer = styled.div`
+export const CreateBtnListContainer = styled.div<CreateBtnListContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 7px;
-  @media screen and (min-width: 768px) and (max-width: 1439px) {
-    position: relative;
-    bottom: -320px;
+  position: absolute;
+
+  @media screen and (max-width: 767.98px) {
+    bottom: ${({ isOpened }) => isOpened ?  '120px' : '40px' }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    bottom: ${({ isOpened }) => isOpened ? '112px' : '32px'}
+  }
+
+  @media screen and (min-width: 1440px) {
+    bottom: ${({ isOpened }) => isOpened ? '112px' : '32px'}
   }
 `;
 
@@ -101,12 +180,10 @@ export const CreateBtn = styled.button`
     width: 295px;
   }
   @media screen and (min-width: 768px) {
-    width: 140px;
+    width: 176px;
   }
   @media screen and (min-width: 1440px) {
-    width: 260px;
-    position: absolute;
-    bottom: 235px;
+    width: 313px;
   }
 `;
 
@@ -120,20 +197,20 @@ export const CreateListContainer = styled.div`
   border-radius: 15px;
   background-color: #205bf1;
   width: 244px;
-  bottom: -462px;
+  bottom: -80px;
 
   @media screen and (min-width: 375px) {
     width: 294px;
   }
-  @media screen and (min-width: 768px) {
-    width: 140px;
-  }
+
   @media screen and (min-width: 768px) and (max-width: 1439px) {
     bottom: -80px;
+    width: 176px;
   }
+
   @media screen and (min-width: 1440px) {
-    bottom: 151px;
-    width: 260px;
+    bottom: -85px;
+    width: 313px;
   }
 
   button {
@@ -148,15 +225,16 @@ export const CreateListContainer = styled.div`
     border: none;
     width: 222px;
 
-    @media screen and (min-width: 375px) {
+    padding: 2px 0;
+
+    @media screen and (min-width: 375px) and (max-width: 767.98px) {
       width: 267px;
     }
     @media screen and (min-width: 768px) {
       width: 122px;
     }
-
     @media screen and (min-width: 1440px) {
-      width: 235px;
+      width: 277px;
     }
   }
 `;

@@ -4,6 +4,18 @@ interface SvgBurgerMenuProps {
   $iconX?: boolean;
 }
 
+export const StyledHeaderBox = styled.header`
+  padding-inline: 20px;
+
+  @media screen and (min-width: ${"768px"}) {
+    padding-inline: 32px;
+  }
+
+  @media screen and (min-width: ${'1440px'}) {
+    padding-inline: 100px;
+  }
+`;
+
 export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;

@@ -1,11 +1,13 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import { useWidth } from "../../hooks/useWidth";
 import { StyledContainer } from "./BaseQuizList.styled";
 import "./customdots.css";
 import { breakpointsNumbers } from "../../styles";
 import QuizListItem from "../../shared/quizlistitem/QuizListItem";
+
+
 
 
 interface IBaseQuizList {
@@ -22,38 +24,60 @@ interface IBaseQuizList {
   }[];
 }
 
+interface ResponsiveObject {
+    breakpoint: number;
+    settings: "unslick" | Settings;
+}
+
+type ResponsiveArray = ResponsiveObject[]
+
 const BaseQuizList = ({ array }: IBaseQuizList) => {
   const width = useWidth();
 
-  const settingsMobile = {
-    dots: false,
-    arrows: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-  };
-
-  const settingsTablet = {
-    dots: true,
-    arrows: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 2,
-  };
-
-  const settingsDesktop = {
-    dots: false,
-    arrows: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    draggable: false,
+  const settings = {
+    responsive: [
+      {
+        breakpoint: 1440,
+        settings: {
+          accessibility: true,
+          dots: false,
+          arrows: false,
+          infinite: false,
+          speed: 500,
+          slidesToShow: 4,
+          draggable: false,
+        }
+      },
+      {
+        breakpoint: 1439,
+        settings: {
+          accessibility: true,
+          dots: true,
+          arrows: false,
+          infinite: false,
+          speed: 500,
+          slidesToShow: 2,
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          accessibility: true,
+          dots: true,
+          arrows: false,
+          infinite: false,
+          speed: 500,
+          slidesToShow: 1,
+          slidersToScroll: 1,
+        }
+      }
+    ] as ResponsiveArray
   };
 
   return (
     <>
       {width < breakpointsNumbers.tablet ? (
-        <Slider {...settingsMobile}>
+        <Slider {...settings}>
           {array?.map((quiz) => (
             <QuizListItem
               key={quiz._id}
@@ -73,7 +97,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
       {width < breakpointsNumbers.desktop &&
       width >= breakpointsNumbers.tablet ? (
         <StyledContainer>
-          <Slider {...settingsTablet}>
+          <Slider {...settings}>
             {array?.map((quiz) => (
               <QuizListItem
                 key={quiz._id}
@@ -93,7 +117,7 @@ const BaseQuizList = ({ array }: IBaseQuizList) => {
 
       {width >= breakpointsNumbers.desktop ? (
         <StyledContainer>
-          <Slider {...settingsDesktop}>
+          <Slider {...settings}>
             {array?.map((quiz) => (
               <QuizListItem
                 key={quiz._id}

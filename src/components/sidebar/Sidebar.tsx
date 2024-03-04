@@ -9,6 +9,7 @@ import {
   CreateListContainer,
   CreateBtnListContainer,
   Divider,
+  QuestionContainerWrapper
 } from "./SidebarStyled";
 import Svg from "../../shared/svg/Svg";
 import sprite from "../../images/icons/sprite.svg";
@@ -26,6 +27,7 @@ const Sidebar = () => {
   const questions = useAppSelector(getQuestions);
   const [isCreateListOpen, setCreateListOpen] = useState(false);
   const [isChevronRotated, setIsChevronRotated] = useState(false);
+  const [createBtnMove, setCreateBtnMove] = useState(false);
   const listContainerRef = useRef<HTMLDivElement>(null);
   const [clickedItem, setClickedItem] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ const Sidebar = () => {
   const handleToggleBtnClick = () => {
     setCreateListOpen((prev) => !prev);
     setIsChevronRotated((prev) => !prev);
+    setCreateBtnMove((prev) => !prev)
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -59,6 +62,7 @@ const Sidebar = () => {
     ) {
       setCreateListOpen(false);
       setIsChevronRotated(false);
+      setCreateBtnMove(false)
     }
   };
 
@@ -87,62 +91,64 @@ const Sidebar = () => {
   };
 
   return (
-    <QuestionsContainer>
-      <QuestionsTitle>Questions</QuestionsTitle>
+    <QuestionContainerWrapper>
+      <QuestionsContainer isOpened={createBtnMove}>
+        <QuestionsTitle>Questions</QuestionsTitle>
 
-      <QuestionList>
-        {questions?.map((question, index) => (
-          <React.Fragment key={question._id}>
-            <QuizItem
-              clicked={(clickedItem === question._id).toString()}
-              onClick={() => {
-                if (question._id) {
-                  handleClick(question._id, index);
-                }
-              }}
-            >
-              {`${index + 1}. ${question.type}`}
-              <TrashBtn
-                type="button"
+        <QuestionList>
+          {questions?.map((question, index) => (
+            <React.Fragment key={question._id}>
+              <QuizItem
+                clicked={(clickedItem === question._id).toString()}
                 onClick={() => {
                   if (question._id) {
-                    handleDelete(question._id);
+                    handleClick(question._id, index);
                   }
                 }}
               >
-                <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
-              </TrashBtn>
-            </QuizItem>
-            {index !== questions.length - 1 && <Divider />}
-          </React.Fragment>
-        ))}
-      </QuestionList>
+                {`${index + 1}. ${question.type}`}
+                <TrashBtn
+                  type="button"
+                  onClick={() => {
+                    if (question._id) {
+                      handleDelete(question._id);
+                    }
+                  }}
+                >
+                  <Svg sprite={sprite} id={`trash-bin`} width={16} height={16} />
+                </TrashBtn>
+              </QuizItem>
+              {index !== questions.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </QuestionList>
 
-      <CreateBtnListContainer ref={listContainerRef}>
-        <CreateBtn onClick={handleToggleBtnClick}>
-          <p>Create</p>
-          <Svg
-            sprite={sprite}
-            id={`chevron-down`}
-            width={16}
-            height={16}
-            style={{ transform: isChevronRotated ? "rotate(180deg)" : "none" }}
-          />
-        </CreateBtn>
-        {isCreateListOpen && (
-          <CreateListContainer>
-            <button onClick={() => handleCreateBtnClick("full-text")}>
-              Quiz
-              <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
-            </button>
-            <button onClick={() => handleCreateBtnClick("true-or-false")}>
-              True or false
-              <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
-            </button>
-          </CreateListContainer>
-        )}
-      </CreateBtnListContainer>
-    </QuestionsContainer>
+        <CreateBtnListContainer ref={listContainerRef} isOpened={createBtnMove} >
+          <CreateBtn onClick={handleToggleBtnClick}>
+            <p>Create</p>
+            <Svg
+              sprite={sprite}
+              id={`chevron-down`}
+              width={16}
+              height={16}
+              style={{ transform: isChevronRotated ? "rotate(180deg)" : "none" }}
+            />
+          </CreateBtn>
+          {isCreateListOpen && (
+            <CreateListContainer>
+              <button onClick={() => handleCreateBtnClick("full-text")}>
+                Quiz
+                <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
+              </button>
+              <button onClick={() => handleCreateBtnClick("true-or-false")}>
+                True or false
+                <Svg sprite={sprite} id={`long-right`} width={20} height={10} />
+              </button>
+            </CreateListContainer>
+          )}
+        </CreateBtnListContainer>
+      </QuestionsContainer>
+    </QuestionContainerWrapper>
   );
 };
 

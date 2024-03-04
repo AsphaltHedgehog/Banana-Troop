@@ -3,16 +3,13 @@ import { breakpoints } from "../../styles";
 const { tablet, desktop } = breakpoints;
 
 export const StyledSection = styled.section`
-  margin-top: 80px;
+  margin: 0 auto;
   margin-bottom: 80px;
   max-width: 1240px;
-  margin: 0 auto;
   @media screen and (min-width: ${tablet}) {
-    margin-top: 100px;
     margin-bottom: 100px;
   }
   @media screen and (min-width: ${desktop}) {
-    margin-top: 50px;
     margin-bottom: 120px;
   }
 `;
@@ -23,12 +20,9 @@ export const StyledList = styled.ul`
   display: flex;
   gap: 24px;
   justify-content: center;
-  max-width: 1158px;
   flex-wrap: wrap;
   @media screen and (min-width: ${tablet}) {
     flex-wrap: nowrap;
-  }
-  @media screen and (min-width: ${desktop}) {
   }
 `;
 export const StyledListItem = styled.li`
@@ -36,11 +30,17 @@ export const StyledListItem = styled.li`
   padding: 25px 60px;
   min-width: 335px;
   min-height: 68px;
+  outline: 1px solid rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.02);
   font-weight: 700;
   font-size: 14px;
   line-height: 125%;
   color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media screen and (min-width: ${tablet}) {
     padding: 25px 10px;
     min-width: 218px;
