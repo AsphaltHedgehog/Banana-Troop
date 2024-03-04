@@ -20,12 +20,9 @@ export const StyledList = styled.ul`
   display: flex;
   gap: 24px;
   justify-content: center;
-  max-width: 1158px;
   flex-wrap: wrap;
   @media screen and (min-width: ${tablet}) {
     flex-wrap: nowrap;
-  }
-  @media screen and (min-width: ${desktop}) {
   }
 `;
 export const StyledListItem = styled.li`
