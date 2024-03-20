@@ -64,7 +64,9 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
     const { _id, ...body } = question;
-    const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
+    const { descr, time, validAnswer, answers } = body;
+    
+    const { data } = await quizApi.patch(`/quiz/question/${_id}`, { descr, time, validAnswer, answers }, {
     });
 
     return data;
