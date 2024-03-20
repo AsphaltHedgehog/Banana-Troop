@@ -74,8 +74,8 @@ export const RadioContainer = styled.div`
         &:before {
           content: "";
           display: block;
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
           border: 3px solid #242424;
           border-radius: 50%;
           margin: 0;
