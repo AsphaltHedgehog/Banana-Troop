@@ -98,6 +98,13 @@ const QuestionForm = () => {
    
   });
 
+  useEffect(() => {
+    const descr = selectQuestion[selectQuestionIndex]?.descr;
+    if (typeof descr === 'string') {
+      setValue('descr', descr);
+    }
+  }, [selectQuestionIndex, selectQuestion, setValue]);
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { time, imageUrl, type, descr, answers } = data;
     if (data) {
