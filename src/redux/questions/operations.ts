@@ -48,8 +48,8 @@ export const deleteQuestionByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deletedQuestionById", async (id, thunkApi) => {
   try {
-    const { data } = await quizApi.delete(`/quiz/question/${id}`);
-    return data;
+    await quizApi.delete(`/quiz/question/${id}`);
+    return id;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
