@@ -33,6 +33,10 @@ const QuestionTime = ({
     }
   }, [selectedAnswerIndex]);
 
+  useEffect(() => {
+    setSelectedTime(selectedDefaultTime)
+  }, [selectedDefaultTime]);
+
   const handleClick = (minutes: number, seconds: number) => {
     handleTimeClick(minutes, seconds);
     setIsOpen(false);

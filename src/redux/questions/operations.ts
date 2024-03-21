@@ -48,8 +48,8 @@ export const deleteQuestionByIdThunk = createAsyncThunk<
   AsyncThunkConfig
 >("deletedQuestionById", async (id, thunkApi) => {
   try {
-    const { data } = await quizApi.delete(`/quiz/question/${id}`);
-    return data;
+    await quizApi.delete(`/quiz/question/${id}`);
+    return id;
   } catch (error: unknown) {
     return thunkApi.rejectWithValue(
       `${(error as Error)?.message ?? "Unknown error"}`
@@ -64,7 +64,9 @@ export const updateQuestionByQuizThunk = createAsyncThunk<
 >("updatedQuestionByQuiz", async (question, thunkApi) => {
   try {
     const { _id, ...body } = question;
-    const { data } = await quizApi.patch(`/quiz/question/${_id}`, body, {
+    const { descr, time, validAnswer, answers } = body;
+    
+    const { data } = await quizApi.patch(`/quiz/question/${_id}`, { descr, time, validAnswer, answers }, {
     });
 
     return data;
