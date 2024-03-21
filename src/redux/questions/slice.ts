@@ -76,6 +76,10 @@ const questionsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(deleteQuestionByIdThunk.fulfilled, (state, { payload }) => {
+        if (state.selectedIndex !== 0) {
+          state.selectedIndex = state.selectedIndex - 1;
+        }
+
         state.list = state.list.filter((question) => question._id !== payload);
         state.isLoading = false;
       })
