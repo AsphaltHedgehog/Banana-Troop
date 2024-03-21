@@ -47,9 +47,10 @@ const AnswerList = ({
             </AnswerWrapperInput>
           </>
           <QuestionFakeAnswerCheckbox>
-            {selectedAnswerIndex === index && (
-              <Svg sprite={sprite} id={`icon-cheked`} width={8} height={8} />
-            )}
+            <Svg sprite={sprite} id={`icon-cheked`} width={8} height={8} />
+            {selectedAnswerIndex === index &&
+              <Svg sprite={sprite} id={`icon-x`} width={50} height={50} />
+            }
           </QuestionFakeAnswerCheckbox>
           <QuestionInputAnswerCheckbox
             type="checkbox"
